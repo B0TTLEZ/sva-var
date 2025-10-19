@@ -16,8 +16,7 @@ find_package(slang REQUIRED)
 add_executable(
   analyzer
   src/main.cpp
-  src/DataDependencyVisitor.cpp
-  src/ControlFlowVisitor.cpp 
+  src/DependencyVisitor.cpp
 )
 
 # --- 【核心修复】显式添加 slang 的 include 目录 ---

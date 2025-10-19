@@ -6,30 +6,39 @@
 
 #include "slang/ast/Compilation.h"
 #include "slang/syntax/SyntaxTree.h"
-
-#include "DataModel.h" 
-#include "DataDependencyVisitor.h" // <-- 已更新
-#include "ControlFlowVisitor.h"
+#include "DataModel.h"
+#include "DependencyVisitor.h"
 #include "json.hpp"
 
 using json = nlohmann::json;
 
-// JSON 序列化函数
-void to_json(json& j, const VariableInfo& var_info) {
-    j = json{
-        {"fullName", var_info.fullName},
-        {"type", var_info.type},
-        {"file", var_info.fileName},
-        {"line", var_info.line},
-        {"direction", var_info.direction},
-        {"bitWidth", var_info.bitWidth},
-        {"fanInControl", var_info.fanInControl},
-        {"fanInData", var_info.fanInData},
-        {"fanOut", var_info.fanOut}
+// --- JSON 序列化函数 ---
+void to_json(json& j, const ConditionClause& c) {
+    j = {{"signal", c.signal}, {"polarity", c.polarity}};
+}
+void to_json(json& j, const AssignmentInfo& a) {
+    j = {
+        {"path", a.path},
+        {"drivingSignals", a.drivingSignals},
+        {"file", a.file},
+        {"line", a.line},
+        {"type", a.type}
+    };
+}
+void to_json(json& j, const VariableInfo& v) {
+    j = {
+        {"fullName", v.fullName},
+        {"type", v.type},
+        {"file", v.fileName},
+        {"line", v.line},
+        {"direction", v.direction},
+        {"bitWidth", v.bitWidth},
+        {"assignments", v.assignments},
+        {"fanOut", v.fanOut}
     };
 }
 
-// 核心分析函数
+// --- 核心分析函数 ---
 bool runAnalysis(const std::string& topModule, 
                  const std::vector<std::string>& filesToParse, 
                  const std::string& outputPath) {
@@ -69,26 +78,11 @@ bool runAnalysis(const std::string& topModule,
         return false;
     }
     
-    // 1. 运行数据依赖分析
-    DataDependencyVisitor dataVisitor; // <-- 已更新
-    top->visit(dataVisitor);
+    DependencyVisitor visitor;
+    top->visit(visitor);
+    visitor.postProcess(); // 运行后处理来构建 FanOut
     
-    // 2. 运行控制依赖分析
-    ControlFlowVisitor controlVisitor;
-    top->visit(controlVisitor);
-    
-    // 3. 合并结果
-    auto finalResults = dataVisitor.getMutableResults(); // <-- 已更新
-    const auto& controlMap = controlVisitor.getControlMap();
-
-    for (const auto& [controlledSignal, controlSignals] : controlMap) {
-        if (finalResults.count(controlledSignal)) {
-            finalResults[controlledSignal].fanInControl.insert(controlSignals.begin(), controlSignals.end());
-        }
-    }
-
-    // 4. 输出最终的 JSON
-    json resultJson = finalResults;
+    json resultJson = visitor.getResults();
 
     std::ofstream outFile(outputPath);
     if (outFile.is_open()) {
@@ -111,7 +105,8 @@ int main(int argc, char** argv) {
         std::string outputPath;
     };
 
-    std::vector<TestCase> testSuite = {
+std::vector<TestCase> testSuite = {
+        // --- 现有测试用例 (路径已确认) ---
         {
             "Basic Dataflow",
             "test_basic",
@@ -132,6 +127,36 @@ int main(int argc, char** argv) {
                 "../test_suite/3_module_hierarchy/top_module.sv"
             },
             "../../results/3_module_hierarchy.json"
+        },
+        
+        // --- 新增测试用例 (根据您的截图更新) ---
+        {
+            "Complex Conditions",
+            "test_complex_conditions", // 假设顶层模块名与文件名相同
+            {"../test_suite/4_complex_conditions/test_complex_conditions.sv"},
+            "../../results/4_complex_conditions.json"
+        },
+        {
+            "Complex Hierarchy",
+            "top_hierarchy", // 假设顶层模块名
+            {
+                // 注意：您需要提供这个测试用例中所有 .sv 文件的正确名称
+                // 我暂时用 'heirachy.sv' 作为占位符，您可能需要修改
+                "../test_suite/5_complex_hierarchy/heirarchy.sv" 
+            },
+            "../../results/5_complex_hierarchy.json"
+        },
+        {
+            "Control Flow",
+            "test_control_flow", // 假设顶层模块名与文件名相同
+            {"../test_suite/6_controlflow/test_control_flow.sv"},
+            "../../results/6_controlflow.json"
+        },
+        {
+            "Data Types",
+            "test_data_types", // 假设顶层模块名与文件名相同
+            {"../test_suite/7_datatypes/test_data_types.sv"},
+            "../../results/7_datatypes.json"
         }
     };
 
