@@ -9,36 +9,174 @@
 #include "DataModel.h"
 #include "DependencyVisitor.h"
 #include "json.hpp"
+#include "slang/diagnostics/DiagnosticEngine.h"  
+#include "slang/diagnostics/TextDiagnosticClient.h"  
+
+struct TestCase {
+        std::string name;
+        std::string topModule;
+        std::vector<std::string> sourceFiles;
+        std::vector<std::string> headerFiles;
+        std::string outputPath;
+    };
+
+std::vector<TestCase> testSuite = {
+        // --- 现有测试用例 ---
+        // {
+        //     "Basic Dataflow",
+        //     "test_basic",
+        //     {"../test_suite/1_basic_dataflow/test_basic.sv"},
+        //     {},
+        //     "../../results/1_basic_dataflow.json"
+        // },
+        // {
+        //     "Sequential Controlflow",
+        //     "test_sequential",
+        //     {"../test_suite/2_sequential_controlflow/test_sequential.sv"},
+        //     {},
+        //     "../../results/2_sequential_controlflow.json"
+        // },
+        // {
+        //     "Module Hierarchy",
+        //     "top_module",
+        //     {
+        //         "../test_suite/3_module_hierarchy/sub_module.sv",
+        //         "../test_suite/3_module_hierarchy/top_module.sv"
+        //     },
+        //     {},
+        //     "../../results/3_module_hierarchy.json"
+        // },
+        // {
+        //     "Complex Conditions",
+        //     "test_complex_conditions",
+        //     {"../test_suite/4_complex_conditions/test_complex_conditions.sv"},
+        //     {},
+        //     "../../results/4_complex_conditions.json"
+        // },
+        // {
+        //     "Complex Hierarchy",
+        //     "top_hierarchy",
+        //     {"../test_suite/5_complex_hierarchy/hierarchy.sv"},
+        //     {},
+        //     "../../results/5_complex_hierarchy.json"
+        // },
+        // {
+        //     "Control Flow",
+        //     "test_control_flow",
+        //     {"../test_suite/6_controlflow/test_control_flow.sv"},
+        //     {},
+        //     "../../results/6_controlflow.json"
+        // },
+        // {
+        //     "Data Types",
+        //     "test_data_types",
+        //     {"../test_suite/7_datatypes/test_data_types.sv"},
+        //     {},
+        //     "../../results/7_datatypes.json"
+        // }
+        
+        // --- 新增 Ibex 测试用例 ---
+        // {
+        //     "Ibex Compressed Decoder",
+        //     "ibex_compressed_decoder",
+        //     {"/data/fhj/sva-var/ibex/rtl/ibex_compressed_decoder.sv"},
+        //     {
+        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_dummy_macros.svh",
+        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_yosys_macros.svh",
+        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_standard_macros.svh",
+        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_sec_cm.svh",
+        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_flop_macros.sv",
+        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert.sv",
+        //         "/data/fhj/sva-var/ibex/rtl/ibex_pkg.sv"
+
+        //     },
+        //     "../../results/ibex_compressed_decoder.json"
+        // },
+        // {
+        //     "Ibex ALU",
+        //     "ibex_alu",
+        //     {"/data/fhj/sva-var/ibex/rtl/ibex_alu.sv"},
+        //     {
+        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_dummy_macros.svh",
+        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_yosys_macros.svh",
+        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_standard_macros.svh",
+        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_sec_cm.svh",
+        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_flop_macros.sv",
+        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert.sv",
+        //         "/data/fhj/sva-var/ibex/rtl/ibex_pkg.sv"
+
+        //     },
+        //     "../../results/ibex_alu.json"
+        // },
+        {
+            "Ibex Core",
+            "ibex_core", // 假设顶层模块名是 ibex_core
+            {
+                "/data/fhj/sva-var/ibex/rtl/ibex_alu.sv",
+                "/data/fhj/sva-var/ibex/rtl/ibex_compressed_decoder.sv",
+                "/data/fhj/sva-var/ibex/rtl/ibex_controller.sv",
+                "/data/fhj/sva-var/ibex/rtl/ibex_counter.sv",
+                "/data/fhj/sva-var/ibex/rtl/ibex_cs_registers.sv",
+                "/data/fhj/sva-var/ibex/rtl/ibex_decoder.sv",
+                "/data/fhj/sva-var/ibex/rtl/ibex_ex_block.sv",
+                "/data/fhj/sva-var/ibex/rtl/ibex_id_stage.sv",
+                "/data/fhj/sva-var/ibex/rtl/ibex_if_stage.sv",
+                "/data/fhj/sva-var/ibex/rtl/ibex_load_store_unit.sv",
+                "/data/fhj/sva-var/ibex/rtl/ibex_multdiv_slow.sv",
+                "/data/fhj/sva-var/ibex/rtl/ibex_multdiv_fast.sv",
+                "/data/fhj/sva-var/ibex/rtl/ibex_prefetch_buffer.sv",
+                "/data/fhj/sva-var/ibex/rtl/ibex_fetch_fifo.sv",
+                "/data/fhj/sva-var/ibex/rtl/ibex_register_file_ff.sv",
+                "/data/fhj/sva-var/ibex/rtl/ibex_csr.sv", 
+                "/data/fhj/sva-var/ibex/rtl/ibex_wb_stage.sv",  
+                "/data/fhj/sva-var/ibex/rtl/ibex_core.sv"
+            },
+            {   
+                "/data/fhj/sva-var/ibex/rtl/ibex_pkg.sv",
+                "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_dummy_macros.svh",
+                "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_yosys_macros.svh",
+                "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_standard_macros.svh",
+                "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_sec_cm.svh",
+                "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_flop_macros.sv",
+                "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert.sv",
+                "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/dv/sv/dv_utils/dv_fcov_macros.svh"
+                
+            },
+            "../../results/ibex_core.json"
+        }
+    };
+
 
 using json = nlohmann::json;
 
-// --- JSON 序列化函数 ---
 void to_json(json& j, const ConditionExpression& expr) {
-    j = {
+    j = json{
         {"expression", expr.expression},
         {"involvedSignals", expr.involvedSignals}
     };
 }
 
 void to_json(json& j, const ConditionClause& c) {
-    j = {
+    j = json{
         {"expr", c.expr},
         {"polarity", c.polarity}
     };
 }
 
 void to_json(json& j, const AssignmentInfo& a) {
-    j = {
+    j = json{
         {"path", a.path},
         {"drivingSignals", a.drivingSignals},
         {"file", a.file},
         {"line", a.line},
-        {"type", a.type}
+        {"type", a.type},
+        {"logicType", a.logicType},
+        {"conditionDepth", a.conditionDepth}
     };
 }
 
 void to_json(json& j, const VariableInfo& v) {
-    j = {
+    j = json{
         {"fullName", v.fullName},
         {"type", v.type},
         {"file", v.fileName},
@@ -46,143 +184,161 @@ void to_json(json& j, const VariableInfo& v) {
         {"direction", v.direction},
         {"bitWidth", v.bitWidth},
         {"assignments", v.assignments},
-        {"fanOut", v.fanOut}
+        {"fanOut", v.fanOut},
+        {"assignmentCount", v.assignmentCount},
+        {"drivesOutput", v.drivesOutput},
+        {"isControlVariable", v.isControlVariable}
     };
 }
 
 // --- 核心分析函数 ---
-bool runAnalysis(const std::string& topModule, 
-                 const std::vector<std::string>& filesToParse, 
-                 const std::string& outputPath) {
-    
-    std::cout << "--- Analyzing Test Case: " << topModule << " ---" << std::endl;
-
-    std::filesystem::path outPath(outputPath);
-    if (outPath.has_parent_path()) {
-        std::filesystem::create_directories(outPath.parent_path());
-    }
-
-    slang::ast::Compilation compilation;
-    for (const auto& file : filesToParse) {
-        if (!std::filesystem::exists(file)) {
-            std::cerr << "[ERROR] Input file not found: " << file << std::endl;
-            return false;
-        }
-        auto tree_expected = slang::syntax::SyntaxTree::fromFile(file);
-        if (!tree_expected) {
-            std::cerr << "[ERROR] Failed to parse file: " << file << std::endl;
-            return false;
-        }
-        compilation.addSyntaxTree(*tree_expected);
-    }
-    
-    auto& root = compilation.getRoot();
-    const slang::ast::InstanceSymbol* top = nullptr;
-    for (auto inst : root.topInstances) {
-        if (inst->name == topModule) {
-            top = inst;
-            break;
-        }
-    }
-    
-    if (!top) {
-        std::cerr << "[ERROR] Top module '" << topModule << "' not found." << std::endl;
-        return false;
-    }
-    
-    DependencyVisitor visitor;
-    top->visit(visitor);
-    visitor.postProcess(); // 运行后处理来构建 FanOut
-    
-    json resultJson = visitor.getResults();
-
-    std::ofstream outFile(outputPath);
-    if (outFile.is_open()) {
-        outFile << resultJson.dump(4); 
-        outFile.close();
-        std::cout << "[SUCCESS] Results written to: " << outputPath << std::endl;
-        return true;
-    } else {
-        std::cerr << "[ERROR] Could not open output file for writing: " << outputPath << std::endl;
-        return false;
-    }
+bool runAnalysis(const std::string& topModule,   
+                 const std::vector<std::string>& sourceFiles,  
+                 const std::vector<std::string>& headerFiles,  
+                 const std::string& outputPath) {  
+      
+    std::cout << "--- Analyzing Test Case: " << topModule << " ---" << std::endl;  
+    std::cout << "Source files: " << sourceFiles.size() << std::endl;  
+    std::cout << "Header files: " << headerFiles.size() << std::endl;  
+  
+    std::filesystem::path outPath(outputPath);  
+    if (outPath.has_parent_path()) {  
+        std::filesystem::create_directories(outPath.parent_path());  
+    }  
+  
+    // 创建 SourceManager  
+    slang::SourceManager sourceManager;  
+      
+    // 配置预处理器选项,添加 include 路径  
+    slang::parsing::PreprocessorOptions ppOptions; 
+     
+    ppOptions.additionalIncludePaths = {  
+        "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl",  
+        "/data/fhj/sva-var/ibex/rtl",
+        "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/dv/sv/dv_utils" 
+    };  
+      
+    slang::Bag options;  
+    options.set(ppOptions);  
+      
+    // 重要:使用带 options 的 Compilation 构造函数  
+    slang::ast::Compilation compilation(options);  
+      
+    // 首先添加头文件 - 传递 sourceManager 和 options  
+    for (const auto& headerFile : headerFiles) {  
+        if (!std::filesystem::exists(headerFile)) {  
+            std::cerr << "[WARNING] Header file not found: " << headerFile << std::endl;  
+            continue;  
+        }  
+        // 关键修改:传递 sourceManager 和 options  
+        auto tree_expected = slang::syntax::SyntaxTree::fromFile(headerFile, sourceManager, options);  
+        if (!tree_expected) {  
+            std::cerr << "[WARNING] Failed to parse header file: " << headerFile << std::endl;  
+            continue;  
+        }  
+        compilation.addSyntaxTree(*tree_expected);  
+        std::cout << "[INFO] Added header file: " << headerFile << std::endl;  
+    }  
+      
+    // 然后添加源文件 - 同样传递 sourceManager 和 options  
+    for (const auto& sourceFile : sourceFiles) {  
+        if (!std::filesystem::exists(sourceFile)) {  
+            std::cerr << "[ERROR] Source file not found: " << sourceFile << std::endl;  
+            return false;  
+        }  
+        // 关键修改:传递 sourceManager 和 options  
+        auto tree_expected = slang::syntax::SyntaxTree::fromFile(sourceFile, sourceManager, options);  
+        if (!tree_expected) {  
+            std::cerr << "[ERROR] Failed to parse source file: " << sourceFile << std::endl;  
+            return false;  
+        }  
+        compilation.addSyntaxTree(*tree_expected);  
+        std::cout << "[INFO] Added source file: " << sourceFile << std::endl;  
+    }  
+      
+    auto& root = compilation.getRoot();  
+      
+    // 输出顶层模块  
+    auto topInstances = root.topInstances;  
+    if (!topInstances.empty()) {  
+        std::cout << "Top level design units:\n";  
+        for (auto inst : topInstances)  
+            std::cout << "    " << inst->name << "\n";  
+        std::cout << "\n";  
+    }  
+      
+    // 创建诊断引擎和客户端  
+    slang::DiagnosticEngine diagEngine(sourceManager);  
+    auto textClient = std::make_shared<slang::TextDiagnosticClient>();  
+    diagEngine.addClient(textClient);  
+      
+    // 发出所有诊断  
+    for (auto& diag : compilation.getAllDiagnostics())  
+        diagEngine.issue(diag);  
+      
+    // 输出诊断结果  
+    std::cout << textClient->getString();  
+      
+    // 检查是否有错误  
+    int numErrors = diagEngine.getNumErrors();  
+    if (numErrors > 0) {  
+        std::cerr << "[FAILED] Build failed: " << numErrors << " errors\n";  
+        return false;  
+    }  
+      
+    std::cout << "[SUCCESS] Build succeeded\n";  
+      
+    // 查找顶层模块  
+    const slang::ast::InstanceSymbol* top = nullptr;  
+    for (auto inst : root.topInstances) {  
+        if (inst->name == topModule) {  
+            top = inst;  
+            break;  
+        }  
+    }  
+      
+    if (!top) {  
+        std::cerr << "[ERROR] Top module '" << topModule << "' not found." << std::endl;  
+        return false;  
+    }  
+      
+    DependencyVisitor visitor;  
+    top->visit(visitor);  
+    visitor.postProcess();  
+      
+    json resultJson = visitor.getResults();  
+  
+    std::ofstream outFile(outputPath);  
+    if (outFile.is_open()) {  
+        outFile << resultJson.dump(4);   
+        outFile.close();  
+        std::cout << "[SUCCESS] Results written to: " << outputPath << std::endl;  
+        return true;  
+    } else {  
+        std::cerr << "[ERROR] Could not open output file for writing: " << outputPath << std::endl;  
+        return false;  
+    }  
 }
 
 // 主函数，作为测试驱动器
 int main(int argc, char** argv) {
-    struct TestCase {
-        std::string name;
-        std::string topModule;
-        std::vector<std::string> files;
-        std::string outputPath;
-    };
-
-std::vector<TestCase> testSuite = {
-        // --- 现有测试用例 (路径已确认) ---
-        {
-            "Basic Dataflow",
-            "test_basic",
-            {"../test_suite/1_basic_dataflow/test_basic.sv"},
-            "../../results/1_basic_dataflow.json"
-        },
-        {
-            "Sequential Controlflow",
-            "test_sequential",
-            {"../test_suite/2_sequential_controlflow/test_sequential.sv"},
-            "../../results/2_sequential_controlflow.json"
-        },
-        {
-            "Module Hierarchy",
-            "top_module",
-            {
-                "../test_suite/3_module_hierarchy/sub_module.sv",
-                "../test_suite/3_module_hierarchy/top_module.sv"
-            },
-            "../../results/3_module_hierarchy.json"
-        },
-        
-        // --- 新增测试用例 (根据您的截图更新) ---
-        {
-            "Complex Conditions",
-            "test_complex_conditions", // 假设顶层模块名与文件名相同
-            {"../test_suite/4_complex_conditions/test_complex_conditions.sv"},
-            "../../results/4_complex_conditions.json"
-        },
-        {
-            "Complex Hierarchy",
-            "top_hierarchy", // 假设顶层模块名
-            {
-                // 注意：您需要提供这个测试用例中所有 .sv 文件的正确名称
-                // 我暂时用 'heirachy.sv' 作为占位符，您可能需要修改
-                "../test_suite/5_complex_hierarchy/hierarchy.sv" 
-            },
-            "../../results/5_complex_hierarchy.json"
-        },
-        {
-            "Control Flow",
-            "test_control_flow", // 假设顶层模块名与文件名相同
-            {"../test_suite/6_controlflow/test_control_flow.sv"},
-            "../../results/6_controlflow.json"
-        },
-        {
-            "Data Types",
-            "test_data_types", // 假设顶层模块名与文件名相同
-            {"../test_suite/7_datatypes/test_data_types.sv"},
-            "../../results/7_datatypes.json"
-        }
-    };
+    
 
     int successCount = 0;
     for (const auto& testCase : testSuite) {
-        if (runAnalysis(testCase.topModule, testCase.files, testCase.outputPath)) {
+        std::cout << "\n========================================" << std::endl;
+        std::cout << "Running: " << testCase.name << std::endl;
+        std::cout << "========================================" << std::endl;
+        
+        if (runAnalysis(testCase.topModule, testCase.sourceFiles, testCase.headerFiles, testCase.outputPath)) {
             successCount++;
+            std::cout << "✓ PASSED: " << testCase.name << std::endl;
         } else {
-            std::cerr << "--- Test Case FAILED: " << testCase.name << " ---" << std::endl;
+            std::cerr << "✗ FAILED: " << testCase.name << std::endl;
         }
-        std::cout << "\n";
     }
 
-    std::cout << "========================================" << std::endl;
+    std::cout << "\n========================================" << std::endl;
     std::cout << "Test Suite Finished." << std::endl;
     std::cout << "Passed: " << successCount << " / " << testSuite.size() << std::endl;
     std::cout << "========================================" << std::endl;

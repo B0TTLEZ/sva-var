@@ -37,6 +37,7 @@ private:
     VariableInfo& getOrAddVariable(const slang::ast::Symbol& symbol);
     std::string extractCaseItemExpression(const slang::ast::Expression& caseExpr, const slang::ast::CaseStatement::ItemGroup& item);
     std::vector<ConditionPath> buildCasePaths(const slang::ast::CaseStatement& stmt, const ConditionPath& parentPath);
+    bool isControlVariable(const std::string& varName);  // 新增方法声明
     
     std::vector<ConditionPath> pathStack;
     AnalysisResultMap results;

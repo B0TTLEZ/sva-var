@@ -11,29 +11,23 @@
 #include "slang/text/SourceManager.h"
 #include <sstream>
 #include <iostream>
-// 新增辅助函数：检查是否是自增操作
+
+// 简化的时序逻辑判断
+bool isInSequentialContext(const slang::ast::AssignmentExpression& expr) {
+    // 简化实现：暂时都返回组合逻辑
+    // 后续可以根据需要增强
+    return false;
+}
+// 自增操作检测
 bool isIncrementOperation(const slang::ast::Expression& expr, const slang::ast::Symbol& lhsSymbol) {
-    // 检查是否是二元加法表达式
     if (const auto* binaryExpr = expr.as_if<slang::ast::BinaryExpression>()) {
         if (binaryExpr->op == slang::ast::BinaryOperator::Add) {
-            std::cout << "DEBUG: Found binary add operation" << std::endl;
-            
             // 检查左操作数是否是同一个信号
             if (const auto* leftValue = binaryExpr->left().as_if<slang::ast::NamedValueExpression>()) {
-                std::cout << "DEBUG: Left operand: " << leftValue->symbol.name 
-                          << ", LHS symbol: " << lhsSymbol.name << std::endl;
-                          
                 if (&leftValue->symbol == &lhsSymbol) {
-                    std::cout << "DEBUG: Left operand matches LHS" << std::endl;
-                    
                     // 检查右操作数是否是常量
                     if (binaryExpr->right().as_if<slang::ast::IntegerLiteral>()) {
-                        std::cout << "DEBUG: Right operand is integer literal - INCREMENT DETECTED" << std::endl;
                         return true;
-                    } else {
-                        std::cout << "DEBUG: Right operand is not integer literal" << std::endl;
-                        // 修复：使用正确的类型检查方法
-                        std::cout << "DEBUG: Right operand kind: " << static_cast<int>(binaryExpr->right().kind) << std::endl;
                     }
                 }
             }
@@ -42,26 +36,12 @@ bool isIncrementOperation(const slang::ast::Expression& expr, const slang::ast::
     return false;
 }
 
-// 新增辅助函数：检查是否是自引用
-bool isSelfReference(const slang::ast::Expression& expr, const slang::ast::Symbol& symbol) {
-    if (const auto* namedValue = expr.as_if<slang::ast::NamedValueExpression>()) {
-        return &namedValue->symbol == &symbol;
-    }
-    return false;
-}
-
-// 新增辅助函数：检查是否是常量
-bool isConstant(const slang::ast::Expression& expr) {
-    return expr.as_if<slang::ast::IntegerLiteral>() != nullptr;
-}
-
-// 辅助函数实现
+// 枚举常量检测
 bool isEnumConstant(const slang::ast::Symbol& symbol) {
-    // 只过滤真正的枚举常量（EnumValue），保留枚举变量
     return symbol.kind == slang::ast::SymbolKind::EnumValue;
 }
 
-// 辅助函数：将端口方向枚举转换为字符串
+// 端口方向转换
 static std::string directionToString(slang::ast::ArgumentDirection dir) {
     switch (dir) {
         case slang::ast::ArgumentDirection::In: return "input";
@@ -71,7 +51,7 @@ static std::string directionToString(slang::ast::ArgumentDirection dir) {
     }
 }
 
-// 修复的 DataSignalVisitor - 过滤枚举常量
+// DataSignalVisitor - 过滤枚举常量
 class DataSignalVisitor : public slang::ast::ASTVisitor<DataSignalVisitor, true, true> {
 public:
     template<typename T> void handle(const T& node) { visitDefault(node); }
@@ -79,7 +59,6 @@ public:
     void handle(const slang::ast::NamedValueExpression& expr) {
         const slang::ast::Symbol* symbol = &expr.symbol;
         if (symbol && !symbol->isType()) {
-            // 过滤掉枚举常量
             if (!isEnumConstant(*symbol)) {
                 std::string signalName = symbol->getHierarchicalPath();
                 signals.insert(signalName);
@@ -90,7 +69,7 @@ public:
     std::set<std::string> signals;
 };
 
-// 修复的 ConditionClauseVisitor - 过滤枚举常量
+// ConditionClauseVisitor - 过滤枚举常量
 class ConditionClauseVisitor : public slang::ast::ASTVisitor<ConditionClauseVisitor, true, true> {
 public:
     template<typename T> void handle(const T& node) { 
@@ -100,15 +79,12 @@ public:
     void handle(const slang::ast::NamedValueExpression& expr) {
         const slang::ast::Symbol* symbol = &expr.symbol;
         if (symbol && !symbol->isType()) {
-            // 过滤枚举常量，但保留在表达式中
             std::string signalName = symbol->getHierarchicalPath();
             
             if (!isEnumConstant(*symbol)) {
-                // 只有非枚举常量才添加到 involvedSignals
                 involvedSignals.insert(signalName);
             }
             
-            // 但表达式文本中仍然包含完整名称
             if (!currentExpression.empty()) {
                 currentExpression += " ";
             }
@@ -117,10 +93,8 @@ public:
     }
 
     void handle(const slang::ast::BinaryExpression& expr) {
-        // 处理二元操作符
         expr.left().visit(*this);
         
-        // 添加操作符
         std::string opStr;
         switch (expr.op) {
             case slang::ast::BinaryOperator::Equality: opStr = " == "; break;
@@ -139,13 +113,12 @@ public:
     }
 
     void handle(const slang::ast::UnaryExpression& expr) {
-        // 处理一元操作符
         std::string opStr;
         switch (expr.op) {
             case slang::ast::UnaryOperator::LogicalNot: opStr = "!"; break;
-            case slang::ast::UnaryOperator::BitwiseAnd: opStr = "&"; break;  // 归约与
-            case slang::ast::UnaryOperator::BitwiseOr: opStr = "|"; break;   // 归约或
-            case slang::ast::UnaryOperator::BitwiseXor: opStr = "^"; break;  // 归约异或
+            case slang::ast::UnaryOperator::BitwiseAnd: opStr = "&"; break;
+            case slang::ast::UnaryOperator::BitwiseOr: opStr = "|"; break;
+            case slang::ast::UnaryOperator::BitwiseXor: opStr = "^"; break;
             default: opStr = "unary_op "; break;
         }
         currentExpression += opStr;
@@ -154,7 +127,6 @@ public:
     }
 
     void handle(const slang::ast::IntegerLiteral& literal) {
-        // 添加常量值
         if (!currentExpression.empty()) {
             currentExpression += " ";
         }
@@ -162,7 +134,6 @@ public:
     }
 
     void handle(const slang::ast::ElementSelectExpression& expr) {
-        // 处理位选择，如 config_bits[3]
         expr.value().visit(*this);
         currentExpression += "[";
         expr.selector().visit(*this);
@@ -170,7 +141,6 @@ public:
     }
 
     void handle(const slang::ast::RangeSelectExpression& expr) {
-        // 处理范围选择，如 config_bits[3:2]
         expr.value().visit(*this);
         currentExpression += "[";
         expr.left().visit(*this);
@@ -197,7 +167,7 @@ private:
     std::set<std::string> involvedSignals;
 };
 
-// 修复的 CaseItemExpressionVisitor - 过滤枚举常量
+// CaseItemExpressionVisitor - 过滤枚举常量
 class CaseItemExpressionVisitor : public slang::ast::ASTVisitor<CaseItemExpressionVisitor, true, true> {
 public:
     template<typename T> void handle(const T& node) { 
@@ -207,7 +177,6 @@ public:
     void handle(const slang::ast::NamedValueExpression& expr) {
         const slang::ast::Symbol* symbol = &expr.symbol;
         if (symbol && !symbol->isType()) {
-            // 过滤枚举常量
             if (!isEnumConstant(*symbol)) {
                 std::string signalName = symbol->getHierarchicalPath();
                 if (!currentExpression.empty()) {
@@ -215,7 +184,6 @@ public:
                 }
                 currentExpression += signalName;
             } else {
-                // 对于枚举常量，仍然在表达式中显示，但不作为信号
                 std::string enumName = symbol->getHierarchicalPath();
                 if (!currentExpression.empty()) {
                     currentExpression += " ";
@@ -266,39 +234,39 @@ private:
 // --- 主 Visitor 的实现 ---
 
 DependencyVisitor::DependencyVisitor() {
-    pathStack.push_back({}); // 初始化路径栈，包含一个空的根路径
+    pathStack.push_back({});
 }
 
-// 提取 case 项的表达式
 std::string DependencyVisitor::extractCaseItemExpression(const slang::ast::Expression& caseExpr, const slang::ast::CaseStatement::ItemGroup& item) {
     CaseItemExpressionVisitor visitor;
     
-    // 处理 case 项的表达式
     if (item.expressions.empty()) {
-        return "default"; // default case
+        return "default";
     }
     
-    // 处理单个或多个表达式（用 || 连接）
+    // 获取case表达式的字符串表示
+    ConditionClauseVisitor caseExprVisitor;
+    caseExpr.visit(caseExprVisitor);
+    std::string caseExprStr = caseExprVisitor.getExpressionString();
+    
+    // 处理多个表达式（OR关系）
+    std::string result;
     for (size_t i = 0; i < item.expressions.size(); ++i) {
         if (i > 0) {
-            visitor.reset();
+            result += " || ";
         }
+        visitor.reset();
         item.expressions[i]->visit(visitor);
-        if (i > 0) {
-            // 对于多个表达式，需要构建 OR 条件
-            // 这里简化处理，只取第一个表达式
-            break;
-        }
+        // 构建完整的比较表达式
+        result += caseExprStr + " == " + visitor.getExpressionString();
     }
     
-    return visitor.getExpressionString();
+    return result;
 }
 
-// 构建 case 语句的所有条件路径
 std::vector<ConditionPath> DependencyVisitor::buildCasePaths(const slang::ast::CaseStatement& stmt, const ConditionPath& parentPath) {
     std::vector<ConditionPath> casePaths;
     
-    // 处理 case 表达式
     ConditionClauseVisitor caseExprVisitor;
     stmt.expr.visit(caseExprVisitor);
     
@@ -308,19 +276,27 @@ std::vector<ConditionPath> DependencyVisitor::buildCasePaths(const slang::ast::C
     
     bool hasDefault = false;
     
-    // 为每个 case 项创建条件路径
+    // 直接处理每个case项
     for (const auto& item : stmt.items) {
         std::string itemExpression = extractCaseItemExpression(stmt.expr, item);
         
         if (itemExpression == "default") {
             hasDefault = true;
-            continue; // default 单独处理
+            continue;
         }
         
-        // 创建 case 项的条件：case_expr == case_item_value
+        // 创建条件表达式 - 直接使用提取的OR表达式
         ConditionExpression fullCondition;
-        fullCondition.expression = caseExpr.expression + " == " + itemExpression;
+        fullCondition.expression = itemExpression;
         fullCondition.involvedSignals = caseExpr.involvedSignals;
+        
+        // 添加item表达式中涉及的信号
+        for (const auto& expr : item.expressions) {
+            ConditionClauseVisitor itemVisitor;
+            expr->visit(itemVisitor);
+            auto signals = itemVisitor.getInvolvedSignals();
+            fullCondition.involvedSignals.insert(signals.begin(), signals.end());
+        }
         
         ConditionClause conditionClause;
         conditionClause.expr = fullCondition;
@@ -331,9 +307,8 @@ std::vector<ConditionPath> DependencyVisitor::buildCasePaths(const slang::ast::C
         casePaths.push_back(itemPath);
     }
     
-    // 处理 default case
+    // 处理default情况
     if (hasDefault || stmt.defaultCase) {
-        // default case 的条件是前面所有 case 项条件的否定
         ConditionPath defaultPath = parentPath;
         
         for (const auto& item : stmt.items) {
@@ -341,12 +316,19 @@ std::vector<ConditionPath> DependencyVisitor::buildCasePaths(const slang::ast::C
             if (itemExpression == "default") continue;
             
             ConditionExpression fullCondition;
-            fullCondition.expression = caseExpr.expression + " == " + itemExpression;
+            fullCondition.expression = itemExpression;
             fullCondition.involvedSignals = caseExpr.involvedSignals;
+            
+            for (const auto& expr : item.expressions) {
+                ConditionClauseVisitor itemVisitor;
+                expr->visit(itemVisitor);
+                auto signals = itemVisitor.getInvolvedSignals();
+                fullCondition.involvedSignals.insert(signals.begin(), signals.end());
+            }
             
             ConditionClause conditionClause;
             conditionClause.expr = fullCondition;
-            conditionClause.polarity = false; // 否定条件
+            conditionClause.polarity = false;
             
             defaultPath.insert(conditionClause);
         }
@@ -360,10 +342,8 @@ std::vector<ConditionPath> DependencyVisitor::buildCasePaths(const slang::ast::C
 void DependencyVisitor::handle(const slang::ast::CaseStatement& stmt) {
     ConditionPath parentPath = pathStack.back();
     
-    // 构建所有 case 路径
     std::vector<ConditionPath> casePaths = buildCasePaths(stmt, parentPath);
     
-    // 处理各个 case 项
     size_t pathIndex = 0;
     for (const auto& item : stmt.items) {
         if (pathIndex < casePaths.size()) {
@@ -376,7 +356,6 @@ void DependencyVisitor::handle(const slang::ast::CaseStatement& stmt) {
         }
     }
     
-    // 处理 default case（如果有）
     if (stmt.defaultCase && pathIndex < casePaths.size()) {
         pathStack.push_back(casePaths[pathIndex]);
         stmt.defaultCase->visit(*this);
@@ -389,12 +368,9 @@ VariableInfo& DependencyVisitor::getOrAddVariable(const slang::ast::Symbol& symb
     if (results.find(path) == results.end()) {  
         VariableInfo info;  
         info.fullName = path;  
-  
-        // 对于端口
+
         if (const auto* portSymbol = symbol.as_if<slang::ast::PortSymbol>()) {  
             info.direction = directionToString(portSymbol->direction);  
-              
-            // 获取端口的内部符号  
             if (portSymbol->internalSymbol) {  
                 const auto* internalValue = portSymbol->internalSymbol->as_if<slang::ast::ValueSymbol>();  
                 if (internalValue) {  
@@ -403,15 +379,12 @@ VariableInfo& DependencyVisitor::getOrAddVariable(const slang::ast::Symbol& symb
                     info.bitWidth = type.getBitWidth();  
                 }  
             }  
-        }  
-        // 对于普通变量  
-        else if (const auto* valueSymbol = symbol.as_if<slang::ast::ValueSymbol>()) {  
+        } else if (const auto* valueSymbol = symbol.as_if<slang::ast::ValueSymbol>()) {  
             const slang::ast::Type& type = valueSymbol->getType();  
             info.type = type.toString();  
             info.bitWidth = type.getBitWidth();  
         }  
-  
-        // 提取位置信息  
+
         const slang::ast::Scope* scope = symbol.getParentScope();  
         if (scope) {  
             auto& comp = scope->getCompilation();  
@@ -445,20 +418,26 @@ void DependencyVisitor::handle(const slang::ast::AssignmentExpression& expr) {
     
     VariableInfo& lhsInfo = getOrAddVariable(*lhsSymbol);
         
-    // 检查是否是自增操作
     bool isIncrement = isIncrementOperation(expr.right(), *lhsSymbol);
 
     DataSignalVisitor rhsVisitor;
     if (!isIncrement) {
-        // 如果不是自增操作，正常分析右侧表达式
         expr.right().visit(rhsVisitor);
     }
-    // 如果是自增操作，rhsVisitor.signals 保持为空
 
     AssignmentInfo assignInfo;
     assignInfo.path = pathStack.back();
     assignInfo.drivingSignals = rhsVisitor.signals;
     assignInfo.type = isIncrement ? "increment" : "direct";
+    
+    // 新增字段
+    if (isInSequentialContext(expr)) {
+        assignInfo.logicType = "sequential";
+    } else {
+        assignInfo.logicType = "combinational";
+    }
+    
+    assignInfo.conditionDepth = pathStack.size() - 1;
 
     const slang::ast::Scope* scope = lhsSymbol->getParentScope();
     if (scope) {
@@ -477,15 +456,12 @@ void DependencyVisitor::handle(const slang::ast::AssignmentExpression& expr) {
 void DependencyVisitor::handle(const slang::ast::ConditionalStatement& stmt) {
     ConditionPath parentPath = pathStack.back();
     
-    // 处理每个条件分支
     for (size_t i = 0; i < stmt.conditions.size(); ++i) {
         const auto& cond = stmt.conditions[i];
         
-        // 使用修复后的 ConditionClauseVisitor，它会过滤枚举常量
         ConditionClauseVisitor clauseVisitor;
         cond.expr->visit(clauseVisitor);
 
-        // 创建完整的条件表达式
         ConditionExpression condExpr;
         condExpr.expression = clauseVisitor.getExpressionString();
         condExpr.involvedSignals = clauseVisitor.getInvolvedSignals();
@@ -501,14 +477,12 @@ void DependencyVisitor::handle(const slang::ast::ConditionalStatement& stmt) {
         stmt.ifTrue.visit(*this);
         pathStack.pop_back();
 
-        // 为 else 路径创建否定条件
         ConditionClause falseClause;
         falseClause.expr = condExpr;
         falseClause.polarity = false;
         parentPath.insert(falseClause);
     }
 
-    // 处理 else 分支
     if (stmt.ifFalse) {
         pathStack.push_back(parentPath);
         stmt.ifFalse->visit(*this);
@@ -517,7 +491,6 @@ void DependencyVisitor::handle(const slang::ast::ConditionalStatement& stmt) {
 }
 
 void DependencyVisitor::handle(const slang::ast::InstanceSymbol& symbol) {
-    // 获取实例化的位置信息
     std::string instanceFile;
     int instanceLine = 0;
     
@@ -531,48 +504,45 @@ void DependencyVisitor::handle(const slang::ast::InstanceSymbol& symbol) {
         }
     }
 
-    // 遍历端口连接
     for (auto* portConnection : symbol.getPortConnections()) {
         const slang::ast::Symbol& internalPort = portConnection->port;
         const slang::ast::Expression* externalExpr = portConnection->getExpression();
         
-        // 确保端口被注册
         VariableInfo& internalPortInfo = getOrAddVariable(internalPort);
         
         if (!externalExpr) continue;
         
-        // 使用修复后的 DataSignalVisitor，它会过滤枚举常量
         DataSignalVisitor externalSignalVisitor;
         externalExpr->visit(externalSignalVisitor);
 
-        // 建立端口连接的依赖关系
         for (const auto& externalSignalName : externalSignalVisitor.signals) {
             if (results.count(externalSignalName)) {
                 VariableInfo& externalInfo = results[externalSignalName];
                 
-                // 根据端口方向建立依赖关系
                 auto direction = internalPort.as<slang::ast::PortSymbol>().direction;
                 
                 if (direction != slang::ast::ArgumentDirection::In) { 
-                    // 输出或输入输出端口：外部信号 <- 内部端口
                     AssignmentInfo assignInfo;
                     assignInfo.path = pathStack.back();
                     assignInfo.drivingSignals = {internalPortInfo.fullName};
                     assignInfo.file = instanceFile;
                     assignInfo.line = instanceLine;
                     assignInfo.type = "port_connection";
+                    assignInfo.logicType = "combinational";
+                    assignInfo.conditionDepth = pathStack.size() - 1;
                     externalInfo.assignments.insert(assignInfo);
                     
                     internalPortInfo.fanOut.insert(externalInfo.fullName);
                 }
                 if (direction != slang::ast::ArgumentDirection::Out) { 
-                    // 输入或输入输出端口：内部端口 <- 外部信号  
                     AssignmentInfo assignInfo;
                     assignInfo.path = pathStack.back();
                     assignInfo.drivingSignals = std::set<std::string>{externalSignalName};
                     assignInfo.file = instanceFile;
                     assignInfo.line = instanceLine;
                     assignInfo.type = "port_connection";
+                    assignInfo.logicType = "combinational";
+                    assignInfo.conditionDepth = pathStack.size() - 1;
                     internalPortInfo.assignments.insert(assignInfo);
                     
                     externalInfo.fanOut.insert(internalPortInfo.fullName);
@@ -584,13 +554,24 @@ void DependencyVisitor::handle(const slang::ast::InstanceSymbol& symbol) {
     visitDefault(symbol);
 }
 
+bool DependencyVisitor::isControlVariable(const std::string& varName) {
+    for (const auto& [otherName, otherInfo] : results) {
+        for (const auto& assignment : otherInfo.assignments) {
+            for (const auto& clause : assignment.path) {
+                if (clause.expr.involvedSignals.count(varName)) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
 void DependencyVisitor::postProcess() {
-    // 清理空的赋值并识别常量赋值
     for (auto& [varName, info] : results) {
         std::set<AssignmentInfo> cleanedAssignments;
         
         for (const auto& assignment : info.assignments) {
-            // 跳过完全空的赋值
             if (assignment.drivingSignals.empty() && 
                 assignment.file.empty() && 
                 assignment.line == 0) {
@@ -599,17 +580,14 @@ void DependencyVisitor::postProcess() {
             
             AssignmentInfo newAssignment = assignment;
             
-            // 改进的常量检测：
             if (assignment.drivingSignals.empty() && 
                 !assignment.file.empty() && 
                 assignment.line > 0 &&
                 assignment.type == "direct") {
                 
                 if (assignment.path.empty()) {
-                    // 无条件常量赋值
                     newAssignment.type = "constant";
                 } else {
-                    // 条件常量赋值 - 有控制依赖！
                     newAssignment.type = "conditional_constant";
                 }
             }
@@ -618,9 +596,22 @@ void DependencyVisitor::postProcess() {
         }
         
         info.assignments = cleanedAssignments;
+        
+        // 新增：计算聚合信息
+        info.assignmentCount = info.assignments.size();
+        
+        info.drivesOutput = false;
+        for (const auto& fanOutName : info.fanOut) {
+            if (results.count(fanOutName) && 
+                results[fanOutName].direction == "output") {
+                info.drivesOutput = true;
+                break;
+            }
+        }
+        
+        info.isControlVariable = isControlVariable(varName);
     }
 
-    // 构建 fanOut 关系
     for (auto& [lhsName, info] : results) {
         for (const auto& assignment : info.assignments) {
             for (const auto& rhsName : assignment.drivingSignals) {

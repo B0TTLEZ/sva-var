@@ -35,6 +35,8 @@ struct AssignmentInfo {
     std::string file;
     int line = 0;
     std::string type = "direct";
+    std::string logicType = "unknown";  // 新增："sequential" 或 "combinational"
+    int conditionDepth = 0;             // 新增：条件嵌套深度
 
     bool operator<(const AssignmentInfo& other) const {
         if (path < other.path) return true;
@@ -43,7 +45,9 @@ struct AssignmentInfo {
         if (other.drivingSignals < drivingSignals) return false;
         if (file != other.file) return file < other.file;
         if (line != other.line) return line < other.line;
-        return type < other.type;
+        if (type != other.type) return type < other.type;
+        if (logicType != other.logicType) return logicType < other.logicType;
+        return conditionDepth < other.conditionDepth;
     }
 };
 
@@ -56,4 +60,8 @@ struct VariableInfo {
     size_t bitWidth = 0;
     std::set<AssignmentInfo> assignments;
     std::set<std::string> fanOut;
+    // 新增：计算得出的属性
+    int assignmentCount = 0;            // 赋值次数
+    bool drivesOutput = false;          // 是否驱动输出
+    bool isControlVariable = false;     // 是否是控制变量
 };
