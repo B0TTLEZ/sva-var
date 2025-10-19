@@ -8,6 +8,9 @@
 
 using AnalysisResultMap = std::map<std::string, VariableInfo>;
 
+// 前置声明辅助函数
+bool isEnumConstant(const slang::ast::Symbol& symbol);
+
 class DependencyVisitor : public slang::ast::ASTVisitor<DependencyVisitor, true, true> {
 public:
     DependencyVisitor();

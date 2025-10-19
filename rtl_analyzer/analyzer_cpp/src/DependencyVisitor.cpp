@@ -7,8 +7,59 @@
 #include "slang/ast/symbols/InstanceSymbols.h"
 #include "slang/ast/symbols/VariableSymbols.h"
 #include "slang/ast/types/Type.h"
+#include "slang/ast/types/AllTypes.h"
 #include "slang/text/SourceManager.h"
 #include <sstream>
+#include <iostream>
+// 新增辅助函数：检查是否是自增操作
+bool isIncrementOperation(const slang::ast::Expression& expr, const slang::ast::Symbol& lhsSymbol) {
+    // 检查是否是二元加法表达式
+    if (const auto* binaryExpr = expr.as_if<slang::ast::BinaryExpression>()) {
+        if (binaryExpr->op == slang::ast::BinaryOperator::Add) {
+            std::cout << "DEBUG: Found binary add operation" << std::endl;
+            
+            // 检查左操作数是否是同一个信号
+            if (const auto* leftValue = binaryExpr->left().as_if<slang::ast::NamedValueExpression>()) {
+                std::cout << "DEBUG: Left operand: " << leftValue->symbol.name 
+                          << ", LHS symbol: " << lhsSymbol.name << std::endl;
+                          
+                if (&leftValue->symbol == &lhsSymbol) {
+                    std::cout << "DEBUG: Left operand matches LHS" << std::endl;
+                    
+                    // 检查右操作数是否是常量
+                    if (binaryExpr->right().as_if<slang::ast::IntegerLiteral>()) {
+                        std::cout << "DEBUG: Right operand is integer literal - INCREMENT DETECTED" << std::endl;
+                        return true;
+                    } else {
+                        std::cout << "DEBUG: Right operand is not integer literal" << std::endl;
+                        // 修复：使用正确的类型检查方法
+                        std::cout << "DEBUG: Right operand kind: " << static_cast<int>(binaryExpr->right().kind) << std::endl;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+// 新增辅助函数：检查是否是自引用
+bool isSelfReference(const slang::ast::Expression& expr, const slang::ast::Symbol& symbol) {
+    if (const auto* namedValue = expr.as_if<slang::ast::NamedValueExpression>()) {
+        return &namedValue->symbol == &symbol;
+    }
+    return false;
+}
+
+// 新增辅助函数：检查是否是常量
+bool isConstant(const slang::ast::Expression& expr) {
+    return expr.as_if<slang::ast::IntegerLiteral>() != nullptr;
+}
+
+// 辅助函数实现
+bool isEnumConstant(const slang::ast::Symbol& symbol) {
+    // 只过滤真正的枚举常量（EnumValue），保留枚举变量
+    return symbol.kind == slang::ast::SymbolKind::EnumValue;
+}
 
 // 辅助函数：将端口方向枚举转换为字符串
 static std::string directionToString(slang::ast::ArgumentDirection dir) {
@@ -20,24 +71,48 @@ static std::string directionToString(slang::ast::ArgumentDirection dir) {
     }
 }
 
-// 简化的 ConditionClauseVisitor - 只处理核心表达式
+// 修复的 DataSignalVisitor - 过滤枚举常量
+class DataSignalVisitor : public slang::ast::ASTVisitor<DataSignalVisitor, true, true> {
+public:
+    template<typename T> void handle(const T& node) { visitDefault(node); }
+
+    void handle(const slang::ast::NamedValueExpression& expr) {
+        const slang::ast::Symbol* symbol = &expr.symbol;
+        if (symbol && !symbol->isType()) {
+            // 过滤掉枚举常量
+            if (!isEnumConstant(*symbol)) {
+                std::string signalName = symbol->getHierarchicalPath();
+                signals.insert(signalName);
+            }
+        }
+    }
+
+    std::set<std::string> signals;
+};
+
+// 修复的 ConditionClauseVisitor - 过滤枚举常量
 class ConditionClauseVisitor : public slang::ast::ASTVisitor<ConditionClauseVisitor, true, true> {
 public:
     template<typename T> void handle(const T& node) { 
-        // 对于未知节点类型，直接跳过
         visitDefault(node); 
     }
 
     void handle(const slang::ast::NamedValueExpression& expr) {
         const slang::ast::Symbol* symbol = &expr.symbol;
         if (symbol && !symbol->isType()) {
+            // 过滤枚举常量，但保留在表达式中
             std::string signalName = symbol->getHierarchicalPath();
-            // 直接添加信号名称到表达式
+            
+            if (!isEnumConstant(*symbol)) {
+                // 只有非枚举常量才添加到 involvedSignals
+                involvedSignals.insert(signalName);
+            }
+            
+            // 但表达式文本中仍然包含完整名称
             if (!currentExpression.empty()) {
                 currentExpression += " ";
             }
             currentExpression += signalName;
-            involvedSignals.insert(signalName);
         }
     }
 
@@ -122,22 +197,7 @@ private:
     std::set<std::string> involvedSignals;
 };
 
-// 辅助 Visitor 2: 仅提取数据依赖信号的名称
-class DataSignalVisitor : public slang::ast::ASTVisitor<DataSignalVisitor, true, true> {
-public:
-    template<typename T> void handle(const T& node) { visitDefault(node); }
-
-    void handle(const slang::ast::NamedValueExpression& expr) {
-        const slang::ast::Symbol* symbol = &expr.symbol;
-        if (symbol && !symbol->isType()) {
-            std::string signalName = symbol->getHierarchicalPath();
-            signals.insert(signalName);
-        }
-    }
-
-    std::set<std::string> signals;
-};
-
+// 修复的 CaseItemExpressionVisitor - 过滤枚举常量
 class CaseItemExpressionVisitor : public slang::ast::ASTVisitor<CaseItemExpressionVisitor, true, true> {
 public:
     template<typename T> void handle(const T& node) { 
@@ -147,11 +207,21 @@ public:
     void handle(const slang::ast::NamedValueExpression& expr) {
         const slang::ast::Symbol* symbol = &expr.symbol;
         if (symbol && !symbol->isType()) {
-            std::string signalName = symbol->getHierarchicalPath();
-            if (!currentExpression.empty()) {
-                currentExpression += " ";
+            // 过滤枚举常量
+            if (!isEnumConstant(*symbol)) {
+                std::string signalName = symbol->getHierarchicalPath();
+                if (!currentExpression.empty()) {
+                    currentExpression += " ";
+                }
+                currentExpression += signalName;
+            } else {
+                // 对于枚举常量，仍然在表达式中显示，但不作为信号
+                std::string enumName = symbol->getHierarchicalPath();
+                if (!currentExpression.empty()) {
+                    currentExpression += " ";
+                }
+                currentExpression += enumName;
             }
-            currentExpression += signalName;
         }
     }
 
@@ -192,7 +262,6 @@ public:
 private:
     std::string currentExpression;
 };
-
 
 // --- 主 Visitor 的实现 ---
 
@@ -288,7 +357,6 @@ std::vector<ConditionPath> DependencyVisitor::buildCasePaths(const slang::ast::C
     return casePaths;
 }
 
-// 修复 Case 语句处理
 void DependencyVisitor::handle(const slang::ast::CaseStatement& stmt) {
     ConditionPath parentPath = pathStack.back();
     
@@ -315,7 +383,6 @@ void DependencyVisitor::handle(const slang::ast::CaseStatement& stmt) {
         pathStack.pop_back();
     }
 }
-
 
 VariableInfo& DependencyVisitor::getOrAddVariable(const slang::ast::Symbol& symbol) {  
     std::string path = symbol.getHierarchicalPath();  
@@ -378,13 +445,20 @@ void DependencyVisitor::handle(const slang::ast::AssignmentExpression& expr) {
     
     VariableInfo& lhsInfo = getOrAddVariable(*lhsSymbol);
         
+    // 检查是否是自增操作
+    bool isIncrement = isIncrementOperation(expr.right(), *lhsSymbol);
+
     DataSignalVisitor rhsVisitor;
-    expr.right().visit(rhsVisitor);
+    if (!isIncrement) {
+        // 如果不是自增操作，正常分析右侧表达式
+        expr.right().visit(rhsVisitor);
+    }
+    // 如果是自增操作，rhsVisitor.signals 保持为空
 
     AssignmentInfo assignInfo;
     assignInfo.path = pathStack.back();
     assignInfo.drivingSignals = rhsVisitor.signals;
-    assignInfo.type = "direct";
+    assignInfo.type = isIncrement ? "increment" : "direct";
 
     const slang::ast::Scope* scope = lhsSymbol->getParentScope();
     if (scope) {
@@ -407,6 +481,7 @@ void DependencyVisitor::handle(const slang::ast::ConditionalStatement& stmt) {
     for (size_t i = 0; i < stmt.conditions.size(); ++i) {
         const auto& cond = stmt.conditions[i];
         
+        // 使用修复后的 ConditionClauseVisitor，它会过滤枚举常量
         ConditionClauseVisitor clauseVisitor;
         cond.expr->visit(clauseVisitor);
 
@@ -441,7 +516,6 @@ void DependencyVisitor::handle(const slang::ast::ConditionalStatement& stmt) {
     }
 }
 
-
 void DependencyVisitor::handle(const slang::ast::InstanceSymbol& symbol) {
     // 获取实例化的位置信息
     std::string instanceFile;
@@ -467,7 +541,7 @@ void DependencyVisitor::handle(const slang::ast::InstanceSymbol& symbol) {
         
         if (!externalExpr) continue;
         
-        // 分析外部表达式中的信号
+        // 使用修复后的 DataSignalVisitor，它会过滤枚举常量
         DataSignalVisitor externalSignalVisitor;
         externalExpr->visit(externalSignalVisitor);
 
@@ -495,7 +569,7 @@ void DependencyVisitor::handle(const slang::ast::InstanceSymbol& symbol) {
                     // 输入或输入输出端口：内部端口 <- 外部信号  
                     AssignmentInfo assignInfo;
                     assignInfo.path = pathStack.back();
-                    assignInfo.drivingSignals = {externalSignalName};
+                    assignInfo.drivingSignals = std::set<std::string>{externalSignalName};
                     assignInfo.file = instanceFile;
                     assignInfo.line = instanceLine;
                     assignInfo.type = "port_connection";
@@ -516,21 +590,28 @@ void DependencyVisitor::postProcess() {
         std::set<AssignmentInfo> cleanedAssignments;
         
         for (const auto& assignment : info.assignments) {
-            // 跳过完全空的赋值（没有驱动信号、文件位置不准确）
+            // 跳过完全空的赋值
             if (assignment.drivingSignals.empty() && 
                 assignment.file.empty() && 
                 assignment.line == 0) {
-                continue; // 直接跳过这个空赋值
+                continue;
             }
             
             AssignmentInfo newAssignment = assignment;
             
-            // 只有当有明确位置信息且没有驱动信号时，才标记为常量
+            // 改进的常量检测：
             if (assignment.drivingSignals.empty() && 
                 !assignment.file.empty() && 
                 assignment.line > 0 &&
                 assignment.type == "direct") {
-                newAssignment.type = "constant";
+                
+                if (assignment.path.empty()) {
+                    // 无条件常量赋值
+                    newAssignment.type = "constant";
+                } else {
+                    // 条件常量赋值 - 有控制依赖！
+                    newAssignment.type = "conditional_constant";
+                }
             }
             
             cleanedAssignments.insert(newAssignment);
