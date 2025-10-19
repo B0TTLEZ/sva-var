@@ -7,6 +7,7 @@
 #include "slang/ast/Compilation.h"
 #include "slang/syntax/SyntaxTree.h"
 
+#include "DataModel.h" 
 #include "DataDependencyVisitor.h" // <-- 已更新
 #include "ControlFlowVisitor.h"
 #include "json.hpp"

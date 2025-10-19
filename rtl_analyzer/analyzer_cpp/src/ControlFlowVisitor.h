@@ -4,11 +4,12 @@
 #include <set>
 #include <map>
 #include <vector>
+
+#include "DataModel.h" 
+
 #include "slang/ast/ASTVisitor.h"
 #include "slang/ast/statements/ConditionalStatements.h"
 
-// 存储分析结果的数据结构：Key是被控信号, Value是控制信号集合
-using ControlMap = std::map<std::string, std::set<std::string>>;
 
 class ControlFlowVisitor : public slang::ast::ASTVisitor<ControlFlowVisitor, true, true> {
 public:
