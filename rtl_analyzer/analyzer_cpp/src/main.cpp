@@ -13,9 +13,20 @@
 using json = nlohmann::json;
 
 // --- JSON 序列化函数 ---
-void to_json(json& j, const ConditionClause& c) {
-    j = {{"signal", c.signal}, {"polarity", c.polarity}};
+void to_json(json& j, const ConditionExpression& expr) {
+    j = {
+        {"expression", expr.expression},
+        {"involvedSignals", expr.involvedSignals}
+    };
 }
+
+void to_json(json& j, const ConditionClause& c) {
+    j = {
+        {"expr", c.expr},
+        {"polarity", c.polarity}
+    };
+}
+
 void to_json(json& j, const AssignmentInfo& a) {
     j = {
         {"path", a.path},
@@ -25,6 +36,7 @@ void to_json(json& j, const AssignmentInfo& a) {
         {"type", a.type}
     };
 }
+
 void to_json(json& j, const VariableInfo& v) {
     j = {
         {"fullName", v.fullName},
@@ -142,7 +154,7 @@ std::vector<TestCase> testSuite = {
             {
                 // 注意：您需要提供这个测试用例中所有 .sv 文件的正确名称
                 // 我暂时用 'heirachy.sv' 作为占位符，您可能需要修改
-                "../test_suite/5_complex_hierarchy/heirarchy.sv" 
+                "../test_suite/5_complex_hierarchy/hierarchy.sv" 
             },
             "../../results/5_complex_hierarchy.json"
         },

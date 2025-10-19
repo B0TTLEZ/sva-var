@@ -4,12 +4,25 @@
 #include <map>
 #include <vector>
 
-struct ConditionClause {
-    std::string signal;
-    bool polarity;
+// 改进的条件表达式节点
+struct ConditionExpression {
+    std::string expression;  // 完整的表达式文本
+    std::set<std::string> involvedSignals;  // 涉及的所有信号
+    
+    bool operator<(const ConditionExpression& other) const {
+        if (expression != other.expression) 
+            return expression < other.expression;
+        return involvedSignals < other.involvedSignals;
+    }
+};
 
+struct ConditionClause {
+    ConditionExpression expr;  // 条件表达式
+    bool polarity;            // true: 原表达式, false: 取反
+    
     bool operator<(const ConditionClause& other) const {
-        if (signal != other.signal) return signal < other.signal;
+        if (expr < other.expr) return true;
+        if (other.expr < expr) return false;
         return polarity < other.polarity;
     }
 };
@@ -21,7 +34,7 @@ struct AssignmentInfo {
     std::set<std::string> drivingSignals;
     std::string file;
     int line = 0;
-    std::string type = "direct"; // "direct", "port_connection", "constant"
+    std::string type = "direct";
 
     bool operator<(const AssignmentInfo& other) const {
         if (path < other.path) return true;

@@ -12,7 +12,7 @@ class DependencyVisitor : public slang::ast::ASTVisitor<DependencyVisitor, true,
 public:
     DependencyVisitor();
 
-    // 简化模板处理 - 使用您工作代码中的模式
+    // 简化模板处理
     template<typename T>
     void handle(const T& node) {
         visitDefault(node);
@@ -32,6 +32,9 @@ public:
 
 private:
     VariableInfo& getOrAddVariable(const slang::ast::Symbol& symbol);
+    std::string extractCaseItemExpression(const slang::ast::Expression& caseExpr, const slang::ast::CaseStatement::ItemGroup& item);
+    std::vector<ConditionPath> buildCasePaths(const slang::ast::CaseStatement& stmt, const ConditionPath& parentPath);
+    
     std::vector<ConditionPath> pathStack;
     AnalysisResultMap results;
 };

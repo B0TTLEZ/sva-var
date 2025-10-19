@@ -2,11 +2,13 @@
 #include "slang/ast/Compilation.h"
 #include "slang/ast/expressions/OperatorExpressions.h"
 #include "slang/ast/expressions/MiscExpressions.h"
+#include "slang/ast/expressions/SelectExpressions.h"
 #include "slang/ast/symbols/PortSymbols.h"
 #include "slang/ast/symbols/InstanceSymbols.h"
 #include "slang/ast/symbols/VariableSymbols.h"
 #include "slang/ast/types/Type.h"
 #include "slang/text/SourceManager.h"
+#include <sstream>
 
 // 辅助函数：将端口方向枚举转换为字符串
 static std::string directionToString(slang::ast::ArgumentDirection dir) {
@@ -18,32 +20,106 @@ static std::string directionToString(slang::ast::ArgumentDirection dir) {
     }
 }
 
-// 辅助 Visitor 1: 提取条件表达式中的信号和极性
+// 简化的 ConditionClauseVisitor - 只处理核心表达式
 class ConditionClauseVisitor : public slang::ast::ASTVisitor<ConditionClauseVisitor, true, true> {
 public:
-    template<typename T> void handle(const T& node) { visitDefault(node); }
+    template<typename T> void handle(const T& node) { 
+        // 对于未知节点类型，直接跳过
+        visitDefault(node); 
+    }
 
     void handle(const slang::ast::NamedValueExpression& expr) {
         const slang::ast::Symbol* symbol = &expr.symbol;
         if (symbol && !symbol->isType()) {
             std::string signalName = symbol->getHierarchicalPath();
-            clauses.insert({signalName, true});
+            // 直接添加信号名称到表达式
+            if (!currentExpression.empty()) {
+                currentExpression += " ";
+            }
+            currentExpression += signalName;
+            involvedSignals.insert(signalName);
         }
+    }
+
+    void handle(const slang::ast::BinaryExpression& expr) {
+        // 处理二元操作符
+        expr.left().visit(*this);
+        
+        // 添加操作符
+        std::string opStr;
+        switch (expr.op) {
+            case slang::ast::BinaryOperator::Equality: opStr = " == "; break;
+            case slang::ast::BinaryOperator::Inequality: opStr = " != "; break;
+            case slang::ast::BinaryOperator::LogicalAnd: opStr = " && "; break;
+            case slang::ast::BinaryOperator::LogicalOr: opStr = " || "; break;
+            case slang::ast::BinaryOperator::GreaterThanEqual: opStr = " >= "; break;
+            case slang::ast::BinaryOperator::GreaterThan: opStr = " > "; break;
+            case slang::ast::BinaryOperator::LessThanEqual: opStr = " <= "; break;
+            case slang::ast::BinaryOperator::LessThan: opStr = " < "; break;
+            default: opStr = " op "; break;
+        }
+        currentExpression += opStr;
+        
+        expr.right().visit(*this);
     }
 
     void handle(const slang::ast::UnaryExpression& expr) {
-        if (expr.op == slang::ast::UnaryOperator::LogicalNot) {
-            ConditionClauseVisitor subVisitor;
-            expr.operand().visit(subVisitor);
-            for (auto& clause : subVisitor.clauses) {
-                clauses.insert({clause.signal, !clause.polarity});
-            }
-        } else {
-            visitDefault(expr);
+        // 处理一元操作符
+        std::string opStr;
+        switch (expr.op) {
+            case slang::ast::UnaryOperator::LogicalNot: opStr = "!"; break;
+            case slang::ast::UnaryOperator::BitwiseAnd: opStr = "&"; break;  // 归约与
+            case slang::ast::UnaryOperator::BitwiseOr: opStr = "|"; break;   // 归约或
+            case slang::ast::UnaryOperator::BitwiseXor: opStr = "^"; break;  // 归约异或
+            default: opStr = "unary_op "; break;
         }
+        currentExpression += opStr;
+        
+        expr.operand().visit(*this);
     }
 
-    std::set<ConditionClause> clauses;
+    void handle(const slang::ast::IntegerLiteral& literal) {
+        // 添加常量值
+        if (!currentExpression.empty()) {
+            currentExpression += " ";
+        }
+        currentExpression += literal.getValue().toString();
+    }
+
+    void handle(const slang::ast::ElementSelectExpression& expr) {
+        // 处理位选择，如 config_bits[3]
+        expr.value().visit(*this);
+        currentExpression += "[";
+        expr.selector().visit(*this);
+        currentExpression += "]";
+    }
+
+    void handle(const slang::ast::RangeSelectExpression& expr) {
+        // 处理范围选择，如 config_bits[3:2]
+        expr.value().visit(*this);
+        currentExpression += "[";
+        expr.left().visit(*this);
+        currentExpression += ":";
+        expr.right().visit(*this);
+        currentExpression += "]";
+    }
+
+    std::string getExpressionString() const {
+        return currentExpression;
+    }
+
+    std::set<std::string> getInvolvedSignals() const {
+        return involvedSignals;
+    }
+
+    void reset() {
+        currentExpression.clear();
+        involvedSignals.clear();
+    }
+
+private:
+    std::string currentExpression;
+    std::set<std::string> involvedSignals;
 };
 
 // 辅助 Visitor 2: 仅提取数据依赖信号的名称
@@ -62,11 +138,184 @@ public:
     std::set<std::string> signals;
 };
 
+class CaseItemExpressionVisitor : public slang::ast::ASTVisitor<CaseItemExpressionVisitor, true, true> {
+public:
+    template<typename T> void handle(const T& node) { 
+        visitDefault(node); 
+    }
+
+    void handle(const slang::ast::NamedValueExpression& expr) {
+        const slang::ast::Symbol* symbol = &expr.symbol;
+        if (symbol && !symbol->isType()) {
+            std::string signalName = symbol->getHierarchicalPath();
+            if (!currentExpression.empty()) {
+                currentExpression += " ";
+            }
+            currentExpression += signalName;
+        }
+    }
+
+    void handle(const slang::ast::IntegerLiteral& literal) {
+        if (!currentExpression.empty()) {
+            currentExpression += " ";
+        }
+        currentExpression += literal.getValue().toString();
+    }
+
+    void handle(const slang::ast::BinaryExpression& expr) {
+        if (expr.op == slang::ast::BinaryOperator::LogicalOr) {
+            expr.left().visit(*this);
+            currentExpression += " || ";
+            expr.right().visit(*this);
+        } else {
+            visitDefault(expr);
+        }
+    }
+
+    void handle(const slang::ast::UnaryExpression& expr) {
+        if (expr.op == slang::ast::UnaryOperator::LogicalNot) {
+            currentExpression += "!";
+            expr.operand().visit(*this);
+        } else {
+            visitDefault(expr);
+        }
+    }
+
+    std::string getExpressionString() const {
+        return currentExpression;
+    }
+
+    void reset() {
+        currentExpression.clear();
+    }
+
+private:
+    std::string currentExpression;
+};
+
+
 // --- 主 Visitor 的实现 ---
 
 DependencyVisitor::DependencyVisitor() {
     pathStack.push_back({}); // 初始化路径栈，包含一个空的根路径
 }
+
+// 提取 case 项的表达式
+std::string DependencyVisitor::extractCaseItemExpression(const slang::ast::Expression& caseExpr, const slang::ast::CaseStatement::ItemGroup& item) {
+    CaseItemExpressionVisitor visitor;
+    
+    // 处理 case 项的表达式
+    if (item.expressions.empty()) {
+        return "default"; // default case
+    }
+    
+    // 处理单个或多个表达式（用 || 连接）
+    for (size_t i = 0; i < item.expressions.size(); ++i) {
+        if (i > 0) {
+            visitor.reset();
+        }
+        item.expressions[i]->visit(visitor);
+        if (i > 0) {
+            // 对于多个表达式，需要构建 OR 条件
+            // 这里简化处理，只取第一个表达式
+            break;
+        }
+    }
+    
+    return visitor.getExpressionString();
+}
+
+// 构建 case 语句的所有条件路径
+std::vector<ConditionPath> DependencyVisitor::buildCasePaths(const slang::ast::CaseStatement& stmt, const ConditionPath& parentPath) {
+    std::vector<ConditionPath> casePaths;
+    
+    // 处理 case 表达式
+    ConditionClauseVisitor caseExprVisitor;
+    stmt.expr.visit(caseExprVisitor);
+    
+    ConditionExpression caseExpr;
+    caseExpr.expression = caseExprVisitor.getExpressionString();
+    caseExpr.involvedSignals = caseExprVisitor.getInvolvedSignals();
+    
+    bool hasDefault = false;
+    
+    // 为每个 case 项创建条件路径
+    for (const auto& item : stmt.items) {
+        std::string itemExpression = extractCaseItemExpression(stmt.expr, item);
+        
+        if (itemExpression == "default") {
+            hasDefault = true;
+            continue; // default 单独处理
+        }
+        
+        // 创建 case 项的条件：case_expr == case_item_value
+        ConditionExpression fullCondition;
+        fullCondition.expression = caseExpr.expression + " == " + itemExpression;
+        fullCondition.involvedSignals = caseExpr.involvedSignals;
+        
+        ConditionClause conditionClause;
+        conditionClause.expr = fullCondition;
+        conditionClause.polarity = true;
+        
+        ConditionPath itemPath = parentPath;
+        itemPath.insert(conditionClause);
+        casePaths.push_back(itemPath);
+    }
+    
+    // 处理 default case
+    if (hasDefault || stmt.defaultCase) {
+        // default case 的条件是前面所有 case 项条件的否定
+        ConditionPath defaultPath = parentPath;
+        
+        for (const auto& item : stmt.items) {
+            std::string itemExpression = extractCaseItemExpression(stmt.expr, item);
+            if (itemExpression == "default") continue;
+            
+            ConditionExpression fullCondition;
+            fullCondition.expression = caseExpr.expression + " == " + itemExpression;
+            fullCondition.involvedSignals = caseExpr.involvedSignals;
+            
+            ConditionClause conditionClause;
+            conditionClause.expr = fullCondition;
+            conditionClause.polarity = false; // 否定条件
+            
+            defaultPath.insert(conditionClause);
+        }
+        
+        casePaths.push_back(defaultPath);
+    }
+    
+    return casePaths;
+}
+
+// 修复 Case 语句处理
+void DependencyVisitor::handle(const slang::ast::CaseStatement& stmt) {
+    ConditionPath parentPath = pathStack.back();
+    
+    // 构建所有 case 路径
+    std::vector<ConditionPath> casePaths = buildCasePaths(stmt, parentPath);
+    
+    // 处理各个 case 项
+    size_t pathIndex = 0;
+    for (const auto& item : stmt.items) {
+        if (pathIndex < casePaths.size()) {
+            pathStack.push_back(casePaths[pathIndex]);
+            if (item.stmt) {
+                item.stmt->visit(*this);
+            }
+            pathStack.pop_back();
+            pathIndex++;
+        }
+    }
+    
+    // 处理 default case（如果有）
+    if (stmt.defaultCase && pathIndex < casePaths.size()) {
+        pathStack.push_back(casePaths[pathIndex]);
+        stmt.defaultCase->visit(*this);
+        pathStack.pop_back();
+    }
+}
+
 
 VariableInfo& DependencyVisitor::getOrAddVariable(const slang::ast::Symbol& symbol) {  
     std::string path = symbol.getHierarchicalPath();  
@@ -135,7 +384,7 @@ void DependencyVisitor::handle(const slang::ast::AssignmentExpression& expr) {
     AssignmentInfo assignInfo;
     assignInfo.path = pathStack.back();
     assignInfo.drivingSignals = rhsVisitor.signals;
-    assignInfo.type = "direct"; // 直接赋值
+    assignInfo.type = "direct";
 
     const slang::ast::Scope* scope = lhsSymbol->getParentScope();
     if (scope) {
@@ -161,56 +410,44 @@ void DependencyVisitor::handle(const slang::ast::ConditionalStatement& stmt) {
         ConditionClauseVisitor clauseVisitor;
         cond.expr->visit(clauseVisitor);
 
+        // 创建完整的条件表达式
+        ConditionExpression condExpr;
+        condExpr.expression = clauseVisitor.getExpressionString();
+        condExpr.involvedSignals = clauseVisitor.getInvolvedSignals();
+
+        ConditionClause trueClause;
+        trueClause.expr = condExpr;
+        trueClause.polarity = true;
+
         ConditionPath truePath = parentPath;
-        truePath.insert(clauseVisitor.clauses.begin(), clauseVisitor.clauses.end());
+        truePath.insert(trueClause);
         pathStack.push_back(truePath);
         
-        // 直接访问 ifTrue 语句（不是指针）
         stmt.ifTrue.visit(*this);
-
         pathStack.pop_back();
 
-        // 为下一个条件添加当前条件的否定
-        for (const auto& clause : clauseVisitor.clauses) {
-            parentPath.insert({clause.signal, !clause.polarity});
-        }
+        // 为 else 路径创建否定条件
+        ConditionClause falseClause;
+        falseClause.expr = condExpr;
+        falseClause.polarity = false;
+        parentPath.insert(falseClause);
     }
 
     // 处理 else 分支
     if (stmt.ifFalse) {
         pathStack.push_back(parentPath);
-        stmt.ifFalse->visit(*this);  // ifFalse 是指针，需要解引用
+        stmt.ifFalse->visit(*this);
         pathStack.pop_back();
     }
 }
 
-void DependencyVisitor::handle(const slang::ast::CaseStatement& stmt) {
-    ConditionClauseVisitor clauseVisitor;
-    stmt.expr.visit(clauseVisitor);
-    
-    ConditionPath parentPath = pathStack.back();
-    ConditionPath casePath = parentPath;
-    casePath.insert(clauseVisitor.clauses.begin(), clauseVisitor.clauses.end());
-    
-    pathStack.push_back(casePath);
-
-    for (const auto& item : stmt.items) {
-        if (item.stmt)
-            item.stmt->visit(*this);
-    }
-    
-    if (stmt.defaultCase) {
-        stmt.defaultCase->visit(*this);
-    }
-
-    pathStack.pop_back();
-}
 
 void DependencyVisitor::handle(const slang::ast::InstanceSymbol& symbol) {
     // 获取实例化的位置信息
-    const slang::ast::Scope* scope = symbol.getParentScope();
     std::string instanceFile;
     int instanceLine = 0;
+    
+    const slang::ast::Scope* scope = symbol.getParentScope();
     if (scope) {
         auto& comp = scope->getCompilation();
         auto* sm = comp.getSourceManager();
@@ -279,14 +516,24 @@ void DependencyVisitor::postProcess() {
         std::set<AssignmentInfo> cleanedAssignments;
         
         for (const auto& assignment : info.assignments) {
-            // 如果 drivingSignals 为空，标记为常量赋值
-            if (assignment.drivingSignals.empty() && assignment.type == "direct") {
-                AssignmentInfo constAssignment = assignment;
-                constAssignment.type = "constant";
-                cleanedAssignments.insert(constAssignment);
-            } else {
-                cleanedAssignments.insert(assignment);
+            // 跳过完全空的赋值（没有驱动信号、文件位置不准确）
+            if (assignment.drivingSignals.empty() && 
+                assignment.file.empty() && 
+                assignment.line == 0) {
+                continue; // 直接跳过这个空赋值
             }
+            
+            AssignmentInfo newAssignment = assignment;
+            
+            // 只有当有明确位置信息且没有驱动信号时，才标记为常量
+            if (assignment.drivingSignals.empty() && 
+                !assignment.file.empty() && 
+                assignment.line > 0 &&
+                assignment.type == "direct") {
+                newAssignment.type = "constant";
+            }
+            
+            cleanedAssignments.insert(newAssignment);
         }
         
         info.assignments = cleanedAssignments;
