@@ -1,0 +1,57 @@
+# LLM Configuration - Supports multiple providers
+# -----------------------------------------------------------------------------
+llm:
+  # Specify the currently active provider. The application will use this section's configuration.
+  # Valid options are the keys defined under the 'providers' section (e.g., "openai", "deepseek").
+  active_provider: "deepseek"
+
+  # --- Provider Definitions ---
+  # Each provider has its own configuration block.
+  providers:
+    # Configuration for OpenAI models (e.g., GPT-4, GPT-3.5)
+    openai:
+      # The name of the environment variable that holds the API key.
+      # In your terminal, run: export OPENAI_API_KEY='your_openai_key'
+      api_keyr: "OPENAI_API_KEY"
+      
+      # The base URL for the API endpoint. Default is for the official OpenAI API.
+      base_url: "https://api.openai.com/v1"
+
+      # The specific model identifier to use from this provider.
+      model: "gpt-4-turbo-preview"
+      
+      # Model parameters for controlling generation behavior.
+      temperature: 0.1
+      timeout: 120
+
+    # Configuration for DeepSeek models (e.g., deepseek-coder)
+    deepseek:
+      # The name of the environment variable that holds the API key.
+      # In your terminal, run: export DEEPSEEK_API_KEY='your_deepseek_key'
+      api_key: "sk-56457d9e10e7481495c76899b1a28392"
+      
+      # DeepSeek's API endpoint is compatible with OpenAI's, so we just change the base URL.
+      base_url: "https://api.deepseek.com/v1"
+      
+      # The specific model to use. 'deepseek-coder' is highly recommended for code-related tasks.
+      model: "deepseek-chat"
+      
+      # Model parameters can be tuned independently for each provider.
+      temperature: 0.1
+      timeout: 120
+
+# File Paths Configuration
+# -----------------------------------------------------------------------------
+paths:
+  # The root directory where all generated reports and outputs will be saved.
+  reports_dir: "reports"
+
+# Logging Configuration
+# -----------------------------------------------------------------------------
+logging:
+  # Logging level. Options: "DEBUG", "INFO", "WARNING", "ERROR".
+  # "DEBUG" provides the most detailed output, useful for development.
+  level: "INFO"
+  
+  # Format string for log messages.
+  format: "%(asctime)s - [%(levelname)s] - %(name)s - %(message)s"

@@ -1,0 +1,3 @@
+结构体的解析不是很全。
+  - ibex_core.cs_registers_i.dummy_instr_en is connected to: ibex_core.cs_registers_i.cpuctrlsts_part_wdata_raw
+这里有问题

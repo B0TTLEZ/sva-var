@@ -1,0 +1,46 @@
+================================================================================
+ ForesightSVA - Static Analysis Connectivity Report
+================================================================================
+
+This report describes the connectivity graph built directly from the static analysis JSON.
+It is used to guide the intelligent, context-aware chunking process.
+
+Graph Summary:
+  - Total Signals (Nodes): 22
+  - Total Connections (Edges): 26
+
+Found 2 logically connected signal groups (components):
+
+--------------------------------------------------
+Component #1 (Size: 21 signals)
+--------------------------------------------------
+  - aux_data                       is connected to: b
+  - control                        is connected to: enable, mode_sel, op_sel
+  - final_result                   is connected to: rst_n, stage2_out
+  - main_data                      is connected to: data_in
+  - rst_n                          is connected to: final_result, status_flags
+  - stage1_out                     is connected to: a, data_out
+  - stage1_status                  is connected to: status, status_flags
+  - stage2_out                     is connected to: final_result, result
+  - stage2_overflow                is connected to: overflow, status_flags
+  - status_flags                   is connected to: rst_n, stage1_status, stage2_overflow
+  - data_in                        is connected to: main_data, processed_data, status
+  - data_out                       is connected to: processed_data, stage1_out
+  - enable                         is connected to: control, processed_data
+  - mode_sel                       is connected to: control, processed_data
+  - processed_data                 is connected to: data_in, data_out, enable, mode_sel
+  - status                         is connected to: data_in, stage1_status
+  - a                              is connected to: overflow, result, stage1_out
+  - b                              is connected to: aux_data, result
+  - op_sel                         is connected to: control, overflow, result
+  - overflow                       is connected to: a, op_sel, result, stage2_overflow
+  - result                         is connected to: a, b, op_sel, overflow, stage2_out
+
+--------------------------------------------------
+Component #2 (Size: 1 signals)
+--------------------------------------------------
+  - clk                            is connected to: 
+
+================================================================================
+ End of Report
+================================================================================
