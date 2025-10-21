@@ -19,3 +19,7 @@ Makefile
 *.swo
 
 /results/
+
+**/__pycache__/
+**/output/
+/jg_test/
