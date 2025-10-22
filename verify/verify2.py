@@ -329,6 +329,8 @@ def generate_fpv_tcl(
         logging.error(f"Error generating FPV TCL script: {e}")
         return False
 
+
+
 def extract_proof_status(report_content: str) -> str:
     """
     从 JasperGold 报告中提取断言证明状态（简化版）。
@@ -802,6 +804,107 @@ def apply_single_mutation(original_rtl_content: str, mutation: Dict) -> str:
             
             return original_rtl_content
 
+def extract_detailed_proof_status(report_content: str) -> Dict[str, Any]:
+    """
+    Extracts a detailed proof status from the JasperGold report, focusing on assertions.
+
+    Args:
+        report_content (str): Content of the JasperGold report.
+
+    Returns:
+        Dict[str, Any]: A dictionary containing detailed proof results.
+    """
+    # --- 1. Initialize the result dictionary ---
+    result = {
+        "overall_status": "inconclusive",  # Default status
+        "total_assertions": 0,
+        "proven_count": 0,
+        "cex_count": 0,
+        "inconclusive_count": 0,
+        "timeout_count": 0,
+        "error_messages": [],
+    }
+
+    # --- 2. Extract all error messages first ---
+    error_pattern = re.compile(r"^\s*(?:ERROR|FATAL|CRITICAL).*", re.MULTILINE)
+    errors = error_pattern.findall(report_content)
+    
+    if errors:
+        result["overall_status"] = "error"
+        result["error_messages"] = sorted(list(set([e.strip() for e in errors])))
+        return result
+
+    # --- 3. Find and parse the SUMMARY section (修复正则表达式) ---
+    # 尝试多种可能的SUMMARY格式
+    summary_patterns = [
+        r"SUMMARY\s*\n=+\s*\n(.*?)(?:\n=+|\n\s*$|\Z)",  # 格式1: SUMMARY\n======\n内容\n======
+        r"SUMMARY\s*\n-+\s*\n(.*?)(?:\n-+|\n\s*$|\Z)",  # 格式2: SUMMARY\n------\n内容\n------
+        r"SUMMARY\s*\n(.*?)(?:\n={2,}|\n-{2,}|\n\s*$|\Z)",  # 格式3: 更通用的匹配
+    ]
+    
+    summary_content = None
+    for pattern in summary_patterns:
+        summary_match = re.search(pattern, report_content, re.DOTALL | re.IGNORECASE)
+        if summary_match:
+            summary_content = summary_match.group(1).strip()
+            break
+    
+    if not summary_content:
+        # 如果找不到标准SUMMARY，尝试直接在整个报告中查找断言信息
+        result["overall_status"] = "inconclusive"
+        result["error_messages"] = ["Could not find standard SUMMARY section, searching in full report..."]
+        
+        # 在整个报告中搜索断言信息
+        summary_content = report_content
+    
+    # --- 4. Extract counts from the summary ---
+    # 查找断言总数
+    assertions_total_match = re.search(r"assertions\s*:\s*(\d+)", summary_content)
+    if assertions_total_match:
+        result["total_assertions"] = int(assertions_total_match.group(1))
+    
+    # 查找各种状态的断言数量
+    status_patterns = {
+        "proven": r"-\s*proven\s*:\s*(\d+)",
+        "cex": r"-\s*cex\s*:\s*(\d+)", 
+        "ar_cex": r"-\s*ar_cex\s*:\s*(\d+)",
+        "undetermined": r"-\s*undetermined\s*:\s*(\d+)",
+        "unknown": r"-\s*unknown\s*:\s*(\d+)",
+        "timeout": r"-\s*timeout\s*:\s*(\d+)",
+        "error": r"-\s*error\s*:\s*(\d+)"
+    }
+    
+    for status, pattern in status_patterns.items():
+        match = re.search(pattern, summary_content)
+        if match:
+            count = int(match.group(1))
+            if status == "proven":
+                result["proven_count"] += count
+            elif status in ["cex", "ar_cex"]:
+                result["cex_count"] += count
+            elif status in ["undetermined", "unknown"]:
+                result["inconclusive_count"] += count
+            elif status == "timeout":
+                result["timeout_count"] += count
+
+    # --- 5. Determine the final overall_status ---
+    if result["total_assertions"] > 0:
+        if result["proven_count"] == result["total_assertions"]:
+            result["overall_status"] = "proven"
+        elif result["cex_count"] > 0:
+            result["overall_status"] = "cex"
+        elif result["timeout_count"] > 0:
+            result["overall_status"] = "timeout"
+        elif result["inconclusive_count"] > 0:
+            result["overall_status"] = "inconclusive"
+        elif result["proven_count"] > 0:
+            result["overall_status"] = "partial_proven"
+    else:
+        result["overall_status"] = "no_assertions"
+
+    return result
+
+
 def run_jg_single(tcl_file_path: Path, jg_dir: Path, rpt_dir: Path) -> Path:
     """
     运行单个 JasperGold 验证。
@@ -848,25 +951,26 @@ def run_jg_single(tcl_file_path: Path, jg_dir: Path, rpt_dir: Path) -> Path:
     report_file_path = rpt_dir / f"{sva_name}.txt"
     report_file_path.write_text(report, encoding="utf-8")
     logging.info(f"Saved report to: {report_file_path}")
+    shutil.rmtree(project_dir)
     return report_file_path
 
-def insert_sva_into_module_content(
+def insert_multiple_svas_into_module_content(
     module_content: str,
     target_module_name: str,
-    sva_to_insert: str,
+    svas_to_insert: List[str],
     indent: str = "  "
 ) -> str:
     """
-    在模块内容字符串中的endmodule之前插入SVA。
+    在模块内容字符串中的endmodule之前插入多个SVA。
     
     Args:
         module_content: 模块内容字符串
         target_module_name: 目标模块名称
-        sva_to_insert: 要插入的SVA字符串
+        svas_to_insert: 要插入的SVA字符串列表
         indent: 缩进字符串
         
     Returns:
-        str: 插入SVA后的模块内容，如果失败返回None
+        str: 插入所有SVA后的模块内容，如果失败返回None
     """
     try:
         # 查找模块的结束位置
@@ -882,11 +986,16 @@ def insert_sva_into_module_content(
 
         module_content_str = match.group(0)
         
-        # 在 endmodule 前插入 SVA
-        sva_indented = '\n'.join([indent + line for line in sva_to_insert.strip().split('\n')])
+        # 将所有SVA连接起来
+        all_svas_indented = ""
+        for sva in svas_to_insert:
+            sva_indented = '\n'.join([indent + line for line in sva.strip().split('\n')])
+            all_svas_indented += f"{sva_indented}\n"
+        
+        # 在 endmodule 前插入所有SVA
         modified_module = module_content_str.replace(
             "endmodule",
-            f"{sva_indented}\nendmodule"
+            f"{all_svas_indented}endmodule"
         )
         
         # 替换整个模块内容
@@ -895,96 +1004,114 @@ def insert_sva_into_module_content(
         return modified_content
 
     except Exception as e:
-        logging.error(f"Error inserting SVA into module content: {e}")
+        logging.error(f"Error inserting multiple SVAs into module content: {e}")
         return None
 
-def run_mutation_test_for_single_assertion(args_tuple):
+def save_checkpoint(data: Dict, output_dir: Path, checkpoint_name: str):
     """
-    对单个断言运行突变测试的包装函数，用于并行处理。
+    保存检查点数据。
     """
-    (assertion, original_rtl_file, mutants_dir, mutation_output_dir, 
+    checkpoint_file = output_dir / f"checkpoint_{checkpoint_name}.json"
+    try:
+        with open(checkpoint_file, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+        logging.debug(f"Checkpoint saved: {checkpoint_file}")
+    except Exception as e:
+        logging.error(f"Failed to save checkpoint {checkpoint_name}: {e}")
+
+def load_checkpoint(output_dir: Path, checkpoint_name: str) -> Dict:
+    """
+    加载检查点数据。
+    """
+    checkpoint_file = output_dir / f"checkpoint_{checkpoint_name}.json"
+    if checkpoint_file.exists():
+        try:
+            with open(checkpoint_file, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except Exception as e:
+            logging.error(f"Failed to load checkpoint {checkpoint_name}: {e}")
+    return {}
+
+def run_mutation_test_for_variable(args_tuple):
+    """
+    对单个变量的所有断言运行突变测试的包装函数，用于并行处理。
+    """
+    (variable_name, assertions, original_rtl_file, mutants_dir, mutation_output_dir, 
      ibex_files, prim_assert_dir, dv_utils_dir, rtl_dir) = args_tuple
-    
-    sva_id = assertion["sva_id"]
-    sva_string = assertion["sva_string"]
     
     try:
         # 读取原始RTL内容
         with open(original_rtl_file, 'r', encoding='utf-8') as f:
             original_rtl_content = f.read()
         
-        mutation_results = {}
-        total_mutations = 0
-        killed_mutations = 0
+        # 尝试加载该变量的检查点
+        checkpoint = load_checkpoint(mutation_output_dir, f"variable_{variable_name}")
+        mutation_results = checkpoint.get("mutation_results", {})
+        mutation_type_stats = checkpoint.get("mutation_type_stats", {})
+        total_mutations = checkpoint.get("total_mutations", 0)
+        killed_mutations = checkpoint.get("killed_mutations", 0)
+        
+        # 获取该变量的所有SVA字符串
+        variable_svas = [assertion["sva_string"] for assertion in assertions]
+        logging.info(f"Testing variable '{variable_name}' with {len(variable_svas)} assertions")
         
         # 获取所有突变文件
         mutant_files = list(mutants_dir.glob("*.sv"))
-        # # ========== 添加突变体测试限制代码 ==========
-        # # 只取前2个突变文件，每个文件只取前3个突变体进行测试
-        # max_mutant_files = 5
-        # max_mutations_per_file = 5
-        # mutant_files = mutant_files[:max_mutant_files]
-        # logging.info(f"TEST MODE: Using {len(mutant_files)} mutant files for testing")
-        # # ========== 添加结束 ==========
+        
+        # 记录已处理的突变，避免重复处理
+        processed_mutations = set(mutation_results.keys())
+        
         for mutant_file in mutant_files:
+            # 使用文件名作为突变类型
+            mutation_type = mutant_file.stem
+            
             # 加载突变文件中的所有突变体
             mutations = load_mutations_from_file(mutant_file)
             
             if not mutations:
                 logging.warning(f"No valid mutations found in {mutant_file}")
                 continue
-            # # ========== 添加突变体数量限制 ==========
-            # # 每个文件只取前几个突变体
-            # mutations = mutations[:max_mutations_per_file]
-            # logging.info(f"  File {mutant_file.name}: using {len(mutations)} mutations")
-            # # ========== 添加结束 ==========
+            
+            # 初始化该类型的统计
+            if mutation_type not in mutation_type_stats:
+                mutation_type_stats[mutation_type] = {
+                    "total": 0,
+                    "killed": 0,
+                    "survived": 0,
+                    "skipped": 0,
+                    "killed_rate": 0.0
+                }
+            
             # 对文件中的每个突变体单独测试
             for i, mutation in enumerate(mutations):
-                mutation_id = f"{mutant_file.stem}_{i}"
+                mutation_id = f"{mutation_type}_{i}"
+                
+                # 如果已经处理过，跳过
+                if mutation_id in processed_mutations:
+                    continue
+                
                 total_mutations += 1
+                mutation_type_stats[mutation_type]["total"] += 1
                 
                 try:
                     # 1. 应用单个突变
                     mutated_content = apply_single_mutation(original_rtl_content, mutation)
                     
-                    # 如果突变失败（内容没有变化），跳过这个突变
-                    if mutated_content == original_rtl_content:
-                        logging.warning(f"Mutation {mutation_id} failed to apply, skipping")
-                        mutation_results[mutation_id] = {
-                            "killed": False,
-                            "verification_status": "skipped",
-                            "error": "Mutation failed to apply",
-                            "original_code": mutation.get("original_code_slice", "N/A"),
-                            "mutation_code": mutation.get("mutation_code_slice", "N/A")
-                        }
-                        continue
-                    
-                    # 2. 将当前测试的断言插入到突变后的RTL中
-                    mutated_with_sva = insert_sva_into_module_content(
-                        mutated_content, "ibex_if_stage", sva_string
+                    # 2. 将该变量的所有断言插入到突变后的RTL中
+                    mutated_with_svas = insert_multiple_svas_into_module_content(
+                        mutated_content, "ibex_if_stage", variable_svas
                     )
                     
-                    if not mutated_with_sva:
-                        logging.warning(f"Failed to insert SVA into mutated RTL for {mutation_id}")
-                        mutation_results[mutation_id] = {
-                            "killed": False,
-                            "verification_status": "skipped", 
-                            "error": "Failed to insert SVA into mutated RTL",
-                            "original_code": mutation.get("original_code_slice", "N/A"),
-                            "mutation_code": mutation.get("mutation_code_slice", "N/A")
-                        }
-                        continue
-                    
-                    # 3. 创建突变后的RTL文件（包含断言）
-                    mutant_rtl_dir = mutation_output_dir / "mutant_rtl" / sva_id
+                    # 3. 创建突变后的RTL文件（包含所有断言）
+                    mutant_rtl_dir = mutation_output_dir / "mutant_rtl" / variable_name
                     mutant_rtl_dir.mkdir(parents=True, exist_ok=True)
                     mutant_rtl_file = mutant_rtl_dir / f"{mutation_id}.sv"
                     
                     with open(mutant_rtl_file, 'w', encoding='utf-8') as f:
-                        f.write(mutated_with_sva)
+                        f.write(mutated_with_svas)
                     
                     # 4. 创建文件列表（使用突变后的RTL）
-                    file_list_dir = mutation_output_dir / "mutant_filelists" / sva_id
+                    file_list_dir = mutation_output_dir / "mutant_filelists" / variable_name
                     file_list_dir.mkdir(parents=True, exist_ok=True)
                     file_list_path = file_list_dir / f"{mutation_id}.f"
                     
@@ -996,7 +1123,7 @@ def run_mutation_test_for_single_assertion(args_tuple):
                                 f.write(f"{file_path}\n")
                     
                     # 5. 生成TCL脚本
-                    tcl_dir = mutation_output_dir / "mutant_tcl" / sva_id
+                    tcl_dir = mutation_output_dir / "mutant_tcl" / variable_name
                     tcl_dir.mkdir(parents=True, exist_ok=True)
                     tcl_path = tcl_dir / f"{mutation_id}.tcl"
                     
@@ -1011,76 +1138,126 @@ def run_mutation_test_for_single_assertion(args_tuple):
                         reset_signal="~rst_ni"
                     ):
                         # 6. 运行JasperGold验证
-                        jg_dir = mutation_output_dir / "mutant_jg" / sva_id / mutation_id
-                        rpt_dir = mutation_output_dir / "mutant_reports" / sva_id
+                        jg_dir = mutation_output_dir / "mutant_jg" / variable_name / mutation_id
+                        rpt_dir = mutation_output_dir / "mutant_reports" / variable_name
                         rpt_dir.mkdir(parents=True, exist_ok=True)
                         
                         rpt_path = run_jg_single(tcl_path, jg_dir, rpt_dir)
                         
-                        # 7. 分析结果
+                        # 7. 分析结果 - 使用新的详细分析函数
                         report_content = rpt_path.read_text(encoding='utf-8')
-                        status = extract_proof_status(report_content)
+                        detailed_status = extract_detailed_proof_status(report_content)
                         
-                        # 如果断言在突变体上失败（返回cex），说明突变被杀死
-                        killed = (status != "proven")
+                        # 判断突变是否被杀死                
+                        total_assertions = detailed_status.get("total_assertions", 0)                   
+                        proven_count = detailed_status.get("proven_count", 0)
+                        overall_status = detailed_status.get("overall_status", "error")
+                        
+                        # 突变被杀死的条件：
+                        killed = (overall_status == "error" or 
+                                 proven_count != total_assertions or 
+                                 overall_status != "proven")
+                        
                         if killed:
                             killed_mutations += 1
+                            mutation_type_stats[mutation_type]["killed"] += 1
+                        else:
+                            mutation_type_stats[mutation_type]["survived"] += 1
                         
                         mutation_results[mutation_id] = {
                             "killed": killed,
-                            "verification_status": status,
+                            "verification_status": overall_status,
+                            "detailed_status": detailed_status,
+                            "total_assertions": total_assertions,
+                            "proven_count": proven_count,
                             "original_code": mutation.get("original_code_slice", "N/A"),
                             "mutation_code": mutation.get("mutation_code_slice", "N/A"),
                             "mutant_file": str(mutant_file),
-                            "mutation_index": i
+                            "mutation_index": i,
+                            "mutation_type": mutation_type
                         }
                         
-                        logging.info(f"  {sva_id} - Mutation {mutation_id}: {'KILLED' if killed else 'SURVIVED'} ({status})")
+                        logging.info(f"  {variable_name} - Mutation {mutation_id}: {'KILLED' if killed else 'SURVIVED'} "
+                                   f"({overall_status}, {proven_count}/{total_assertions} proven)")
+                        
+                        # 保存检查点
+                        checkpoint_data = {
+                            "mutation_results": mutation_results,
+                            "mutation_type_stats": mutation_type_stats,
+                            "total_mutations": total_mutations,
+                            "killed_mutations": killed_mutations
+                        }
+                        save_checkpoint(checkpoint_data, mutation_output_dir, f"variable_{variable_name}")
                         
                     else:
+                        mutation_type_stats[mutation_type]["skipped"] += 1
                         mutation_results[mutation_id] = {
                             "killed": False,
                             "verification_status": "error",
                             "error": "Failed to generate TCL script",
                             "original_code": mutation.get("original_code_slice", "N/A"),
-                            "mutation_code": mutation.get("mutation_code_slice", "N/A")
+                            "mutation_code": mutation.get("mutation_code_slice", "N/A"),
+                            "mutation_type": mutation_type
                         }
                         
                 except Exception as e:
-                    logging.error(f"  Error testing mutation {mutation_id} for {sva_id}: {str(e)}")
+                    logging.error(f"  Error testing mutation {mutation_id} for {variable_name}: {str(e)}")
+                    mutation_type_stats[mutation_type]["skipped"] += 1
                     mutation_results[mutation_id] = {
                         "killed": False,
                         "verification_status": "error",
                         "error": str(e),
                         "original_code": mutation.get("original_code_slice", "N/A"),
-                        "mutation_code": mutation.get("mutation_code_slice", "N/A")
+                        "mutation_code": mutation.get("mutation_code_slice", "N/A"),
+                        "mutation_type": mutation_type
                     }
         
-        # 计算突变覆盖度
+        # 计算突变覆盖度和每种类型的杀死率
         mutation_score = killed_mutations / total_mutations if total_mutations > 0 else 0
         
+        # 计算每种突变类型的杀死率
+        for mutation_type, stats in mutation_type_stats.items():
+            tested = stats["total"] - stats["skipped"]
+            if tested > 0:
+                stats["killed_rate"] = stats["killed"] / tested
+            else:
+                stats["killed_rate"] = 0.0
+        
+        # 打印该变量的突变类型统计
+        logging.info(f"=== Mutation Type Statistics for {variable_name} ===")
+        for mutation_type, stats in mutation_type_stats.items():
+            tested = stats["total"] - stats["skipped"]
+            logging.info(f"  {mutation_type:15} | Total: {stats['total']:3d} | Tested: {tested:3d} | "
+                        f"Killed: {stats['killed']:3d} | Rate: {stats['killed_rate']:6.1%}")
+        
+        # 清理检查点文件
+        checkpoint_file = mutation_output_dir / f"checkpoint_variable_{variable_name}.json"
+        if checkpoint_file.exists():
+            checkpoint_file.unlink()
+        
         return {
-            "sva_id": sva_id,
-            "sva_string": sva_string,
+            "variable_name": variable_name,
+            "assertion_count": len(assertions),
             "total_mutations": total_mutations,
             "killed_mutations": killed_mutations,
             "mutation_score": mutation_score,
+            "mutation_type_statistics": mutation_type_stats,
             "details": mutation_results
         }
         
     except Exception as e:
-        logging.error(f"Error in mutation testing for {sva_id}: {str(e)}")
+        logging.error(f"Error in mutation testing for variable {variable_name}: {str(e)}")
         return {
-            "sva_id": sva_id,
-            "sva_string": sva_string,
+            "variable_name": variable_name,
             "error": str(e),
             "total_mutations": 0,
             "killed_mutations": 0,
             "mutation_score": 0,
+            "mutation_type_statistics": {},
             "details": {}
         }
 
-def run_mutation_testing_parallel(
+def run_mutation_testing_parallel_by_variable(
     proven_svas: Dict[str, List[Dict]],
     original_rtl_file: Path,
     mutants_dir: Path,
@@ -1089,7 +1266,7 @@ def run_mutation_testing_parallel(
     max_workers: int = None
 ) -> Dict[str, Any]:
     """
-    并行运行突变测试。
+    按变量并行运行突变测试。
     """
     mutation_output_dir = output_dir / "mutation_testing"
     if mutation_output_dir.exists():
@@ -1101,67 +1278,61 @@ def run_mutation_testing_parallel(
     dv_utils_dir = original_rtl_file.parent.parent / "vendor/lowrisc_ip/dv/sv/dv_utils"
     rtl_dir = original_rtl_file.parent
 
-    # # ========== 添加测试限制代码 ==========
-    # # 只取前3个变量，每个变量只取前1条断言进行测试
-    # test_svas = {}
-    # test_count = 0
-    # max_per_variable = 3
-    # max_variables = 5
+    # 测试限制（可选）
+    test_variables = {}
     
-    # for i, (variable_name, assertions) in enumerate(proven_svas.items()):
-    #     if i >= max_variables:
-    #         break
-    #     test_svas[variable_name] = assertions[:max_per_variable]
-    #     test_count += len(assertions[:max_per_variable])
-    
-    # proven_svas = test_svas
-    # logging.info(f"TEST MODE: Using {test_count} proven assertions for mutation testing")
-    # # ========== 添加结束 ==========
-
-    # 收集所有要测试的断言
-    test_cases = []
     for variable_name, assertions in proven_svas.items():
-        for assertion in assertions:
-            if assertion.get("status") == "proven":
-                test_cases.append(assertion)
+        test_variables[variable_name] = assertions
     
-    logging.info(f"Starting mutation testing for {len(test_cases)} proven assertions...")
+    logging.info(f"Using {len(test_variables)} variables for mutation testing")
     
-    if max_workers is None:
-        max_workers = min(max(1, int(multiprocessing.cpu_count() * 0.5)), 8)
+    # 尝试加载总体检查点
+    global_checkpoint = load_checkpoint(mutation_output_dir, "global_progress")
+    all_results = global_checkpoint.get("all_results", {})
+    completed_variables = set(all_results.keys())
     
-    # 准备参数列表
+    # 准备参数列表（按变量分组）
     args_list = []
-    for assertion in test_cases:
+    for variable_name, assertions in test_variables.items():
+        # 如果已经完成，跳过
+        if variable_name in completed_variables:
+            logging.info(f"Skipping completed variable: {variable_name}")
+            continue
         args_list.append((
-            assertion, original_rtl_file, mutants_dir, mutation_output_dir,
+            variable_name, assertions, original_rtl_file, mutants_dir, mutation_output_dir,
             ibex_files, prim_assert_dir, dv_utils_dir, rtl_dir
         ))
-    
-    all_results = {}
     
     # 并行执行
     with ProcessPoolExecutor(max_workers=max_workers) as executor:
         # 提交所有任务
-        future_to_sva = {
-            executor.submit(run_mutation_test_for_single_assertion, args): args[0]["sva_id"]
+        future_to_variable = {
+            executor.submit(run_mutation_test_for_variable, args): args[0]  # args[0] is variable_name
             for args in args_list
         }
         
         # 使用tqdm显示进度
-        with tqdm(total=len(args_list), desc="Mutation Testing") as pbar:
-            for future in as_completed(future_to_sva):
-                sva_id = future_to_sva[future]
+        with tqdm(total=len(args_list), desc="Mutation Testing by Variable") as pbar:
+            for future in as_completed(future_to_variable):
+                variable_name = future_to_variable[future]
                 try:
                     result = future.result()
-                    all_results[sva_id] = result
+                    all_results[variable_name] = result
+                    
+                    # 保存总体进度检查点
+                    global_checkpoint_data = {
+                        "all_results": all_results,
+                        "completed_variables": list(all_results.keys())
+                    }
+                    save_checkpoint(global_checkpoint_data, mutation_output_dir, "global_progress")
+                    
                     pbar.update(1)
-                    pbar.set_postfix_str(f"{len(all_results)}/{len(args_list)}")
+                    pbar.set_postfix_str(f"{len(all_results)}/{len(test_variables)}")
                     
                 except Exception as e:
-                    logging.error(f"Exception in mutation testing for {sva_id}: {str(e)}")
-                    all_results[sva_id] = {
-                        "sva_id": sva_id,
+                    logging.error(f"Exception in mutation testing for variable {variable_name}: {str(e)}")
+                    all_results[variable_name] = {
+                        "variable_name": variable_name,
                         "error": str(e),
                         "total_mutations": 0,
                         "killed_mutations": 0,
@@ -1177,21 +1348,30 @@ def run_mutation_testing_parallel(
     
     # 保存总体结果
     overall_result = {
-        "total_assertions": len(all_results),
+        "total_variables": len(all_results),
+        "total_assertions": sum(result.get("assertion_count", 0) for result in all_results.values()),
         "total_mutations_tested": total_mutations,
         "total_killed_mutations": total_killed,
         "overall_mutation_score": overall_score,
-        "mutation_testing_results": all_results
+        "variable_results": all_results
     }
     
     result_file = mutation_output_dir / "mutation_testing_results.json"
     with open(result_file, 'w', encoding='utf-8') as f:
         json.dump(overall_result, f, indent=2, ensure_ascii=False)
     
+    # 清理全局检查点
+    global_checkpoint_file = mutation_output_dir / "checkpoint_global_progress.json"
+    if global_checkpoint_file.exists():
+        global_checkpoint_file.unlink()
+    
     logging.info(f"Mutation testing completed. Overall score: {overall_score:.2%}")
     logging.info(f"Results saved to: {result_file}")
     
     return overall_result
+
+
+
 
 # ============================ 修改main函数 ============================
 
@@ -1245,6 +1425,8 @@ def main():
     
     # 2. 如果启用突变测试
 
+    # 在main函数的突变测试部分，修改解析逻辑：
+
     if args.mut:
         logging.info("\n" + "="*60)
         logging.info("Starting Mutation Testing")
@@ -1266,27 +1448,22 @@ def main():
                 if task_status not in ["passed", "partial_pass"] and False:
                     logging.info(f"Verification task status is '{task_status}', skipping mutation testing")
                 else:
-                    # 获取已证明的断言 - 修正数据结构处理
+                    # 正确解析数据结构
                     proven_svas = {}
                     sva_details = verification_result.get("sva_details", {})
                     
                     for module_name, variables_dict in sva_details.items():
-                        proven_assertions = []
-                        
                         # variables_dict 是 {variable_name: [assertions_list]}
                         for variable_name, assertions_list in variables_dict.items():
                             if isinstance(assertions_list, list):
+                                # 只选择状态为"proven"的断言
                                 proven_for_variable = [
                                     assertion for assertion in assertions_list 
                                     if isinstance(assertion, dict) and assertion.get("status") == "proven"
                                 ]
-                                proven_assertions.extend(proven_for_variable)
                                 if proven_for_variable:
+                                    proven_svas[variable_name] = proven_for_variable
                                     logging.info(f"  Variable {variable_name}: {len(proven_for_variable)} proven assertions")
-                        
-                        if proven_assertions:
-                            proven_svas[module_name] = proven_assertions
-                            logging.info(f"Module {module_name}: {len(proven_assertions)} proven assertions")
                     
                     total_proven = sum(len(v) for v in proven_svas.values())
                     logging.info(f"Total proven assertions found: {total_proven}")
@@ -1296,7 +1473,7 @@ def main():
                         ibex_files = create_ibex_file_list(args.ibex_dir)
                         
                         # 运行突变测试
-                        mutation_result = run_mutation_testing_parallel(
+                        mutation_result = run_mutation_testing_parallel_by_variable(
                             proven_svas=proven_svas,
                             original_rtl_file=args.ibex_dir / "ibex_if_stage.sv",
                             mutants_dir=args.mutants_dir,
