@@ -32,7 +32,7 @@ std::vector<TestCase> testSuite = {
         // {
         //     "Sequential Controlflow",
         //     "test_sequential",
-        //     {"../test_suite/2_sequential_controlflow/test_sequential.sv"},
+        //     {"../../test_suite/2_sequential_controlflow/test_sequential.sv"},
         //     {},
         //     "../../results/2_sequential_controlflow.json"
         // },
@@ -40,8 +40,8 @@ std::vector<TestCase> testSuite = {
         //     "Module Hierarchy",
         //     "top_module",
         //     {
-        //         "../test_suite/3_module_hierarchy/sub_module.sv",
-        //         "../test_suite/3_module_hierarchy/top_module.sv"
+        //         "../../test_suite/3_module_hierarchy/sub_module.sv",
+        //         "../../test_suite/3_module_hierarchy/top_module.sv"
         //     },
         //     {},
         //     "../../results/3_module_hierarchy.json"
@@ -56,7 +56,7 @@ std::vector<TestCase> testSuite = {
         // {
         //     "Complex Hierarchy",
         //     "top_hierarchy",
-        //     {"../test_suite/5_complex_hierarchy/hierarchy.sv"},
+        //     {"../../test_suite/5_complex_hierarchy/hierarchy.sv"},
         //     {},
         //     "../../results/5_complex_hierarchy.json"
         // },
@@ -108,6 +108,25 @@ std::vector<TestCase> testSuite = {
         //     },
         //     "../../results/ibex_alu.json"
         // },
+        // {
+        //     "Ibex Core",
+        //     "ibex_alu", // 假设顶层模块名是 ibex_core
+        //     {
+        //         "/data/fhj/sva-var/ibex/rtl/ibex_alu.sv"
+        //     },
+        //     {   
+        //         "/data/fhj/sva-var/ibex/rtl/ibex_pkg.sv",
+        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_dummy_macros.svh",
+        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_yosys_macros.svh",
+        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_standard_macros.svh",
+        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_sec_cm.svh",
+        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_flop_macros.sv",
+        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert.sv",
+        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/dv/sv/dv_utils/dv_fcov_macros.svh"
+                
+        //     },
+        //     "../../results/ibex_alu.json"
+        // },
         {
             "Ibex Core",
             "ibex_core", // 假设顶层模块名是 ibex_core
@@ -144,6 +163,78 @@ std::vector<TestCase> testSuite = {
             },
             "../../results/ibex_core.json"
         }
+        
+        // {
+        //     "T1. Basic Dataflow",
+        //     "test_1_basic_flow",
+        //     {"../../test_suite/test_1_basic_flow.sv"},
+        //     {},
+        //     "../../results/T1_basic_flow.json"
+        // },
+        // {
+        //     "T2. If-Else Control Path",
+        //     "test_2_if_else",
+        //     {"../../test_suite/test_2_if_else_path.sv"},
+        //     {},
+        //     "../../results/T2_if_else_path.json"
+        // },
+        // {
+        //     "T3. Case Statement & Nested If",
+        //     "test_3_case",
+        //     {"../../test_suite/test_3_case_statement.sv"},
+        //     {},
+        //     "../../results/T3_case_statement.json"
+        // },
+        // {
+        //     "T4. Generate Loop & Genvar",
+        //     "test_4_generate",
+        //     {"../../test_suite/test_4_generate_loop.sv"},
+        //     {},
+        //     "../../results/T4_generate_loop.json"
+        // },
+        // {
+        //     "T5. Parameter & Enum Logic",
+        //     "test_5_param_enum",
+        //     {"../../test_suite/test_5_param_enum.sv"},
+        //     {},
+        //     "../../results/T5_param_enum.json"
+        // },
+        // {
+        //     "T6. Module Hierarchy & Port Connection",
+        //     "test_6_module_inst",
+        //     {"../../test_suite/test_6_module_inst.sv"},
+        //     {},
+        //     "../../results/T6_module_inst.json"
+        // },
+        // {
+        //     "T7. Sequential Logic & Complex Path",
+        //     "test_7_multicycle",
+        //     {"../../test_suite/test_7_multicycle.sv"},
+        //     {},
+        //     "../../results/T7_multicycle.json"
+        // },
+        // {
+        //     "T8. Array & Selects",
+        //     "test_8_array_select",
+        //     {"../../test_suite/test_8_array_select.sv"},
+        //     {},
+        //     "../../results/T8_array_select.json"
+        // },
+        // {
+        //     "T9. Struct & Union Access",
+        //     "test_9_struct_union",
+        //     {"../../test_suite/test_9_struct_union.sv"},
+        //     {},
+        //     "../../results/T9_struct_union.json"
+        // },
+        // {
+        //     "T10. Interface & Modport",
+        //     "test_10_interface",
+        //     {"../../test_suite/test_10_interface.sv"},
+        //     // {"../test_suite/simple_bus_if.sv"}, // 接口文件作为头文件
+        //     {},
+        //     "../../results/T10_interface.json"
+        // }
     };
 
 
@@ -152,7 +243,8 @@ using json = nlohmann::json;
 void to_json(json& j, const ConditionExpression& expr) {
     j = json{
         {"expression", expr.expression},
-        {"involvedSignals", expr.involvedSignals}
+        {"involvedSignals", expr.involvedSignals},
+        {"involvedParameters", expr.involvedParameters} // ←← 新增
     };
 }
 

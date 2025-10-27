@@ -12,12 +12,16 @@
 #include <sstream>
 #include <iostream>
 
-// 简化的时序逻辑判断
-bool isInSequentialContext(const slang::ast::AssignmentExpression& expr) {
-    // 简化实现：暂时都返回组合逻辑
-    // 后续可以根据需要增强
-    return false;
+// ============================================================================
+// 辅助函数
+// ============================================================================
+
+// 检查是否为编译时常量
+bool isCompileTimeConstant(const slang::ast::Symbol& symbol) {
+    return symbol.kind == slang::ast::SymbolKind::EnumValue ||
+           symbol.kind == slang::ast::SymbolKind::Parameter; // localparam 也是 Parameter
 }
+
 // 自增操作检测
 bool isIncrementOperation(const slang::ast::Expression& expr, const slang::ast::Symbol& lhsSymbol) {
     if (const auto* binaryExpr = expr.as_if<slang::ast::BinaryExpression>()) {
@@ -51,7 +55,10 @@ static std::string directionToString(slang::ast::ArgumentDirection dir) {
     }
 }
 
-// DataSignalVisitor - 过滤枚举常量
+// ============================================================================
+// DataSignalVisitor - 提取数据信号，过滤枚举常量
+// ============================================================================
+
 class DataSignalVisitor : public slang::ast::ASTVisitor<DataSignalVisitor, true, true> {
 public:
     template<typename T> void handle(const T& node) { visitDefault(node); }
@@ -59,17 +66,54 @@ public:
     void handle(const slang::ast::NamedValueExpression& expr) {
         const slang::ast::Symbol* symbol = &expr.symbol;
         if (symbol && !symbol->isType()) {
-            if (!isEnumConstant(*symbol)) {
+            if (!isCompileTimeConstant(*symbol)) {
                 std::string signalName = symbol->getHierarchicalPath();
                 signals.insert(signalName);
             }
         }
     }
 
+    void handle(const slang::ast::MemberAccessExpression& expr) {
+        std::string fullPath = getFullMemberPath(expr);
+        if (!fullPath.empty()) {
+            std::cout << "[DEBUG] DataSignalVisitor found member: " << fullPath << std::endl;
+            signals.insert(fullPath);
+            
+            // // 同时记录父级
+            // std::string parentPath = getFullMemberPath(expr.value());
+            // if (!parentPath.empty()) {
+            //     std::cout << "[DEBUG] DataSignalVisitor found parent: " << parentPath << std::endl;
+            //     signals.insert(parentPath);
+            // }
+        }
+    }
+
+    std::string getFullMemberPath(const slang::ast::Expression& expr) {
+        if (const auto* namedExpr = expr.as_if<slang::ast::NamedValueExpression>()) {
+            return std::string(namedExpr->symbol.getHierarchicalPath());
+        }
+        if (const auto* memberExpr = expr.as_if<slang::ast::MemberAccessExpression>()) {
+            std::string base = getFullMemberPath(memberExpr->value());
+            if (!base.empty()) {
+                return base + "." + std::string(memberExpr->member.name);
+            }
+        }
+        if (const auto* selectExpr = expr.as_if<slang::ast::ElementSelectExpression>()) {
+            std::string base = getFullMemberPath(selectExpr->value());
+            if (!base.empty()) {
+                return base + "[*]";
+            }
+        }
+        return "";
+    }
+
     std::set<std::string> signals;
 };
 
-// ConditionClauseVisitor - 过滤枚举常量
+// ============================================================================
+// ConditionClauseVisitor - 分析条件子句，过滤枚举常量
+// ============================================================================
+
 class ConditionClauseVisitor : public slang::ast::ASTVisitor<ConditionClauseVisitor, true, true> {
 public:
     template<typename T> void handle(const T& node) { 
@@ -78,17 +122,58 @@ public:
 
     void handle(const slang::ast::NamedValueExpression& expr) {
         const slang::ast::Symbol* symbol = &expr.symbol;
-        if (symbol && !symbol->isType()) {
-            std::string signalName = symbol->getHierarchicalPath();
-            
-            if (!isEnumConstant(*symbol)) {
-                involvedSignals.insert(signalName);
+        if (!symbol || symbol->isType()) return;
+
+        std::string fullName = symbol->getHierarchicalPath();
+        bool isParamOrEnum = isCompileTimeConstant(*symbol);
+
+        if (!currentExpression.empty()) {
+            currentExpression += " ";
+        }
+        currentExpression += fullName;
+
+        if (isParamOrEnum) {
+            involvedParameters.insert(fullName);
+        } else {
+            involvedSignals.insert(fullName);
+        }
+    }
+
+    void handle(const slang::ast::MemberAccessExpression& expr) {
+        std::string fullPath = getFullMemberPath(expr);
+        if (!fullPath.empty()) {
+            bool isParamOrEnum = false;
+            if (const slang::ast::Symbol* memberSym = expr.getSymbolReference()) {
+                isParamOrEnum = isCompileTimeConstant(*memberSym);
             }
             
             if (!currentExpression.empty()) {
                 currentExpression += " ";
             }
-            currentExpression += signalName;
+            currentExpression += fullPath;
+            
+            if (isParamOrEnum) {
+                involvedParameters.insert(fullPath);
+            } else {
+                involvedSignals.insert(fullPath);
+            }
+            
+            // 同时记录父级结构体/联合体的依赖
+            std::string parentPath = getFullMemberPath(expr.value());
+            if (!parentPath.empty()) {
+                bool parentIsParamOrEnum = false;
+                if (const auto* namedExpr = expr.value().as_if<slang::ast::NamedValueExpression>()) {
+                    parentIsParamOrEnum = isCompileTimeConstant(namedExpr->symbol);
+                }
+                
+                if (parentIsParamOrEnum) {
+                    involvedParameters.insert(parentPath);
+                } else {
+                    involvedSignals.insert(parentPath);
+                }
+            }
+        } else {
+            visitDefault(expr);
         }
     }
 
@@ -157,17 +242,45 @@ public:
         return involvedSignals;
     }
 
+    std::set<std::string> getInvolvedParameters() const {
+        return involvedParameters;
+    }
+
     void reset() {
         currentExpression.clear();
         involvedSignals.clear();
+        involvedParameters.clear();
+    }
+
+    std::string getFullMemberPath(const slang::ast::Expression& expr) {
+        if (const auto* namedExpr = expr.as_if<slang::ast::NamedValueExpression>()) {
+            return std::string(namedExpr->symbol.getHierarchicalPath());
+        }
+        if (const auto* memberExpr = expr.as_if<slang::ast::MemberAccessExpression>()) {
+            std::string base = getFullMemberPath(memberExpr->value());
+            if (!base.empty()) {
+                return base + "." + std::string(memberExpr->member.name);
+            }
+        }
+        if (const auto* selectExpr = expr.as_if<slang::ast::ElementSelectExpression>()) {
+            std::string base = getFullMemberPath(selectExpr->value());
+            if (!base.empty()) {
+                return base + "[*]";
+            }
+        }
+        return "";
     }
 
 private:
     std::string currentExpression;
     std::set<std::string> involvedSignals;
+    std::set<std::string> involvedParameters;
 };
 
-// CaseItemExpressionVisitor - 过滤枚举常量
+// ============================================================================
+// CaseItemExpressionVisitor - 处理 case 项表达式
+// ============================================================================
+
 class CaseItemExpressionVisitor : public slang::ast::ASTVisitor<CaseItemExpressionVisitor, true, true> {
 public:
     template<typename T> void handle(const T& node) { 
@@ -177,19 +290,11 @@ public:
     void handle(const slang::ast::NamedValueExpression& expr) {
         const slang::ast::Symbol* symbol = &expr.symbol;
         if (symbol && !symbol->isType()) {
-            if (!isEnumConstant(*symbol)) {
-                std::string signalName = symbol->getHierarchicalPath();
-                if (!currentExpression.empty()) {
-                    currentExpression += " ";
-                }
-                currentExpression += signalName;
-            } else {
-                std::string enumName = symbol->getHierarchicalPath();
-                if (!currentExpression.empty()) {
-                    currentExpression += " ";
-                }
-                currentExpression += enumName;
+            std::string signalName = symbol->getHierarchicalPath();
+            if (!currentExpression.empty()) {
+                currentExpression += " ";
             }
+            currentExpression += signalName;
         }
     }
 
@@ -231,13 +336,142 @@ private:
     std::string currentExpression;
 };
 
-// --- 主 Visitor 的实现 ---
+// ============================================================================
+// DependencyVisitor 主实现
+// ============================================================================
 
 DependencyVisitor::DependencyVisitor() {
     pathStack.push_back({});
 }
 
-std::string DependencyVisitor::extractCaseItemExpression(const slang::ast::Expression& caseExpr, const slang::ast::CaseStatement::ItemGroup& item) {
+// 获取或创建变量信息
+VariableInfo& DependencyVisitor::getOrAddVariable(const slang::ast::Symbol& symbol) {  
+    std::string path = symbol.getHierarchicalPath();  
+    if (results.find(path) == results.end()) {  
+        VariableInfo info;  
+        info.fullName = path;  
+
+        if (const auto* portSymbol = symbol.as_if<slang::ast::PortSymbol>()) {  
+            info.direction = directionToString(portSymbol->direction);  
+            if (portSymbol->internalSymbol) {  
+                const auto* internalValue = portSymbol->internalSymbol->as_if<slang::ast::ValueSymbol>();  
+                if (internalValue) {  
+                    const slang::ast::Type& type = internalValue->getType();  
+                    info.type = type.toString();  
+                    info.bitWidth = type.getBitWidth();  
+                }  
+            }  
+        } else if (const auto* valueSymbol = symbol.as_if<slang::ast::ValueSymbol>()) {  
+            const slang::ast::Type& type = valueSymbol->getType();  
+            info.type = type.toString();  
+            info.bitWidth = type.getBitWidth();  
+        }  
+
+        const slang::ast::Scope* scope = symbol.getParentScope();  
+        if (scope) {  
+            auto& comp = scope->getCompilation();  
+            auto* sm = comp.getSourceManager();  
+            if (sm && symbol.location) {  
+                info.fileName = std::string(sm->getFileName(symbol.location));  
+                info.line = sm->getLineNumber(symbol.location);  
+            }  
+        }  
+        results[path] = info;  
+    }  
+    return results.at(path);  
+}
+
+// 通过名称获取或创建变量信息
+VariableInfo& DependencyVisitor::getOrAddVariableByName(const std::string& fullName) {
+    if (results.find(fullName) == results.end()) {
+        VariableInfo info;
+        info.fullName = fullName;
+        results[fullName] = info;
+    }
+    return results.at(fullName);
+}
+
+// 获取完整的成员访问路径
+std::string DependencyVisitor::getFullMemberPath(const slang::ast::Expression& expr) {
+    if (const auto* namedExpr = expr.as_if<slang::ast::NamedValueExpression>()) {
+        return std::string(namedExpr->symbol.getHierarchicalPath());
+    }
+    if (const auto* memberExpr = expr.as_if<slang::ast::MemberAccessExpression>()) {
+        std::string base = getFullMemberPath(memberExpr->value());
+        if (!base.empty()) {
+            // 获取成员名称
+            std::string memberName = std::string(memberExpr->member.name);
+            return base + "." + memberName;
+        }
+    }
+    return "";
+}
+
+// 处理成员访问赋值
+// 处理成员访问赋值
+void DependencyVisitor::handleMemberAssignment(const slang::ast::AssignmentExpression& expr, 
+                                              const slang::ast::MemberAccessExpression& memberExpr) {
+    std::cout << "[DEBUG] handleMemberAssignment called!" << std::endl;
+    
+    // 获取完整的成员路径
+    std::string fullMemberPath = getFullMemberPath(memberExpr);
+    std::cout << "[DEBUG] Full member path: " << fullMemberPath << std::endl;
+    
+    if (fullMemberPath.empty()) {
+        std::cout << "[DEBUG] Empty member path, skipping" << std::endl;
+        visitDefault(expr);
+        return;
+    }
+    
+    // 为成员创建变量信息
+    VariableInfo& memberInfo = getOrAddVariableByName(fullMemberPath);
+    std::cout << "[DEBUG] Created variable info for: " << fullMemberPath << std::endl;
+    
+    // 分析右侧表达式
+    DataSignalVisitor rhsVisitor;
+    expr.right().visit(rhsVisitor);
+    
+    std::cout << "[DEBUG] RHS signals: ";
+    for (const auto& sig : rhsVisitor.signals) {
+        std::cout << sig << " ";
+    }
+    std::cout << std::endl;
+    
+    // 创建赋值记录
+    AssignmentInfo assignInfo;
+    assignInfo.path = pathStack.back();
+    assignInfo.drivingSignals = rhsVisitor.signals;
+    assignInfo.type = "member_assignment";
+    assignInfo.logicType = "combinational";
+    assignInfo.conditionDepth = pathStack.size() - 1;
+    
+    memberInfo.assignments.insert(assignInfo);
+    std::cout << "[DEBUG] Added assignment to member: " << fullMemberPath << std::endl;
+    
+    // // 同时为父级结构体/联合体创建赋值记录
+    // std::string parentPath = getFullMemberPath(memberExpr.value());
+    // if (!parentPath.empty()) {
+    //     std::cout << "[DEBUG] Parent path: " << parentPath << std::endl;
+        
+    //     VariableInfo& parentInfo = getOrAddVariableByName(parentPath);
+        
+    //     AssignmentInfo parentAssignInfo;
+    //     parentAssignInfo.path = pathStack.back();
+    //     parentAssignInfo.drivingSignals = {fullMemberPath};
+    //     parentAssignInfo.type = "structural_parent";
+    //     parentAssignInfo.logicType = "combinational";
+    //     parentAssignInfo.conditionDepth = pathStack.size() - 1;
+        
+    //     parentInfo.assignments.insert(parentAssignInfo);
+    //     std::cout << "[DEBUG] Added parent assignment to: " << parentPath << std::endl;
+    // }
+    
+    visitDefault(expr);
+}
+
+// 提取 case 项表达式
+std::string DependencyVisitor::extractCaseItemExpression(const slang::ast::Expression& caseExpr, 
+                                                        const slang::ast::CaseStatement::ItemGroup& item) {
     CaseItemExpressionVisitor visitor;
     
     if (item.expressions.empty()) {
@@ -257,14 +491,15 @@ std::string DependencyVisitor::extractCaseItemExpression(const slang::ast::Expre
         }
         visitor.reset();
         item.expressions[i]->visit(visitor);
-        // 构建完整的比较表达式
         result += caseExprStr + " == " + visitor.getExpressionString();
     }
     
     return result;
 }
 
-std::vector<ConditionPath> DependencyVisitor::buildCasePaths(const slang::ast::CaseStatement& stmt, const ConditionPath& parentPath) {
+// 构建 case 路径
+std::vector<ConditionPath> DependencyVisitor::buildCasePaths(const slang::ast::CaseStatement& stmt, 
+                                                            const ConditionPath& parentPath) {
     std::vector<ConditionPath> casePaths;
     
     ConditionClauseVisitor caseExprVisitor;
@@ -273,10 +508,10 @@ std::vector<ConditionPath> DependencyVisitor::buildCasePaths(const slang::ast::C
     ConditionExpression caseExpr;
     caseExpr.expression = caseExprVisitor.getExpressionString();
     caseExpr.involvedSignals = caseExprVisitor.getInvolvedSignals();
-    
+    caseExpr.involvedParameters = caseExprVisitor.getInvolvedParameters();
     bool hasDefault = false;
     
-    // 直接处理每个case项
+    // 处理每个case项
     for (const auto& item : stmt.items) {
         std::string itemExpression = extractCaseItemExpression(stmt.expr, item);
         
@@ -285,7 +520,6 @@ std::vector<ConditionPath> DependencyVisitor::buildCasePaths(const slang::ast::C
             continue;
         }
         
-        // 创建条件表达式 - 直接使用提取的OR表达式
         ConditionExpression fullCondition;
         fullCondition.expression = itemExpression;
         fullCondition.involvedSignals = caseExpr.involvedSignals;
@@ -339,65 +573,9 @@ std::vector<ConditionPath> DependencyVisitor::buildCasePaths(const slang::ast::C
     return casePaths;
 }
 
-void DependencyVisitor::handle(const slang::ast::CaseStatement& stmt) {
-    ConditionPath parentPath = pathStack.back();
-    
-    std::vector<ConditionPath> casePaths = buildCasePaths(stmt, parentPath);
-    
-    size_t pathIndex = 0;
-    for (const auto& item : stmt.items) {
-        if (pathIndex < casePaths.size()) {
-            pathStack.push_back(casePaths[pathIndex]);
-            if (item.stmt) {
-                item.stmt->visit(*this);
-            }
-            pathStack.pop_back();
-            pathIndex++;
-        }
-    }
-    
-    if (stmt.defaultCase && pathIndex < casePaths.size()) {
-        pathStack.push_back(casePaths[pathIndex]);
-        stmt.defaultCase->visit(*this);
-        pathStack.pop_back();
-    }
-}
-
-VariableInfo& DependencyVisitor::getOrAddVariable(const slang::ast::Symbol& symbol) {  
-    std::string path = symbol.getHierarchicalPath();  
-    if (results.find(path) == results.end()) {  
-        VariableInfo info;  
-        info.fullName = path;  
-
-        if (const auto* portSymbol = symbol.as_if<slang::ast::PortSymbol>()) {  
-            info.direction = directionToString(portSymbol->direction);  
-            if (portSymbol->internalSymbol) {  
-                const auto* internalValue = portSymbol->internalSymbol->as_if<slang::ast::ValueSymbol>();  
-                if (internalValue) {  
-                    const slang::ast::Type& type = internalValue->getType();  
-                    info.type = type.toString();  
-                    info.bitWidth = type.getBitWidth();  
-                }  
-            }  
-        } else if (const auto* valueSymbol = symbol.as_if<slang::ast::ValueSymbol>()) {  
-            const slang::ast::Type& type = valueSymbol->getType();  
-            info.type = type.toString();  
-            info.bitWidth = type.getBitWidth();  
-        }  
-
-        const slang::ast::Scope* scope = symbol.getParentScope();  
-        if (scope) {  
-            auto& comp = scope->getCompilation();  
-            auto* sm = comp.getSourceManager();  
-            if (sm && symbol.location) {  
-                info.fileName = std::string(sm->getFileName(symbol.location));  
-                info.line = sm->getLineNumber(symbol.location);  
-            }  
-        }  
-        results[path] = info;  
-    }  
-    return results.at(path);  
-}
+// ============================================================================
+// 主要处理函数
+// ============================================================================
 
 void DependencyVisitor::handle(const slang::ast::VariableSymbol& symbol) {
     getOrAddVariable(symbol);
@@ -410,11 +588,25 @@ void DependencyVisitor::handle(const slang::ast::PortSymbol& symbol) {
 }
 
 void DependencyVisitor::handle(const slang::ast::AssignmentExpression& expr) {
+    std::cout << "[DEBUG] Processing assignment expression" << std::endl;
+    
+    // 首先检查是否为成员访问表达式
+    if (const auto* memberExpr = expr.left().as_if<slang::ast::MemberAccessExpression>()) {
+        std::cout << "[DEBUG] Found member access on LHS, handling member assignment" << std::endl;
+        handleMemberAssignment(expr, *memberExpr);
+        return;
+    }
+    
+    // 如果不是成员访问，再检查简单符号
     const slang::ast::Symbol* lhsSymbol = expr.left().getSymbolReference();
     if (!lhsSymbol) {
         visitDefault(expr);
         return;
     }
+    
+    // 原有的简单符号处理逻辑
+    std::string lhsName = lhsSymbol->getHierarchicalPath();
+    std::cout << "[DEBUG] Simple assignment to: " << lhsName << std::endl;
     
     VariableInfo& lhsInfo = getOrAddVariable(*lhsSymbol);
         
@@ -428,14 +620,40 @@ void DependencyVisitor::handle(const slang::ast::AssignmentExpression& expr) {
     AssignmentInfo assignInfo;
     assignInfo.path = pathStack.back();
     assignInfo.drivingSignals = rhsVisitor.signals;
-    assignInfo.type = isIncrement ? "increment" : "direct";
-    
-    // 新增字段
-    if (isInSequentialContext(expr)) {
-        assignInfo.logicType = "sequential";
+    if (isIncrement) {
+        assignInfo.type = "increment";
+    } else if (rhsVisitor.signals.empty()) {
+        assignInfo.type = "constant";
     } else {
-        assignInfo.logicType = "combinational";
+        assignInfo.type = "direct";
     }
+    
+    // 时序逻辑检测
+    if (currentProcBlock) {  
+        if (currentProcBlock->procedureKind == slang::ast::ProceduralBlockKind::AlwaysFF) {  
+            assignInfo.logicType = "sequential";  
+        }   
+        else if (currentProcBlock->procedureKind == slang::ast::ProceduralBlockKind::AlwaysComb ||  
+                 currentProcBlock->procedureKind == slang::ast::ProceduralBlockKind::AlwaysLatch) {  
+            assignInfo.logicType = "combinational";  
+        }  
+        else if (currentProcBlock->procedureKind == slang::ast::ProceduralBlockKind::Always) {  
+            if (expr.isNonBlocking()) {  
+                assignInfo.logicType = "sequential";  
+            } else {  
+                assignInfo.logicType = "combinational";  
+            }  
+        }  
+        else if (currentProcBlock->procedureKind == slang::ast::ProceduralBlockKind::Initial ||  
+                 currentProcBlock->procedureKind == slang::ast::ProceduralBlockKind::Final) {  
+            assignInfo.logicType = "initialization";  
+        }  
+        else {  
+            assignInfo.logicType = "combinational";  
+        }  
+    } else {  
+        assignInfo.logicType = "combinational";  
+    }  
     
     assignInfo.conditionDepth = pathStack.size() - 1;
 
@@ -465,7 +683,7 @@ void DependencyVisitor::handle(const slang::ast::ConditionalStatement& stmt) {
         ConditionExpression condExpr;
         condExpr.expression = clauseVisitor.getExpressionString();
         condExpr.involvedSignals = clauseVisitor.getInvolvedSignals();
-
+        condExpr.involvedParameters = clauseVisitor.getInvolvedParameters();
         ConditionClause trueClause;
         trueClause.expr = condExpr;
         trueClause.polarity = true;
@@ -486,6 +704,30 @@ void DependencyVisitor::handle(const slang::ast::ConditionalStatement& stmt) {
     if (stmt.ifFalse) {
         pathStack.push_back(parentPath);
         stmt.ifFalse->visit(*this);
+        pathStack.pop_back();
+    }
+}
+
+void DependencyVisitor::handle(const slang::ast::CaseStatement& stmt) {
+    ConditionPath parentPath = pathStack.back();
+    
+    std::vector<ConditionPath> casePaths = buildCasePaths(stmt, parentPath);
+    
+    size_t pathIndex = 0;
+    for (const auto& item : stmt.items) {
+        if (pathIndex < casePaths.size()) {
+            pathStack.push_back(casePaths[pathIndex]);
+            if (item.stmt) {
+                item.stmt->visit(*this);
+            }
+            pathStack.pop_back();
+            pathIndex++;
+        }
+    }
+    
+    if (stmt.defaultCase && pathIndex < casePaths.size()) {
+        pathStack.push_back(casePaths[pathIndex]);
+        stmt.defaultCase->visit(*this);
         pathStack.pop_back();
     }
 }
@@ -554,6 +796,17 @@ void DependencyVisitor::handle(const slang::ast::InstanceSymbol& symbol) {
     visitDefault(symbol);
 }
 
+void DependencyVisitor::handle(const slang::ast::ProceduralBlockSymbol& symbol) {  
+    auto* prevBlock = currentProcBlock;  
+    currentProcBlock = &symbol;  
+    visitDefault(symbol);  
+    currentProcBlock = prevBlock;  
+}
+
+// ============================================================================
+// 后处理和分析函数
+// ============================================================================
+
 bool DependencyVisitor::isControlVariable(const std::string& varName) {
     for (const auto& [otherName, otherInfo] : results) {
         for (const auto& assignment : otherInfo.assignments) {
@@ -568,6 +821,18 @@ bool DependencyVisitor::isControlVariable(const std::string& varName) {
 }
 
 void DependencyVisitor::postProcess() {
+    // Stage 1: 填充 fanOut 集合
+    for (auto& [lhsName, info] : results) {
+        for (const auto& assignment : info.assignments) {
+            for (const auto& rhsName : assignment.drivingSignals) {
+                if (results.count(rhsName)) {
+                    results[rhsName].fanOut.insert(lhsName);
+                }
+            }
+        }
+    }
+
+    // Stage 2: 清理赋值信息并计算聚合信息
     for (auto& [varName, info] : results) {
         std::set<AssignmentInfo> cleanedAssignments;
         
@@ -577,29 +842,16 @@ void DependencyVisitor::postProcess() {
                 assignment.line == 0) {
                 continue;
             }
-            
-            AssignmentInfo newAssignment = assignment;
-            
-            if (assignment.drivingSignals.empty() && 
-                !assignment.file.empty() && 
-                assignment.line > 0 &&
-                assignment.type == "direct") {
-                
-                if (assignment.path.empty()) {
-                    newAssignment.type = "constant";
-                } else {
-                    newAssignment.type = "conditional_constant";
-                }
+            if (assignment.type == "direct" && assignment.drivingSignals.empty()) {
+                continue;
             }
-            
-            cleanedAssignments.insert(newAssignment);
+            cleanedAssignments.insert(assignment);
         }
         
         info.assignments = cleanedAssignments;
-        
-        // 新增：计算聚合信息
         info.assignmentCount = info.assignments.size();
         
+        // 计算 drivesOutput
         info.drivesOutput = false;
         for (const auto& fanOutName : info.fanOut) {
             if (results.count(fanOutName) && 
@@ -609,16 +861,7 @@ void DependencyVisitor::postProcess() {
             }
         }
         
+        // 计算 isControlVariable
         info.isControlVariable = isControlVariable(varName);
-    }
-
-    for (auto& [lhsName, info] : results) {
-        for (const auto& assignment : info.assignments) {
-            for (const auto& rhsName : assignment.drivingSignals) {
-                if (results.count(rhsName)) {
-                    results[rhsName].fanOut.insert(lhsName);
-                }
-            }
-        }
     }
 }

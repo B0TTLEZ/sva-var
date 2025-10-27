@@ -1,4 +1,3 @@
-# For ForesightSVA Application
 openai>=1.3.0
 pyyaml>=6.0
-tqdm>=4.60.0 # 用于显示漂亮的进度条
+tqdm>=4.60.0 

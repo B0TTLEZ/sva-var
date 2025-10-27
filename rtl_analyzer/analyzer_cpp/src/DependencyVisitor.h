@@ -28,17 +28,26 @@ public:
     void handle(const slang::ast::ConditionalStatement& stmt);
     void handle(const slang::ast::CaseStatement& stmt);
     void handle(const slang::ast::InstanceSymbol& symbol);
-
+    void handle(const slang::ast::ProceduralBlockSymbol& symbol);
+    
     void postProcess();
 
     const AnalysisResultMap& getResults() const { return results; }
 
 private:
     VariableInfo& getOrAddVariable(const slang::ast::Symbol& symbol);
+    
+    // 新增方法声明
+    void handleMemberAssignment(const slang::ast::AssignmentExpression& expr, 
+                               const slang::ast::MemberAccessExpression& memberExpr);
+    VariableInfo& getOrAddVariableByName(const std::string& fullName);
+    std::string getFullMemberPath(const slang::ast::Expression& expr);
+    
     std::string extractCaseItemExpression(const slang::ast::Expression& caseExpr, const slang::ast::CaseStatement::ItemGroup& item);
     std::vector<ConditionPath> buildCasePaths(const slang::ast::CaseStatement& stmt, const ConditionPath& parentPath);
-    bool isControlVariable(const std::string& varName);  // 新增方法声明
+    bool isControlVariable(const std::string& varName);
     
+    const slang::ast::ProceduralBlockSymbol* currentProcBlock = nullptr;  
     std::vector<ConditionPath> pathStack;
     AnalysisResultMap results;
 };

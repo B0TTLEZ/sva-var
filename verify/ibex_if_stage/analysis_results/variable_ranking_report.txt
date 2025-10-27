@@ -1,0 +1,648 @@
+
+================================================================================
+MUTATION TESTING VARIABLE RANKING REPORT
+================================================================================
+
+SUMMARY:
+  Total Variables: 100
+  Average Mutation Score: 1.11%
+  Average Comprehensive Score: 0.154
+  Overall Mutation Score: 1.10%
+  Total Mutations Tested: 33000
+  Total Killed Mutations: 305
+
+======================================================================
+RANKING BY MUTATION SCORE (Primary Metric) - Top 100
+======================================================================
+Rank Variable             Score    Killed   Total    Assertions Types 
+----------------------------------------------------------------------
+1    pc_set_i               10.3%      28     330        10    33
+2    clk_i                   5.5%      15     330         6    33
+3    pc_mux_i                5.4%      15     330         7    33
+4    fetch_addr_n            5.4%      15     330         9    33
+5    exc_pc_mux_i            4.7%      13     330         6    33
+6    if_instr_err            4.7%      13     330         7    33
+7    pmp_err_if_i            4.3%      12     330         2    33
+8    if_instr_pmp_err        4.3%      12     330         9    33
+9    if_id_pipe_reg_we       4.3%      12     330         4    33
+10   M                       4.0%      11     330         2    33
+11   instr_rdata_id_o        4.0%      11     330         3    33
+12   instr_rdata_alu_id_o    4.0%      11     330         4    33
+13   exc_pc                  4.0%      11     330         6    33
+14   instr_valid_id_q        3.3%       9     330         5    33
+15   prefetch_branch         3.2%       9     330         5    33
+16   instr_valid_id_o        2.9%       8     330         5    33
+17   instr_valid_id_d        2.9%       8     330         5    33
+18   instr_new_id_o          2.5%       7     330         2    33
+19   instr_new_id_d          2.5%       7     330         3    33
+20   instr_new_id_q          2.5%       7     330         5    33
+21   id_in_ready_i           2.2%       6     330         4    33
+22   nt_branch_mispredict_i    2.2%       6     330         1    33
+23   if_instr_valid          2.2%       6     330         2    33
+24   prefetch_addr           1.8%       5     330         7    33
+25   instr_bus_err_i         1.4%       4     330         4    33
+26   csr_mtvec_i             1.4%       4     330         4    33
+27   instr_err               1.4%       4     330         5    33
+28   irq_vec                 1.4%       4     330         5    33
+29   csr_mepc_i              1.1%       3     330         2    33
+30   csr_depc_i              1.1%       3     330         2    33
+31   branch_target_ex_i      1.1%       3     330         2    33
+32   if_instr_err_plus2      1.1%       3     330         5    33
+33   instr_req_o             0.7%       2     330         4    33
+34   pc_if_o                 0.7%       2     330         2    33
+35   branch_req              0.7%       2     330         7    33
+36   fetch_addr              0.7%       2     330         4    33
+37   fetch_err               0.7%       2     330         3    33
+38   illegal_c_instr_out     0.7%       2     330         2    33
+39   unused_boot_addr        0.7%       2     330         3    33
+40   unused_csr_mtvec        0.7%       2     330         9    33
+41   if_busy_o               0.4%       1     330         8    33
+42   icache_enable_i         0.4%       1     330         4    33
+43   prefetch_busy           0.4%       1     330         7    33
+44   unused_exc_cause        0.4%       1     330         4    33
+45   MemECC                  0.0%       0     330         9    33
+46   instr_gnt_i             0.0%       0     330         3    33
+47   instr_addr_o            0.0%       0     330         2    33
+48   boot_addr_i             0.0%       0     330         1    33
+49   rst_ni                  0.0%       0     330         2    33
+50   req_i                   0.0%       0     330         3    33
+51   instr_rvalid_i          0.0%       0     330         2    33
+52   ic_tag_req_o            0.0%       0     330         5    33
+53   ic_tag_wdata_o          0.0%       0     330        10    33
+54   ic_tag_write_o          0.0%       0     330        10    33
+55   ic_tag_rdata_i          0.0%       0     330         7    33
+56   ic_data_write_o         0.0%       0     330        10    33
+57   instr_rdata_i           0.0%       0     330         3    33
+58   instr_intg_err_o        0.0%       0     330         9    33
+59   ic_tag_addr_o           0.0%       0     330        10    33
+60   ic_data_req_o           0.0%       0     330         5    33
+61   ic_data_rdata_i         0.0%       0     330         2    33
+62   ic_data_wdata_o         0.0%       0     330        10    33
+63   ic_scr_key_valid_i      0.0%       0     330         5    33
+64   ic_data_addr_o          0.0%       0     330        10    33
+65   ic_scr_key_req_o        0.0%       0     330         9    33
+66   illegal_c_insn_id_o     0.0%       0     330         2    33
+67   dummy_instr_id_o        0.0%       0     330         5    33
+68   instr_bp_taken_o        0.0%       0     330         6    33
+69   instr_fetch_err_o       0.0%       0     330         1    33
+70   csr_mtvec_init_o        0.0%       0     330         6    33
+71   pc_mismatch_alert_o     0.0%       0     330         1    33
+72   instr_is_compressed     0.0%       0     330         1    33
+73   exc_cause               0.0%       0     330         1    33
+74   nt_branch_addr_i        0.0%       0     330         1    33
+75   dummy_instr_en_i        0.0%       0     330         1    33
+76   dummy_instr_mask_i      0.0%       0     330         7    33
+77   dummy_instr_seed_en_i    0.0%       0     330         2    33
+78   icache_ecc_error_o      0.0%       0     330         8    33
+79   dummy_instr_seed_i      0.0%       0     330         2    33
+80   icache_inval_i          0.0%       0     330         1    33
+81   instr_intg_err          0.0%       0     330        10    33
+82   unused_fetch_addr_n0    0.0%       0     330         1    33
+83   fetch_valid_raw         0.0%       0     330         1    33
+84   fetch_ready             0.0%       0     330         4    33
+85   fetch_rdata             0.0%       0     330         4    33
+86   fetch_err_plus2         0.0%       0     330         2    33
+87   instr_decompressed      0.0%       0     330         5    33
+88   illegal_c_insn          0.0%       0     330         1    33
+89   if_instr_rdata          0.0%       0     330         2    33
+90   if_instr_addr           0.0%       0     330         3    33
+91   if_instr_bus_err        0.0%       0     330         6    33
+92   stall_dummy_instr       0.0%       0     330         8    33
+93   instr_out               0.0%       0     330         4    33
+94   instr_is_compressed_out    0.0%       0     330         2    33
+95   predict_branch_taken    0.0%       0     330         7    33
+96   predict_branch_pc       0.0%       0     330        10    33
+97   instr_err_out           0.0%       0     330         5    33
+98   pc_mux_internal         0.0%       0     330         1    33
+99   nonce                   0.0%       0     330         8    33
+100  simutil_get_scramble_nonce    0.0%       0     330         9    33
+
+======================================================================
+RANKING BY COMPREHENSIVE SCORE (Recommended) - Top 100
+======================================================================
+Rank Variable             CompScore  Mutation Killed   Assertions
+----------------------------------------------------------------------
+1    pc_set_i                 0.266   10.3%      28        10
+2    fetch_addr_n             0.225    5.4%      15         9
+3    if_instr_pmp_err         0.218    4.3%      12         9
+4    pc_mux_i                 0.205    5.4%      15         7
+5    if_instr_err             0.201    4.7%      13         7
+6    ic_tag_wdata_o           0.200    0.0%       0        10
+7    ic_tag_write_o           0.200    0.0%       0        10
+8    ic_data_write_o          0.200    0.0%       0        10
+9    ic_tag_addr_o            0.200    0.0%       0        10
+10   ic_data_wdata_o          0.200    0.0%       0        10
+11   ic_data_addr_o           0.200    0.0%       0        10
+12   instr_intg_err           0.200    0.0%       0        10
+13   predict_branch_pc        0.200    0.0%       0        10
+14   clk_i                    0.196    5.5%      15         6
+15   unused_csr_mtvec         0.195    0.7%       2         9
+16   exc_pc_mux_i             0.191    4.7%      13         6
+17   MemECC                   0.190    0.0%       0         9
+18   instr_intg_err_o         0.190    0.0%       0         9
+19   ic_scr_key_req_o         0.190    0.0%       0         9
+20   simutil_get_scramble_nonce     0.190    0.0%       0         9
+21   exc_pc                   0.186    4.0%      11         6
+22   if_busy_o                0.182    0.4%       1         8
+23   prefetch_addr            0.182    1.8%       5         7
+24   icache_ecc_error_o       0.180    0.0%       0         8
+25   stall_dummy_instr        0.180    0.0%       0         8
+26   nonce                    0.180    0.0%       0         8
+27   branch_req               0.175    0.7%       2         7
+28   prefetch_busy            0.172    0.4%       1         7
+29   instr_valid_id_q         0.171    3.3%       9         5
+30   prefetch_branch          0.171    3.2%       9         5
+31   ic_tag_rdata_i           0.170    0.0%       0         7
+32   dummy_instr_mask_i       0.170    0.0%       0         7
+33   predict_branch_taken     0.170    0.0%       0         7
+34   instr_valid_id_o         0.169    2.9%       8         5
+35   instr_valid_id_d         0.169    2.9%       8         5
+36   if_id_pipe_reg_we        0.168    4.3%      12         4
+37   instr_new_id_q           0.167    2.5%       7         5
+38   instr_rdata_alu_id_o     0.166    4.0%      11         4
+39   instr_bp_taken_o         0.160    0.0%       0         6
+40   csr_mtvec_init_o         0.160    0.0%       0         6
+41   if_instr_bus_err         0.160    0.0%       0         6
+42   instr_err                0.159    1.4%       4         5
+43   irq_vec                  0.159    1.4%       4         5
+44   if_instr_err_plus2       0.157    1.1%       3         5
+45   instr_rdata_id_o         0.156    4.0%      11         3
+46   id_in_ready_i            0.154    2.2%       6         4
+47   ic_tag_req_o             0.150    0.0%       0         5
+48   ic_data_req_o            0.150    0.0%       0         5
+49   ic_scr_key_valid_i       0.150    0.0%       0         5
+50   dummy_instr_id_o         0.150    0.0%       0         5
+51   instr_decompressed       0.150    0.0%       0         5
+52   instr_err_out            0.150    0.0%       0         5
+53   instr_bus_err_i          0.149    1.4%       4         4
+54   csr_mtvec_i              0.149    1.4%       4         4
+55   pmp_err_if_i             0.148    4.3%      12         2
+56   instr_new_id_d           0.147    2.5%       7         3
+57   M                        0.146    4.0%      11         2
+58   instr_req_o              0.145    0.7%       2         4
+59   fetch_addr               0.145    0.7%       2         4
+60   icache_enable_i          0.142    0.4%       1         4
+61   unused_exc_cause         0.142    0.4%       1         4
+62   fetch_ready              0.140    0.0%       0         4
+63   fetch_rdata              0.140    0.0%       0         4
+64   instr_out                0.140    0.0%       0         4
+65   instr_new_id_o           0.137    2.5%       7         2
+66   fetch_err                0.135    0.7%       2         3
+67   unused_boot_addr         0.135    0.7%       2         3
+68   if_instr_valid           0.134    2.2%       6         2
+69   instr_gnt_i              0.130    0.0%       0         3
+70   req_i                    0.130    0.0%       0         3
+71   instr_rdata_i            0.130    0.0%       0         3
+72   if_instr_addr            0.130    0.0%       0         3
+73   csr_mepc_i               0.127    1.1%       3         2
+74   csr_depc_i               0.127    1.1%       3         2
+75   branch_target_ex_i       0.127    1.1%       3         2
+76   pc_if_o                  0.125    0.7%       2         2
+77   illegal_c_instr_out      0.125    0.7%       2         2
+78   nt_branch_mispredict_i     0.124    2.2%       6         1
+79   instr_addr_o             0.120    0.0%       0         2
+80   rst_ni                   0.120    0.0%       0         2
+81   instr_rvalid_i           0.120    0.0%       0         2
+82   ic_data_rdata_i          0.120    0.0%       0         2
+83   illegal_c_insn_id_o      0.120    0.0%       0         2
+84   dummy_instr_seed_en_i     0.120    0.0%       0         2
+85   dummy_instr_seed_i       0.120    0.0%       0         2
+86   fetch_err_plus2          0.120    0.0%       0         2
+87   if_instr_rdata           0.120    0.0%       0         2
+88   instr_is_compressed_out     0.120    0.0%       0         2
+89   boot_addr_i              0.110    0.0%       0         1
+90   instr_fetch_err_o        0.110    0.0%       0         1
+91   pc_mismatch_alert_o      0.110    0.0%       0         1
+92   instr_is_compressed      0.110    0.0%       0         1
+93   exc_cause                0.110    0.0%       0         1
+94   nt_branch_addr_i         0.110    0.0%       0         1
+95   dummy_instr_en_i         0.110    0.0%       0         1
+96   icache_inval_i           0.110    0.0%       0         1
+97   unused_fetch_addr_n0     0.110    0.0%       0         1
+98   fetch_valid_raw          0.110    0.0%       0         1
+99   illegal_c_insn           0.110    0.0%       0         1
+100  pc_mux_internal          0.110    0.0%       0         1
+
+============================================================
+RANKING BY KILLED MUTATIONS - Top 100
+============================================================
+Rank Variable             Killed   Score    Effective 
+------------------------------------------------------------
+1    pc_set_i                  28   10.3%       330
+2    clk_i                     15    5.5%       330
+3    pc_mux_i                  15    5.4%       330
+4    fetch_addr_n              15    5.4%       330
+5    exc_pc_mux_i              13    4.7%       330
+6    if_instr_err              13    4.7%       330
+7    pmp_err_if_i              12    4.3%       330
+8    if_instr_pmp_err          12    4.3%       330
+9    if_id_pipe_reg_we         12    4.3%       330
+10   M                         11    4.0%       330
+11   instr_rdata_id_o          11    4.0%       330
+12   instr_rdata_alu_id_o      11    4.0%       330
+13   exc_pc                    11    4.0%       330
+14   instr_valid_id_q           9    3.3%       330
+15   prefetch_branch            9    3.2%       330
+16   instr_valid_id_o           8    2.9%       330
+17   instr_valid_id_d           8    2.9%       330
+18   instr_new_id_o             7    2.5%       330
+19   instr_new_id_d             7    2.5%       330
+20   instr_new_id_q             7    2.5%       330
+21   id_in_ready_i              6    2.2%       330
+22   nt_branch_mispredict_i       6    2.2%       330
+23   if_instr_valid             6    2.2%       330
+24   prefetch_addr              5    1.8%       330
+25   instr_bus_err_i            4    1.4%       330
+26   csr_mtvec_i                4    1.4%       330
+27   instr_err                  4    1.4%       330
+28   irq_vec                    4    1.4%       330
+29   csr_mepc_i                 3    1.1%       330
+30   csr_depc_i                 3    1.1%       330
+31   branch_target_ex_i         3    1.1%       330
+32   if_instr_err_plus2         3    1.1%       330
+33   instr_req_o                2    0.7%       330
+34   pc_if_o                    2    0.7%       330
+35   branch_req                 2    0.7%       330
+36   fetch_addr                 2    0.7%       330
+37   fetch_err                  2    0.7%       330
+38   illegal_c_instr_out        2    0.7%       330
+39   unused_boot_addr           2    0.7%       330
+40   unused_csr_mtvec           2    0.7%       330
+41   if_busy_o                  1    0.4%       330
+42   icache_enable_i            1    0.4%       330
+43   prefetch_busy              1    0.4%       330
+44   unused_exc_cause           1    0.4%       330
+45   MemECC                     0    0.0%       330
+46   instr_gnt_i                0    0.0%       330
+47   instr_addr_o               0    0.0%       330
+48   boot_addr_i                0    0.0%       330
+49   rst_ni                     0    0.0%       330
+50   req_i                      0    0.0%       330
+51   instr_rvalid_i             0    0.0%       330
+52   ic_tag_req_o               0    0.0%       330
+53   ic_tag_wdata_o             0    0.0%       330
+54   ic_tag_write_o             0    0.0%       330
+55   ic_tag_rdata_i             0    0.0%       330
+56   ic_data_write_o            0    0.0%       330
+57   instr_rdata_i              0    0.0%       330
+58   instr_intg_err_o           0    0.0%       330
+59   ic_tag_addr_o              0    0.0%       330
+60   ic_data_req_o              0    0.0%       330
+61   ic_data_rdata_i            0    0.0%       330
+62   ic_data_wdata_o            0    0.0%       330
+63   ic_scr_key_valid_i         0    0.0%       330
+64   ic_data_addr_o             0    0.0%       330
+65   ic_scr_key_req_o           0    0.0%       330
+66   illegal_c_insn_id_o        0    0.0%       330
+67   dummy_instr_id_o           0    0.0%       330
+68   instr_bp_taken_o           0    0.0%       330
+69   instr_fetch_err_o          0    0.0%       330
+70   csr_mtvec_init_o           0    0.0%       330
+71   pc_mismatch_alert_o        0    0.0%       330
+72   instr_is_compressed        0    0.0%       330
+73   exc_cause                  0    0.0%       330
+74   nt_branch_addr_i           0    0.0%       330
+75   dummy_instr_en_i           0    0.0%       330
+76   dummy_instr_mask_i         0    0.0%       330
+77   dummy_instr_seed_en_i       0    0.0%       330
+78   icache_ecc_error_o         0    0.0%       330
+79   dummy_instr_seed_i         0    0.0%       330
+80   icache_inval_i             0    0.0%       330
+81   instr_intg_err             0    0.0%       330
+82   unused_fetch_addr_n0       0    0.0%       330
+83   fetch_valid_raw            0    0.0%       330
+84   fetch_ready                0    0.0%       330
+85   fetch_rdata                0    0.0%       330
+86   fetch_err_plus2            0    0.0%       330
+87   instr_decompressed         0    0.0%       330
+88   illegal_c_insn             0    0.0%       330
+89   if_instr_rdata             0    0.0%       330
+90   if_instr_addr              0    0.0%       330
+91   if_instr_bus_err           0    0.0%       330
+92   stall_dummy_instr          0    0.0%       330
+93   instr_out                  0    0.0%       330
+94   instr_is_compressed_out       0    0.0%       330
+95   predict_branch_taken       0    0.0%       330
+96   predict_branch_pc          0    0.0%       330
+97   instr_err_out              0    0.0%       330
+98   pc_mux_internal            0    0.0%       330
+99   nonce                      0    0.0%       330
+100  simutil_get_scramble_nonce       0    0.0%       330
+
+============================================================
+RANKING BY ASSERTION COUNT - Top 100
+============================================================
+Rank Variable             Assertions Score    Killed  
+------------------------------------------------------------
+1    ic_tag_wdata_o              10    0.0%       0
+2    ic_tag_write_o              10    0.0%       0
+3    ic_data_write_o             10    0.0%       0
+4    ic_tag_addr_o               10    0.0%       0
+5    ic_data_wdata_o             10    0.0%       0
+6    ic_data_addr_o              10    0.0%       0
+7    pc_set_i                    10   10.3%      28
+8    instr_intg_err              10    0.0%       0
+9    predict_branch_pc           10    0.0%       0
+10   MemECC                       9    0.0%       0
+11   instr_intg_err_o             9    0.0%       0
+12   ic_scr_key_req_o             9    0.0%       0
+13   fetch_addr_n                 9    5.4%      15
+14   if_instr_pmp_err             9    4.3%      12
+15   unused_csr_mtvec             9    0.7%       2
+16   simutil_get_scramble_nonce         9    0.0%       0
+17   if_busy_o                    8    0.4%       1
+18   icache_ecc_error_o           8    0.0%       0
+19   stall_dummy_instr            8    0.0%       0
+20   nonce                        8    0.0%       0
+21   ic_tag_rdata_i               7    0.0%       0
+22   pc_mux_i                     7    5.4%      15
+23   dummy_instr_mask_i           7    0.0%       0
+24   prefetch_busy                7    0.4%       1
+25   branch_req                   7    0.7%       2
+26   prefetch_addr                7    1.8%       5
+27   if_instr_err                 7    4.7%      13
+28   predict_branch_taken         7    0.0%       0
+29   clk_i                        6    5.5%      15
+30   instr_bp_taken_o             6    0.0%       0
+31   csr_mtvec_init_o             6    0.0%       0
+32   exc_pc_mux_i                 6    4.7%      13
+33   if_instr_bus_err             6    0.0%       0
+34   exc_pc                       6    4.0%      11
+35   ic_tag_req_o                 5    0.0%       0
+36   ic_data_req_o                5    0.0%       0
+37   ic_scr_key_valid_i           5    0.0%       0
+38   instr_valid_id_o             5    2.9%       8
+39   dummy_instr_id_o             5    0.0%       0
+40   instr_valid_id_q             5    3.3%       9
+41   instr_valid_id_d             5    2.9%       8
+42   instr_new_id_q               5    2.5%       7
+43   instr_err                    5    1.4%       4
+44   prefetch_branch              5    3.2%       9
+45   instr_decompressed           5    0.0%       0
+46   if_instr_err_plus2           5    1.1%       3
+47   instr_err_out                5    0.0%       0
+48   irq_vec                      5    1.4%       4
+49   instr_req_o                  4    0.7%       2
+50   instr_bus_err_i              4    1.4%       4
+51   instr_rdata_alu_id_o         4    4.0%      11
+52   csr_mtvec_i                  4    1.4%       4
+53   id_in_ready_i                4    2.2%       6
+54   icache_enable_i              4    0.4%       1
+55   fetch_ready                  4    0.0%       0
+56   fetch_rdata                  4    0.0%       0
+57   fetch_addr                   4    0.7%       2
+58   if_id_pipe_reg_we            4    4.3%      12
+59   instr_out                    4    0.0%       0
+60   unused_exc_cause             4    0.4%       1
+61   instr_gnt_i                  3    0.0%       0
+62   req_i                        3    0.0%       0
+63   instr_rdata_i                3    0.0%       0
+64   instr_rdata_id_o             3    4.0%      11
+65   instr_new_id_d               3    2.5%       7
+66   fetch_err                    3    0.7%       2
+67   if_instr_addr                3    0.0%       0
+68   unused_boot_addr             3    0.7%       2
+69   instr_addr_o                 2    0.0%       0
+70   M                            2    4.0%      11
+71   rst_ni                       2    0.0%       0
+72   instr_rvalid_i               2    0.0%       0
+73   ic_data_rdata_i              2    0.0%       0
+74   instr_new_id_o               2    2.5%       7
+75   illegal_c_insn_id_o          2    0.0%       0
+76   pc_if_o                      2    0.7%       2
+77   csr_mepc_i                   2    1.1%       3
+78   csr_depc_i                   2    1.1%       3
+79   pmp_err_if_i                 2    4.3%      12
+80   dummy_instr_seed_en_i         2    0.0%       0
+81   dummy_instr_seed_i           2    0.0%       0
+82   branch_target_ex_i           2    1.1%       3
+83   fetch_err_plus2              2    0.0%       0
+84   if_instr_valid               2    2.2%       6
+85   if_instr_rdata               2    0.0%       0
+86   instr_is_compressed_out         2    0.0%       0
+87   illegal_c_instr_out          2    0.7%       2
+88   boot_addr_i                  1    0.0%       0
+89   instr_fetch_err_o            1    0.0%       0
+90   pc_mismatch_alert_o          1    0.0%       0
+91   instr_is_compressed          1    0.0%       0
+92   exc_cause                    1    0.0%       0
+93   nt_branch_mispredict_i         1    2.2%       6
+94   nt_branch_addr_i             1    0.0%       0
+95   dummy_instr_en_i             1    0.0%       0
+96   icache_inval_i               1    0.0%       0
+97   unused_fetch_addr_n0         1    0.0%       0
+98   fetch_valid_raw              1    0.0%       0
+99   illegal_c_insn               1    0.0%       0
+100  pc_mux_internal              1    0.0%       0
+
+============================================================
+RANKING BY MUTATION DIVERSITY - Top 100
+============================================================
+Rank Variable             Types  Coverage  Score   
+------------------------------------------------------------
+1    MemECC                  33   100.0%    0.0%
+2    instr_gnt_i             33   100.0%    0.0%
+3    instr_addr_o            33   100.0%    0.0%
+4    M                       33   100.0%    4.0%
+5    boot_addr_i             33   100.0%    0.0%
+6    clk_i                   33   100.0%    5.5%
+7    rst_ni                  33   100.0%    0.0%
+8    req_i                   33   100.0%    0.0%
+9    instr_rvalid_i          33   100.0%    0.0%
+10   instr_req_o             33   100.0%    0.7%
+11   ic_tag_req_o            33   100.0%    0.0%
+12   ic_tag_wdata_o          33   100.0%    0.0%
+13   ic_tag_write_o          33   100.0%    0.0%
+14   ic_tag_rdata_i          33   100.0%    0.0%
+15   ic_data_write_o         33   100.0%    0.0%
+16   instr_rdata_i           33   100.0%    0.0%
+17   instr_bus_err_i         33   100.0%    1.4%
+18   instr_intg_err_o        33   100.0%    0.0%
+19   ic_tag_addr_o           33   100.0%    0.0%
+20   ic_data_req_o           33   100.0%    0.0%
+21   ic_data_rdata_i         33   100.0%    0.0%
+22   ic_data_wdata_o         33   100.0%    0.0%
+23   ic_scr_key_valid_i      33   100.0%    0.0%
+24   instr_valid_id_o        33   100.0%    2.9%
+25   ic_data_addr_o          33   100.0%    0.0%
+26   ic_scr_key_req_o        33   100.0%    0.0%
+27   instr_new_id_o          33   100.0%    2.5%
+28   illegal_c_insn_id_o     33   100.0%    0.0%
+29   dummy_instr_id_o        33   100.0%    0.0%
+30   pc_if_o                 33   100.0%    0.7%
+31   instr_rdata_id_o        33   100.0%    4.0%
+32   instr_bp_taken_o        33   100.0%    0.0%
+33   instr_rdata_alu_id_o    33   100.0%    4.0%
+34   csr_mtvec_i             33   100.0%    1.4%
+35   instr_fetch_err_o       33   100.0%    0.0%
+36   instr_valid_id_q        33   100.0%    3.3%
+37   csr_mtvec_init_o        33   100.0%    0.0%
+38   id_in_ready_i           33   100.0%    2.2%
+39   csr_mepc_i              33   100.0%    1.1%
+40   csr_depc_i              33   100.0%    1.1%
+41   pc_mismatch_alert_o     33   100.0%    0.0%
+42   instr_is_compressed     33   100.0%    0.0%
+43   if_busy_o               33   100.0%    0.4%
+44   exc_cause               33   100.0%    0.0%
+45   pmp_err_if_i            33   100.0%    4.3%
+46   pc_set_i                33   100.0%   10.3%
+47   pc_mux_i                33   100.0%    5.4%
+48   nt_branch_mispredict_i    33   100.0%    2.2%
+49   nt_branch_addr_i        33   100.0%    0.0%
+50   exc_pc_mux_i            33   100.0%    4.7%
+51   dummy_instr_en_i        33   100.0%    0.0%
+52   dummy_instr_mask_i      33   100.0%    0.0%
+53   dummy_instr_seed_en_i    33   100.0%    0.0%
+54   icache_ecc_error_o      33   100.0%    0.0%
+55   dummy_instr_seed_i      33   100.0%    0.0%
+56   icache_enable_i         33   100.0%    0.4%
+57   icache_inval_i          33   100.0%    0.0%
+58   branch_target_ex_i      33   100.0%    1.1%
+59   instr_new_id_d          33   100.0%    2.5%
+60   instr_valid_id_d        33   100.0%    2.9%
+61   instr_new_id_q          33   100.0%    2.5%
+62   instr_err               33   100.0%    1.4%
+63   instr_intg_err          33   100.0%    0.0%
+64   unused_fetch_addr_n0    33   100.0%    0.0%
+65   prefetch_busy           33   100.0%    0.4%
+66   branch_req              33   100.0%    0.7%
+67   fetch_valid_raw         33   100.0%    0.0%
+68   fetch_addr_n            33   100.0%    5.4%
+69   prefetch_branch         33   100.0%    3.2%
+70   prefetch_addr           33   100.0%    1.8%
+71   fetch_ready             33   100.0%    0.0%
+72   fetch_rdata             33   100.0%    0.0%
+73   fetch_addr              33   100.0%    0.7%
+74   fetch_err               33   100.0%    0.7%
+75   fetch_err_plus2         33   100.0%    0.0%
+76   instr_decompressed      33   100.0%    0.0%
+77   if_instr_valid          33   100.0%    2.2%
+78   illegal_c_insn          33   100.0%    0.0%
+79   if_instr_rdata          33   100.0%    0.0%
+80   if_instr_addr           33   100.0%    0.0%
+81   if_instr_bus_err        33   100.0%    0.0%
+82   if_instr_pmp_err        33   100.0%    4.3%
+83   if_instr_err            33   100.0%    4.7%
+84   if_instr_err_plus2      33   100.0%    1.1%
+85   stall_dummy_instr       33   100.0%    0.0%
+86   exc_pc                  33   100.0%    4.0%
+87   if_id_pipe_reg_we       33   100.0%    4.3%
+88   instr_out               33   100.0%    0.0%
+89   instr_is_compressed_out    33   100.0%    0.0%
+90   illegal_c_instr_out     33   100.0%    0.7%
+91   predict_branch_taken    33   100.0%    0.0%
+92   predict_branch_pc       33   100.0%    0.0%
+93   instr_err_out           33   100.0%    0.0%
+94   unused_boot_addr        33   100.0%    0.7%
+95   unused_exc_cause        33   100.0%    0.4%
+96   pc_mux_internal         33   100.0%    0.0%
+97   irq_vec                 33   100.0%    1.4%
+98   unused_csr_mtvec        33   100.0%    0.7%
+99   nonce                   33   100.0%    0.0%
+100  simutil_get_scramble_nonce    33   100.0%    0.0%
+
+================================================================================
+VARIABLE STATISTICS SUMMARY - Top 100
+================================================================================
+Variable             Score    Killed   Assertions Types  CompScore 
+--------------------------------------------------------------------------------
+pc_set_i               10.3%      28        10    33     0.266
+fetch_addr_n            5.4%      15         9    33     0.225
+if_instr_pmp_err        4.3%      12         9    33     0.218
+pc_mux_i                5.4%      15         7    33     0.205
+if_instr_err            4.7%      13         7    33     0.201
+ic_tag_wdata_o          0.0%       0        10    33     0.200
+ic_tag_write_o          0.0%       0        10    33     0.200
+ic_data_write_o         0.0%       0        10    33     0.200
+ic_tag_addr_o           0.0%       0        10    33     0.200
+ic_data_wdata_o         0.0%       0        10    33     0.200
+ic_data_addr_o          0.0%       0        10    33     0.200
+instr_intg_err          0.0%       0        10    33     0.200
+predict_branch_pc       0.0%       0        10    33     0.200
+clk_i                   5.5%      15         6    33     0.196
+unused_csr_mtvec        0.7%       2         9    33     0.195
+exc_pc_mux_i            4.7%      13         6    33     0.191
+MemECC                  0.0%       0         9    33     0.190
+instr_intg_err_o        0.0%       0         9    33     0.190
+ic_scr_key_req_o        0.0%       0         9    33     0.190
+simutil_get_scramble_nonce    0.0%       0         9    33     0.190
+exc_pc                  4.0%      11         6    33     0.186
+if_busy_o               0.4%       1         8    33     0.182
+prefetch_addr           1.8%       5         7    33     0.182
+icache_ecc_error_o      0.0%       0         8    33     0.180
+stall_dummy_instr       0.0%       0         8    33     0.180
+nonce                   0.0%       0         8    33     0.180
+branch_req              0.7%       2         7    33     0.175
+prefetch_busy           0.4%       1         7    33     0.172
+instr_valid_id_q        3.3%       9         5    33     0.171
+prefetch_branch         3.2%       9         5    33     0.171
+ic_tag_rdata_i          0.0%       0         7    33     0.170
+dummy_instr_mask_i      0.0%       0         7    33     0.170
+predict_branch_taken    0.0%       0         7    33     0.170
+instr_valid_id_o        2.9%       8         5    33     0.169
+instr_valid_id_d        2.9%       8         5    33     0.169
+if_id_pipe_reg_we       4.3%      12         4    33     0.168
+instr_new_id_q          2.5%       7         5    33     0.167
+instr_rdata_alu_id_o    4.0%      11         4    33     0.166
+instr_bp_taken_o        0.0%       0         6    33     0.160
+csr_mtvec_init_o        0.0%       0         6    33     0.160
+if_instr_bus_err        0.0%       0         6    33     0.160
+instr_err               1.4%       4         5    33     0.159
+irq_vec                 1.4%       4         5    33     0.159
+if_instr_err_plus2      1.1%       3         5    33     0.157
+instr_rdata_id_o        4.0%      11         3    33     0.156
+id_in_ready_i           2.2%       6         4    33     0.154
+ic_tag_req_o            0.0%       0         5    33     0.150
+ic_data_req_o           0.0%       0         5    33     0.150
+ic_scr_key_valid_i      0.0%       0         5    33     0.150
+dummy_instr_id_o        0.0%       0         5    33     0.150
+instr_decompressed      0.0%       0         5    33     0.150
+instr_err_out           0.0%       0         5    33     0.150
+instr_bus_err_i         1.4%       4         4    33     0.149
+csr_mtvec_i             1.4%       4         4    33     0.149
+pmp_err_if_i            4.3%      12         2    33     0.148
+instr_new_id_d          2.5%       7         3    33     0.147
+M                       4.0%      11         2    33     0.146
+instr_req_o             0.7%       2         4    33     0.145
+fetch_addr              0.7%       2         4    33     0.145
+icache_enable_i         0.4%       1         4    33     0.142
+unused_exc_cause        0.4%       1         4    33     0.142
+fetch_ready             0.0%       0         4    33     0.140
+fetch_rdata             0.0%       0         4    33     0.140
+instr_out               0.0%       0         4    33     0.140
+instr_new_id_o          2.5%       7         2    33     0.137
+fetch_err               0.7%       2         3    33     0.135
+unused_boot_addr        0.7%       2         3    33     0.135
+if_instr_valid          2.2%       6         2    33     0.134
+instr_gnt_i             0.0%       0         3    33     0.130
+req_i                   0.0%       0         3    33     0.130
+instr_rdata_i           0.0%       0         3    33     0.130
+if_instr_addr           0.0%       0         3    33     0.130
+csr_mepc_i              1.1%       3         2    33     0.127
+csr_depc_i              1.1%       3         2    33     0.127
+branch_target_ex_i      1.1%       3         2    33     0.127
+pc_if_o                 0.7%       2         2    33     0.125
+illegal_c_instr_out     0.7%       2         2    33     0.125
+nt_branch_mispredict_i    2.2%       6         1    33     0.124
+instr_addr_o            0.0%       0         2    33     0.120
+rst_ni                  0.0%       0         2    33     0.120
+instr_rvalid_i          0.0%       0         2    33     0.120
+ic_data_rdata_i         0.0%       0         2    33     0.120
+illegal_c_insn_id_o     0.0%       0         2    33     0.120
+dummy_instr_seed_en_i    0.0%       0         2    33     0.120
+dummy_instr_seed_i      0.0%       0         2    33     0.120
+fetch_err_plus2         0.0%       0         2    33     0.120
+if_instr_rdata          0.0%       0         2    33     0.120
+instr_is_compressed_out    0.0%       0         2    33     0.120
+boot_addr_i             0.0%       0         1    33     0.110
+instr_fetch_err_o       0.0%       0         1    33     0.110
+pc_mismatch_alert_o     0.0%       0         1    33     0.110
+instr_is_compressed     0.0%       0         1    33     0.110
+exc_cause               0.0%       0         1    33     0.110
+nt_branch_addr_i        0.0%       0         1    33     0.110
+dummy_instr_en_i        0.0%       0         1    33     0.110
+icache_inval_i          0.0%       0         1    33     0.110
+unused_fetch_addr_n0    0.0%       0         1    33     0.110
+fetch_valid_raw         0.0%       0         1    33     0.110
+illegal_c_insn          0.0%       0         1    33     0.110
+pc_mux_internal         0.0%       0         1    33     0.110

@@ -8,11 +8,14 @@
 struct ConditionExpression {
     std::string expression;  // 完整的表达式文本
     std::set<std::string> involvedSignals;  // 涉及的所有信号
+    std::set<std::string> involvedParameters;   // 编译期参数（parameter, localparam, enum 常量等）
     
     bool operator<(const ConditionExpression& other) const {
         if (expression != other.expression) 
             return expression < other.expression;
-        return involvedSignals < other.involvedSignals;
+        if (involvedSignals != other.involvedSignals)
+            return involvedSignals < other.involvedSignals;
+        return involvedParameters < other.involvedParameters; // ←← 新增比较
     }
 };
 
