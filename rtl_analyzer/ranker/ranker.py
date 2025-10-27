@@ -27,6 +27,9 @@ class EnhancedVariableScoringSystem:
         self.high_fanout_signals = []
         self.fsm_candidates = []
         
+        # 添加缓存
+        self.betweenness_centrality_cached = {}
+        
         self.load_data()
         
     def load_data(self):
@@ -758,15 +761,40 @@ class EnhancedVariableScoringSystem:
         # 构建基础依赖图
         self.build_dependency_graph()
         
-        # 运行所有分析
-        self.analyze_timing_paths()        # ⭐⭐⭐⭐⭐
-        self.analyze_fanout_load()         # ⭐⭐⭐⭐  
-        self.analyze_global_signals()      # ⭐⭐⭐⭐
-        self.identify_state_machines()     # ⭐⭐⭐
-        self.analyze_module_interfaces()   # ⭐⭐⭐
+        # 运行所有分析并验证
+        analyses = [
+            ('Timing Paths', self.analyze_timing_paths),
+            ('Fanout Load', self.analyze_fanout_load),
+            ('Global Signals', self.analyze_global_signals),
+            ('State Machines', self.identify_state_machines),
+            ('Module Interfaces', self.analyze_module_interfaces)
+        ]
+        
+        for name, analysis_func in analyses:
+            print(f"\n🔧 Running {name} Analysis...")
+            try:
+                result = analysis_func()
+                print(f"✅ {name} Analysis Completed")
+            except Exception as e:
+                print(f"❌ {name} Analysis Failed: {e}")
+        
+        # 计算基础指标
+        print(f"\n🔧 Calculating Base Metrics...")
+        self.calculate_all_metrics_fast()
+        
+        # 归一化评分
+        print(f"\n🔧 Normalizing Scores...")
+        self.normalize_scores()
+        
+        # 整合增强分析结果
+        print(f"\n🔧 Integrating Enhanced Metrics...")
+        self.integrate_enhanced_metrics()
         
         # 生成综合报告
         self.generate_comprehensive_report()
+        
+        # 导出完整结果
+        self.export_comprehensive_results('comprehensive_analysis_results.json')
         
         print("\n✅ All analyses completed!")
     
@@ -806,6 +834,458 @@ class EnhancedVariableScoringSystem:
         print(f"  4. Test global signal integrity")
         print(f"  5. Validate critical module interfaces")
 
+    def integrate_enhanced_metrics(self):
+        """将增强分析结果整合到variable_scores中"""
+        print("\nIntegrating enhanced analysis results...")
+        
+        for var_name in self.data.keys():
+            # 确保variable_scores中存在该变量
+            if var_name not in self.variable_scores:
+                self.variable_scores[var_name] = {}
+            
+            scores = self.variable_scores[var_name]
+            
+            # 整合时序路径分析
+            if var_name in self.timing_paths_analysis:
+                timing_analysis = self.timing_paths_analysis[var_name]
+                scores.update({
+                    'critical_path_score': timing_analysis['critical_path_score'],
+                    'max_comb_depth_forward': timing_analysis['max_comb_depth_forward'],
+                    'max_comb_depth_backward': timing_analysis['max_comb_depth_backward'],
+                    'is_critical_register': timing_analysis['is_critical_register'],
+                    'drives_outputs': timing_analysis['drives_outputs']
+                })
+            else:
+                # 对于非寄存器变量，设置默认值
+                scores.update({
+                    'critical_path_score': 0.0,
+                    'max_comb_depth_forward': 0,
+                    'max_comb_depth_backward': 0,
+                    'is_critical_register': False,
+                    'drives_outputs': False
+                })
+            
+            # 整合扇出负载分析
+            if var_name in self.fanout_analysis:
+                fanout_analysis = self.fanout_analysis[var_name]
+                scores.update({
+                    'fanout_pressure': fanout_analysis['fanout_pressure'],
+                    'direct_fanout': fanout_analysis['direct_fanout'],
+                    'effective_fanout': fanout_analysis['effective_fanout'],
+                    'fanout_depth': fanout_analysis['fanout_depth'],
+                    'is_high_fanout': fanout_analysis['is_high_fanout'],
+                    'is_critical_fanout': fanout_analysis['is_critical_fanout']
+                })
+            else:
+                # 设置默认值
+                var_info = self.data.get(var_name, {})
+                fanout_count = len(var_info.get('fanOut', []))
+                scores.update({
+                    'fanout_pressure': 0.0,
+                    'direct_fanout': fanout_count,
+                    'effective_fanout': 0,
+                    'fanout_depth': 0,
+                    'is_high_fanout': False,
+                    'is_critical_fanout': False
+                })
+            
+            # 整合全局信号分析
+            if var_name in self.global_signals_analysis:
+                global_analysis = self.global_signals_analysis[var_name]
+                scores.update({
+                    'global_signal_criticality': global_analysis['criticality'],
+                    'signal_type': global_analysis['signal_type'],
+                    'affected_registers': global_analysis['affected_registers'],
+                    'global_direct_fanout': global_analysis['direct_fanout'],
+                    'global_control_scope': global_analysis['control_scope']
+                })
+            else:
+                # 设置默认值
+                scores.update({
+                    'global_signal_criticality': 0.0,
+                    'signal_type': 'regular',
+                    'affected_registers': 0,
+                    'global_direct_fanout': 0,
+                    'global_control_scope': 0
+                })
+            
+            # 整合状态机分析
+            if var_name in self.fsm_analysis:
+                fsm_analysis = self.fsm_analysis[var_name]
+                fsm_score = self.get_fsm_score(var_name)
+                scores.update({
+                    'fsm_likelihood': fsm_score,
+                    'estimated_states': fsm_analysis['estimated_states'],
+                    'transition_complexity': fsm_analysis['transition_complexity'],
+                    'fsm_type': 'mealy' if fsm_analysis['is_mealy'] else 'moore',
+                    'fsm_control_outputs': fsm_analysis['control_outputs'],
+                    'has_self_feedback': fsm_analysis['has_self_feedback']
+                })
+            else:
+                # 设置默认值
+                scores.update({
+                    'fsm_likelihood': 0.0,
+                    'estimated_states': 0,
+                    'transition_complexity': 0,
+                    'fsm_type': 'none',
+                    'fsm_control_outputs': 0,
+                    'has_self_feedback': False
+                })
+            
+            # 整合接口分析
+            if var_name in self.module_interface_analysis:
+                interface_analysis = self.module_interface_analysis[var_name]
+                scores.update({
+                    'interface_complexity': interface_analysis['complexity_score'],
+                    'is_critical_interface': interface_analysis['is_critical_interface'],
+                    'interface_type': 'control' if interface_analysis['is_control_interface'] else 'data',
+                    'internal_fanout': interface_analysis['internal_fanout'],
+                    'internal_fanin': interface_analysis['internal_fanin']
+                })
+            else:
+                # 设置默认值
+                var_info = self.data.get(var_name, {})
+                direction = var_info.get('direction', '')
+                if direction == 'input':
+                    internal_fanout = len(var_info.get('fanOut', []))
+                    scores.update({
+                        'interface_complexity': 0.0,
+                        'is_critical_interface': False,
+                        'interface_type': 'none',
+                        'internal_fanout': internal_fanout,
+                        'internal_fanin': 0
+                    })
+                elif direction == 'output':
+                    internal_fanin = len(var_info.get('assignments', []))
+                    scores.update({
+                        'interface_complexity': 0.0,
+                        'is_critical_interface': False,
+                        'interface_type': 'none',
+                        'internal_fanout': 0,
+                        'internal_fanin': internal_fanin
+                    })
+                else:
+                    scores.update({
+                        'interface_complexity': 0.0,
+                        'is_critical_interface': False,
+                        'interface_type': 'none',
+                        'internal_fanout': 0,
+                        'internal_fanin': 0
+                    })
+
+    def get_fsm_score(self, var_name):
+        """获取状态机评分"""
+        for candidate in self.fsm_candidates:
+            if candidate[0] == var_name:
+                return candidate[1]  # 返回FSM可能性评分
+        return 0.0
+
+    def export_comprehensive_results(self, output_file):
+        """导出包含所有分析结果的完整JSON"""
+        # 整合所有结果
+        comprehensive_results = {
+            'metadata': {
+                'total_variables': len(self.variable_scores),
+                'data_graph_nodes': self.graph.number_of_nodes(),
+                'data_graph_edges': self.graph.number_of_edges(),
+                'control_graph_nodes': self.control_graph.number_of_nodes(),
+                'control_graph_edges': self.control_graph.number_of_edges(),
+                'critical_timing_paths': len(self.critical_paths),
+                'high_fanout_signals': len(self.high_fanout_signals),
+                'state_machines': len(self.fsm_candidates),
+                'global_signals': len(self.global_signals_analysis)
+            },
+            'variable_scores': self.variable_scores,
+            'analysis_summary': {
+                'critical_paths': self.critical_paths,
+                'high_fanout_signals': self.high_fanout_signals,
+                'fsm_candidates': self.fsm_candidates,
+                'global_signals_analysis': self.global_signals_analysis
+            }
+        }
+        
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(comprehensive_results, f, indent=2, ensure_ascii=False)
+        
+        print(f"Comprehensive results exported to: {output_file}")
+
+    def calculate_all_metrics_fast(self):
+        """快速计算所有基础指标"""
+        print("Calculating base metrics...")
+        
+        total_nodes = len(self.data)
+        processed = 0
+        
+        for var_name in self.data.keys():
+            scores = {}
+            
+            # 计算复杂度维度
+            scores.update(self.calculate_complexity_metrics(var_name))
+            
+            # 计算中心性维度
+            scores.update(self.calculate_centrality_metrics(var_name))
+            
+            # 计算结构维度
+            scores.update(self.calculate_structural_metrics(var_name))
+            
+            # 计算功能维度
+            scores.update(self.calculate_functional_metrics(var_name))
+            
+            # 计算可靠性维度
+            scores.update(self.calculate_reliability_metrics(var_name))
+            
+            self.variable_scores[var_name] = scores
+            
+            processed += 1
+            if processed % 100 == 0:
+                print(f"Processed {processed}/{total_nodes} variables...")
+        
+        print(f"Base metrics calculation completed for {len(self.variable_scores)} variables")
+
+    def calculate_complexity_metrics(self, var_name):
+        """计算复杂度相关指标"""
+        var_info = self.data[var_name]
+        assignments = var_info.get('assignments', [])
+        
+        metrics = {}
+        
+        # 1. 条件复杂度
+        condition_depths = [assign.get('conditionDepth', 0) for assign in assignments]
+        metrics['max_condition_depth'] = max(condition_depths) if condition_depths else 0
+        metrics['avg_condition_depth'] = statistics.mean(condition_depths) if condition_depths else 0
+        
+        # 2. 路径多样性
+        unique_paths = len(set(str(assign.get('path', [])) for assign in assignments))
+        metrics['path_diversity'] = unique_paths
+        
+        # 3. 逻辑类型复杂度
+        logic_types = [assign.get('logicType', 'unknown') for assign in assignments]
+        logic_type_counts = Counter(logic_types)
+        metrics['sequential_assignments'] = logic_type_counts.get('sequential', 0)
+        metrics['combinational_assignments'] = logic_type_counts.get('combinational', 0)
+        metrics['logic_type_mix'] = len(set(logic_types))
+        
+        # 4. 赋值类型复杂度
+        assignment_types = [assign.get('type', 'direct') for assign in assignments]
+        metrics['assignment_type_diversity'] = len(set(assignment_types))
+        
+        return metrics
+
+    def calculate_centrality_metrics(self, var_name):
+        """计算中心性相关指标 - 修复版本"""
+        metrics = {}
+        
+        # 1. 度数中心性
+        try:
+            in_degree = self.graph.in_degree(var_name)
+            out_degree = self.graph.out_degree(var_name)
+            metrics['in_degree'] = in_degree
+            metrics['out_degree'] = out_degree
+            metrics['total_degree'] = in_degree + out_degree
+        except:
+            metrics['in_degree'] = 0
+            metrics['out_degree'] = 0
+            metrics['total_degree'] = 0
+        
+        # 2. 介数中心性 (改进计算)
+        try:
+            # 对于大图，使用基于度数的近似
+            total_nodes = self.graph.number_of_nodes()
+            if total_nodes > 1000:  # 大图使用近似
+                metrics['betweenness_centrality'] = metrics['total_degree'] / (total_nodes - 1)
+            else:
+                # 小图可以计算精确值
+                if not hasattr(self, 'betweenness_centrality_cached'):
+                    print("Calculating betweenness centrality...")
+                    self.betweenness_centrality_cached = nx.betweenness_centrality(self.graph, k=min(100, total_nodes))
+                metrics['betweenness_centrality'] = self.betweenness_centrality_cached.get(var_name, 0.0)
+        except:
+            metrics['betweenness_centrality'] = 0.0
+        
+        # 3. 接近中心性 (改进计算)
+        try:
+            # 使用连通分量内的计算
+            if self.graph.number_of_nodes() > 500:
+                # 大图使用简化计算
+                neighbors = set(self.graph.predecessors(var_name)) | set(self.graph.successors(var_name))
+                metrics['closeness_centrality'] = len(neighbors) / self.graph.number_of_nodes()
+            else:
+                # 小图计算精确值
+                connected_component = self.graph.subgraph(nx.node_connected_component(self.graph.to_undirected(), var_name))
+                if len(connected_component) > 1:
+                    closeness = nx.closeness_centrality(connected_component, var_name)
+                    metrics['closeness_centrality'] = closeness
+                else:
+                    metrics['closeness_centrality'] = 0.0
+        except:
+            metrics['closeness_centrality'] = 0.0
+        
+        return metrics
+
+    def calculate_structural_metrics(self, var_name):
+        """计算结构重要性指标 - 修复版本"""
+        metrics = {}
+        
+        # 1. 控制影响范围
+        try:
+            if var_name in self.control_graph:
+                control_descendants = len(nx.descendants(self.control_graph, var_name))
+                metrics['control_scope'] = control_descendants
+            else:
+                metrics['control_scope'] = 0
+        except:
+            metrics['control_scope'] = 0
+        
+        # 2. 最大影响深度 (改进计算)
+        try:
+            # 使用图遍历计算实际深度
+            max_depth = 0
+            visited = set()
+            
+            def dfs(current, depth):
+                nonlocal max_depth
+                if depth > 10 or current in visited:  # 限制深度避免无限循环
+                    return
+                visited.add(current)
+                max_depth = max(max_depth, depth)
+                
+                # 遍历后继节点
+                for successor in self.graph.successors(current):
+                    if successor != var_name:  # 避免自环
+                        dfs(successor, depth + 1)
+            
+            dfs(var_name, 0)
+            metrics['max_influence_depth'] = max_depth
+        except:
+            metrics['max_influence_depth'] = 0
+        
+        # 3. 依赖广度 (修复计算)
+        try:
+            var_info = self.data.get(var_name, {})
+            all_driving_signals = set()
+            
+            # 统计所有赋值中的驱动信号
+            for assignment in var_info.get('assignments', []):
+                driving_signals = assignment.get('drivingSignals', [])
+                all_driving_signals.update(driving_signals)
+                
+                # 同时统计条件路径中的信号
+                for clause in assignment.get('path', []):
+                    expr_info = clause.get('expr', {})
+                    condition_signals = expr_info.get('involvedSignals', [])
+                    all_driving_signals.update(condition_signals)
+            
+            metrics['dependency_breadth'] = len(all_driving_signals)
+        except:
+            metrics['dependency_breadth'] = 0
+        
+        return metrics
+
+    def calculate_functional_metrics(self, var_name):
+        """计算功能性指标"""
+        var_info = self.data[var_name]
+        metrics = {}
+        
+        # 1. 驱动输出重要性
+        metrics['drives_output'] = 1 if var_info.get('drivesOutput', False) else 0
+        
+        # 2. 控制变量重要性
+        metrics['is_control_variable'] = 1 if var_info.get('isControlVariable', False) else 0
+        
+        # 3. 赋值频率
+        metrics['assignment_frequency'] = var_info.get('assignmentCount', 0)
+        
+        # 4. 端口重要性
+        direction = var_info.get('direction', '')
+        metrics['is_input'] = 1 if direction == 'input' else 0
+        metrics['is_output'] = 1 if direction == 'output' else 0
+        metrics['is_inout'] = 1 if direction == 'inout' else 0
+        
+        # 5. 数据位宽
+        metrics['bit_width'] = var_info.get('bitWidth', 1)
+        
+        return metrics
+
+    def calculate_reliability_metrics(self, var_name):
+        """计算可靠性相关指标"""
+        metrics = {}
+        var_info = self.data[var_name]
+        
+        # 1. 条件稳定性 (条件中参数 vs 信号的比例)
+        total_conditions = 0
+        stable_conditions = 0
+        
+        for assignment in var_info.get('assignments', []):
+            for clause in assignment.get('path', []):
+                expr_info = clause.get('expr', {})
+                params = set(expr_info.get('involvedParameters', []))
+                signals = set(expr_info.get('involvedSignals', []))
+                
+                total_conditions += 1
+                if len(params) > len(signals):
+                    stable_conditions += 1
+        
+        metrics['condition_stability'] = stable_conditions / total_conditions if total_conditions > 0 else 1.0
+        
+        # 2. 复位敏感性
+        assignments = var_info.get('assignments', [])
+        reset_related = 0
+        for assignment in assignments:
+            driving_signals = assignment.get('drivingSignals', [])
+            if any('reset' in signal.lower() or 'rst' in signal.lower() for signal in driving_signals):
+                reset_related += 1
+        
+        metrics['reset_sensitivity'] = reset_related / len(assignments) if assignments else 0.0
+        
+        return metrics
+
+    def normalize_scores(self):
+        """对评分进行归一化处理"""
+        print("Normalizing scores...")
+        
+        if not self.variable_scores:
+            print("No scores to normalize.")
+            return
+        
+        # 收集所有指标的数值
+        all_metrics = defaultdict(list)
+        for scores in self.variable_scores.values():
+            for metric, value in scores.items():
+                # 跳过布尔值和字符串类型的指标
+                if isinstance(value, (bool, str)):
+                    continue
+                all_metrics[metric].append(value)
+        
+        # 对每个数值型指标进行min-max归一化
+        normalized_scores = {}
+        for var_name, scores in self.variable_scores.items():
+            normalized = {}
+            for metric, value in scores.items():
+                # 保持布尔值和字符串类型不变
+                if isinstance(value, (bool, str)):
+                    normalized[metric] = value
+                    continue
+                    
+                if metric in all_metrics and all_metrics[metric]:
+                    values = all_metrics[metric]
+                    min_val = min(values)
+                    max_val = max(values)
+                    
+                    if max_val > min_val:
+                        normalized[metric] = (value - min_val) / (max_val - min_val)
+                    else:
+                        normalized[metric] = 0.5  # 所有值相等时取中值
+                else:
+                    normalized[metric] = value
+            
+            # 保存原始值和归一化值
+            normalized_scores[var_name] = {
+                **normalized,  # 归一化值
+                '_raw_scores': scores  # 原始值
+            }
+        
+        self.variable_scores = normalized_scores
+        print("Score normalization completed")
 # 使用示例
 def main():
     # 初始化增强版评分系统
