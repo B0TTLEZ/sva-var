@@ -29,7 +29,7 @@ public:
     void handle(const slang::ast::CaseStatement& stmt);
     void handle(const slang::ast::InstanceSymbol& symbol);
     void handle(const slang::ast::ProceduralBlockSymbol& symbol);
-    
+    void handle(const slang::ast::InstanceBodySymbol& symbol);
     void postProcess();
 
     const AnalysisResultMap& getResults() const { return results; }
@@ -50,4 +50,5 @@ private:
     const slang::ast::ProceduralBlockSymbol* currentProcBlock = nullptr;  
     std::vector<ConditionPath> pathStack;
     AnalysisResultMap results;
+    std::map<const slang::ast::ProceduralBlockSymbol*, slang::SourceRange> proceduralBlockRanges;
 };

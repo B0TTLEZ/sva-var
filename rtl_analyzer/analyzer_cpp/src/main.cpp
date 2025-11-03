@@ -3,11 +3,13 @@
 #include <vector>
 #include <string>
 #include <filesystem>
+#include <stdexcept> // 用于 std::stoi 的异常处理
 
 #include "slang/ast/Compilation.h"
 #include "slang/syntax/SyntaxTree.h"
 #include "DataModel.h"
 #include "DependencyVisitor.h"
+#include "ProgramSlicer.h"
 #include "json.hpp"
 #include "slang/diagnostics/DiagnosticEngine.h"  
 #include "slang/diagnostics/TextDiagnosticClient.h"  
@@ -20,231 +22,185 @@ struct TestCase {
         std::string outputPath;
     };
 
-std::vector<TestCase> testSuite = {
-        // --- 现有测试用例 ---
-        // {
-        //     "Basic Dataflow",
-        //     "test_basic",
-        //     {"../test_suite/1_basic_dataflow/test_basic.sv"},
-        //     {},
-        //     "../../results/1_basic_dataflow.json"
-        // },
-        // {
-        //     "Sequential Controlflow",
-        //     "test_sequential",
-        //     {"../../test_suite/2_sequential_controlflow/test_sequential.sv"},
-        //     {},
-        //     "../../results/2_sequential_controlflow.json"
-        // },
-        // {
-        //     "Module Hierarchy",
-        //     "top_module",
-        //     {
-        //         "../../test_suite/3_module_hierarchy/sub_module.sv",
-        //         "../../test_suite/3_module_hierarchy/top_module.sv"
-        //     },
-        //     {},
-        //     "../../results/3_module_hierarchy.json"
-        // },
-        // {
-        //     "Complex Conditions",
-        //     "test_complex_conditions",
-        //     {"../test_suite/4_complex_conditions/test_complex_conditions.sv"},
-        //     {},
-        //     "../../results/4_complex_conditions.json"
-        // },
-        // {
-        //     "Complex Hierarchy",
-        //     "top_hierarchy",
-        //     {"../../test_suite/5_complex_hierarchy/hierarchy.sv"},
-        //     {},
-        //     "../../results/5_complex_hierarchy.json"
-        // },
-        // {
-        //     "Control Flow",
-        //     "test_control_flow",
-        //     {"../test_suite/6_controlflow/test_control_flow.sv"},
-        //     {},
-        //     "../../results/6_controlflow.json"
-        // },
-        // {
-        //     "Data Types",
-        //     "test_data_types",
-        //     {"../test_suite/7_datatypes/test_data_types.sv"},
-        //     {},
-        //     "../../results/7_datatypes.json"
-        // }
-        
-        // --- 新增 Ibex 测试用例 ---
-        // {
-        //     "Ibex Compressed Decoder",
-        //     "ibex_compressed_decoder",
-        //     {"/data/fhj/sva-var/ibex/rtl/ibex_compressed_decoder.sv"},
-        //     {
-        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_dummy_macros.svh",
-        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_yosys_macros.svh",
-        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_standard_macros.svh",
-        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_sec_cm.svh",
-        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_flop_macros.sv",
-        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert.sv",
-        //         "/data/fhj/sva-var/ibex/rtl/ibex_pkg.sv"
-
-        //     },
-        //     "../../results/ibex_compressed_decoder.json"
-        // },
-        // {
-        //     "Ibex ALU",
-        //     "ibex_alu",
-        //     {"/data/fhj/sva-var/ibex/rtl/ibex_alu.sv"},
-        //     {
-        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_dummy_macros.svh",
-        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_yosys_macros.svh",
-        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_standard_macros.svh",
-        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_sec_cm.svh",
-        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_flop_macros.sv",
-        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert.sv",
-        //         "/data/fhj/sva-var/ibex/rtl/ibex_pkg.sv"
-
-        //     },
-        //     "../../results/ibex_alu.json"
-        // },
-        // {
-        //     "Ibex Core",
-        //     "ibex_alu", // 假设顶层模块名是 ibex_core
-        //     {
-        //         "/data/fhj/sva-var/ibex/rtl/ibex_alu.sv"
-        //     },
-        //     {   
-        //         "/data/fhj/sva-var/ibex/rtl/ibex_pkg.sv",
-        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_dummy_macros.svh",
-        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_yosys_macros.svh",
-        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_standard_macros.svh",
-        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_sec_cm.svh",
-        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_flop_macros.sv",
-        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert.sv",
-        //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/dv/sv/dv_utils/dv_fcov_macros.svh"
+    std::vector<TestCase> testSuite = {  
+    {  
+        "Basic Dataflow",  
+        "test_basic_dataflow",  
+        {"/data/fhj/sva-var/test_suite/test_basic_dataflow.sv"},  
+        {},  
+        "../../results/test_basic_dataflow.json"  
+    },  
+    {  
+        "Case Statement",  
+        "test_case_statement",  
+        {"/data/fhj/sva-var/test_suite/test_case_statement.sv"},  
+        {},  
+        "../../results/test_case_statement.json"  
+    },  
+    {  
+        "Nested Conditions",  
+        "test_nested_conditions",  
+        {"/data/fhj/sva-var/test_suite/test_nested_conditions.sv"},  
+        {},  
+        "../../results/test_nested_conditions.json"  
+    },  
+    {  
+        "Module Hierarchy",  
+        "test_module_hierarchy",  
+        {"/data/fhj/sva-var/test_suite/test_module_hierarchy.sv"},  
+        {},  
+        "../../results/test_module_hierarchy.json"  
+    },  
+    {  
+        "Struct Union",  
+        "test_struct_union",  
+        {"/data/fhj/sva-var/test_suite/test_struct_union.sv"},  
+        {},  
+        "../../results/test_struct_union.json"  
+    },  
+    {  
+        "Parameters Enums",  
+        "test_parameters_enums",  
+        {"/data/fhj/sva-var/test_suite/test_parameters_enums.sv"},  
+        {},  
+        "../../results/test_parameters_enums.json"  
+    },  
+    {  
+        "Increment Operations",  
+        "test_increment_operations",  
+        {"/data/fhj/sva-var/test_suite/test_increment_operations.sv"},  
+        {},  
+        "../../results/test_increment_operations.json"  
+    } 
+    ,  
+    {  
+        "Verilog Counter",  
+        "test_verilog_counter",  
+        {"/data/fhj/sva-var/test_suite/test_verilog_counter.v"},  
+        {},  
+        "../../results/test_verilog_counter.json"  
+    },  
+    {  
+        "Verilog FSM",  
+        "test_verilog_fsm",  
+        {"/data/fhj/sva-var/test_suite/test_verilog_fsm.v"},  
+        {},  
+        "../../results/test_verilog_fsm.json"  
+    }
+};
+// 注意：为了运行此代码，您需要取消注释 testSuite 中您希望运行的测试用例。
+// 目前，只有 Ibex Core 测试用例是启用状态。
+// std::vector<TestCase> testSuite = {
+//         {
+//             "i2c",
+//             "i2c_master_top",
+//             {   
+//                 "/data/fhj/sva-var/datasets/AssertEval/i2c/rtl/i2c_master_defines.v",
+//                 "/data/fhj/sva-var/datasets/AssertEval/i2c/rtl/i2c_master_top.v",
+//                 "/data/fhj/sva-var/datasets/AssertEval/i2c/rtl/i2c_master_bit_ctrl.v",
+//                 "/data/fhj/sva-var/datasets/AssertEval/i2c/rtl/i2c_master_byte_ctrl.v"
+//             },
+//             {
+//                 "/data/fhj/sva-var/datasets/AssertEval/i2c/rtl/i2c_master_defines.v"
+//             },
+//             "../../results/i2c.json"
+//         },
+//         {
+//             "apb",
+//             "i2c",
+//             {
+//                 "/data/fhj/sva-var/datasets/AssertEval/apb/rtl/apb.sv",
+//                 "/data/fhj/sva-var/datasets/AssertEval/apb/rtl/fifo.sv",
+//                 "/data/fhj/sva-var/datasets/AssertEval/apb/rtl/i2c.sv",
+//                 "/data/fhj/sva-var/datasets/AssertEval/apb/rtl/module_i2c.sv"
+//             },
+//             {},
+//             "../../results/apb.json"
+//         },
+//         {
+//             "uart",
+//             "uart2bus_top",
+//             {
+//                 "/data/fhj/sva-var/datasets/AssertEval/uart/rtl/uart_rx.sv",
+//                 "/data/fhj/sva-var/datasets/AssertEval/uart/rtl/uart_tx.sv",
+//                 "/data/fhj/sva-var/datasets/AssertEval/uart/rtl/uart_parser.sv",
+//                 "/data/fhj/sva-var/datasets/AssertEval/uart/rtl/baud_gen.sv",
+//                 "/data/fhj/sva-var/datasets/AssertEval/uart/rtl/uart_top.sv",
+//                 "/data/fhj/sva-var/datasets/AssertEval/uart/rtl/uart2bus_top.sv"
+//             },
+//             {
                 
-        //     },
-        //     "../../results/ibex_alu.json"
-        // },
-        {
-            "Ibex Core",
-            "ibex_core", // 假设顶层模块名是 ibex_core
-            {
-                "/data/fhj/sva-var/ibex/rtl/ibex_alu.sv",
-                "/data/fhj/sva-var/ibex/rtl/ibex_compressed_decoder.sv",
-                "/data/fhj/sva-var/ibex/rtl/ibex_controller.sv",
-                "/data/fhj/sva-var/ibex/rtl/ibex_counter.sv",
-                "/data/fhj/sva-var/ibex/rtl/ibex_cs_registers.sv",
-                "/data/fhj/sva-var/ibex/rtl/ibex_decoder.sv",
-                "/data/fhj/sva-var/ibex/rtl/ibex_ex_block.sv",
-                "/data/fhj/sva-var/ibex/rtl/ibex_id_stage.sv",
-                "/data/fhj/sva-var/ibex/rtl/ibex_if_stage.sv",
-                "/data/fhj/sva-var/ibex/rtl/ibex_load_store_unit.sv",
-                "/data/fhj/sva-var/ibex/rtl/ibex_multdiv_slow.sv",
-                "/data/fhj/sva-var/ibex/rtl/ibex_multdiv_fast.sv",
-                "/data/fhj/sva-var/ibex/rtl/ibex_prefetch_buffer.sv",
-                "/data/fhj/sva-var/ibex/rtl/ibex_fetch_fifo.sv",
-                "/data/fhj/sva-var/ibex/rtl/ibex_register_file_ff.sv",
-                "/data/fhj/sva-var/ibex/rtl/ibex_csr.sv", 
-                "/data/fhj/sva-var/ibex/rtl/ibex_wb_stage.sv",  
-                "/data/fhj/sva-var/ibex/rtl/ibex_core.sv"
-            },
-            {   
-                "/data/fhj/sva-var/ibex/rtl/ibex_pkg.sv",
-                "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_dummy_macros.svh",
-                "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_yosys_macros.svh",
-                "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_standard_macros.svh",
-                "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_sec_cm.svh",
-                "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_flop_macros.sv",
-                "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert.sv",
-                "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/dv/sv/dv_utils/dv_fcov_macros.svh"
-                
-            },
-            "../../results/ibex_core.json"
-        }
+//             },
+//             "../../results/uart.json"
+//         },
+//         // --- 现有测试用例 (已注释) ---
+//         // {
+//         //     "Basic Dataflow",
+//         //     "test_basic",
+//         //     {"../test_suite/1_basic_dataflow/test_basic.sv"},
+//         //     {},
+//         //     "../../results/1_basic_dataflow.json"
+//         // },
         
-        // {
-        //     "T1. Basic Dataflow",
-        //     "test_1_basic_flow",
-        //     {"../../test_suite/test_1_basic_flow.sv"},
-        //     {},
-        //     "../../results/T1_basic_flow.json"
-        // },
-        // {
-        //     "T2. If-Else Control Path",
-        //     "test_2_if_else",
-        //     {"../../test_suite/test_2_if_else_path.sv"},
-        //     {},
-        //     "../../results/T2_if_else_path.json"
-        // },
-        // {
-        //     "T3. Case Statement & Nested If",
-        //     "test_3_case",
-        //     {"../../test_suite/test_3_case_statement.sv"},
-        //     {},
-        //     "../../results/T3_case_statement.json"
-        // },
-        // {
-        //     "T4. Generate Loop & Genvar",
-        //     "test_4_generate",
-        //     {"../../test_suite/test_4_generate_loop.sv"},
-        //     {},
-        //     "../../results/T4_generate_loop.json"
-        // },
-        // {
-        //     "T5. Parameter & Enum Logic",
-        //     "test_5_param_enum",
-        //     {"../../test_suite/test_5_param_enum.sv"},
-        //     {},
-        //     "../../results/T5_param_enum.json"
-        // },
-        // {
-        //     "T6. Module Hierarchy & Port Connection",
-        //     "test_6_module_inst",
-        //     {"../../test_suite/test_6_module_inst.sv"},
-        //     {},
-        //     "../../results/T6_module_inst.json"
-        // },
-        // {
-        //     "T7. Sequential Logic & Complex Path",
-        //     "test_7_multicycle",
-        //     {"../../test_suite/test_7_multicycle.sv"},
-        //     {},
-        //     "../../results/T7_multicycle.json"
-        // },
-        // {
-        //     "T8. Array & Selects",
-        //     "test_8_array_select",
-        //     {"../../test_suite/test_8_array_select.sv"},
-        //     {},
-        //     "../../results/T8_array_select.json"
-        // },
-        // {
-        //     "T9. Struct & Union Access",
-        //     "test_9_struct_union",
-        //     {"../../test_suite/test_9_struct_union.sv"},
-        //     {},
-        //     "../../results/T9_struct_union.json"
-        // },
-        // {
-        //     "T10. Interface & Modport",
-        //     "test_10_interface",
-        //     {"../../test_suite/test_10_interface.sv"},
-        //     // {"../test_suite/simple_bus_if.sv"}, // 接口文件作为头文件
-        //     {},
-        //     "../../results/T10_interface.json"
-        // }
-    };
+//         // --- 新增 Ibex 测试用例 ---
+//         // {
+//         //     "Ibex Compressed Decoder",
+//         //     "ibex_compressed_decoder",
+//         //     {"/data/fhj/sva-var/ibex/rtl/ibex_compressed_decoder.sv"},
+//         //     {
+//         //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_dummy_macros.svh",
+//         //         "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_yosys_macros.svh",
+//         //         // ... 其他头文件
+//         //     },
+//         //     "../../results/ibex_compressed_decoder.json"
+//         // },
+//         {
+//             "Ibex Core",
+//             "ibex_core", // 假设顶层模块名是 ibex_core
+//             {
+//                 "/data/fhj/sva-var/ibex/rtl/ibex_alu.sv",
+//                 "/data/fhj/sva-var/ibex/rtl/ibex_compressed_decoder.sv",
+//                 "/data/fhj/sva-var/ibex/rtl/ibex_controller.sv",
+//                 "/data/fhj/sva-var/ibex/rtl/ibex_counter.sv",
+//                 "/data/fhj/sva-var/ibex/rtl/ibex_cs_registers.sv",
+//                 "/data/fhj/sva-var/ibex/rtl/ibex_decoder.sv",
+//                 "/data/fhj/sva-var/ibex/rtl/ibex_ex_block.sv",
+//                 "/data/fhj/sva-var/ibex/rtl/ibex_id_stage.sv",
+//                 "/data/fhj/sva-var/ibex/rtl/ibex_if_stage.sv",
+//                 "/data/fhj/sva-var/ibex/rtl/ibex_load_store_unit.sv",
+//                 "/data/fhj/sva-var/ibex/rtl/ibex_multdiv_slow.sv",
+//                 "/data/fhj/sva-var/ibex/rtl/ibex_multdiv_fast.sv",
+//                 "/data/fhj/sva-var/ibex/rtl/ibex_prefetch_buffer.sv",
+//                 "/data/fhj/sva-var/ibex/rtl/ibex_fetch_fifo.sv",
+//                 "/data/fhj/sva-var/ibex/rtl/ibex_register_file_ff.sv",
+//                 "/data/fhj/sva-var/ibex/rtl/ibex_csr.sv", 
+//                 "/data/fhj/sva-var/ibex/rtl/ibex_wb_stage.sv",  
+//                 "/data/fhj/sva-var/ibex/rtl/ibex_core.sv"
+//             },
+//             {   
+//                 "/data/fhj/sva-var/ibex/rtl/ibex_pkg.sv",
+//                 "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_dummy_macros.svh",
+//                 "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_yosys_macros.svh",
+//                 "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_standard_macros.svh",
+//                 "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_sec_cm.svh",
+//                 "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_flop_macros.sv",
+//                 "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert.sv",
+//                 "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/dv/sv/dv_utils/dv_fcov_macros.svh"
+                
+//             },
+//             "../../results/ibex_core.json"
+//         }
+//     };
 
 
 using json = nlohmann::json;
 
+// JSON 序列化辅助函数 (保持不变)
 void to_json(json& j, const ConditionExpression& expr) {
     j = json{
         {"expression", expr.expression},
         {"involvedSignals", expr.involvedSignals},
-        {"involvedParameters", expr.involvedParameters} // ←← 新增
+        {"involvedParameters", expr.involvedParameters}
     };
 }
 
@@ -283,11 +239,12 @@ void to_json(json& j, const VariableInfo& v) {
     };
 }
 
-// --- 核心分析函数 ---
+// 核心分析函数 (保持不变)
 bool runAnalysis(const std::string& topModule,   
                  const std::vector<std::string>& sourceFiles,  
                  const std::vector<std::string>& headerFiles,  
-                 const std::string& outputPath) {  
+                 const std::string& outputPath,
+                 const SlicingCriterion* criterion = nullptr) {  
       
     std::cout << "--- Analyzing Test Case: " << topModule << " ---" << std::endl;  
     std::cout << "Source files: " << sourceFiles.size() << std::endl;  
@@ -297,18 +254,24 @@ bool runAnalysis(const std::string& topModule,
     if (outPath.has_parent_path()) {  
         std::filesystem::create_directories(outPath.parent_path());  
     }  
-  
+
+    std::set<std::string> uniqueIncludePaths;
+    for (const auto& headerFile : headerFiles) {
+        std::filesystem::path headerPath(headerFile);
+        if (headerPath.has_parent_path()) {
+            uniqueIncludePaths.insert(headerPath.parent_path().string());
+        }
+    }
+    std::vector<std::filesystem::path> finalIncludePaths;
+    for (const auto& pathString : uniqueIncludePaths) {
+        finalIncludePaths.push_back(std::filesystem::path(pathString));
+    }
+
     // 创建 SourceManager  
     slang::SourceManager sourceManager;  
       
     // 配置预处理器选项,添加 include 路径  
     slang::parsing::PreprocessorOptions ppOptions; 
-     
-    ppOptions.additionalIncludePaths = {  
-        "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/ip/prim/rtl",  
-        "/data/fhj/sva-var/ibex/rtl",
-        "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/dv/sv/dv_utils" 
-    };  
       
     slang::Bag options;  
     options.set(ppOptions);  
@@ -350,14 +313,14 @@ bool runAnalysis(const std::string& topModule,
       
     auto& root = compilation.getRoot();  
       
-    // 输出顶层模块  
-    auto topInstances = root.topInstances;  
-    if (!topInstances.empty()) {  
-        std::cout << "Top level design units:\n";  
-        for (auto inst : topInstances)  
-            std::cout << "    " << inst->name << "\n";  
-        std::cout << "\n";  
-    }  
+    // // 输出顶层模块  
+    // auto topInstances = root.topInstances;  
+    // if (!topInstances.empty()) {  
+    //     std::cout << "Top level design units:\n";  
+    //     for (auto inst : topInstances)  
+    //         std::cout << "    " << inst->name << "\n";  
+    //     std::cout << "\n";  
+    // }  
       
     // 创建诊断引擎和客户端  
     slang::DiagnosticEngine diagEngine(sourceManager);  
@@ -394,30 +357,140 @@ bool runAnalysis(const std::string& topModule,
         return false;  
     }  
       
-    DependencyVisitor visitor;  
-    top->visit(visitor);  
+    DependencyVisitor visitor;    
+    top->visit(visitor);    
     visitor.postProcess();  
       
-    json resultJson = visitor.getResults();  
-  
-    std::ofstream outFile(outputPath);  
-    if (outFile.is_open()) {  
-        outFile << resultJson.dump(4);   
-        outFile.close();  
-        std::cout << "[SUCCESS] Results written to: " << outputPath << std::endl;  
+    // 创建 ProgramSlicer 对象  
+    ProgramSlicer slicer(visitor.getResults());  
+      
+    // 创建默认配置    
+    SliceConfig config;    
+    config.granularity = SliceGranularity::ProceduralBlock;    
+    config.filterOptions = SliceFilterOptions::RemoveUnrelatedAssignments;    
+    config.contextLines = 0;    
+        
+    json unifiedOutput;    
+    unifiedOutput["topModule"] = topModule;    
+    unifiedOutput["analysisResults"] = visitor.getResults();    
+    // 准备txt文件输出  
+    std::stringstream txtOutput;  
+    txtOutput << "========================================\n";  
+    txtOutput << "Program Slices for Module: " << topModule << "\n";  
+    txtOutput << "========================================\n\n";    
+
+    // 为每个变量生成前向和后向切片    
+    for (const auto& [varName, varInfo] : visitor.getResults()) {    
+        SlicingCriterion backwardCriterion;    
+        backwardCriterion.variableName = varName;    
+          
+        SliceResult backwardResult = slicer.backwardSlice(backwardCriterion, config);    
+        SliceResult forwardResult = slicer.forwardSlice(backwardCriterion, config);    
+          
+        std::string backwardCode = slicer.generateMergedCodeForVariable(    
+            backwardResult, varName, sourceManager);    
+        std::string forwardCode = slicer.generateMergedCodeForVariable(    
+            forwardResult, varName, sourceManager);    
+        // 添加到txt输出  
+        txtOutput << "========================================\n";  
+        txtOutput << "Variable: " << varName << "\n";  
+        txtOutput << "========================================\n\n";  
+          
+        txtOutput << "--- Backward Slice ---\n";  
+        txtOutput << backwardCode << "\n\n";  
+          
+        txtOutput << "--- Forward Slice ---\n";  
+        txtOutput << forwardCode << "\n\n";  
+          
+        txtOutput << "----------------------------------------\n\n";   
+        unifiedOutput["slices"][varName]["backward"]["mergedCode"] = backwardCode;    
+        unifiedOutput["slices"][varName]["backward"]["metadata"] = {    
+            {"relevantVariables", backwardResult.relevantVariables},    
+            {"controlVariables", backwardResult.controlVariables}    
+        };    
+          
+        unifiedOutput["slices"][varName]["forward"]["mergedCode"] = forwardCode;    
+        unifiedOutput["slices"][varName]["forward"]["metadata"] = {    
+            {"relevantVariables", forwardResult.relevantVariables},    
+            {"controlVariables", forwardResult.controlVariables}    
+        };    
+    }     
+     
+    // 输出到文件    
+    std::ofstream outFile(outputPath);    
+    if (outFile.is_open()) {    
+        outFile << unifiedOutput.dump(2);    
+        outFile.close();    
+        std::cout << "[SUCCESS] Results written to: " << outputPath << std::endl;    
+    }    
+         // 输出TXT文件  
+    std::string txtPath = outputPath + ".slices.txt";  
+    std::ofstream txtFile(txtPath);  
+    if (txtFile.is_open()) {  
+        txtFile << txtOutput.str();  
+        txtFile.close();  
+        std::cout << "[SUCCESS] Text slices written to: " << txtPath << std::endl;  
         return true;  
     } else {  
-        std::cerr << "[ERROR] Could not open output file for writing: " << outputPath << std::endl;  
+        std::cerr << "[ERROR] Could not open txt file for writing: " << txtPath << std::endl;  
         return false;  
-    }  
+    }     
+    return false;   
 }
 
-// 主函数，作为测试驱动器
+/**
+ * 主函数，作为测试驱动器
+ * 允许用户选择运行单个测试或所有测试。
+ */
 int main(int argc, char** argv) {
+    if (testSuite.empty()) {
+        std::cout << "No test cases are currently defined or uncommented in testSuite." << std::endl;
+        return 0;
+    }
     
+    std::cout << "\n========================================" << std::endl;
+    std::cout << "Available Test Cases:" << std::endl;
+    for (size_t i = 0; i < testSuite.size(); ++i) {
+        std::cout << "[" << i + 1 << "] " << testSuite[i].name << std::endl;
+    }
+    std::cout << "[0] Run ALL Tests" << std::endl;
+    std::cout << "========================================" << std::endl;
+    std::cout << "Enter selection (1-" << testSuite.size() << ", or 0 for all): ";
 
+    std::string input;
+    std::cin >> input;
+
+    std::vector<TestCase> selectedTests;
+    int index = -1;
+
+    try {
+        index = std::stoi(input);
+    } catch (const std::invalid_argument& e) {
+        std::cerr << "Invalid input. Please enter a number (0-" << testSuite.size() << ")." << std::endl;
+        return 1;
+    } catch (const std::out_of_range& e) {
+        std::cerr << "Invalid selection: Index out of range." << std::endl;
+        return 1;
+    }
+
+
+    if (index == 0) {
+        selectedTests = testSuite; // 运行所有测试
+        std::cout << "Executing ALL " << testSuite.size() << " test cases." << std::endl;
+    } else if (index >= 1 && index <= (int)testSuite.size()) {
+        selectedTests.push_back(testSuite[index - 1]); // 索引是 1-based
+        std::cout << "Executing selected test: " << testSuite[index - 1].name << std::endl;
+    } else {
+        std::cerr << "Invalid selection: Index out of range (Must be 0-" << testSuite.size() << ")." << std::endl;
+        return 1;
+    }
+
+    std::cout << "----------------------------------------" << std::endl;
+
+
+    // 执行选定的测试
     int successCount = 0;
-    for (const auto& testCase : testSuite) {
+    for (const auto& testCase : selectedTests) {
         std::cout << "\n========================================" << std::endl;
         std::cout << "Running: " << testCase.name << std::endl;
         std::cout << "========================================" << std::endl;
@@ -432,8 +505,8 @@ int main(int argc, char** argv) {
 
     std::cout << "\n========================================" << std::endl;
     std::cout << "Test Suite Finished." << std::endl;
-    std::cout << "Passed: " << successCount << " / " << testSuite.size() << std::endl;
+    std::cout << "Passed: " << successCount << " / " << selectedTests.size() << std::endl;
     std::cout << "========================================" << std::endl;
 
-    return (successCount == testSuite.size()) ? 0 : 1;
+    return (successCount == selectedTests.size()) ? 0 : 1;
 }

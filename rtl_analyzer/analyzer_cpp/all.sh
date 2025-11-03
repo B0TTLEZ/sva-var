@@ -1,0 +1,1 @@
+cat /data/fhj/sva-var/rtl_analyzer/analyzer_cpp/src/DataModel.h /data/fhj/sva-var/rtl_analyzer/analyzer_cpp/src/DependencyVisitor.h /data/fhj/sva-var/rtl_analyzer/analyzer_cpp/src/DependencyVisitor.cpp /data/fhj/sva-var/rtl_analyzer/analyzer_cpp/src/ProgramSlicer.h /data/fhj/sva-var/rtl_analyzer/analyzer_cpp/src/ProgramSlicer.cpp  > code.txt

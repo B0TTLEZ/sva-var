@@ -17,6 +17,7 @@ add_executable(
   analyzer
   src/main.cpp
   src/DependencyVisitor.cpp
+  src/ProgramSlicer.cpp
 )
 
 # --- 【核心修复】显式添加 slang 的 include 目录 ---

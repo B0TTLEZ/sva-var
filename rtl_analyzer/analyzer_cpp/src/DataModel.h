@@ -4,6 +4,8 @@
 #include <map>
 #include <vector>
 
+#include "slang/text/SourceLocation.h"
+
 // 改进的条件表达式节点
 struct ConditionExpression {
     std::string expression;  // 完整的表达式文本
@@ -32,26 +34,39 @@ struct ConditionClause {
 
 using ConditionPath = std::set<ConditionClause>;
 
-struct AssignmentInfo {
-    ConditionPath path;
-    std::set<std::string> drivingSignals;
-    std::string file;
-    int line = 0;
-    std::string type = "direct";
-    std::string logicType = "unknown";  // 新增："sequential" 或 "combinational"
-    int conditionDepth = 0;             // 新增：条件嵌套深度
-
-    bool operator<(const AssignmentInfo& other) const {
-        if (path < other.path) return true;
-        if (other.path < path) return false;
-        if (drivingSignals < other.drivingSignals) return true;
-        if (other.drivingSignals < drivingSignals) return false;
-        if (file != other.file) return file < other.file;
-        if (line != other.line) return line < other.line;
-        if (type != other.type) return type < other.type;
-        if (logicType != other.logicType) return logicType < other.logicType;
-        return conditionDepth < other.conditionDepth;
-    }
+struct AssignmentInfo {    
+    ConditionPath path;    
+    std::set<std::string> drivingSignals;    
+    std::string file;    
+    int line = 0;    
+    std::string type = "direct";    
+    std::string logicType = "unknown";    
+    int conditionDepth = 0;    
+    slang::SourceRange sourceRange;    
+    slang::SourceRange proceduralBlockRange;    
+      
+    bool operator<(const AssignmentInfo& other) const {    
+        if (path < other.path) return true;    
+        if (other.path < path) return false;    
+        if (drivingSignals < other.drivingSignals) return true;    
+        if (other.drivingSignals < drivingSignals) return false;    
+        if (file != other.file) return file < other.file;    
+        if (line != other.line) return line < other.line;    
+        if (type != other.type) return type < other.type;    
+        if (logicType != other.logicType) return logicType < other.logicType;    
+        if (conditionDepth != other.conditionDepth) return conditionDepth < other.conditionDepth;    
+          
+        // 比较sourceRange    
+        if (sourceRange.start() < other.sourceRange.start()) return true;    
+        if (other.sourceRange.start() < sourceRange.start()) return false;    
+        if (sourceRange.end() < other.sourceRange.end()) return true;    
+        if (other.sourceRange.end() < sourceRange.end()) return false;    
+          
+        // 新增:比较proceduralBlockRange    
+        if (proceduralBlockRange.start() < other.proceduralBlockRange.start()) return true;    
+        if (other.proceduralBlockRange.start() < proceduralBlockRange.start()) return false;    
+        return proceduralBlockRange.end() < other.proceduralBlockRange.end();    
+    }    
 };
 
 struct VariableInfo {

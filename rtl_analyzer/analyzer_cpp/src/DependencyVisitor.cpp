@@ -76,7 +76,7 @@ public:
     void handle(const slang::ast::MemberAccessExpression& expr) {
         std::string fullPath = getFullMemberPath(expr);
         if (!fullPath.empty()) {
-            std::cout << "[DEBUG] DataSignalVisitor found member: " << fullPath << std::endl;
+            // std::cout << "[DEBUG] DataSignalVisitor found member: " << fullPath << std::endl;
             signals.insert(fullPath);
             
             // // 同时记录父级
@@ -411,31 +411,31 @@ std::string DependencyVisitor::getFullMemberPath(const slang::ast::Expression& e
 // 处理成员访问赋值
 void DependencyVisitor::handleMemberAssignment(const slang::ast::AssignmentExpression& expr, 
                                               const slang::ast::MemberAccessExpression& memberExpr) {
-    std::cout << "[DEBUG] handleMemberAssignment called!" << std::endl;
+    // std::cout << "[DEBUG] handleMemberAssignment called!" << std::endl;
     
     // 获取完整的成员路径
     std::string fullMemberPath = getFullMemberPath(memberExpr);
-    std::cout << "[DEBUG] Full member path: " << fullMemberPath << std::endl;
+    // std::cout << "[DEBUG] Full member path: " << fullMemberPath << std::endl;
     
     if (fullMemberPath.empty()) {
-        std::cout << "[DEBUG] Empty member path, skipping" << std::endl;
+        // std::cout << "[DEBUG] Empty member path, skipping" << std::endl;
         visitDefault(expr);
         return;
     }
     
     // 为成员创建变量信息
     VariableInfo& memberInfo = getOrAddVariableByName(fullMemberPath);
-    std::cout << "[DEBUG] Created variable info for: " << fullMemberPath << std::endl;
+    // std::cout << "[DEBUG] Created variable info for: " << fullMemberPath << std::endl;
     
     // 分析右侧表达式
     DataSignalVisitor rhsVisitor;
     expr.right().visit(rhsVisitor);
     
-    std::cout << "[DEBUG] RHS signals: ";
-    for (const auto& sig : rhsVisitor.signals) {
-        std::cout << sig << " ";
-    }
-    std::cout << std::endl;
+    // std::cout << "[DEBUG] RHS signals: ";
+    // for (const auto& sig : rhsVisitor.signals) {
+    //     std::cout << sig << " ";
+    // }
+    // std::cout << std::endl;
     
     // 创建赋值记录
     AssignmentInfo assignInfo;
@@ -446,7 +446,7 @@ void DependencyVisitor::handleMemberAssignment(const slang::ast::AssignmentExpre
     assignInfo.conditionDepth = pathStack.size() - 1;
     
     memberInfo.assignments.insert(assignInfo);
-    std::cout << "[DEBUG] Added assignment to member: " << fullMemberPath << std::endl;
+    // std::cout << "[DEBUG] Added assignment to member: " << fullMemberPath << std::endl;
     
     // // 同时为父级结构体/联合体创建赋值记录
     // std::string parentPath = getFullMemberPath(memberExpr.value());
@@ -588,11 +588,14 @@ void DependencyVisitor::handle(const slang::ast::PortSymbol& symbol) {
 }
 
 void DependencyVisitor::handle(const slang::ast::AssignmentExpression& expr) {
-    std::cout << "[DEBUG] Processing assignment expression" << std::endl;
+    if (!expr.syntax) {  
+        return;  
+    }  
+    std::cout << "[DEBUG] Processing assignment expression:"<<expr.left().getSymbolReference()->getHierarchicalPath() << std::endl;
     
     // 首先检查是否为成员访问表达式
     if (const auto* memberExpr = expr.left().as_if<slang::ast::MemberAccessExpression>()) {
-        std::cout << "[DEBUG] Found member access on LHS, handling member assignment" << std::endl;
+        // std::cout << "[DEBUG] Found member access on LHS, handling member assignment" << std::endl;
         handleMemberAssignment(expr, *memberExpr);
         return;
     }
@@ -606,7 +609,7 @@ void DependencyVisitor::handle(const slang::ast::AssignmentExpression& expr) {
     
     // 原有的简单符号处理逻辑
     std::string lhsName = lhsSymbol->getHierarchicalPath();
-    std::cout << "[DEBUG] Simple assignment to: " << lhsName << std::endl;
+    // std::cout << "[DEBUG] Simple assignment to: " << lhsName << std::endl;
     
     VariableInfo& lhsInfo = getOrAddVariable(*lhsSymbol);
         
@@ -620,9 +623,17 @@ void DependencyVisitor::handle(const slang::ast::AssignmentExpression& expr) {
     AssignmentInfo assignInfo;
     assignInfo.path = pathStack.back();
     assignInfo.drivingSignals = rhsVisitor.signals;
+    assignInfo.sourceRange = expr.sourceRange;
+
+    // 如果在过程块中,记录过程块的范围  
+    if (currentProcBlock && proceduralBlockRanges.count(currentProcBlock)) {  
+        assignInfo.proceduralBlockRange = proceduralBlockRanges[currentProcBlock];  
+    }  
+
     if (isIncrement) {
         assignInfo.type = "increment";
     } else if (rhsVisitor.signals.empty()) {
+        std::cout << "[DEBUG] Assignment is a constant assignment for" <<expr.left().getSymbolReference()->getHierarchicalPath() << std::endl;
         assignInfo.type = "constant";
     } else {
         assignInfo.type = "direct";
@@ -732,73 +743,108 @@ void DependencyVisitor::handle(const slang::ast::CaseStatement& stmt) {
     }
 }
 
-void DependencyVisitor::handle(const slang::ast::InstanceSymbol& symbol) {
-    std::string instanceFile;
-    int instanceLine = 0;
-    
-    const slang::ast::Scope* scope = symbol.getParentScope();
-    if (scope) {
-        auto& comp = scope->getCompilation();
-        auto* sm = comp.getSourceManager();
-        if (sm && symbol.location) {
-            instanceFile = std::string(sm->getFileName(symbol.location));
-            instanceLine = sm->getLineNumber(symbol.location);
-        }
-    }
+void DependencyVisitor::handle(const slang::ast::InstanceBodySymbol& symbol) {  
+    // 第一遍:先收集所有变量、wire 和端口  
+    for (auto& member : symbol.members()) {  
+        if (member.kind == slang::ast::SymbolKind::Variable ||  
+            member.kind == slang::ast::SymbolKind::Net ||  
+            member.kind == slang::ast::SymbolKind::Port) {  
+            getOrAddVariable(member);  
+        }  
+    }  
+      
+    // 第二遍:正常遍历(包括实例)  
+    visitDefault(symbol);  
+}
 
-    for (auto* portConnection : symbol.getPortConnections()) {
-        const slang::ast::Symbol& internalPort = portConnection->port;
-        const slang::ast::Expression* externalExpr = portConnection->getExpression();
-        
-        VariableInfo& internalPortInfo = getOrAddVariable(internalPort);
-        
-        if (!externalExpr) continue;
-        
-        DataSignalVisitor externalSignalVisitor;
-        externalExpr->visit(externalSignalVisitor);
-
-        for (const auto& externalSignalName : externalSignalVisitor.signals) {
-            if (results.count(externalSignalName)) {
-                VariableInfo& externalInfo = results[externalSignalName];
-                
-                auto direction = internalPort.as<slang::ast::PortSymbol>().direction;
-                
-                if (direction != slang::ast::ArgumentDirection::In) { 
-                    AssignmentInfo assignInfo;
-                    assignInfo.path = pathStack.back();
-                    assignInfo.drivingSignals = {internalPortInfo.fullName};
-                    assignInfo.file = instanceFile;
-                    assignInfo.line = instanceLine;
-                    assignInfo.type = "port_connection";
-                    assignInfo.logicType = "combinational";
-                    assignInfo.conditionDepth = pathStack.size() - 1;
-                    externalInfo.assignments.insert(assignInfo);
-                    
-                    internalPortInfo.fanOut.insert(externalInfo.fullName);
-                }
-                if (direction != slang::ast::ArgumentDirection::Out) { 
-                    AssignmentInfo assignInfo;
-                    assignInfo.path = pathStack.back();
-                    assignInfo.drivingSignals = std::set<std::string>{externalSignalName};
-                    assignInfo.file = instanceFile;
-                    assignInfo.line = instanceLine;
-                    assignInfo.type = "port_connection";
-                    assignInfo.logicType = "combinational";
-                    assignInfo.conditionDepth = pathStack.size() - 1;
-                    internalPortInfo.assignments.insert(assignInfo);
-                    
-                    externalInfo.fanOut.insert(internalPortInfo.fullName);
-                }
-            }
-        }
-    }
-
-    visitDefault(symbol);
+void DependencyVisitor::handle(const slang::ast::InstanceSymbol& symbol) {  
+    std::cout << "[DEBUG] Processing instance: " << symbol.getHierarchicalPath() << std::endl;  
+      
+    // 在循环外部统一声明和初始化  
+    slang::SourceRange instanceRange;  
+    if (symbol.getSyntax()) {  
+        instanceRange = symbol.getSyntax()->sourceRange();  
+    }  
+      
+    std::string instanceFile;  
+    int instanceLine = 0;  
+      
+    const slang::ast::Scope* scope = symbol.getParentScope();  
+    if (scope) {  
+        auto& comp = scope->getCompilation();  
+        auto* sm = comp.getSourceManager();  
+        if (sm && symbol.location) {  
+            instanceFile = std::string(sm->getFileName(symbol.location));  
+            instanceLine = sm->getLineNumber(symbol.location);  
+        }  
+    }  
+  
+    // 循环内部直接使用外层声明的变量  
+    for (auto* portConnection : symbol.getPortConnections()) {  
+        const slang::ast::Symbol& internalPort = portConnection->port;  
+        std::cout << "[DEBUG] Processing port: " << internalPort.getHierarchicalPath() << std::endl;  
+          
+        const slang::ast::Expression* externalExpr = portConnection->getExpression();  
+        VariableInfo& internalPortInfo = getOrAddVariable(internalPort);  
+          
+        if (!externalExpr) continue;  
+          
+        DataSignalVisitor externalSignalVisitor;  
+        externalExpr->visit(externalSignalVisitor);  
+          
+        for (const auto& externalSignalName : externalSignalVisitor.signals) {  
+            if(!results.count(externalSignalName)){  
+                std::cout << "[DEBUG] External signal not found in results for inter signal:"   
+                         << internalPort.getHierarchicalPath() << std::endl;  
+                continue;  
+            }  
+              
+            VariableInfo& externalInfo = results[externalSignalName];  
+            std::cout << "[DEBUG] Processing conn: " << externalInfo.fullName   
+                     << "---" << internalPort.getHierarchicalPath() << std::endl;  
+            auto direction = internalPort.as<slang::ast::PortSymbol>().direction;  
+              
+            if (direction != slang::ast::ArgumentDirection::In) {   
+                AssignmentInfo assignInfo;  
+                assignInfo.path = pathStack.back();  
+                assignInfo.drivingSignals = {internalPortInfo.fullName};  
+                assignInfo.file = instanceFile;  
+                assignInfo.line = instanceLine;  
+                assignInfo.type = "port_connection";  
+                assignInfo.logicType = "combinational";  
+                assignInfo.conditionDepth = pathStack.size() - 1;  
+                assignInfo.sourceRange = instanceRange;  // 使用外层的instanceRange  
+                externalInfo.assignments.insert(assignInfo);  
+                  
+                internalPortInfo.fanOut.insert(externalInfo.fullName);  
+            }  
+              
+            if (direction != slang::ast::ArgumentDirection::Out) {   
+                AssignmentInfo assignInfo;  
+                assignInfo.path = pathStack.back();  
+                assignInfo.drivingSignals = std::set<std::string>{externalSignalName};  
+                assignInfo.file = instanceFile;  
+                assignInfo.line = instanceLine;  
+                assignInfo.type = "port_connection";  
+                assignInfo.logicType = "combinational";  
+                assignInfo.conditionDepth = pathStack.size() - 1;  
+                assignInfo.sourceRange = instanceRange;  // 使用外层的instanceRange  
+                internalPortInfo.assignments.insert(assignInfo);  
+                  
+                externalInfo.fanOut.insert(internalPortInfo.fullName);  
+            }  
+        }  
+    }  
+  
+    visitDefault(symbol);  
 }
 
 void DependencyVisitor::handle(const slang::ast::ProceduralBlockSymbol& symbol) {  
     auto* prevBlock = currentProcBlock;  
-    currentProcBlock = &symbol;  
+    currentProcBlock = &symbol; 
+    if (symbol.getSyntax()) {  
+        proceduralBlockRanges[&symbol] = symbol.getSyntax()->sourceRange();  
+    }   
     visitDefault(symbol);  
     currentProcBlock = prevBlock;  
 }
