@@ -30,12 +30,26 @@ class EnhancedVariableScoringSystem:
         # 添加缓存
         self.betweenness_centrality_cached = {}
         
+        # 新增：关键变量与评分权重
+        self.key_variables = []
+        # 顶层权重点，内部再细分具体指标
+        self.final_score_weights = {
+            'timing': 0.22,
+            'fanout': 0.15,
+            'control': 0.16,
+            'connectivity': 0.14,
+            'interface': 0.12,
+            'fsm': 0.10,
+            'reliability': 0.06,
+            'misc': 0.05
+        }
         self.load_data()
         
     def load_data(self):
         """加载JSON数据"""
         with open(self.json_file_path, 'r') as f:
-            self.data = json.load(f)
+            data = json.load(f)
+        self.data = data.get('analysisResults', {})
         print(f"Loaded {len(self.data)} variables")
     
     def build_dependency_graph(self):
@@ -229,6 +243,7 @@ class EnhancedVariableScoringSystem:
             print(f"    Backward Depth: {analysis['max_comb_depth_backward']}")
             print(f"    Drives Output: {analysis['drives_outputs']}")
         
+        # 修复：返回本地计算的列表
         return critical_paths[:top_n]
 
     # =====================================================================
@@ -786,14 +801,21 @@ class EnhancedVariableScoringSystem:
         print(f"\n🔧 Normalizing Scores...")
         self.normalize_scores()
         
-        # 整合增强分析结果
         print(f"\n🔧 Integrating Enhanced Metrics...")
         self.integrate_enhanced_metrics()
+
+        # 新增：整合后再次归一化，保证新增指标参与评分时已归一化
+        print(f"\n🔧 Re-Normalizing Scores after integrating enhanced metrics...")
+        self.normalize_scores()
+        
+        # 新增：关键变量提取
+        print(f"\n🔧 Extracting Key Variables...")
+        self.extract_key_variables(top_k=50)
         
         # 生成综合报告
         self.generate_comprehensive_report()
         
-        # 导出完整结果
+        # 导出完整结果（包含关键变量）
         self.export_comprehensive_results('comprehensive_analysis_results.json')
         
         print("\n✅ All analyses completed!")
@@ -833,7 +855,126 @@ class EnhancedVariableScoringSystem:
         print(f"  3. Verify {len(self.fsm_candidates)} state machine behaviors")
         print(f"  4. Test global signal integrity")
         print(f"  5. Validate critical module interfaces")
+        # 新增：打印Top关键变量
+        if getattr(self, 'key_variables', None):
+            print(f"\n🏆 Top Key Variables:")
+            for i, kv in enumerate(self.key_variables[:10]):
+                print(f"  {i+1:2d}. {kv['name']}  score={kv['final_score']:.3f}  tags={','.join(kv['categories'])}")
 
+    # =========================
+    # 新增：关键变量提取与评分
+    # =========================
+    def extract_key_variables(self, top_k=50):
+        """计算最终得分、分类并输出Top-K关键变量"""
+        ranked = []
+        for name, scores in self.variable_scores.items():
+            final, components = self._compute_final_score(scores)
+            categories = self._classify_variable(scores)
+            reasons = self._top_reasons(components, scores)
+            ranked.append({
+                'name': name,
+                'final_score': final,
+                'categories': categories,
+                'reasons': reasons
+            })
+        ranked.sort(key=lambda x: x['final_score'], reverse=True)
+        self.key_variables = ranked[:top_k]
+
+    def _get(self, scores, key, default=0.0):
+        val = scores.get(key, default)
+        # 跳过布尔和字符串，返回0/1或默认
+        if isinstance(val, bool):
+            return 1.0 if val else 0.0
+        if isinstance(val, str):
+            return default
+        return float(val)
+
+    def _compute_final_score(self, s):
+        """按权重合成最终得分，并加入flag加成"""
+        # 组件分值（均使用归一化后的值）
+        timing = self._get(s, 'critical_path_score')
+        fanout = self._get(s, 'fanout_pressure')
+        control = max(self._get(s, 'is_control_variable'), self._get(s, 'control_scope'))
+        connectivity = (
+            0.5 * self._get(s, 'total_degree') +
+            0.3 * self._get(s, 'betweenness_centrality') +
+            0.2 * self._get(s, 'closeness_centrality')
+        )
+        interface = self._get(s, 'interface_complexity')
+        fsm = self._get(s, 'fsm_likelihood')
+        reliability = (
+            0.6 * self._get(s, 'condition_stability') +
+            0.4 * (1.0 - self._get(s, 'reset_sensitivity'))
+        )
+        misc = (
+            0.45 * self._get(s, 'drives_output') +
+            0.35 * self._get(s, 'assignment_frequency') +
+            0.20 * self._get(s, 'bit_width')
+        )
+        components = {
+            'timing': timing, 'fanout': fanout, 'control': control,
+            'connectivity': connectivity, 'interface': interface,
+            'fsm': fsm, 'reliability': reliability, 'misc': misc
+        }
+        # 基础加权和
+        w = self.final_score_weights
+        final = sum(components[k] * w[k] for k in w.keys())
+
+        # Flags/加成
+        if s.get('is_critical_register', False): final += 0.05
+        if s.get('is_high_fanout', False): final += 0.05
+        if s.get('is_critical_interface', False): final += 0.04
+
+        sig_type = s.get('signal_type', 'regular')
+        if sig_type == 'clock': final += 0.07
+        elif sig_type == 'reset': final += 0.06
+        elif sig_type == 'enable': final += 0.03
+
+        # 轻微惩罚：极低连通性
+        if self._get(s, 'total_degree') < 0.05 and self._get(s, 'control_scope') < 0.05:
+            final *= 0.9
+
+        # 限幅
+        final = max(0.0, min(1.5, final))
+        return final, components
+
+    def _classify_variable(self, s):
+        """给变量打标签"""
+        tags = []
+        if self._get(s, 'critical_path_score') > 0.6 or s.get('is_critical_register', False):
+            tags.append('timing-critical')
+        if self._get(s, 'fanout_pressure') > 0.6 or s.get('is_high_fanout', False):
+            tags.append('fanout-bottleneck')
+        if self._get(s, 'control_scope') > 0.5 or s.get('is_control_variable', False):
+            tags.append('control-hub')
+        if s.get('signal_type', 'regular') != 'regular':
+            tags.append('global-signal')
+        if s.get('is_critical_interface', False) or self._get(s, 'interface_complexity') > 0.6:
+            tags.append('interface-critical')
+        if self._get(s, 'fsm_likelihood') > 0.5:
+            tags.append('fsm')
+        if self._get(s, 'drives_output') > 0.5:
+            tags.append('output-driver')
+        if self._get(s, 'total_degree') > 0.7:
+            tags.append('data-hub')
+        return tags
+
+    def _top_reasons(self, components, s, top_n=4):
+        """输出主要贡献原因"""
+        contrib = {k: v * self.final_score_weights.get(k, 0.0) for k, v in components.items()}
+        # Flag贡献
+        if s.get('is_critical_register', False): contrib['critical_register'] = 0.05
+        if s.get('is_high_fanout', False): contrib['high_fanout'] = 0.05
+        if s.get('is_critical_interface', False): contrib['critical_interface'] = 0.04
+        st = s.get('signal_type', 'regular')
+        if st in ('clock', 'reset', 'enable'):
+            contrib[f'signal:{st}'] = {'clock': 0.07, 'reset': 0.06, 'enable': 0.03}[st]
+        ranked = sorted(contrib.items(), key=lambda x: x[1], reverse=True)
+        return [f"{k}:{v:.3f}" for k, v in ranked[:top_n]]
+
+    # =========================
+    # 恢复：增强指标整合
+    # =========================
     def integrate_enhanced_metrics(self):
         """将增强分析结果整合到variable_scores中"""
         print("\nIntegrating enhanced analysis results...")
@@ -980,6 +1121,10 @@ class EnhancedVariableScoringSystem:
                 return candidate[1]  # 返回FSM可能性评分
         return 0.0
 
+    # =====================================================================
+    # 导出与保存
+    # =====================================================================
+    
     def export_comprehensive_results(self, output_file):
         """导出包含所有分析结果的完整JSON"""
         # 整合所有结果
@@ -1001,7 +1146,9 @@ class EnhancedVariableScoringSystem:
                 'high_fanout_signals': self.high_fanout_signals,
                 'fsm_candidates': self.fsm_candidates,
                 'global_signals_analysis': self.global_signals_analysis
-            }
+            },
+            # 新增：关键变量列表
+            'key_variables': self.key_variables
         }
         
         with open(output_file, 'w', encoding='utf-8') as f:
@@ -1247,50 +1394,54 @@ class EnhancedVariableScoringSystem:
             print("No scores to normalize.")
             return
         
-        # 收集所有指标的数值
+        # 收集所有指标的数值（仅限纯数值，排除bool/str/容器）
         all_metrics = defaultdict(list)
         for scores in self.variable_scores.values():
             for metric, value in scores.items():
-                # 跳过布尔值和字符串类型的指标
-                if isinstance(value, (bool, str)):
+                if isinstance(value, bool) or isinstance(value, str):
                     continue
-                all_metrics[metric].append(value)
+                if isinstance(value, (int, float)):
+                    all_metrics[metric].append(float(value))
+                # 跳过dict、list等非数值
         
         # 对每个数值型指标进行min-max归一化
         normalized_scores = {}
         for var_name, scores in self.variable_scores.items():
             normalized = {}
             for metric, value in scores.items():
-                # 保持布尔值和字符串类型不变
-                if isinstance(value, (bool, str)):
+                # 保持布尔值、字符串和容器类型不变
+                if isinstance(value, bool) or isinstance(value, str) or not isinstance(value, (int, float)):
                     normalized[metric] = value
                     continue
-                    
                 if metric in all_metrics and all_metrics[metric]:
                     values = all_metrics[metric]
                     min_val = min(values)
                     max_val = max(values)
-                    
+                    v = float(value)
                     if max_val > min_val:
-                        normalized[metric] = (value - min_val) / (max_val - min_val)
+                        normalized[metric] = (v - min_val) / (max_val - min_val)
                     else:
                         normalized[metric] = 0.5  # 所有值相等时取中值
                 else:
-                    normalized[metric] = value
+                    normalized[metric] = float(value)
             
             # 保存原始值和归一化值
             normalized_scores[var_name] = {
-                **normalized,  # 归一化值
+                **normalized,
                 '_raw_scores': scores  # 原始值
             }
         
         self.variable_scores = normalized_scores
         print("Score normalization completed")
+
 # 使用示例
 def main():
     # 初始化增强版评分系统
-    scorer = EnhancedVariableScoringSystem('/data/fhj/sva-var/results/ibex_core.json')
-    
+    # scorer = EnhancedVariableScoringSystem('/data/fhj/sva-var/results/I2C.json')
+    # 允许命令行覆盖输入路径
+    import sys
+    input_path = sys.argv[1] if len(sys.argv) > 1 else '/data/fhj/sva-var/results/I2C.json'
+    scorer = EnhancedVariableScoringSystem(input_path)
     # 运行完整分析
     scorer.run_comprehensive_analysis()
 

@@ -1,0 +1,49 @@
+# RTL Design High-Level Inference Report
+
+This report contains AI-generated inferences about the design's architecture and verification challenges, deduced from the properties of its most critical signals.
+
+## Analysis based on Critical Signal: `i2c.DUT_APB.PADDR`
+
+**Criticality Score:** `0.900`
+
+### Inferred Module Function
+> This appears to be an APB (Advanced Peripheral Bus) interface controller for an I2C peripheral, responsible for translating APB bus transactions into I2C control signals and data transfers.
+
+### Key Architectural Pattern Revealed
+> The PADDR signal serves as a central address decoder that controls multiple parallel enable signals (RD_ENA, WR_ENA) and data paths (PRDATA, WRITE_DATA_ON_TX), creating a classic memory-mapped register interface pattern where address decoding drives both control and data flow.
+
+### Primary Verification Challenge
+> **The critical dependency of multiple control and data signals (PREADY, PRDATA, RD_ENA, WR_ENA, WRITE_DATA_ON_TX) on the PADDR signal creates a verification challenge around address space coverage - ensuring all valid address ranges produce correct responses while preventing illegal address accesses from corrupting peripheral state or generating erroneous bus responses.**
+
+---
+
+## Analysis based on Critical Signal: `i2c.DUT_APB.PSELx`
+
+**Criticality Score:** `0.831`
+
+### Inferred Module Function
+> This appears to be an APB (Advanced Peripheral Bus) interface controller module that handles read/write operations between an I2C peripheral and the APB bus, generating control signals for data transfer operations.
+
+### Key Architectural Pattern Revealed
+> The PSELx signal serves as a central enable/select signal that gates all APB operations - it directly controls the generation of both read (RD_ENA) and write (WR_ENA) enable signals, and these enables then feed back to generate the PREADY handshake signal, creating a coordinated control flow for bus transactions.
+
+### Primary Verification Challenge
+> **The combinational logic dependencies between PSELx, RD_ENA, WR_ENA, and PREADY create critical timing paths where incorrect enable signal generation could lead to protocol violations, data corruption, or bus lockup conditions that must be thoroughly verified under all address, enable, and write control combinations.**
+
+---
+
+## Analysis based on Critical Signal: `i2c.DUT_APB.PWRITE`
+
+**Criticality Score:** `0.801`
+
+### Inferred Module Function
+> This appears to be an APB (Advanced Peripheral Bus) interface controller within an I2C module, responsible for handling read and write operations between the APB bus and I2C core logic.
+
+### Key Architectural Pattern Revealed
+> The PWRITE signal serves as a central control signal that directly generates read and write enable signals (RD_ENA and WR_ENA) based on APB protocol signals (PADDR, PENABLE, PSELx), revealing a combinational control path architecture where bus transactions directly translate to operational enables.
+
+### Primary Verification Challenge
+> **The combinational generation of critical control signals (RD_ENA/WR_ENA) from multiple APB protocol signals creates timing sensitivity and race condition risks, requiring thorough verification of protocol compliance, signal timing relationships, and concurrent access scenarios to prevent bus contention and data corruption.**
+
+---
+

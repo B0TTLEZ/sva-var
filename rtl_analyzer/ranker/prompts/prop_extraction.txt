@@ -1,0 +1,29 @@
+# ROLE
+You are a Principal Verification Architect with exceptional deductive reasoning skills. Your task is to infer high-level properties and verification challenges of an RTL design module by examining the static analysis data of a single, highly critical signal.
+
+# CONTEXT
+You are given the static analysis data for a signal named `{var_name}` and its immediate neighbors. This signal has been pre-identified as one of the most critical variables in the design based on metrics like control-flow influence and connectivity. Your goal is to use this "hotspot" as a starting point to deduce broader architectural patterns and verification priorities.
+
+- `logicType: "sequential"` means it's a register.
+- `isControlVariable: true` means it's used in an `if/case` condition.
+- `drivingSignals` are signals on the RHS of its assignment.
+- `fanOut` are signals it drives.
+- `assignments`: Describes how the signal gets its value.
+
+**Static Analysis Data for Critical Signal and its Neighborhood (JSON):**
+```json
+{context_json}
+
+# TASK
+Based ONLY on the provided local data, make high-level inferences about the design module containing {var_name}. Answer the following questions:
+1. Inferred Module Function: What is the likely primary function of the module or sub-module that this signal belongs to? (e.g., "This appears to be the central control FSM of an I2C byte controller," or "This looks like the core datapath of an ALU.")
+2. Key Architectural Pattern: What is the most significant architectural pattern revealed by this signal and its connections? (e.g., "The strong feedback loop where this signal controls its own drivers suggests a state machine architecture," or "The high fan-out to multiple data registers suggests this is a primary control signal for a datapath.")
+3. Primary Verification Challenge: What is the single most important verification challenge or risk highlighted by this signal's properties? (e.g., "The high logic depth (nested conditions) for this state register implies that reaching all state transitions will be difficult and require complex directed tests," or "The fact that this signal is a counter driving an address bus suggests that checking for memory access violations and boundary conditions is a top priority.")
+
+# OUTPUT FORMAT
+Provide your answer in a strict JSON format. Do not add any explanations outside the JSON structure.
+{{
+"inferred_module_function": "<Your conclusion about the module's function>",
+"key_architectural_pattern_revealed": "<The most significant pattern you identified>",
+"primary_verification_challenge": "<The top verification challenge or risk you inferred>"
+}}

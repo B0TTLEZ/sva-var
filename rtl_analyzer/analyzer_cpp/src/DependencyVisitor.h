@@ -30,6 +30,7 @@ public:
     void handle(const slang::ast::InstanceSymbol& symbol);
     void handle(const slang::ast::ProceduralBlockSymbol& symbol);
     void handle(const slang::ast::InstanceBodySymbol& symbol);
+    void handle(const slang::ast::NetSymbol& symbol);
     void postProcess();
 
     const AnalysisResultMap& getResults() const { return results; }
@@ -51,4 +52,6 @@ private:
     std::vector<ConditionPath> pathStack;
     AnalysisResultMap results;
     std::map<const slang::ast::ProceduralBlockSymbol*, slang::SourceRange> proceduralBlockRanges;
+    std::set<std::string> currentSensitivitySignals;  // 当前过程块的敏感列表信号  
+    slang::SourceRange currentSensitivityRange;  // 当前敏感列表的源码范围
 };

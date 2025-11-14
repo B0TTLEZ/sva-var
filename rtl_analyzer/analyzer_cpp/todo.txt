@@ -2,3 +2,766 @@
   - ibex_core.cs_registers_i.dummy_instr_en is connected to: ibex_core.cs_registers_i.cpuctrlsts_part_wdata_raw
 2.parameter被识别为了信号
 3.test6出现问题，一个没有被赋值的变量mid_wire却出现了多余的赋值信息
+
+
+下面给一套从“变量依赖图”中识别关键变量的方法与可落地的度量指标，并附上一个最小实现骨架，便于在你的数据结构上对接。
+
+一、从RTL变量依赖图提取“关键变量”的思路
+- 影响面（Observability/Influence）
+  - 能影响多少个顶层输出/断言（PO）的变量更关键。度量：该变量到所有PO的可达数量或覆盖率。
+- 可控性（Controllability）
+  - 从输入（PI）驱动到该变量的难易。度量：从任一PI到该变量的最短路径（组合路径）或时序展开步数。
+- 扇出/扇入与影响锥
+  - 扇出锥大小（到达的结点数、到达PO数）、扇入锥大小（来源结点数、来自PI数）。
+- 中介性/桥接性
+  - 图论中介中心性（betweenness）、桥/割点。越多信号路径“必须经过”的变量越关键。
+- 支配与后支配（dominators/post-dominators）
+  - 在组合DAG或凝缩图上，支配大量下游输出的结点更关键。
+- SCC/状态相关性
+  - 强连通分量（SCC）内的状态变量（寄存器）往往更核心；跨SCC的关节点在凝缩DAG中更关键。
+- 时序关键性
+  - 位于最长组合路径或跨多个阶段的关键路径上的变量；可用组合深度近似。
+- 可测性/可观测性（SCOAP近似）
+  - CC0/CC1/CO（若无门级信息，可用PI/PO距离作为近似）。
+- 动态敏感度（可选）
+  - 基于仿真/VCD：翻转该变量对输出/断言的影响面与失败率增量。
+
+二、一个可操作的综合评分
+- 归一化后加权求和（示例权重，按你项目调整）：
+  - Score(v) = 0.25·ReachPO(v) + 0.15·Fanout(v) + 0.15·Betweenness(v)
+    + 0.15·DomOut(v) + 0.10·(1/(1+DistPI(v))) + 0.10·(1/(1+DistPO(v)))
+    + 0.10·SCCSize(v)
+- 选择方式：Top-K或设阈值（如大于均值+1σ）。
+
+三、实现要点（与RTL语义的映射）
+- 结点：信号/寄存器（可选：逐位或总线整体，建议先整体）。
+- 边：
+  - comb: a → b（b组合依赖a）
+  - seq: a → reg_b（b下一拍依赖a，或在展开图用时间帧区分）
+- 主输入/主输出集合：PI、PO（含顶层端口与重要断言信号）。
+- 过滤：组合分析时仅使用comb边；时序影响可用N步展开或在凝缩图上分析。
+
+四、最小代码骨架（NetworkX示例，便于替换成你的数据结构）
+````python
+import networkx as nx
+
+def build_graph(edges, node_attrs=None, use_comb_only=True):
+    """
+    edges: iterable of (u, v, etype) where etype in {"comb","seq"} or None
+    node_attrs: dict node -> { "type": "reg|wire", "width": int, ... }
+    """
+    G = nx.DiGraph()
+    if node_attrs:
+        for n, attrs in node_attrs.items():
+            G.add_node(n, **attrs)
+    for u, v, etype in edges:
+        if use_comb_only and etype and etype != "comb":
+            continue
+        G.add_edge(u, v, etype=etype or "comb")
+    return G
+
+def multi_source_shortest_dist(G, sources):
+    # 无权图BFS距离
+    dist = {n: float("inf") for n in G.nodes}
+    from collections import deque
+    q = deque()
+    for s in sources:
+        if s in G:
+            dist[s] = 0
+            q.append(s)
+    while q:
+        u = q.popleft()
+        for v in G.successors(u):
+            if dist[v] > dist[u] + 1:
+                dist[v] = dist[u] + 1
+                q.append(v)
+    return dist
+
+def reachable_PO_count(G, POs):
+    # 简单方法：对每个PO做一次反向BFS，累计被访问计数
+    Gr = G.reverse()
+    count = {n: 0 for n in G.nodes}
+    from collections import deque
+    for po in POs:
+        if po not in Gr: 
+            continue
+        seen = set([po])
+        q = deque([po])
+        while q:
+            u = q.popleft()
+            count[u] += 1
+            for v in Gr.successors(u):
+                if v not in seen:
+                    seen.add(v); q.append(v)
+    return count
+
+def fanout_size(G):
+    # 近似：直接后继数；如需“可达结点总数”可用nx.descendants(G, n)但成本更高
+    return {n: G.out_degree(n) for n in G.nodes}
+
+def fanin_size(G):
+    return {n: G.in_degree(n) for n in G.nodes}
+
+def betweenness(G):
+    # 对大图可采样近似：k参数
+    return nx.betweenness_centrality(G, k=min(500, max(10, G.number_of_nodes()//50)), seed=42)
+
+def dom_outputs(G, PIs, POs):
+    # 用虚拟源/汇近似后支配：在反向图上以虚拟源连接所有PO，计算支配
+    # 注意：nx.immediate_dominators适用于有单一源的有向图
+    Gr = G.reverse()
+    super_src = "__PO_SUPER__"
+    H = Gr.copy()
+    H.add_node(super_src)
+    for po in POs:
+        if po in H:
+            H.add_edge(super_src, po)
+    idom = nx.immediate_dominators(H, super_src)  # 反向图的支配即原图的后支配
+    # 统计每个结点后支配的PO数量（简化：通过树回溯计数）
+    # 先构造支配树子女列表
+    children = {}
+    for n, p in idom.items():
+        if n == p: 
+            continue
+        children.setdefault(p, []).append(n)
+    # 叶子中的PO打标，向上汇总
+    po_mark = {n: (1 if n in POs else 0) for n in H.nodes}
+    order = list(nx.dfs_postorder_nodes(nx.DiGraph((p, c) for p, cs in children.items() for c in cs), super_src))
+    for n in order:
+        for c in children.get(n, []):
+            po_mark[n] += po_mark.get(c, 0)
+    # 去掉虚拟源
+    po_mark.pop(super_src, None)
+    # 补齐原图中未在H的结点
+    return {n: po_mark.get(n, 0) for n in G.nodes}
+
+def normalize(d):
+    vals = [v for v in d.values() if v != float("inf")]
+    if not vals:
+        return {k: 0.0 for k in d}
+    mn, mx = min(vals), max(vals)
+    if mx == mn:
+        return {k: 0.0 for k in d}
+    return {k: (0.0 if v == float("inf") else (v - mn)/(mx - mn)) for k, v in d.items()}
+
+def invert_norm(d):  # 距离越小越好 => 取1-归一化
+    nd = normalize(d)
+    return {k: 1.0 - v for k, v in nd.items()}
+
+def compute_key_scores(G, PIs, POs, weights=None):
+    w = {
+        "reachPO": 0.25, "fanout": 0.15, "between": 0.15,
+        "domOut": 0.15, "distPI": 0.10, "distPO": 0.10, "scc": 0.10
+    }
+    if weights: w.update(weights)
+
+    distPI = multi_source_shortest_dist(G, PIs)
+    distPO = multi_source_shortest_dist(G.reverse(), POs)
+    reachPO = reachable_PO_count(G, POs)
+    fo = fanout_size(G)
+    btw = betweenness(G)
+    domOut = dom_outputs(G, PIs, POs)
+
+    # SCC大小
+    sccs = list(nx.strongly_connected_components(G))
+    scc_size_map = {}
+    for comp in sccs:
+        for n in comp:
+            scc_size_map[n] = len(comp)
+
+    # 归一化
+    n_reachPO = normalize(reachPO)
+    n_fo = normalize(fo)
+    n_btw = normalize(btw)
+    n_domOut = normalize(domOut)
+    n_distPI = invert_norm(distPI)
+    n_distPO = invert_norm(distPO)
+    n_scc = normalize(scc_size_map)
+
+    score = {}
+    for n in G.nodes:
+        score[n] = (
+            w["reachPO"] * n_reachPO.get(n,0) +
+            w["fanout"]  * n_fo.get(n,0) +
+            w["between"] * n_btw.get(n,0) +
+            w["domOut"]  * n_domOut.get(n,0) +
+            w["distPI"]  * n_distPI.get(n,0) +
+            w["distPO"]  * n_distPO.get(n,0) +
+            w["scc"]     * n_scc.get(n,0)
+        )
+    return score
+
+# 使用示例
+if __name__ == "__main__":
+    # TODO: 替换为你的边与PI/PO集合
+    edges = [
+        # (src, dst, etype)
+        ("a","x","comb"), ("b","x","comb"),
+        ("x","y","comb"), ("y","z","seq"), ("z","out","comb"),
+    ]
+    PIs = {"a","b"}
+    POs = {"out"}
+    G = build_graph(edges, use_comb_only=True)
+    scores = compute_key_scores(G, PIs, POs)
+    topK = sorted(scores.items(), key=lambda x: x[1], reverse=True)[:10]
+    for n, s in topK:
+        print(n, round(s, 3))
+````
+
+五、工程化建议
+- 若边区分comb/seq，请在组合分析中仅保留comb；时序影响可做N步时间展开或基于凝缩图（SCC压缩）做DAG上的DP统计。
+- 对大图：
+  - betweenness用采样近似（上面已用k参数）。
+  - Reach-PO可换成PO方向的一次多源DP（在凝缩DAG上累计PO集合或位图）。
+- 融合动态信息：
+  - 从VCD抽取toggle率、相关性，给边/点加权，作为加权中央性或打分权重。
+  - 可做轻量故障注入（stuck-at/bit-flip）统计对PO/断言的影响覆盖。
+
+六、下一步
+- 你的依赖图数据结构是怎样的（节点、边、是否有etype、PI/PO集合的来源）？把对应文件或样例贴出，我可以直接对接成可运行脚本。
+- 需要我把上述代码改成读取你项目里的图文件（例如JSON/CSV/自定义格式）并输出Top-K关键变量吗？
+
+安装依赖（容器内）：
+- python3 -m pip install networkx
+- 如需读取VCD：python3 -m pip install vcdvcd
+
+需要我把这套指标接到你的断言信号上，做“变量对SVA影响度”的专用评分吗？
+
+
+下面给两种做法的落地方案与可直接运行的脚本骨架：  
+A) N步时间展开（time unrolling）  
+B) 基于SCC凝缩成DAG后做DP（更省内存、适合大图）
+
+我用同一份脚本实现了两套指标，按你的 edges 节点/边结构即可对接。
+
+- 边格式约定：(src, dst, etype)，etype ∈ {"comb","seq"}；PI/PO 为节点名集合
+- comb 表示同拍组合依赖；seq 表示跨拍依赖（t -> t+1）
+
+安装依赖
+- python3 -m pip install networkx
+
+脚本（包含：时间展开、SCC-DAG DP、以及关键变量评分）
+````python
+import math
+import networkx as nx
+from collections import deque, defaultdict
+
+# --------------------------
+# 基础图构建
+# --------------------------
+def build_graph(edges, node_attrs=None):
+    """
+    edges: iterable of (u, v, etype) where etype in {"comb","seq"}
+    node_attrs: optional dict node -> attrs
+    """
+    G = nx.DiGraph()
+    if node_attrs:
+        for n, attrs in node_attrs.items():
+            G.add_node(n, **attrs)
+    for u, v, etype in edges:
+        if etype not in ("comb", "seq"):
+            etype = "comb"
+        G.add_edge(u, v, etype=etype)
+    return G
+
+# --------------------------
+# A) N步时间展开（Time Unrolling）
+# --------------------------
+def build_time_unrolled(G, H):
+    """
+    生成0..H层的时间展开图：
+    - comb边: (u,t) -> (v,t)
+    - seq边:  (u,t) -> (v,t+1)  (t=0..H-1)
+    """
+    GU = nx.DiGraph()
+    # 创建节点
+    for t in range(H + 1):
+        for n in G.nodes:
+            GU.add_node((n, t))
+    # 创建边
+    for u, v, d in G.edges(data=True):
+        if d.get("etype") == "seq":
+            for t in range(H):
+                GU.add_edge((u, t), (v, t + 1), w=1)  # 跨拍
+        else:
+            for t in range(H + 1):
+                GU.add_edge((u, t), (v, t), w=0)      # 同拍
+    return GU
+
+def zero_one_bfs(GU, sources):
+    """
+    在0/1权重图上做最短路（seq=1, comb=0）
+    sources: 可迭代的源结点集合（例如 (pi,0)）
+    返回: dist字典
+    """
+    from collections import deque
+    INF = 10**12
+    dist = {n: INF for n in GU.nodes}
+    dq = deque()
+    for s in sources:
+        if s in GU:
+            dist[s] = 0
+            dq.appendleft(s)
+    while dq:
+        u = dq.popleft()
+        du = dist[u]
+        for v, attr in GU[u].items():
+            w = attr.get("w", 0)
+            nd = du + w
+            if nd < dist[v]:
+                dist[v] = nd
+                if w == 0:
+                    dq.appendleft(v)
+                else:
+                    dq.append(v)
+    return dist
+
+def temporal_controllability(G, PIs, H):
+    """
+    N步时间展开后，从(t=0)的PIs出发，计算到所有(v,t)的最小跨拍数（comb为0成本）。
+    返回：min_seq_depth[(v,t)]
+    """
+    GU = build_time_unrolled(G, H)
+    sources = [(pi, 0) for pi in PIs if (pi, 0) in GU]
+    return zero_one_bfs(GU, sources)
+
+def temporal_observability(G, POs, H):
+    """
+    N步时间展开后，反向从所有(po,t<=H)出发，计算每个(v,t)到任意PO的最小跨拍数。
+    返回：min_seq_to_PO[(v,t)]
+    """
+    GU = build_time_unrolled(G, H)
+    GR = GU.reverse(copy=True)
+    # 反向图上权重同原（w=0/1）
+    for u, v, d in GU.edges(data=True):
+        GR[v][u]["w"] = d.get("w", 0)
+    sinks = [(po, t) for t in range(H + 1) for po in POs if (po, t) in GR]
+    return zero_one_bfs(GR, sinks)
+
+def summarize_over_time(metric_map, H):
+    """
+    将(v,t)指标缩并到v（例如取最小、计数、是否可达）
+    给出：
+      - min_over_t[v]
+      - reach_steps[v]: 在0..H内有多少个t使其有限
+    """
+    per_node_min = {}
+    per_node_cnt = defaultdict(int)
+    for (v, t), val in metric_map.items():
+        if val < 10**12:
+            per_node_cnt[v] += 1
+            if v not in per_node_min or val < per_node_min[v]:
+                per_node_min[v] = val
+    return per_node_min, per_node_cnt
+
+# --------------------------
+# B) 基于SCC凝缩后的DAG上做DP
+# --------------------------
+def scc_condensation_with_weights(G):
+    """
+    将原图凝缩为SCC DAG，并为跨SCC的边打权：
+      w=0 若存在comb跨边
+      w=1 若仅存在seq跨边
+    返回：
+      - CDAG: DAG 图，节点为SCC id（int）
+      - scc_map: node -> scc_id
+      - members: scc_id -> set(nodes)
+      - edge_w: (c1, c2) -> 0/1
+    """
+    sccs = list(nx.strongly_connected_components(G))
+    scc_map = {}
+    for i, comp in enumerate(sccs):
+        for n in comp:
+            scc_map[n] = i
+    members = {i: set(comp) for i, comp in enumerate(sccs)}
+    CDAG = nx.DiGraph()
+    CDAG.add_nodes_from(range(len(sccs)))
+    edge_w = {}
+    for u, v, d in G.edges(data=True):
+        cu, cv = scc_map[u], scc_map[v]
+        if cu == cv:
+            continue
+        w = 0 if d.get("etype") == "comb" else 1
+        if (cu, cv) not in edge_w:
+            edge_w[(cu, cv)] = w
+            CDAG.add_edge(cu, cv, w=w)
+        else:
+            # 同一对SCC间若存在comb边，优先0
+            if w < edge_w[(cu, cv)]:
+                edge_w[(cu, cv)] = w
+                CDAG[cu][cv]["w"] = 0
+    return CDAG, scc_map, members, edge_w
+
+def dp_on_cdag(CDAG, scc_map, members, PIs, POs):
+    """
+    在SCC DAG上做DP：
+      - distPI_scc: 最小跨拍数（w=0/1）
+      - distPO_scc: 最小跨拍数到任意PO
+      - po_reach_bitset_scc: 能到达的PO集合（位图）
+    """
+    # PO位图编码
+    po_list = sorted(set(POs))
+    po_index = {po: i for i, po in enumerate(po_list)}
+    def mask_of(nodes):
+        m = 0
+        for n in nodes:
+            if n in po_index:
+                m |= (1 << po_index[n])
+        return m
+
+    # 初始
+    INF = 10**12
+    N = CDAG.number_of_nodes()
+    distPI = [INF] * N
+    distPO = [INF] * N
+    po_mask = [0] * N
+
+    # 初始化包含PI/PO的SCC
+    for cid in CDAG.nodes:
+        if any(n in PIs for n in members[cid]):
+            distPI[cid] = 0
+        po_mask[cid] = mask_of(members[cid])
+        if po_mask[cid] != 0:
+            distPO[cid] = 0
+
+    topo = list(nx.topological_sort(CDAG))
+    # 前向DP（到达性/可控性）
+    for u in topo:
+        du = distPI[u]
+        if du == INF:
+            continue
+        for v in CDAG.successors(u):
+            w = CDAG[u][v].get("w", 0)
+            if du + w < distPI[v]:
+                distPI[v] = du + w
+
+    # 反向DP（到PO的距离、以及可达PO集合）
+    for u in reversed(topo):
+        # 合并后继的po集合
+        for v in CDAG.successors(u):
+            po_mask[u] |= po_mask[v]
+        # 更新distPO最短路（0/1权）
+        for v in CDAG.successors(u):
+            w = CDAG[u][v].get("w", 0)
+            if distPO[v] + w < distPO[u]:
+                distPO[u] = distPO[v] + w
+
+    # 映射回原节点
+    distPI_node = {}
+    distPO_node = {}
+    po_mask_node = {}
+    for n, cid in scc_map.items():
+        distPI_node[n] = distPI[cid]
+        distPO_node[n] = distPO[cid]
+        po_mask_node[n] = po_mask[cid]
+
+    # 可达PO数量
+    po_reach_count_node = {n: (0 if m == 0 else bin(m).count("1")) for n, m in po_mask_node.items()}
+    return distPI_node, distPO_node, po_reach_count_node, po_list
+
+# --------------------------
+# 评分与归一化
+# --------------------------
+def normalize(d):
+    vals = [v for v in d.values() if v < 10**12 and not math.isinf(v)]
+    if not vals:
+        return {k: 0.0 for k in d}
+    mn, mx = min(vals), max(vals)
+    if mx == mn:
+        return {k: 1.0 for k in d}
+    return {k: (0.0 if (v >= 10**12 or math.isinf(v)) else (v - mn) / (mx - mn)) for k, v in d.items()}
+
+def invert_norm(d):  # 距离越小越好
+    nd = normalize(d)
+    return {k: 1.0 - v for k, v in nd.items()}
+
+def compute_key_score_temporal(G, PIs, POs, H=3, use_scc_dp=True):
+    """
+    返回每个变量的关键性分数（融合时序）。
+    use_scc_dp=True 使用SCC-DAG DP；否则用时间展开统计。
+    """
+    # 通用项：扇出
+    fanout = {n: G.out_degree(n) for n in G.nodes}
+    nf = normalize(fanout)
+
+    if use_scc_dp:
+        CDAG, scc_map, members, edge_w = scc_condensation_with_weights(G)
+        distPI, distPO, po_reach_cnt, _ = dp_on_cdag(CDAG, scc_map, members, PIs, POs)
+        score = {}
+        n_distPI = invert_norm(distPI)
+        n_distPO = invert_norm(distPO)
+        n_po_reach = normalize(po_reach_cnt)
+        for n in G.nodes:
+            score[n] = (
+                0.30 * n_po_reach.get(n, 0.0) +
+                0.25 * nf.get(n, 0.0) +
+                0.25 * n_distPO.get(n, 0.0) +
+                0.20 * n_distPI.get(n, 0.0)
+            )
+        return score, {"distPI": distPI, "distPO": distPO, "reachPO": po_reach_cnt}
+    else:
+        # 时间展开：从(t=0)的PI算可控性，从所有(t<=H)的PO算可观测性
+        ct = temporal_controllability(G, PIs, H)
+        ot = temporal_observability(G, POs, H)
+        min_c, cnt_c = summarize_over_time(ct, H)
+        min_o, cnt_o = summarize_over_time(ot, H)
+        n_min_c = invert_norm(min_c)
+        n_min_o = invert_norm(min_o)
+        n_cnt_toPO = normalize(cnt_o)
+        score = {}
+        for n in G.nodes:
+            score[n] = (
+                0.30 * n_cnt_toPO.get(n, 0.0) +
+                0.25 * nf.get(n, 0.0) +
+                0.25 * n_min_o.get(n, 0.0) +
+                0.20 * n_min_c.get(n, 0.0)
+            )
+        return score, {"minDistPI": min_c, "minDistPO": min_o, "reachPO_frames": cnt_o}
+
+# --------------------------
+# 示例/占位主函数
+# --------------------------
+if __name__ == "__main__":
+    # 示例边（请替换为你的依赖图）
+    edges = [
+        ("a","x","comb"), ("b","x","comb"),
+        ("x","y","comb"),
+        ("y","z","seq"),   # 寄存器/时序边
+        ("z","out","comb"),
+    ]
+    PIs = {"a","b"}
+    POs = {"out"}
+
+    G = build_graph(edges)
+
+    # 方案B：SCC-DAG DP（推荐大图）
+    score_dp, metrics_dp = compute_key_score_temporal(G, PIs, POs, H=3, use_scc_dp=True)
+    print("Top by SCC-DAG DP:")
+    for n, s in sorted(score_dp.items(), key=lambda x: x[1], reverse=True)[:10]:
+        print(n, round(s, 3), {k: metrics_dp[k][n] for k in metrics_dp})
+
+    # 方案A：时间展开（可做小H验证）
+    score_unroll, metrics_unroll = compute_key_score_temporal(G, PIs, POs, H=3, use_scc_dp=False)
+    print("\nTop by Time Unrolling:")
+    for n, s in sorted(score_unroll.items(), key=lambda x: x[1], reverse=True)[:10]:
+        print(n, round(s, 3), {k: metrics_unroll[k][n] for k in metrics_unroll})
+````
+
+如何选用与调参
+- N步时间展开：H=寄存器深度上限（如2~5）。更精确，但节点数≈(H+1)×|V|，大图会膨胀。
+- SCC-DAG DP：不需要H，按跨拍数做0/1最短路，成本线性于边。适合工程规模。
+- 边权定义：comb=0，seq=1，可衡量“最少跨拍数”的可控/可观。若需要把组合深度也计入，可把comb设为1或引入门级估计权重。
+
+接入你的数据
+- 你现在的依赖图在哪里导出？如果有JSON/CSV，我可以加一个load_xxx函数读取，然后输出Top-K关键变量列表到CSV，或标注SVA关键信号优先级。
+
+
+可以，完全是静态分析，不需要仿真。核心就是把你的“变量依赖图”按组合/时序两类边标注好，然后在图上做两类纯图算法：
+
+- N步时间展开（Time Unrolling）：把图复制成 H 层，comb 边连同层，seq 边连到下一层。用0/1最短路求“从PI到某变量至少跨几拍”“某变量到PO至少跨几拍”。
+- SCC 凝缩 + DAG 动态规划：把强连通分量压缩成DAG，跨SCC的边按 comb=0/seq=1 赋权。前向DP求到达性（可控性），反向DP求到PO距离（可观测性）与可达PO覆盖。这也是纯静态。
+
+你需要的静态信息
+- comb/seq 边的判定（来自解析AST）：
+  - comb：连续赋值 assign、always_comb/always @* 中的赋值（通常是=）。
+  - seq：always_ff/时钟沿敏感 always @(posedge/negedge …) 中的赋值（通常是<=）。即从 RHS 到 LHS 建立 etype=seq 的边。
+- 节点：信号/寄存器（可先按总线整体，不逐位）。
+- PI/PO：顶层输入作为PI，顶层输出/断言信号作为PO。
+- 建图时保留层次名（如 ibex_core.cs_registers_i.dummy_instr_en），member/bit-select 视为对父信号的依赖也可行。
+
+可直接运行的脚本（两种算法均内置）
+````python
+# 说明：读取 (src,dst,etype) 的边，计算基于时间展开或SCC-DAG的可控/可观指标与关键性得分
+# 运行：python3 tools/temporal_metrics.py --edges path/to/edges.csv --pis pis.txt --pos pos.txt --method scc
+# 依赖：pip3 install networkx
+import math, csv, argparse
+import networkx as nx
+from collections import defaultdict, deque
+
+def load_edges_csv(path):
+    edges=[]
+    with open(path) as f:
+        for row in csv.reader(f):
+            if not row or row[0].startswith("#"): continue
+            src,dst,*rest=row
+            etype = rest[0].strip().lower() if rest else "comb"
+            if etype not in ("comb","seq"): etype="comb"
+            edges.append((src.strip(), dst.strip(), etype))
+    return edges
+
+def load_names(path):
+    if not path: return set()
+    with open(path) as f:
+        return {line.strip() for line in f if line.strip() and not line.startswith("#")}
+
+def build_graph(edges):
+    G=nx.DiGraph()
+    for u,v,t in edges:
+        G.add_edge(u,v,etype=t)
+    return G
+
+# ---- Time unrolling (0/1 BFS) ----
+def build_time_unrolled(G,H):
+    GU=nx.DiGraph()
+    for t in range(H+1):
+        for n in G.nodes: GU.add_node((n,t))
+    for u,v,d in G.edges(data=True):
+        if d.get("etype")=="seq":
+            for t in range(H):
+                GU.add_edge((u,t),(v,t+1),w=1)
+        else:
+            for t in range(H+1):
+                GU.add_edge((u,t),(v,t),w=0)
+    return GU
+
+def zero_one_bfs(GU,sources):
+    INF=10**12
+    dist={n:INF for n in GU.nodes}
+    dq=deque()
+    for s in sources:
+        if s in GU: dist[s]=0; dq.appendleft(s)
+    while dq:
+        u=dq.popleft(); du=dist[u]
+        for v,attr in GU[u].items():
+            w=attr.get("w",0); nd=du+w
+            if nd<dist[v]:
+                dist[v]=nd
+                (dq.appendleft if w==0 else dq.append)(v)
+    return dist
+
+def summarize_over_time(metric_map,H):
+    INF=10**12
+    per_node_min={}; per_node_cnt=defaultdict(int)
+    for (v,t),val in metric_map.items():
+        if val<INF:
+            per_node_cnt[v]+=1
+            per_node_min[v]=min(per_node_min.get(v,val), val)
+    return per_node_min, per_node_cnt
+
+# ---- SCC condensation + DAG DP ----
+def scc_condensation_with_weights(G):
+    sccs=list(nx.strongly_connected_components(G))
+    id_of={n:i for i,comp in enumerate(sccs) for n in comp}
+    members={i:set(comp) for i,comp in enumerate(sccs)}
+    CDAG=nx.DiGraph(); CDAG.add_nodes_from(range(len(sccs)))
+    for u,v,d in G.edges(data=True):
+        cu,cv=id_of[u],id_of[v]
+        if cu==cv: continue
+        w=0 if d.get("etype")=="comb" else 1
+        if CDAG.has_edge(cu,cv):
+            if w<CDAG[cu][cv]["w"]: CDAG[cu][cv]["w"]=0
+        else:
+            CDAG.add_edge(cu,cv,w=w)
+    return CDAG, id_of, members
+
+def dp_on_cdag(CDAG,id_of,members,PIs,POs):
+    INF=10**12; N=CDAG.number_of_nodes()
+    distPI=[INF]*N; distPO=[INF]*N; po_mask=[0]*N
+    po_list=sorted(POs); po_idx={p:i for i,p in enumerate(po_list)}
+    def mask(nodes):
+        m=0
+        for n in nodes:
+            if n in po_idx: m|=(1<<po_idx[n])
+        return m
+    for cid in CDAG.nodes:
+        if any(n in PIs for n in members[cid]): distPI[cid]=0
+        po_mask[cid]=mask(members[cid])
+        if po_mask[cid]!=0: distPO[cid]=0
+    topo=list(nx.topological_sort(CDAG))
+    for u in topo:
+        if distPI[u]>=INF: continue
+        for v in CDAG.successors(u):
+            w=CDAG[u][v]["w"]
+            distPI[v]=min(distPI[v], distPI[u]+w)
+    for u in reversed(topo):
+        for v in CDAG.successors(u):
+            po_mask[u]|=po_mask[v]
+        for v in CDAG.successors(u):
+            w=CDAG[u][v]["w"]
+            distPO[u]=min(distPO[u], distPO[v]+w)
+    distPI_node={n:distPI[id_of[n]] for n in id_of}
+    distPO_node={n:distPO[id_of[n]] for n in id_of}
+    reachPO_cnt={n: (0 if po_mask[id_of[n]]==0 else bin(po_mask[id_of[n]]).count("1")) for n in id_of}
+    return distPI_node, distPO_node, reachPO_cnt
+
+# ---- scoring ----
+def normalize(d):
+    vals=[v for v in d.values() if v<10**12]
+    if not vals: return {k:0.0 for k in d}
+    mn,mx=min(vals),max(vals)
+    if mx==mn: return {k:1.0 for k in d}
+    return {k:(0.0 if v>=10**12 else (v-mn)/(mx-mn)) for k,v in d.items()}
+def invert_norm(d): nd=normalize(d); return {k:1.0-v for k,v in nd.items()}
+
+def score_scc(G,PIs,POs):
+    fanout={n:G.out_degree(n) for n in G.nodes}
+    CDAG,id_of,members=scc_condensation_with_weights(G)
+    distPI,distPO,reachPO=dp_on_cdag(CDAG,id_of,members,PIs,POs)
+    s={}
+    n_f=normalize(fanout); n_pi=invert_norm(distPI); n_po=invert_norm(distPO); n_r=normalize(reachPO)
+    for n in G.nodes:
+        s[n]=0.30*n_r.get(n,0)+0.25*n_f.get(n,0)+0.25*n_po.get(n,0)+0.20*n_pi.get(n,0)
+    return s, {"distPI":distPI,"distPO":distPO,"reachPO":reachPO}
+
+def score_unroll(G,PIs,POs,H):
+    GU=build_time_unrolled(G,H)
+    c=zero_one_bfs(GU, [(pi,0) for pi in PIs])
+    GR=GU.reverse(copy=True)
+    for u,v,d in GU.edges(data=True): GR[v][u]["w"]=d.get("w",0)
+    o=zero_one_bfs(GR, [(po,t) for po in POs for t in range(H+1)])
+    min_c,cnt_c=summarize_over_time(c,H)
+    min_o,cnt_o=summarize_over_time(o,H)
+    fanout={n:G.out_degree(n) for n in G.nodes}
+    s={}
+    n_f=normalize(fanout); n_c=invert_norm(min_c); n_o=invert_norm(min_o); n_cnt=normalize(cnt_o)
+    for n in G.nodes:
+        s[n]=0.30*n_cnt.get(n,0)+0.25*n_f.get(n,0)+0.25*n_o.get(n,0)+0.20*n_c.get(n,0)
+    return s, {"minDistPI":min_c,"minDistPO":min_o,"reachPO_frames":cnt_o}
+
+def main():
+    ap=argparse.ArgumentParser()
+    ap.add_argument("--edges", required=True, help="CSV: src,dst,etype(comb|seq)")
+    ap.add_argument("--pis", required=True, help="file with PI names")
+    ap.add_argument("--pos", required=True, help="file with PO names")
+    ap.add_argument("--method", choices=["scc","unroll"], default="scc")
+    ap.add_argument("--H", type=int, default=3)
+    args=ap.parse_args()
+
+    edges=load_edges_csv(args.edges)
+    PIs=load_names(args.pis); POs=load_names(args.pos)
+    G=build_graph(edges)
+
+    if args.method=="scc":
+        score,meta=score_scc(G,PIs,POs)
+    else:
+        score,meta=score_unroll(G,PIs,POs,args.H)
+
+    top=sorted(score.items(), key=lambda x:x[1], reverse=True)[:20]
+    for n,s in top:
+        print(f"{n},score={s:.3f}")
+
+if __name__=="__main__":
+    main()
+````
+
+如何把“静态分析结果”喂给脚本
+- 你的C++分析器导出一份 edges.csv，每行：src,dst,etype。etype 为 comb 或 seq。
+- 导出 PI/PO 名称到 pis.txt / pos.txt（每行一个名字）。
+
+在容器里运行
+- 安装依赖
+  - sudo apt-get update && sudo apt-get install -y python3-pip
+  - pip3 install networkx
+- 运行示例
+  - python3 tools/temporal_metrics.py --edges build/edges.csv --pis build/pis.txt --pos build/pos.txt --method scc
+  - 或：python3 tools/temporal_metrics.py --edges build/edges.csv --pis build/pis.txt --pos build/pos.txt --method unroll --H 4
+
+和你当前TODO的对应修正（保证静态图正确）
+- parameter被识别为信号
+  - 在导出时给 parameter/constant 打上 type=const，不导出其入边；可作为源节点保留或直接从评分中过滤。
+- 结构体/层次名解析不全
+  - 补齐 member select 与 part-select：对 a.b.c[7:0] 解析为节点名 a.b.c 并建立 comb 边。必要时保留位段信息，但评分可先按整体信号。
+- 未赋值的 mid_wire 却出现赋值
+  - 在符号表中标记“驱动数=0”的网，过滤掉该网作为其他网的驱动；避免把仅在RHS出现的标识符当作隐式驱动。也可开启“无声明即报错”的检查来发现隐式net。
+
+如果你把 analyzer 的边导出样例贴出来，我可以按你的格式调整加载函数，直接跑出关键变量Top-K。

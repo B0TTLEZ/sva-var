@@ -6,6 +6,24 @@
 
 #include "slang/text/SourceLocation.h"
 
+
+struct SensitivityInfo {  
+    std::set<std::string> sensitivitySignals;  // 敏感列表中的信号  
+    std::string file;  
+    int line = 0;  
+    slang::SourceRange sourceRange;  
+      
+    bool operator<(const SensitivityInfo& other) const {  
+        if (sensitivitySignals != other.sensitivitySignals)  
+            return sensitivitySignals < other.sensitivitySignals;  
+        if (file != other.file) return file < other.file;  
+        if (line != other.line) return line < other.line;  
+        if (sourceRange.start() < other.sourceRange.start()) return true;  
+        if (other.sourceRange.start() < sourceRange.start()) return false;  
+        return sourceRange.end() < other.sourceRange.end();  
+    }  
+};  
+
 // 改进的条件表达式节点
 struct ConditionExpression {
     std::string expression;  // 完整的表达式文本
@@ -36,7 +54,8 @@ using ConditionPath = std::set<ConditionClause>;
 
 struct AssignmentInfo {    
     ConditionPath path;    
-    std::set<std::string> drivingSignals;    
+    std::set<std::string> drivingSignals;  
+    std::set<std::string> sensitivitySignals;  // 新增: 敏感列表信号   
     std::string file;    
     int line = 0;    
     std::string type = "direct";    
@@ -44,7 +63,7 @@ struct AssignmentInfo {
     int conditionDepth = 0;    
     slang::SourceRange sourceRange;    
     slang::SourceRange proceduralBlockRange;    
-      
+    slang::SourceRange sensitivityRange;  // 新增:敏感列表的源码范围  
     bool operator<(const AssignmentInfo& other) const {    
         if (path < other.path) return true;    
         if (other.path < path) return false;    
@@ -66,6 +85,15 @@ struct AssignmentInfo {
         if (proceduralBlockRange.start() < other.proceduralBlockRange.start()) return true;    
         if (other.proceduralBlockRange.start() < proceduralBlockRange.start()) return false;    
         return proceduralBlockRange.end() < other.proceduralBlockRange.end();    
+
+        // 新增:比较 sensitivitySignals  
+        if (sensitivitySignals != other.sensitivitySignals)  
+            return sensitivitySignals < other.sensitivitySignals;  
+          
+        // 新增:比较 sensitivityRange  
+        if (sensitivityRange.start() < other.sensitivityRange.start()) return true;  
+        if (other.sensitivityRange.start() < sensitivityRange.start()) return false;  
+        return sensitivityRange.end() < other.sensitivityRange.end();  
     }    
 };
 
@@ -82,4 +110,5 @@ struct VariableInfo {
     int assignmentCount = 0;            // 赋值次数
     bool drivesOutput = false;          // 是否驱动输出
     bool isControlVariable = false;     // 是否是控制变量
+    bool isSensitivitySignal = false;
 };

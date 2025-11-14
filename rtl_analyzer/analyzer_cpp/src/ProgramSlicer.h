@@ -58,12 +58,21 @@ struct SlicingCriterion {
     std::string fileName;  
     int lineNumber = -1;  
 };  
-  
+
+struct DependencyRecord {
+    std::set<std::string> dataDependencies;
+    std::set<std::string> controlDependencies;
+    std::set<std::string> fanInAssignments;
+    std::set<std::string> fanOutVariables;
+    std::set<std::string> fanOutConditions;
+};
+
 // 切片结果  
 struct SliceResult {  
     std::set<std::string> relevantVariables;  
     std::map<std::string, std::set<AssignmentInfo>> relevantAssignments;  
     std::set<std::string> controlVariables;  
+    std::map<std::string, DependencyRecord> dependencyMap;
 };  
 
 struct CompleteCodeBlock {  
@@ -74,6 +83,8 @@ struct CompleteCodeBlock {
     int startLine;  
     int endLine;  
 }; 
+
+
 
 class   ProgramSlicer {  
 public:  
@@ -110,6 +121,14 @@ public:
     std::map<std::string, std::string> generateAllMergedCode(  
         const std::map<std::string, SliceResult>& allSlices,  
         const slang::SourceManager& sourceManager);  
+
+    std::string generateDependencyReport(const std::string& targetVariable, 
+                                                     const SliceResult& result, 
+                                                     bool isBackward) const;
+    void exportAllDependenciesToTxt(
+        const std::map<std::string, SliceResult>& allBackwardSlices,
+        const std::map<std::string, SliceResult>& allForwardSlices,
+        const std::string& outputPath) const ;
   
 private:  
     const AnalysisResultMap& results;  

@@ -336,6 +336,35 @@ private:
     std::string currentExpression;
 };
 
+class SensitivityListExtractor : public slang::ast::ASTVisitor<SensitivityListExtractor, true, true> {    
+public:    
+    std::set<std::string> sensitivitySignals;    
+        
+    void handle(const slang::ast::SignalEventControl& control) {    
+        extractSignalsFromExpression(control.expr);    
+        visitDefault(control);    
+    }    
+        
+    void handle(const slang::ast::EventListControl& control) {    
+        for (auto* event : control.events) {    
+            event->visit(*this);    
+        }    
+    }    
+        
+    void handle(const slang::ast::NamedValueExpression& expr) {    
+        if (auto* symbol = expr.getSymbolReference()) {    
+            // 使用完整的层级路径  
+            sensitivitySignals.insert(std::string(symbol->getHierarchicalPath()));    
+        }    
+    }    
+        
+private:    
+    void extractSignalsFromExpression(const slang::ast::Expression& expr) {    
+        expr.visit(*this);    
+    }    
+};
+
+
 // ============================================================================
 // DependencyVisitor 主实现
 // ============================================================================
@@ -591,7 +620,7 @@ void DependencyVisitor::handle(const slang::ast::AssignmentExpression& expr) {
     if (!expr.syntax) {  
         return;  
     }  
-    std::cout << "[DEBUG] Processing assignment expression:"<<expr.left().getSymbolReference()->getHierarchicalPath() << std::endl;
+    // std::cout << "[DEBUG] Processing assignment expression:"<<expr.left().getSymbolReference()->getHierarchicalPath() << std::endl;
     
     // 首先检查是否为成员访问表达式
     if (const auto* memberExpr = expr.left().as_if<slang::ast::MemberAccessExpression>()) {
@@ -624,7 +653,11 @@ void DependencyVisitor::handle(const slang::ast::AssignmentExpression& expr) {
     assignInfo.path = pathStack.back();
     assignInfo.drivingSignals = rhsVisitor.signals;
     assignInfo.sourceRange = expr.sourceRange;
-
+    // 添加敏感列表信息  
+    if (currentProcBlock && !currentSensitivitySignals.empty()) {  
+        assignInfo.sensitivitySignals = currentSensitivitySignals;  
+        assignInfo.sensitivityRange = currentSensitivityRange;  
+    }  
     // 如果在过程块中,记录过程块的范围  
     if (currentProcBlock && proceduralBlockRanges.count(currentProcBlock)) {  
         assignInfo.proceduralBlockRange = proceduralBlockRanges[currentProcBlock];  
@@ -633,7 +666,7 @@ void DependencyVisitor::handle(const slang::ast::AssignmentExpression& expr) {
     if (isIncrement) {
         assignInfo.type = "increment";
     } else if (rhsVisitor.signals.empty()) {
-        std::cout << "[DEBUG] Assignment is a constant assignment for" <<expr.left().getSymbolReference()->getHierarchicalPath() << std::endl;
+        // std::cout << "[DEBUG] Assignment is a constant assignment for" <<expr.left().getSymbolReference()->getHierarchicalPath() << std::endl;
         assignInfo.type = "constant";
     } else {
         assignInfo.type = "direct";
@@ -758,7 +791,7 @@ void DependencyVisitor::handle(const slang::ast::InstanceBodySymbol& symbol) {
 }
 
 void DependencyVisitor::handle(const slang::ast::InstanceSymbol& symbol) {  
-    std::cout << "[DEBUG] Processing instance: " << symbol.getHierarchicalPath() << std::endl;  
+    // std::cout << "[DEBUG] Processing instance: " << symbol.getHierarchicalPath() << std::endl;  
       
     // 在循环外部统一声明和初始化  
     slang::SourceRange instanceRange;  
@@ -782,7 +815,7 @@ void DependencyVisitor::handle(const slang::ast::InstanceSymbol& symbol) {
     // 循环内部直接使用外层声明的变量  
     for (auto* portConnection : symbol.getPortConnections()) {  
         const slang::ast::Symbol& internalPort = portConnection->port;  
-        std::cout << "[DEBUG] Processing port: " << internalPort.getHierarchicalPath() << std::endl;  
+        // std::cout << "[DEBUG] Processing port: " << internalPort.getHierarchicalPath() << std::endl;  
           
         const slang::ast::Expression* externalExpr = portConnection->getExpression();  
         VariableInfo& internalPortInfo = getOrAddVariable(internalPort);  
@@ -800,8 +833,8 @@ void DependencyVisitor::handle(const slang::ast::InstanceSymbol& symbol) {
             }  
               
             VariableInfo& externalInfo = results[externalSignalName];  
-            std::cout << "[DEBUG] Processing conn: " << externalInfo.fullName   
-                     << "---" << internalPort.getHierarchicalPath() << std::endl;  
+            // std::cout << "[DEBUG] Processing conn: " << externalInfo.fullName   
+                    //  << "---" << internalPort.getHierarchicalPath() << std::endl;  
             auto direction = internalPort.as<slang::ast::PortSymbol>().direction;  
               
             if (direction != slang::ast::ArgumentDirection::In) {   
@@ -839,14 +872,76 @@ void DependencyVisitor::handle(const slang::ast::InstanceSymbol& symbol) {
     visitDefault(symbol);  
 }
 
-void DependencyVisitor::handle(const slang::ast::ProceduralBlockSymbol& symbol) {  
-    auto* prevBlock = currentProcBlock;  
-    currentProcBlock = &symbol; 
-    if (symbol.getSyntax()) {  
-        proceduralBlockRanges[&symbol] = symbol.getSyntax()->sourceRange();  
-    }   
+void DependencyVisitor::handle(const slang::ast::ProceduralBlockSymbol& symbol) {    
+    auto* prevBlock = currentProcBlock;    
+    currentProcBlock = &symbol;   
+    if (symbol.getSyntax()) {    
+        proceduralBlockRanges[&symbol] = symbol.getSyntax()->sourceRange();    
+    }     
+  
+    const auto& body = symbol.getBody();    
+        
+    // 提取敏感列表信号并保存到当前上下文  
+    currentSensitivitySignals.clear();  
+    currentSensitivityRange = slang::SourceRange();  
+      
+    if (body.kind == slang::ast::StatementKind::Timed) {    
+        const auto& timedStmt = body.as<slang::ast::TimedStatement>();    
+            
+        SensitivityListExtractor extractor;    
+        timedStmt.timing.visit(extractor);    
+        currentSensitivitySignals = extractor.sensitivitySignals;  
+        currentSensitivityRange = timedStmt.timing.sourceRange;  
+          
+        // 标记这些信号出现在敏感列表中  
+        for (const auto& sigName : currentSensitivitySignals) {  
+            if (results.count(sigName)) {  
+                results[sigName].isSensitivitySignal = true;  
+            } else {  
+                auto& varInfo = getOrAddVariableByName(sigName);  
+                varInfo.isSensitivitySignal = true;  
+            }  
+        }  
+    }  
+      
     visitDefault(symbol);  
-    currentProcBlock = prevBlock;  
+      
+    currentSensitivitySignals.clear();  
+    currentProcBlock = prevBlock;    
+}
+
+void DependencyVisitor::handle(const slang::ast::NetSymbol& symbol) {  
+    getOrAddVariable(symbol);  
+      
+    // 处理 net 的初始化器 (如 wire sta = cr[7])  
+    if (const auto* initializer = symbol.getInitializer()) {  
+        VariableInfo& netInfo = getOrAddVariable(symbol);  
+          
+        DataSignalVisitor rhsVisitor;  
+        initializer->visit(rhsVisitor);  
+          
+        AssignmentInfo assignInfo;  
+        assignInfo.path = pathStack.back();  
+        assignInfo.drivingSignals = rhsVisitor.signals;  
+        assignInfo.type = "net_initializer";  
+        assignInfo.logicType = "combinational";  
+        assignInfo.conditionDepth = 0;  
+          
+        // 获取位置信息  
+        const slang::ast::Scope* scope = symbol.getParentScope();  
+        if (scope) {  
+            auto& comp = scope->getCompilation();  
+            auto* sm = comp.getSourceManager();  
+            if (sm && symbol.location) {  
+                assignInfo.file = std::string(sm->getFileName(symbol.location));  
+                assignInfo.line = sm->getLineNumber(symbol.location);  
+            }  
+        }  
+          
+        netInfo.assignments.insert(assignInfo);  
+    }  
+      
+    visitDefault(symbol);  
 }
 
 // ============================================================================

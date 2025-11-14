@@ -20,6 +20,10 @@ SliceResult ProgramSlicer::backwardSlice(const SlicingCriterion& criterion,
     visited.insert(criterion.variableName);  
       
     std::cout << "[INFO] Starting backward slice from: " << criterion.variableName << std::endl;  
+
+    // 【修正 1: 显式初始化目标变量的记录】
+    // 确保目标变量的键存在，防止报告函数查找失败。
+    result.dependencyMap[criterion.variableName]; 
       
     while (!worklist.empty()) {  
         std::string currentVar = worklist.front();  
@@ -40,13 +44,19 @@ SliceResult ProgramSlicer::backwardSlice(const SlicingCriterion& criterion,
             }  
               
             result.relevantAssignments[currentVar].insert(assignment);  
+            
+            // 【修正 2: 添加赋值来源记录】
+            std::string assignmentKey = assignment.file + ":" + std::to_string(assignment.line);
+            result.dependencyMap[currentVar].fanInAssignments.insert(assignmentKey);
               
             // 添加数据依赖  
             for (const auto& drivingSignal : assignment.drivingSignals) {  
                 if (visited.find(drivingSignal) == visited.end()) {  
                     worklist.push(drivingSignal);  
                     visited.insert(drivingSignal);  
-                }  
+                }
+                // 【修正 3: 记录数据依赖】
+                result.dependencyMap[currentVar].dataDependencies.insert(drivingSignal);
             }  
               
             // 添加控制依赖  
@@ -56,7 +66,9 @@ SliceResult ProgramSlicer::backwardSlice(const SlicingCriterion& criterion,
                         worklist.push(signal);  
                         visited.insert(signal);  
                         result.controlVariables.insert(signal);  
-                    }  
+                    }
+                    // 【修正 4: 记录控制依赖】
+                    result.dependencyMap[currentVar].controlDependencies.insert(signal);
                 }  
             }  
         }  
@@ -66,8 +78,7 @@ SliceResult ProgramSlicer::backwardSlice(const SlicingCriterion& criterion,
               << " relevant variables" << std::endl;  
       
     return result;  
-}  
-  
+} 
 SliceResult ProgramSlicer::forwardSlice(const SlicingCriterion& criterion,  
                                         const SliceConfig& config) {  
     SliceResult result;  
@@ -78,6 +89,9 @@ SliceResult ProgramSlicer::forwardSlice(const SlicingCriterion& criterion,
     visited.insert(criterion.variableName);  
       
     std::cout << "[INFO] Starting forward slice from: " << criterion.variableName << std::endl;  
+
+    // 【修正 1: 显式初始化目标变量的记录】
+    result.dependencyMap[criterion.variableName]; 
       
     while (!worklist.empty()) {  
         std::string currentVar = worklist.front();  
@@ -95,7 +109,10 @@ SliceResult ProgramSlicer::forwardSlice(const SlicingCriterion& criterion,
         for (const auto& assignment : varInfo.assignments) {  
             if (matchesCriterion(currentVar, assignment, criterion)) {  
                 result.relevantAssignments[currentVar].insert(assignment);  
-            }  
+            }
+            // 【修正 2: 记录赋值来源 (Fan-In Assignments)】
+            std::string assignmentKey = assignment.file + ":" + std::to_string(assignment.line);
+            result.dependencyMap[currentVar].fanInAssignments.insert(assignmentKey);
         }  
           
         // 前向追踪:找出所有使用该变量的地方(数据依赖)  
@@ -103,7 +120,9 @@ SliceResult ProgramSlicer::forwardSlice(const SlicingCriterion& criterion,
             if (visited.find(fanOutVar) == visited.end()) {  
                 worklist.push(fanOutVar);  
                 visited.insert(fanOutVar);  
-            }  
+            }
+            // 【修正 3: 记录数据输出依赖】
+            result.dependencyMap[currentVar].fanOutVariables.insert(fanOutVar);
         }  
           
         // 新增:前向追踪控制依赖  
@@ -117,7 +136,10 @@ SliceResult ProgramSlicer::forwardSlice(const SlicingCriterion& criterion,
                             worklist.push(otherVar);  
                             visited.insert(otherVar);  
                             result.controlVariables.insert(currentVar);  // 标记为控制变量  
-                        }  
+                        }
+                        // 【修正 4: 记录控制输出依赖】
+                        // currentVar 控制 otherVar 的赋值
+                        result.dependencyMap[currentVar].fanOutConditions.insert(otherVar);
                     }  
                 }  
             }  
@@ -129,7 +151,7 @@ SliceResult ProgramSlicer::forwardSlice(const SlicingCriterion& criterion,
       
     return result;  
 }
-  
+
 bool ProgramSlicer::matchesCriterion(const std::string& varName,  
                                      const AssignmentInfo& assignment,  
                                      const SlicingCriterion& criterion) {  
@@ -509,4 +531,120 @@ std::string ProgramSlicer::extractCodeFromSourceRange(
     }  
       
     return std::string(sourceText.substr(startOffset, endOffset - startOffset));  
+}
+
+std::string ProgramSlicer::generateDependencyReport(const std::string& targetVariable, 
+                                                     const SliceResult& result, 
+                                                     bool isBackward) const {
+    // ... (generateDependencyReport 的实现保持不变，如上一个回答中的 Step 3 所述)
+    // ...
+    std::stringstream report;
+    report << "----------------------------------------\n";
+    report << "Dependency Report for: " << targetVariable << "\n";
+    report << "----------------------------------------\n";
+
+    auto it = result.dependencyMap.find(targetVariable);
+    if (it == result.dependencyMap.end()) {
+        report << "No structured dependency data found.\n";
+        return report.str();
+    }
+
+    const DependencyRecord& record = it->second;
+
+    if (isBackward) {
+        report << "Direction: BACKWARD SLICE (Looking for inputs)\n";
+        report << "----------------------------------------\n";
+        
+        report << "DATA DEPENDENCIES (Driven By):\n";
+        if (record.dataDependencies.empty()) {
+            report << "  - None\n";
+        } else {
+            for (const auto& dep : record.dataDependencies) {
+                report << "  - Data from: " << dep << "\n";
+            }
+        }
+
+        report << "\nCONTROL DEPENDENCIES (Controlled By):\n";
+        if (record.controlDependencies.empty()) {
+            report << "  - None\n";
+        } else {
+            for (const auto& dep : record.controlDependencies) {
+                report << "  - Condition on: " << dep << "\n";
+            }
+        }
+    } else { // Forward Slice
+        report << "Direction: FORWARD SLICE (Looking for outputs)\n";
+        report << "----------------------------------------\n";
+        
+        report << "DATA FAN-OUT (Directly Affects Variable Assignments):\n";
+        if (record.fanOutVariables.empty()) {
+            report << "  - None\n";
+        } else {
+            for (const auto& dep : record.fanOutVariables) {
+                report << "  - Affects variable: " << dep << "\n";
+            }
+        }
+
+        report << "\nCONTROL FAN-OUT (Controls Assignments in Variables):\n";
+        if (record.fanOutConditions.empty()) {
+            report << "  - None\n";
+        } else {
+            for (const auto& dep : record.fanOutConditions) {
+                report << "  - Controls assignment to: " << dep << "\n";
+            }
+        }
+    }
+    
+    report << "\nASSIGNMENTS IN SLICE (Sources/Uses in Current File):\n";
+    if (record.fanInAssignments.empty()) {
+        report << "  - None\n";
+    } else {
+        for (const auto& assign : record.fanInAssignments) {
+            report << "  - Assignment at: " << assign << "\n";
+        }
+    }
+
+    report << "----------------------------------------\n";
+    return report.str();
+}
+
+
+// [新的公共函数] - 导出所有变量的依赖关系图
+void ProgramSlicer::exportAllDependenciesToTxt(
+    const std::map<std::string, SliceResult>& allBackwardSlices,
+    const std::map<std::string, SliceResult>& allForwardSlices,
+    const std::string& outputPath) const 
+{
+    std::ofstream txtFile(outputPath);
+    if (!txtFile.is_open()) {
+        std::cerr << "[ERROR] Could not open dependency output file for writing: " << outputPath << std::endl;
+        return;
+    }
+
+    txtFile << "================================================\n";
+    txtFile << "Unified Variable Dependency Report\n";
+    txtFile << "================================================\n\n";
+
+    // 遍历所有变量（使用 Backward Slices 的键作为主列表）
+    for (const auto& [varName, backwardResult] : allBackwardSlices) {
+        txtFile << "################################################\n";
+        txtFile << "## VARIABLE: " << varName << "\n";
+        txtFile << "################################################\n\n";
+        
+        // 1. 后向依赖（Fan-In）
+        // 我们可以确定 backwardResult 的 targetVariable 是 varName
+        txtFile << generateDependencyReport(varName, backwardResult, true) << "\n";
+
+        // 2. 前向依赖（Fan-Out）
+        auto forwardIt = allForwardSlices.find(varName);
+        if (forwardIt != allForwardSlices.end()) {
+            txtFile << generateDependencyReport(varName, forwardIt->second, false) << "\n";
+        } else {
+            txtFile << "!!! WARNING: Forward slice data missing for " << varName << " !!!\n\n";
+        }
+
+        txtFile << "\n\n";
+    }
+
+    std::cout << "[SUCCESS] Dependency report written to: " << outputPath << std::endl;
 }

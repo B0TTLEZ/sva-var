@@ -1,0 +1,71 @@
+[
+    {
+        "name": "Basic Dataflow",
+        "topModule": "test_basic_dataflow",
+        "sourceFiles": [
+            "/data/fhj/sva-var/test_suite/test_basic_dataflow.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "../../results/test_basic_dataflow.json"
+    },
+    {
+        "name": "Case Statement",
+        "topModule": "test_case_statement",
+        "sourceFiles": [
+            "/data/fhj/sva-var/test_suite/test_case_statement.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "../../results/test_case_statement.json"
+    },
+    {
+        "name": "Nested Conditions",
+        "topModule": "test_nested_conditions",
+        "sourceFiles": [
+            "/data/fhj/sva-var/test_suite/test_nested_conditions.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "../../results/test_nested_conditions.json"
+    },
+    {
+        "name": "Ibex Core",
+        "topModule": "ibex_core",
+        "sourceFiles": [
+            "/data/fhj/sva-var/ibex/rtl/ibex_alu.sv",
+            "/data/fhj/sva-var/ibex/rtl/ibex_compressed_decoder.sv",
+            "/data/fhj/sva-var/ibex/rtl/ibex_core.sv"
+        ],
+        "headerFiles": [
+            "/data/fhj/sva-var/ibex/rtl/ibex_pkg.sv",
+            "/data/fhj/sva-var/ibex/vendor/lowrisc_ip/dv/sv/dv_utils/dv_fcov_macros.svh"
+        ],
+        "outputPath": "../../results/ibex_core.json"
+    },
+    {
+        "name": "I2C",
+        "topModule": "i2c_master_top",
+        "sourceFiles": [
+            "/data/fhj/sva-var/datasets/AssertEval/i2c/rtl/i2c_master_bit_ctrl.v",
+            "/data/fhj/sva-var/datasets/AssertEval/i2c/rtl/i2c_master_byte_ctrl.v",
+            "/data/fhj/sva-var/datasets/AssertEval/i2c/rtl/i2c_master_top.v"
+        ],
+        "headerFiles": [
+            "/data/fhj/sva-var/datasets/AssertEval/i2c/rtl/timescale.v",
+            "/data/fhj/sva-var/datasets/AssertEval/i2c/rtl/i2c_master_defines.v"
+        ],
+        "outputPath": "../../results/I2C.json"
+
+    },
+    {
+        "name": "APB",
+        "topModule": "i2c",
+        "sourceFiles": [
+            "/data/fhj/sva-var/datasets/AssertEval/apb/rtl/apb.sv",
+            "/data/fhj/sva-var/datasets/AssertEval/apb/rtl/fifo.sv",
+            "/data/fhj/sva-var/datasets/AssertEval/apb/rtl/i2c.sv",
+            "/data/fhj/sva-var/datasets/AssertEval/apb/rtl/module_i2c.sv"
+        ],
+        "headerFiles": [
+        ],
+        "outputPath": "../../results/APB.json"
+    }
+]
