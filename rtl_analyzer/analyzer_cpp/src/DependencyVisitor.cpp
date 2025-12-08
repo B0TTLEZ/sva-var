@@ -527,79 +527,97 @@ std::string DependencyVisitor::extractCaseItemExpression(const slang::ast::Expre
 }
 
 // 构建 case 路径
-std::vector<ConditionPath> DependencyVisitor::buildCasePaths(const slang::ast::CaseStatement& stmt, 
-                                                            const ConditionPath& parentPath) {
-    std::vector<ConditionPath> casePaths;
-    
-    ConditionClauseVisitor caseExprVisitor;
-    stmt.expr.visit(caseExprVisitor);
-    
-    ConditionExpression caseExpr;
-    caseExpr.expression = caseExprVisitor.getExpressionString();
-    caseExpr.involvedSignals = caseExprVisitor.getInvolvedSignals();
-    caseExpr.involvedParameters = caseExprVisitor.getInvolvedParameters();
-    bool hasDefault = false;
-    
-    // 处理每个case项
-    for (const auto& item : stmt.items) {
-        std::string itemExpression = extractCaseItemExpression(stmt.expr, item);
-        
-        if (itemExpression == "default") {
-            hasDefault = true;
-            continue;
-        }
-        
-        ConditionExpression fullCondition;
-        fullCondition.expression = itemExpression;
-        fullCondition.involvedSignals = caseExpr.involvedSignals;
-        
-        // 添加item表达式中涉及的信号
-        for (const auto& expr : item.expressions) {
-            ConditionClauseVisitor itemVisitor;
-            expr->visit(itemVisitor);
-            auto signals = itemVisitor.getInvolvedSignals();
-            fullCondition.involvedSignals.insert(signals.begin(), signals.end());
-        }
-        
-        ConditionClause conditionClause;
-        conditionClause.expr = fullCondition;
-        conditionClause.polarity = true;
-        
-        ConditionPath itemPath = parentPath;
-        itemPath.insert(conditionClause);
-        casePaths.push_back(itemPath);
-    }
-    
-    // 处理default情况
-    if (hasDefault || stmt.defaultCase) {
-        ConditionPath defaultPath = parentPath;
-        
-        for (const auto& item : stmt.items) {
-            std::string itemExpression = extractCaseItemExpression(stmt.expr, item);
-            if (itemExpression == "default") continue;
-            
-            ConditionExpression fullCondition;
-            fullCondition.expression = itemExpression;
-            fullCondition.involvedSignals = caseExpr.involvedSignals;
-            
-            for (const auto& expr : item.expressions) {
-                ConditionClauseVisitor itemVisitor;
-                expr->visit(itemVisitor);
-                auto signals = itemVisitor.getInvolvedSignals();
-                fullCondition.involvedSignals.insert(signals.begin(), signals.end());
-            }
-            
-            ConditionClause conditionClause;
-            conditionClause.expr = fullCondition;
-            conditionClause.polarity = false;
-            
-            defaultPath.insert(conditionClause);
-        }
-        
-        casePaths.push_back(defaultPath);
-    }
-    
-    return casePaths;
+std::vector<ConditionPath> DependencyVisitor::buildCasePaths(const slang::ast::CaseStatement& stmt,   
+                                                            const ConditionPath& parentPath) {  
+    std::vector<ConditionPath> casePaths;  
+      
+    ConditionClauseVisitor caseExprVisitor;  
+    stmt.expr.visit(caseExprVisitor);  
+      
+    ConditionExpression caseExpr;  
+    caseExpr.expression = caseExprVisitor.getExpressionString();  
+    caseExpr.involvedSignals = caseExprVisitor.getInvolvedSignals();  
+    caseExpr.involvedParameters = caseExprVisitor.getInvolvedParameters();  
+      
+    // 修复：使用当前过程块的scope获取SourceManager  
+    if (currentProcBlock) {  
+        const slang::ast::Scope* scope = currentProcBlock->getParentScope();  
+        if (scope) {  
+            auto& comp = scope->getCompilation();  
+            auto* sm = comp.getSourceManager();  
+            if (sm && stmt.expr.sourceRange.start()) {  
+                caseExpr.file = std::string(sm->getFileName(stmt.expr.sourceRange.start()));  
+                caseExpr.line = sm->getLineNumber(stmt.expr.sourceRange.start());  
+            }  
+        }  
+    }  
+      
+    bool hasDefault = false;  
+      
+    // 处理每个case项  
+    for (const auto& item : stmt.items) {  
+        std::string itemExpression = extractCaseItemExpression(stmt.expr, item);  
+          
+        if (itemExpression == "default") {  
+            hasDefault = true;  
+            continue;  
+        }  
+          
+        ConditionExpression fullCondition;  
+        fullCondition.expression = itemExpression;  
+        fullCondition.involvedSignals = caseExpr.involvedSignals;  
+        fullCondition.file = caseExpr.file;  // 继承case表达式的位置  
+        fullCondition.line = caseExpr.line;  // 继承case表达式的位置  
+          
+        // 添加item表达式中涉及的信号  
+        for (const auto& expr : item.expressions) {  
+            ConditionClauseVisitor itemVisitor;  
+            expr->visit(itemVisitor);  
+            auto signals = itemVisitor.getInvolvedSignals();  
+            fullCondition.involvedSignals.insert(signals.begin(), signals.end());  
+        }  
+          
+        ConditionClause conditionClause;  
+        conditionClause.expr = fullCondition;  
+        conditionClause.polarity = true;  
+          
+        ConditionPath itemPath = parentPath;  
+        itemPath.insert(conditionClause);  
+        casePaths.push_back(itemPath);  
+    }  
+      
+    // 处理default情况  
+    if (hasDefault || stmt.defaultCase) {  
+        ConditionPath defaultPath = parentPath;  
+          
+        for (const auto& item : stmt.items) {  
+            std::string itemExpression = extractCaseItemExpression(stmt.expr, item);  
+            if (itemExpression == "default") continue;  
+              
+            ConditionExpression fullCondition;  
+            fullCondition.expression = itemExpression;  
+            fullCondition.involvedSignals = caseExpr.involvedSignals;  
+            fullCondition.file = caseExpr.file;  // 继承case表达式的位置  
+            fullCondition.line = caseExpr.line;  // 继承case表达式的位置  
+              
+            for (const auto& expr : item.expressions) {  
+                ConditionClauseVisitor itemVisitor;  
+                expr->visit(itemVisitor);  
+                auto signals = itemVisitor.getInvolvedSignals();  
+                fullCondition.involvedSignals.insert(signals.begin(), signals.end());  
+            }  
+              
+            ConditionClause conditionClause;  
+            conditionClause.expr = fullCondition;  
+            conditionClause.polarity = false;  
+              
+            defaultPath.insert(conditionClause);  
+        }  
+          
+        casePaths.push_back(defaultPath);  
+    }  
+      
+    return casePaths;  
 }
 
 // ============================================================================
@@ -715,41 +733,55 @@ void DependencyVisitor::handle(const slang::ast::AssignmentExpression& expr) {
     visitDefault(expr);
 }
 
-void DependencyVisitor::handle(const slang::ast::ConditionalStatement& stmt) {
-    ConditionPath parentPath = pathStack.back();
-    
-    for (size_t i = 0; i < stmt.conditions.size(); ++i) {
-        const auto& cond = stmt.conditions[i];
-        
-        ConditionClauseVisitor clauseVisitor;
-        cond.expr->visit(clauseVisitor);
-
-        ConditionExpression condExpr;
-        condExpr.expression = clauseVisitor.getExpressionString();
-        condExpr.involvedSignals = clauseVisitor.getInvolvedSignals();
-        condExpr.involvedParameters = clauseVisitor.getInvolvedParameters();
-        ConditionClause trueClause;
-        trueClause.expr = condExpr;
-        trueClause.polarity = true;
-
-        ConditionPath truePath = parentPath;
-        truePath.insert(trueClause);
-        pathStack.push_back(truePath);
-        
-        stmt.ifTrue.visit(*this);
-        pathStack.pop_back();
-
-        ConditionClause falseClause;
-        falseClause.expr = condExpr;
-        falseClause.polarity = false;
-        parentPath.insert(falseClause);
-    }
-
-    if (stmt.ifFalse) {
-        pathStack.push_back(parentPath);
-        stmt.ifFalse->visit(*this);
-        pathStack.pop_back();
-    }
+void DependencyVisitor::handle(const slang::ast::ConditionalStatement& stmt) {  
+    ConditionPath parentPath = pathStack.back();  
+      
+    for (size_t i = 0; i < stmt.conditions.size(); ++i) {  
+        const auto& cond = stmt.conditions[i];  
+          
+        ConditionClauseVisitor clauseVisitor;  
+        cond.expr->visit(clauseVisitor);  
+  
+        ConditionExpression condExpr;  
+        condExpr.expression = clauseVisitor.getExpressionString();  
+        condExpr.involvedSignals = clauseVisitor.getInvolvedSignals();  
+        condExpr.involvedParameters = clauseVisitor.getInvolvedParameters();  
+          
+        // 修复：使用当前过程块的scope获取SourceManager  
+        if (currentProcBlock) {  
+            const slang::ast::Scope* scope = currentProcBlock->getParentScope();  
+            if (scope) {  
+                auto& comp = scope->getCompilation();  
+                auto* sm = comp.getSourceManager();  
+                if (sm && cond.expr->sourceRange.start()) {  
+                    condExpr.file = std::string(sm->getFileName(cond.expr->sourceRange.start()));  
+                    condExpr.line = sm->getLineNumber(cond.expr->sourceRange.start());  
+                }  
+            }  
+        }  
+          
+        ConditionClause trueClause;  
+        trueClause.expr = condExpr;  
+        trueClause.polarity = true;  
+  
+        ConditionPath truePath = parentPath;  
+        truePath.insert(trueClause);  
+        pathStack.push_back(truePath);  
+          
+        stmt.ifTrue.visit(*this);  
+        pathStack.pop_back();  
+  
+        ConditionClause falseClause;  
+        falseClause.expr = condExpr;  
+        falseClause.polarity = false;  
+        parentPath.insert(falseClause);  
+    }  
+  
+    if (stmt.ifFalse) {  
+        pathStack.push_back(parentPath);  
+        stmt.ifFalse->visit(*this);  
+        pathStack.pop_back();  
+    }  
 }
 
 void DependencyVisitor::handle(const slang::ast::CaseStatement& stmt) {

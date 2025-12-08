@@ -33,7 +33,6 @@
 #  define SLANG_DEPRECATED_NO_EXPORT SLANG_NO_EXPORT SLANG_DEPRECATED
 #endif
 
-/* NOLINTNEXTLINE(readability-avoid-unconditional-preprocessor-if) */
 #if 0 /* DEFINE_NO_DEPRECATED */
 #  ifndef SLANG_NO_DEPRECATED
 #    define SLANG_NO_DEPRECATED

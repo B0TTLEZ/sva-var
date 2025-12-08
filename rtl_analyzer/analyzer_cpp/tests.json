@@ -3,10 +3,19 @@
         "name": "Basic Dataflow",
         "topModule": "test_basic_dataflow",
         "sourceFiles": [
-            "/data/fhj/sva-var/test_suite/test_basic_dataflow.sv"
+            "/data/sva-var/test_suite/test_basic_dataflow.sv"
         ],
         "headerFiles": [],
         "outputPath": "../../results/test_basic_dataflow.json"
+    },
+    {
+        "name": "Case ToneSequencer",
+        "topModule": "ToneSequencer",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "../../results/test_ToneSequencer.json"
     },
     {
         "name": "Case Statement",

@@ -1,10 +1,10 @@
-prefix=/data/fhj/sva-var/slang-out
+prefix=/data/sva-var/slang-out
 includedir="${prefix}/include"
 libdir="${prefix}/lib"
 
 Name: slang
 Description: SystemVerilog compiler and language services
 URL: https://sv-lang.com/
-Version: 9.1.111
+Version: 9.1.193
 Cflags: -I"${includedir}"
 Libs: -L"${libdir}" -lsvlang

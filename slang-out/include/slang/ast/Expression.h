@@ -19,6 +19,7 @@ class ASTSerializer;
 class EvalContext;
 class InstanceSymbolBase;
 class Type;
+class TypeProvider;
 class ValueSymbol;
 enum class VariableFlags : uint16_t;
 
@@ -112,17 +113,19 @@ public:
     /// Binds the left hand side of an assignment-like expression from the given syntax nodes.
     /// @param lhs The syntax node representing the expression to bind
     /// @param rhs The type of the right hand side, for type checking
-    /// @param location The location of the assignment, for reporting diagnostics
     /// @param context The AST context under which binding is performed
     /// @param isInout true if the assignment is for an inout port
     static const Expression& bindLValue(const ExpressionSyntax& lhs, const Type& rhs,
-                                        SourceLocation location, const ASTContext& context,
-                                        bool isInout);
+                                        const ASTContext& context, bool isInout);
 
     /// Binds an lvalue that is not a typical assignment-like context. For example, the
     /// output argument of certain system tasks that accept almost any type.
     static const Expression& bindLValue(const ExpressionSyntax& syntax, const ASTContext& context,
                                         bitmask<AssignFlags> assignFlags = {});
+
+    /// Binds an assignment-like expression given an already created lhs.
+    static const Expression& bindLValue(Expression& lhs, const Type& rhs, const ASTContext& context,
+                                        bitmask<AssignFlags> assignFlags);
 
     /// Binds the right hand side of an assignment-like expression from the given syntax nodes.
     /// @param lhs The type of the left hand side, for type checking
@@ -136,8 +139,12 @@ public:
 
     /// Binds a connection to a ref argument from the given syntax nodes.
     static const Expression& bindRefArg(const Type& lhs, bitmask<VariableFlags> argFlags,
-                                        const ExpressionSyntax& rhs, SourceLocation location,
-                                        const ASTContext& context);
+                                        const ExpressionSyntax& rhs, const ASTContext& context);
+
+    /// Binds a connection to a ref argument from the given pre-created target expression.
+    static const Expression& bindRefArg(const Type& lhs, bitmask<VariableFlags> argFlags,
+                                        const Expression& rhs, const ASTContext& context,
+                                        bool allowPackedSelects);
 
     /// Binds an argument or port connection with the given direction.
     static const Expression& bindArgument(const Type& argType, ArgumentDirection direction,
@@ -229,6 +236,13 @@ public:
                                          Expression& expr, SourceRange assignmentRange,
                                          Expression** lhsExpr = nullptr);
 
+    /// Builds a tree of select expressions to map down to the target flattened bit range.
+    ///
+    /// @note The expression must be of integral type and the flatRange must be in
+    ///       canonical (little-endian) format.
+    static Expression& buildPackedSelectTree(const TypeProvider& typeProvider, Expression& expr,
+                                             ConstantRange flatRange, const ASTContext& context);
+
     /// Indicates whether the expression is invalid.
     bool bad() const;
 
@@ -267,6 +281,9 @@ public:
     /// Returns true if this expression can be implicitly assigned to a value
     /// of the given type.
     bool isImplicitlyAssignableTo(Compilation& compilation, const Type& type) const;
+
+    /// Returns true if this expression is structurally equivalent to the other expression.
+    bool isEquivalentTo(const Expression& other) const;
 
     /// Traverses the expression tree and computes what its width would be (in bits)
     /// if the types of all known constants were declared with only the bits necessary to
@@ -373,7 +390,7 @@ protected:
                                 const ASTContext& context);
 
     static Expression& bindLookupResult(
-        Compilation& compilation, LookupResult& result, SourceRange sourceRange,
+        Compilation& compilation, LookupResult& result,
         const syntax::InvocationExpressionSyntax* invocation,
         const syntax::ArrayOrRandomizeMethodExpressionSyntax* withClause,
         const ASTContext& context);
@@ -392,7 +409,7 @@ protected:
     static Expression* tryConnectPortArray(const ASTContext& context, const Type& type,
                                            Expression& expr, const InstanceSymbolBase& instance);
 
-    static Expression& badExpr(Compilation& compilation, const Expression* expr);
+    static Expression& badExpr(BumpAllocator& alloc, const Expression* expr);
 
     // Perform type propagation and constant folding of a context-determined subexpression.
     static void contextDetermined(const ASTContext& context, Expression*& expr,
@@ -426,6 +443,7 @@ private:
     struct EffectiveSignVisitor;
     struct HierarchicalVisitor;
     struct PropagationVisitor;
+    struct EquivalentToVisitor;
 
     mutable const ConstantValue* constant = nullptr;
 };
@@ -443,6 +461,7 @@ public:
         Expression(ExpressionKind::Invalid, type, SourceRange()), child(child) {}
 
     ConstantValue evalImpl(EvalContext&) const { return nullptr; }
+    bool isEquivalentImpl(const InvalidExpression&) const { return true; }
     void serializeTo(ASTSerializer& serializer) const;
 
     static bool isKind(ExpressionKind kind) { return kind == ExpressionKind::Invalid; }

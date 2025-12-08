@@ -58,7 +58,9 @@ void to_json(json& j, const ConditionExpression& expr) {
     j = json{
         {"expression", expr.expression},
         {"involvedSignals", expr.involvedSignals},
-        {"involvedParameters", expr.involvedParameters}
+        {"involvedParameters", expr.involvedParameters},
+        {"file", expr.file},  // 新增  
+        {"line", expr.line}  // 新增  
     };
 }
 
@@ -307,7 +309,7 @@ bool runAnalysis(const std::string& topModule,
 int main(int argc, char** argv) {
 
 
-    std::string configFilePath = "/data/fhj/sva-var/rtl_analyzer/analyzer_cpp/tests.json";
+    std::string configFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests.json";
     std::vector<TestCase> testSuite;
 
     try {

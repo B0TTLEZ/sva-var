@@ -25,18 +25,24 @@ struct SensitivityInfo {
 };  
 
 // 改进的条件表达式节点
-struct ConditionExpression {
-    std::string expression;  // 完整的表达式文本
-    std::set<std::string> involvedSignals;  // 涉及的所有信号
-    std::set<std::string> involvedParameters;   // 编译期参数（parameter, localparam, enum 常量等）
-    
-    bool operator<(const ConditionExpression& other) const {
-        if (expression != other.expression) 
-            return expression < other.expression;
-        if (involvedSignals != other.involvedSignals)
-            return involvedSignals < other.involvedSignals;
-        return involvedParameters < other.involvedParameters; // ←← 新增比较
-    }
+struct ConditionExpression {  
+    std::string expression;  // 完整的表达式文本  
+    std::set<std::string> involvedSignals;  // 涉及的所有信号  
+    std::set<std::string> involvedParameters;   // 编译期参数（parameter, localparam, enum 常量等）  
+    std::string file;  // 新增：控制流语句所在文件  
+    int line = 0;      // 新增：控制流语句所在行号  
+      
+    bool operator<(const ConditionExpression& other) const {  
+        if (expression != other.expression)   
+            return expression < other.expression;  
+        if (involvedSignals != other.involvedSignals)  
+            return involvedSignals < other.involvedSignals;  
+        if (involvedParameters != other.involvedParameters)  
+            return involvedParameters < other.involvedParameters;  
+        if (file != other.file)  
+            return file < other.file;  
+        return line < other.line;  
+    }  
 };
 
 struct ConditionClause {
