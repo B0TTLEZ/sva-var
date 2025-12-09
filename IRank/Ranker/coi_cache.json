@@ -1,0 +1,35 @@
+{
+  "(ToneSequencer.mux,1)": {
+    "nodes": {
+      "(ToneSequencer.mux,0)": {
+        "importance": 0.12806520791127507,
+        "complexity": 0.0
+      },
+      "(ToneSequencer.count,0)": {
+        "importance": 0.8274302782101033,
+        "complexity": 1.0
+      },
+      "(ToneSequencer.count,1)": {
+        "importance": 5.663946739559448,
+        "complexity": 1.0
+      },
+      "(ToneSequencer.nrq1,1)": {
+        "importance": 1.6980029868676807,
+        "complexity": 1.0
+      },
+      "(ToneSequencer.nrq2,1)": {
+        "importance": 1.6980029868676807,
+        "complexity": 1.0
+      },
+      "(ToneSequencer.nrq3,1)": {
+        "importance": 0.8705727086575774,
+        "complexity": 1.0
+      },
+      "(ToneSequencer.key,1)": {
+        "importance": 2.5254332650777838,
+        "complexity": 4.0
+      }
+    },
+    "target": "ToneSequencer.mux"
+  }
+}

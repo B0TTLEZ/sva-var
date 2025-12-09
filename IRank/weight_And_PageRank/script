@@ -1,0 +1,1 @@
+python generate_pagerank.py ../VDG_builder/var_define_chain.json ./weight_map.json ./complete_PageRank.json

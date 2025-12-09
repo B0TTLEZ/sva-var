@@ -1,0 +1,54 @@
+[
+  {
+    "sva_string": "assert property(@(posedge clk) (count == 0 && !key) |-> (mux == 0));",
+    "status": "proven",
+    "module": "ToneSequencer",
+    "importance_score": 0.8274302782101033,
+    "complexity_score": 1.0,
+    "final_score": 0.8274302782101033,
+    "antecedents": [
+      {
+        "variable": "ToneSequencer.count",
+        "relative_cycle": 0
+      },
+      {
+        "variable": "ToneSequencer.key",
+        "relative_cycle": 0
+      }
+    ],
+    "consequents": [
+      {
+        "variable": "ToneSequencer.mux",
+        "relative_cycle": 0
+      }
+    ]
+  },
+  {
+    "sva_string": "assert property(@(posedge clk) (count == 2 && nrq2 && key) |-> (mux == 2));",
+    "status": "proven",
+    "module": "ToneSequencer",
+    "importance_score": 0.8274302782101033,
+    "complexity_score": 1.0,
+    "final_score": 0.8274302782101033,
+    "antecedents": [
+      {
+        "variable": "ToneSequencer.count",
+        "relative_cycle": 0
+      },
+      {
+        "variable": "ToneSequencer.key",
+        "relative_cycle": 0
+      },
+      {
+        "variable": "ToneSequencer.nrq2",
+        "relative_cycle": 0
+      }
+    ],
+    "consequents": [
+      {
+        "variable": "ToneSequencer.mux",
+        "relative_cycle": 0
+      }
+    ]
+  }
+]

@@ -1,0 +1,5 @@
+python assertion_scorer.py /data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/verif/sva_status.json /data/sva-var/IRank/VDG_builder/var_define_chain.json /data/sva-var/IRank/VDG_builder/var_use_chain.json /data/sva-var/IRank/weight_And_PageRank/complete_PageRank.json /data/sva-var/IRank/weight_And_PageRank/weight_map.json ./assertion_scores.json
+
+
+# coi_save
+python assertion_scorer.py /data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/verif/sva_status.json /data/sva-var/IRank/VDG_builder/var_define_chain.json /data/sva-var/IRank/VDG_builder/var_use_chain.json /data/sva-var/IRank/weight_And_PageRank/complete_PageRank.json /data/sva-var/IRank/weight_And_PageRank/weight_map.json ./assertion_scores.json --coi-cache ./coi_cache.json

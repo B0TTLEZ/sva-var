@@ -1,0 +1,18 @@
+{
+  "ToneSequencer.key": {
+    "ToneSequencer.count": 3
+  },
+  "ToneSequencer.count": {
+    "ToneSequencer.count": 6,
+    "ToneSequencer.mux": 1
+  },
+  "ToneSequencer.nrq1": {
+    "ToneSequencer.count": 2
+  },
+  "ToneSequencer.nrq2": {
+    "ToneSequencer.count": 2
+  },
+  "ToneSequencer.nrq3": {
+    "ToneSequencer.count": 1
+  }
+}

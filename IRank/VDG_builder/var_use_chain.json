@@ -1,0 +1,162 @@
+{
+  "ToneSequencer.DEFAULT_RST": {
+    "DefVars": [],
+    "Lines": [],
+    "Sensitivities_Expressions": []
+  },
+  "ToneSequencer.clk": {
+    "DefVars": [],
+    "Lines": [],
+    "Sensitivities_Expressions": []
+  },
+  "ToneSequencer.count": {
+    "DefVars": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "ToneSequencer.mux"
+    ],
+    "Lines": [
+      5,
+      9,
+      13,
+      5,
+      9,
+      5,
+      18
+    ],
+    "Sensitivities_Expressions": [
+      {
+        "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
+        "line": 5,
+        "logicType": "condition"
+      },
+      {
+        "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
+        "line": 9,
+        "logicType": "condition"
+      },
+      {
+        "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
+        "line": 13,
+        "logicType": "condition"
+      },
+      {
+        "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
+        "line": 5,
+        "logicType": "condition"
+      },
+      {
+        "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
+        "line": 9,
+        "logicType": "condition"
+      },
+      {
+        "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
+        "line": 5,
+        "logicType": "condition"
+      },
+      {
+        "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
+        "line": 18,
+        "logicType": "combinational"
+      }
+    ]
+  },
+  "ToneSequencer.key": {
+    "DefVars": [
+      "ToneSequencer.count",
+      "ToneSequencer.count",
+      "ToneSequencer.count"
+    ],
+    "Lines": [
+      15,
+      11,
+      7
+    ],
+    "Sensitivities_Expressions": [
+      {
+        "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
+        "line": 15,
+        "logicType": "sequential"
+      },
+      {
+        "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
+        "line": 11,
+        "logicType": "sequential"
+      },
+      {
+        "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
+        "line": 7,
+        "logicType": "sequential"
+      }
+    ]
+  },
+  "ToneSequencer.mux": {
+    "DefVars": [],
+    "Lines": [],
+    "Sensitivities_Expressions": []
+  },
+  "ToneSequencer.nrq1": {
+    "DefVars": [
+      "",
+      ""
+    ],
+    "Lines": [
+      9,
+      9
+    ],
+    "Sensitivities_Expressions": [
+      {
+        "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
+        "line": 9,
+        "logicType": "condition"
+      },
+      {
+        "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
+        "line": 9,
+        "logicType": "condition"
+      }
+    ]
+  },
+  "ToneSequencer.nrq2": {
+    "DefVars": [
+      "",
+      ""
+    ],
+    "Lines": [
+      9,
+      9
+    ],
+    "Sensitivities_Expressions": [
+      {
+        "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
+        "line": 9,
+        "logicType": "condition"
+      },
+      {
+        "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
+        "line": 9,
+        "logicType": "condition"
+      }
+    ]
+  },
+  "ToneSequencer.nrq3": {
+    "DefVars": [
+      ""
+    ],
+    "Lines": [
+      13
+    ],
+    "Sensitivities_Expressions": [
+      {
+        "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
+        "line": 13,
+        "logicType": "condition"
+      }
+    ]
+  }
+}

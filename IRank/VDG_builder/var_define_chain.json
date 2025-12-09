@@ -1,0 +1,167 @@
+{
+  "ToneSequencer.DEFAULT_RST": {
+    "Clocked": false,
+    "CDeps": [],
+    "CLines": [],
+    "DDeps": [],
+    "DLines": [],
+    "Expressions": []
+  },
+  "ToneSequencer.clk": {
+    "Clocked": false,
+    "CDeps": [],
+    "CLines": [],
+    "DDeps": [],
+    "DLines": [],
+    "Expressions": []
+  },
+  "ToneSequencer.count": {
+    "Clocked": true,
+    "CDeps": [
+      [
+        [
+          "ToneSequencer.count"
+        ],
+        [
+          "ToneSequencer.count",
+          "ToneSequencer.nrq1",
+          "ToneSequencer.nrq2"
+        ],
+        [
+          "ToneSequencer.count",
+          "ToneSequencer.nrq3"
+        ]
+      ],
+      [
+        [
+          "ToneSequencer.count"
+        ],
+        [
+          "ToneSequencer.count",
+          "ToneSequencer.nrq1",
+          "ToneSequencer.nrq2"
+        ]
+      ],
+      [
+        [
+          "ToneSequencer.count"
+        ]
+      ]
+    ],
+    "CLines": [
+      [
+        5,
+        9,
+        13
+      ],
+      [
+        5,
+        9
+      ],
+      [
+        5
+      ]
+    ],
+    "DDeps": [
+      [
+        "ToneSequencer.key"
+      ],
+      [
+        "ToneSequencer.key"
+      ],
+      [
+        "ToneSequencer.key"
+      ]
+    ],
+    "DLines": [
+      15,
+      11,
+      7
+    ],
+    "Expressions": [
+      {
+        "drivingSignals": [
+          "ToneSequencer.key"
+        ],
+        "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
+        "line": 15,
+        "logicType": "sequential"
+      },
+      {
+        "drivingSignals": [
+          "ToneSequencer.key"
+        ],
+        "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
+        "line": 11,
+        "logicType": "sequential"
+      },
+      {
+        "drivingSignals": [
+          "ToneSequencer.key"
+        ],
+        "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
+        "line": 7,
+        "logicType": "sequential"
+      }
+    ]
+  },
+  "ToneSequencer.key": {
+    "Clocked": false,
+    "CDeps": [],
+    "CLines": [],
+    "DDeps": [],
+    "DLines": [],
+    "Expressions": []
+  },
+  "ToneSequencer.mux": {
+    "Clocked": false,
+    "CDeps": [
+      []
+    ],
+    "CLines": [
+      []
+    ],
+    "DDeps": [
+      [
+        "ToneSequencer.count"
+      ]
+    ],
+    "DLines": [
+      18
+    ],
+    "Expressions": [
+      {
+        "drivingSignals": [
+          "ToneSequencer.count"
+        ],
+        "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
+        "line": 18,
+        "logicType": "combinational"
+      }
+    ]
+  },
+  "ToneSequencer.nrq1": {
+    "Clocked": false,
+    "CDeps": [],
+    "CLines": [],
+    "DDeps": [],
+    "DLines": [],
+    "Expressions": []
+  },
+  "ToneSequencer.nrq2": {
+    "Clocked": false,
+    "CDeps": [],
+    "CLines": [],
+    "DDeps": [],
+    "DLines": [],
+    "Expressions": []
+  },
+  "ToneSequencer.nrq3": {
+    "Clocked": false,
+    "CDeps": [],
+    "CLines": [],
+    "DDeps": [],
+    "DLines": [],
+    "Expressions": []
+  }
+}
