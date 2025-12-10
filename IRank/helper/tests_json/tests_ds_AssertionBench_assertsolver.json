@@ -1,0 +1,2603 @@
+[
+    {
+        "name": "Case eth_clockgen",
+        "topModule": "eth_clockgen",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m323/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m323/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case step_curve",
+        "topModule": "step_curve",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m872/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m872/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case PHASE_ALIGN",
+        "topModule": "PHASE_ALIGN",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m29/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m29/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case dataGenerator",
+        "topModule": "dataGenerator",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m51/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m51/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case SCCBCtrl",
+        "topModule": "SCCBCtrl",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m736/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m736/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ada_exu_div",
+        "topModule": "ada_exu_div",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m518/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m518/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case matrix_mult_mul_8bkb_Mul5S_0",
+        "topModule": "matrix_mult_mul_8bkb_Mul5S_0",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m418/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m418/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case diffeq_f_systemC",
+        "topModule": "diffeq_f_systemC",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m136/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m136/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case altera_tse_gxb_aligned_rxsync",
+        "topModule": "altera_tse_gxb_aligned_rxsync",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m793/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m793/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ClkDiv_20Hz",
+        "topModule": "ClkDiv_20Hz",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m153/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m153/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case iobus_6_connect",
+        "topModule": "iobus_6_connect",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m781/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m781/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case packet_decoder",
+        "topModule": "packet_decoder",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m385/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m385/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case crc",
+        "topModule": "crc",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m785/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m785/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case l_class_OC_Fifo1",
+        "topModule": "l_class_OC_Fifo1",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m281/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m281/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case jt51_phrom",
+        "topModule": "jt51_phrom",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m343/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m343/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case nios_timer_1",
+        "topModule": "nios_timer_1",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m768/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m768/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case uart",
+        "topModule": "uart",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m279/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m279/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case clockdivide2",
+        "topModule": "clockdivide2",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m181/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m181/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ft_fifo_tester",
+        "topModule": "ft_fifo_tester",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m539/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m539/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case Snake",
+        "topModule": "Snake",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m680/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m680/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case sky130_fd_io__top_ground_lvc_wpad",
+        "topModule": "sky130_fd_io__top_ground_lvc_wpad",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m103/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m103/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case frame_detector",
+        "topModule": "frame_detector",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m436/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m436/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case pcie_7x_0_core_top_gtp_cpllpd_ovrd",
+        "topModule": "pcie_7x_0_core_top_gtp_cpllpd_ovrd",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m92/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m92/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case uart",
+        "topModule": "uart",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m361/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m361/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case control_digitos_1",
+        "topModule": "control_digitos_1",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m734/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m734/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case udp_ip_rx_64",
+        "topModule": "udp_ip_rx_64",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m859/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m859/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case fetch8x8",
+        "topModule": "fetch8x8",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m678/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m678/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case vga_640_480_stripes",
+        "topModule": "vga_640_480_stripes",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m544/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m544/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case controllerHdl_Reset_Delay_block",
+        "topModule": "controllerHdl_Reset_Delay_block",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m244/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m244/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case LCDCONTROL",
+        "topModule": "LCDCONTROL",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m597/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m597/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ads62p44_spi",
+        "topModule": "ads62p44_spi",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m711/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m711/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case lcd_control",
+        "topModule": "lcd_control",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m835/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m835/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case dbg_sync_clk1_clk2",
+        "topModule": "dbg_sync_clk1_clk2",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m522/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m522/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case eth_clockgen",
+        "topModule": "eth_clockgen",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m326/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m326/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case timer",
+        "topModule": "timer",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m186/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m186/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case serdes_fc_tx",
+        "topModule": "serdes_fc_tx",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m97/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m97/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case cmm_errman_cor",
+        "topModule": "cmm_errman_cor",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m833/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m833/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case crc",
+        "topModule": "crc",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m864/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m864/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case BottleneckSequencer",
+        "topModule": "BottleneckSequencer",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m779/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m779/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case cdc_pulse_sync",
+        "topModule": "cdc_pulse_sync",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m286/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m286/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case oh_8b10b_decode",
+        "topModule": "oh_8b10b_decode",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m744/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m744/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case VGACtrl",
+        "topModule": "VGACtrl",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m315/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m315/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case rgbmatrix",
+        "topModule": "rgbmatrix",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m761/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m761/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case altera_tse_gxb_aligned_rxsync",
+        "topModule": "altera_tse_gxb_aligned_rxsync",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m792/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m792/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case CLS_LED_Output_Multiplexer",
+        "topModule": "CLS_LED_Output_Multiplexer",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m568/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m568/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case avalanche_entropy_core",
+        "topModule": "avalanche_entropy_core",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m770/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m770/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case axis_inf",
+        "topModule": "axis_inf",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m751/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m751/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case blockmem2r1w",
+        "topModule": "blockmem2r1w",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m68/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m68/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case rom",
+        "topModule": "rom",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m419/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m419/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case control_o",
+        "topModule": "control_o",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m709/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m709/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case aurora_201_RX_STREAM",
+        "topModule": "aurora_201_RX_STREAM",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m151/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m151/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case rom",
+        "topModule": "rom",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m653/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m653/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case nios_pio_0",
+        "topModule": "nios_pio_0",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m486/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m486/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case rom",
+        "topModule": "rom",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m602/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m602/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case cpu_mem",
+        "topModule": "cpu_mem",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m371/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m371/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case LUT6_2",
+        "topModule": "LUT6_2",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m732/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m732/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ibex_fetch_fifo",
+        "topModule": "ibex_fetch_fifo",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m726/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m726/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case trafficLightController",
+        "topModule": "trafficLightController",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m645/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m645/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case output_pulse",
+        "topModule": "output_pulse",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m145/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m145/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case jt12_opram",
+        "topModule": "jt12_opram",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m90/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m90/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case IBUF",
+        "topModule": "IBUF",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m370/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m370/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ram_1p",
+        "topModule": "ram_1p",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m163/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m163/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case asr",
+        "topModule": "asr",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m320/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m320/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case wb_mcb_32",
+        "topModule": "wb_mcb_32",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m629/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m629/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case DecodeUnitRegisterOne",
+        "topModule": "DecodeUnitRegisterOne",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m609/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m609/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case SYM_DEC_4BYTE",
+        "topModule": "SYM_DEC_4BYTE",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m842/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m842/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case fifo_w32_d2_A_shiftReg",
+        "topModule": "fifo_w32_d2_A_shiftReg",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m664/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m664/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case seven_seg_decoder",
+        "topModule": "seven_seg_decoder",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m390/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m390/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case mis",
+        "topModule": "mis",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m346/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m346/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case DATA",
+        "topModule": "DATA",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m731/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m731/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case UART_Tx",
+        "topModule": "UART_Tx",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m340/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m340/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case vga_sync",
+        "topModule": "vga_sync",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m525/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m525/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case rw_ctrl",
+        "topModule": "rw_ctrl",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m111/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m111/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case dispatch",
+        "topModule": "dispatch",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m681/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m681/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case m_instruction_logic_unit",
+        "topModule": "m_instruction_logic_unit",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m622/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m622/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ls_station",
+        "topModule": "ls_station",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m708/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m708/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case lab9_soc_to_sw_sig",
+        "topModule": "lab9_soc_to_sw_sig",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m116/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m116/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case controllerHdl_Detect_Change",
+        "topModule": "controllerHdl_Detect_Change",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m191/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m191/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case LED7SEG",
+        "topModule": "LED7SEG",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m336/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m336/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ExtADCSimple",
+        "topModule": "ExtADCSimple",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m766/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m766/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case des_control",
+        "topModule": "des_control",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m427/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m427/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case basic_ShieldCtrl",
+        "topModule": "basic_ShieldCtrl",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m425/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m425/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case serializer",
+        "topModule": "serializer",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m263/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m263/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case hpdmc_banktimer",
+        "topModule": "hpdmc_banktimer",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m144/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m144/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case CoProcessor0RF",
+        "topModule": "CoProcessor0RF",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m367/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m367/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case cabac_binari_cre",
+        "topModule": "cabac_binari_cre",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m783/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m783/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case quad",
+        "topModule": "quad",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m294/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m294/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ad_rst",
+        "topModule": "ad_rst",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m98/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m98/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case LED7SEG",
+        "topModule": "LED7SEG",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m183/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m183/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case wb_readback_mux_16LE",
+        "topModule": "wb_readback_mux_16LE",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m471/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m471/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case interrupt",
+        "topModule": "interrupt",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m342/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m342/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case mor1kx_wb_mux_espresso",
+        "topModule": "mor1kx_wb_mux_espresso",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m65/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m65/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case soc_system_led_pio",
+        "topModule": "soc_system_led_pio",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m355/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m355/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case SSEG_Driver",
+        "topModule": "SSEG_Driver",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m511/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m511/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case rnd_vec_gen",
+        "topModule": "rnd_vec_gen",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m576/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m576/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case button2",
+        "topModule": "button2",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m5/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m5/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case mccu",
+        "topModule": "mccu",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m742/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m742/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case fifo_async_104x16",
+        "topModule": "fifo_async_104x16",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m24/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m24/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case rcn_bridge",
+        "topModule": "rcn_bridge",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m444/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m444/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case iss_pipe_reg",
+        "topModule": "iss_pipe_reg",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m338/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m338/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case fifo_packer_64",
+        "topModule": "fifo_packer_64",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m487/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m487/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ulight_fifo_counter_rx_fifo",
+        "topModule": "ulight_fifo_counter_rx_fifo",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m125/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m125/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case addr_gen",
+        "topModule": "addr_gen",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m359/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m359/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case nios_system_load",
+        "topModule": "nios_system_load",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m245/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m245/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case soc_system_led_pio",
+        "topModule": "soc_system_led_pio",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m229/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m229/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case pipeem",
+        "topModule": "pipeem",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m106/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m106/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case musb_ifid_register",
+        "topModule": "musb_ifid_register",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m82/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m82/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case axi_tft_v2_0_iic_init",
+        "topModule": "axi_tft_v2_0_iic_init",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m827/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m827/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case id_ex",
+        "topModule": "id_ex",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m719/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m719/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case quadrature_clocked",
+        "topModule": "quadrature_clocked",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m296/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m296/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case core_ras",
+        "topModule": "core_ras",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m830/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m830/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case RSTGEN",
+        "topModule": "RSTGEN",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m3/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m3/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case vga_serial",
+        "topModule": "vga_serial",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m416/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m416/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case sha1_w_mem",
+        "topModule": "sha1_w_mem",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m772/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m772/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case tx_fct_send",
+        "topModule": "tx_fct_send",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m782/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m782/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case breathingled",
+        "topModule": "breathingled",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m322/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m322/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case niosII_system_sysid_qsys_0",
+        "topModule": "niosII_system_sysid_qsys_0",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m19/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m19/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case dct_ctrl",
+        "topModule": "dct_ctrl",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m494/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m494/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case TimeHoldOver_Qsys_io_update",
+        "topModule": "TimeHoldOver_Qsys_io_update",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m220/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m220/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ToneSequencer",
+        "topModule": "ToneSequencer",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case anteconmutador",
+        "topModule": "anteconmutador",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m580/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m580/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case test_core",
+        "topModule": "test_core",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m704/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m704/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case DATA",
+        "topModule": "DATA",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m728/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m728/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case var25_multi",
+        "topModule": "var25_multi",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m874/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m874/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case test",
+        "topModule": "test",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m473/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m473/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case pcx_buf_pdl",
+        "topModule": "pcx_buf_pdl",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m2/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m2/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case dp_memory",
+        "topModule": "dp_memory",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m688/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m688/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case vga_sync",
+        "topModule": "vga_sync",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m538/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m538/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case bit_capture_data",
+        "topModule": "bit_capture_data",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m449/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m449/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case wasca_spi_sync",
+        "topModule": "wasca_spi_sync",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m127/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m127/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case enemyPosition",
+        "topModule": "enemyPosition",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m745/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m745/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case Phy_int",
+        "topModule": "Phy_int",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m749/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m749/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case eth_clockgen",
+        "topModule": "eth_clockgen",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m311/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m311/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case export_master",
+        "topModule": "export_master",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m515/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m515/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case HLS_accel_a_ram",
+        "topModule": "HLS_accel_a_ram",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m545/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m545/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case up_busif",
+        "topModule": "up_busif",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m741/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m741/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case Round_Sgf_Dec",
+        "topModule": "Round_Sgf_Dec",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m30/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m30/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case double_to_float",
+        "topModule": "double_to_float",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m687/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m687/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case sim_camera",
+        "topModule": "sim_camera",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m677/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m677/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case avalon2rcn",
+        "topModule": "avalon2rcn",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m446/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m446/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case altera_tse_gxb_aligned_rxsync",
+        "topModule": "altera_tse_gxb_aligned_rxsync",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m796/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m796/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case MEMWB_Stage",
+        "topModule": "MEMWB_Stage",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m131/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m131/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case memory_array",
+        "topModule": "memory_array",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m257/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m257/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case DRAMReader",
+        "topModule": "DRAMReader",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m582/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m582/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case sram_interface",
+        "topModule": "sram_interface",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m175/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m175/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case sm_ref",
+        "topModule": "sm_ref",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m584/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m584/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case NormaliseProdMultDescale",
+        "topModule": "NormaliseProdMultDescale",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m435/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m435/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case flt2int",
+        "topModule": "flt2int",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m215/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m215/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case data_whiting",
+        "topModule": "data_whiting",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m571/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m571/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case alu",
+        "topModule": "alu",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m218/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m218/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case avalon_st_mon",
+        "topModule": "avalon_st_mon",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m836/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m836/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ddr3_int_ex_lfsr8",
+        "topModule": "ddr3_int_ex_lfsr8",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m374/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m374/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case Snake",
+        "topModule": "Snake",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m844/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m844/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case LUT4",
+        "topModule": "LUT4",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m462/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m462/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case vga_sync",
+        "topModule": "vga_sync",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m495/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m495/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case act_led",
+        "topModule": "act_led",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m559/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m559/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case flag_domain_crossing",
+        "topModule": "flag_domain_crossing",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m162/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m162/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case DataMemory",
+        "topModule": "DataMemory",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m474/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m474/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case game_graph_simple",
+        "topModule": "game_graph_simple",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m800/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m800/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case delta_sigma",
+        "topModule": "delta_sigma",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m8/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m8/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case soc_system_led_pio",
+        "topModule": "soc_system_led_pio",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m230/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m230/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ibex_compressed_decoder",
+        "topModule": "ibex_compressed_decoder",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m852/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m852/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case sm_txt_crt",
+        "topModule": "sm_txt_crt",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m759/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m759/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case minimig_sram_bridge",
+        "topModule": "minimig_sram_bridge",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m228/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m228/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case SCCBCtrl",
+        "topModule": "SCCBCtrl",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m740/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m740/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case gmii",
+        "topModule": "gmii",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m249/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m249/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case EHR_7",
+        "topModule": "EHR_7",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m604/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m604/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case program_counter2a",
+        "topModule": "program_counter2a",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m27/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m27/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case FixedRoundUnsigned",
+        "topModule": "FixedRoundUnsigned",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m100/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m100/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case sync1s",
+        "topModule": "sync1s",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m475/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m475/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case anteconmutador",
+        "topModule": "anteconmutador",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m578/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m578/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case oneshot_2clk",
+        "topModule": "oneshot_2clk",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m40/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m40/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case reg_block",
+        "topModule": "reg_block",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m63/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m63/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case fsm2",
+        "topModule": "fsm2",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m480/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m480/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case counter_26bit",
+        "topModule": "counter_26bit",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m86/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m86/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ddr3_s4_amphy_ex_lfsr8",
+        "topModule": "ddr3_s4_amphy_ex_lfsr8",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m375/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m375/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case valve36",
+        "topModule": "valve36",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m55/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m55/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case AXIS_LOOPBACK",
+        "topModule": "AXIS_LOOPBACK",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m77/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m77/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ibex_multdiv_fast",
+        "topModule": "ibex_multdiv_fast",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m868/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m868/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case eth_clockgen",
+        "topModule": "eth_clockgen",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m310/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m310/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case fb_slave_counters",
+        "topModule": "fb_slave_counters",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m815/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m815/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case bios_loader",
+        "topModule": "bios_loader",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m632/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m632/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case alu16",
+        "topModule": "alu16",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m309/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m309/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case counter_f",
+        "topModule": "counter_f",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m304/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m304/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case vga",
+        "topModule": "vga",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m625/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m625/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case lfsr_count64",
+        "topModule": "lfsr_count64",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m45/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m45/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case controllerHdl_MATLAB_Function",
+        "topModule": "controllerHdl_MATLAB_Function",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m6/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m6/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case dbg_register",
+        "topModule": "dbg_register",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m72/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m72/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case usb_ft232",
+        "topModule": "usb_ft232",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m631/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m631/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case m_rep_upload",
+        "topModule": "m_rep_upload",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m707/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m707/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case diffeq_f_systemC",
+        "topModule": "diffeq_f_systemC",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m139/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m139/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case wasca_spi_stm32",
+        "topModule": "wasca_spi_stm32",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m841/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m841/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case niosII_system_sysid_qsys_0",
+        "topModule": "niosII_system_sysid_qsys_0",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m20/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m20/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case async",
+        "topModule": "async",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m437/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m437/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case MultiplyState",
+        "topModule": "MultiplyState",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m491/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m491/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case coe_tlb",
+        "topModule": "coe_tlb",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m826/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m826/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case core_ex_mem",
+        "topModule": "core_ex_mem",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m633/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m633/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case spi_map",
+        "topModule": "spi_map",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m870/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m870/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case hpdmc_banktimer",
+        "topModule": "hpdmc_banktimer",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m140/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m140/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case sd_host_platform_cocotb",
+        "topModule": "sd_host_platform_cocotb",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m594/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m594/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case master_wb",
+        "topModule": "master_wb",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m605/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m605/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case fillbox_act",
+        "topModule": "fillbox_act",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m816/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m816/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case fb_rxcounters",
+        "topModule": "fb_rxcounters",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m575/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m575/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case seg7decimal",
+        "topModule": "seg7decimal",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m420/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m420/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case EHR_6",
+        "topModule": "EHR_6",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m555/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m555/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case crc",
+        "topModule": "crc",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m210/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m210/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case trigger_divider",
+        "topModule": "trigger_divider",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m651/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m651/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case UART_TX",
+        "topModule": "UART_TX",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m674/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m674/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case nova_io_pio_dummy",
+        "topModule": "nova_io_pio_dummy",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m493/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m493/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case Mat2AXIvideo",
+        "topModule": "Mat2AXIvideo",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m871/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m871/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case axis_mt19937_64",
+        "topModule": "axis_mt19937_64",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m786/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m786/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case MM_slave",
+        "topModule": "MM_slave",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m290/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m290/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case eth_transmitcontrol",
+        "topModule": "eth_transmitcontrol",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m794/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m794/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case slavespi",
+        "topModule": "slavespi",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m773/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m773/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case wasca_sysid_qsys_0",
+        "topModule": "wasca_sysid_qsys_0",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m23/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m23/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case soc_system_led_pio",
+        "topModule": "soc_system_led_pio",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m239/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m239/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case VgaDriver",
+        "topModule": "VgaDriver",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m415/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m415/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case CSRs",
+        "topModule": "CSRs",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m819/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m819/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case CU",
+        "topModule": "CU",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m860/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m860/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case uart_core",
+        "topModule": "uart_core",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m855/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m855/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case antares_memwb_register",
+        "topModule": "antares_memwb_register",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m81/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m81/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case mulacc_test",
+        "topModule": "mulacc_test",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m716/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m716/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case moore_fsm",
+        "topModule": "moore_fsm",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m665/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m665/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case keytofrequency",
+        "topModule": "keytofrequency",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m174/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m174/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case alt_vipitc131_IS2Vid_statemachine",
+        "topModule": "alt_vipitc131_IS2Vid_statemachine",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m820/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m820/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case util_rfifo",
+        "topModule": "util_rfifo",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m498/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m498/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case Music",
+        "topModule": "Music",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m814/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m814/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case master",
+        "topModule": "master",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m843/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m843/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case denise_sprites_shifter",
+        "topModule": "denise_sprites_shifter",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m612/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m612/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case eth_transmitcontrol",
+        "topModule": "eth_transmitcontrol",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m789/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m789/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case updateCRC16",
+        "topModule": "updateCRC16",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m453/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m453/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ai",
+        "topModule": "ai",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m112/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m112/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case brush_motor_driver",
+        "topModule": "brush_motor_driver",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m565/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m565/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case vga_sync",
+        "topModule": "vga_sync",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m549/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m549/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case zkbdmus",
+        "topModule": "zkbdmus",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m524/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m524/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case RevertReg",
+        "topModule": "RevertReg",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m1/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m1/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case wb_readback_mux",
+        "topModule": "wb_readback_mux",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m397/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m397/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case sram_interface",
+        "topModule": "sram_interface",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m173/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m173/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case dpth_addr",
+        "topModule": "dpth_addr",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m165/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m165/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case avalon2rcn",
+        "topModule": "avalon2rcn",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m447/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m447/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case dcache_core_tag_ram",
+        "topModule": "dcache_core_tag_ram",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m59/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m59/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case soc_system_pio_aliveTest_cpu_s0",
+        "topModule": "soc_system_pio_aliveTest_cpu_s0",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m236/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m236/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case trng_debug_ctrl",
+        "topModule": "trng_debug_ctrl",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m570/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m570/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case Regs",
+        "topModule": "Regs",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m216/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m216/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ad_rst",
+        "topModule": "ad_rst",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m37/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m37/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case fifo_w16_d4_A_shiftReg",
+        "topModule": "fifo_w16_d4_A_shiftReg",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m666/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m666/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case memif_reg_dec",
+        "topModule": "memif_reg_dec",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m813/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m813/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case sendCmd",
+        "topModule": "sendCmd",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m837/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m837/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case pace_catcher",
+        "topModule": "pace_catcher",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m205/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m205/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case wb_master_test",
+        "topModule": "wb_master_test",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m556/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m556/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case timer",
+        "topModule": "timer",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m164/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m164/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case hbi_dout_stage",
+        "topModule": "hbi_dout_stage",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m675/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m675/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ac97_framer",
+        "topModule": "ac97_framer",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m757/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m757/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case seg7decimal",
+        "topModule": "seg7decimal",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m455/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m455/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case rcn_master",
+        "topModule": "rcn_master",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m389/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m389/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case jt10_adpcm_comb",
+        "topModule": "jt10_adpcm_comb",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m637/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m637/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case i2s_writer",
+        "topModule": "i2s_writer",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m652/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m652/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case sm_data_comp",
+        "topModule": "sm_data_comp",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m620/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m620/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case offset_shift",
+        "topModule": "offset_shift",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m853/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m853/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ip_eth_rx_64",
+        "topModule": "ip_eth_rx_64",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m875/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m875/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case screen_init",
+        "topModule": "screen_init",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m472/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m472/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case ip_eth_tx_64",
+        "topModule": "ip_eth_tx_64",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m865/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m865/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case decode_in",
+        "topModule": "decode_in",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m619/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m619/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case eth_clockgen",
+        "topModule": "eth_clockgen",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m330/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m330/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case PLLE2_BASE",
+        "topModule": "PLLE2_BASE",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m422/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m422/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case SPIinterface",
+        "topModule": "SPIinterface",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m775/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m775/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case pixel_reader",
+        "topModule": "pixel_reader",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m502/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m502/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case Cart",
+        "topModule": "Cart",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m546/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m546/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case spi_master",
+        "topModule": "spi_master",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m642/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m642/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case Controller",
+        "topModule": "Controller",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m854/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m854/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case simuart",
+        "topModule": "simuart",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m509/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m509/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case FSM_1",
+        "topModule": "FSM_1",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m784/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m784/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case flash8_r2",
+        "topModule": "flash8_r2",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m501/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m501/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case timer",
+        "topModule": "timer",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m177/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m177/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case core_mem_wb",
+        "topModule": "core_mem_wb",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m424/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m424/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case niosII_system_sysid_qsys_0",
+        "topModule": "niosII_system_sysid_qsys_0",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m13/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m13/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case dac",
+        "topModule": "dac",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m828/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m828/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case Regs",
+        "topModule": "Regs",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m117/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m117/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case nkmd_progrom",
+        "topModule": "nkmd_progrom",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m157/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m157/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case soc_system_led_pio",
+        "topModule": "soc_system_led_pio",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m233/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m233/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case hw1_B",
+        "topModule": "hw1_B",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m379/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m379/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case clock_selector",
+        "topModule": "clock_selector",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m358/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m358/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case DE4_SOPC_burst_1",
+        "topModule": "DE4_SOPC_burst_1",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m832/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m832/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case Divide",
+        "topModule": "Divide",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m523/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m523/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case SOC_NIOS_II_test_bench",
+        "topModule": "SOC_NIOS_II_test_bench",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m869/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m869/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case niosII_system_sysid_qsys_0",
+        "topModule": "niosII_system_sysid_qsys_0",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m21/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m21/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case fw_interface_wb",
+        "topModule": "fw_interface_wb",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m754/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m754/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case spi_reg",
+        "topModule": "spi_reg",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m839/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m839/IRank/tmp_out/analyzer_results.json"
+    },
+    {
+        "name": "Case grey_counter",
+        "topModule": "grey_counter",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m363/rtl/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m363/IRank/tmp_out/analyzer_results.json"
+    }
+]

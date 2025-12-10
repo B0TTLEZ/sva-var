@@ -4,6 +4,7 @@
 #include <string>
 #include <filesystem>
 #include <stdexcept>
+#include <streambuf>  // 新增：用于自定义流缓冲区
 
 #include "slang/ast/Compilation.h"
 #include "slang/syntax/SyntaxTree.h"
@@ -15,6 +16,35 @@
 #include "slang/diagnostics/TextDiagnosticClient.h"  
 
 using json = nlohmann::json;
+
+// ===================== 新增：自定义双输出流缓冲区（控制台 + 文件） =====================
+class TeeBuf : public std::streambuf {
+public:
+    // 构造函数：关联控制台buf和文件buf
+    TeeBuf(std::streambuf* consoleBuf, std::streambuf* fileBuf) 
+        : m_consoleBuf(consoleBuf), m_fileBuf(fileBuf) {}
+
+protected:
+    // 单个字符输出：同时写入控制台和文件
+    int overflow(int c) override {
+        if (c != EOF) {
+            m_consoleBuf->sputc(static_cast<char>(c));  // 控制台输出
+            m_fileBuf->sputc(static_cast<char>(c));     // 文件输出
+        }
+        return c;
+    }
+
+    // 刷新缓冲区：同时刷新控制台和文件
+    int sync() override {
+        m_consoleBuf->pubsync();
+        m_fileBuf->pubsync();
+        return 0;
+    }
+
+private:
+    std::streambuf* m_consoleBuf; // 控制台原始缓冲区
+    std::streambuf* m_fileBuf;   // 日志文件缓冲区
+};
 
 struct TestCase {
         std::string name;
@@ -307,82 +337,122 @@ bool runAnalysis(const std::string& topModule,
  * 允许用户选择运行单个测试或所有测试。
  */
 int main(int argc, char** argv) {
-
-
-    std::string configFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests.json";
-    std::vector<TestCase> testSuite;
-
-    try {
-        testSuite = loadTestSuite(configFilePath);
-    } catch (const std::exception& e) {
-        std::cerr << "Fatal Error during test suite loading: " << e.what() << std::endl;
-        return 1;
+    // ===================== 日志文件初始化 =====================
+    const std::string logFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/analysis_log.log";
+    std::ofstream logFile(logFilePath, std::ios::out | std::ios::app | std::ios::ate);
+    if (!logFile.is_open()) {
+        std::cerr << "[WARNING] Failed to open log file: " << logFilePath << " (only console output will be available)" << std::endl;
     }
 
-    if (testSuite.empty()) {
-        std::cout << "No test cases are currently defined or uncommented in testSuite." << std::endl;
-        return 0;
-    }
-    
-    std::cout << "\n========================================" << std::endl;
-    std::cout << "Available Test Cases:" << std::endl;
-    for (size_t i = 0; i < testSuite.size(); ++i) {
-        std::cout << "[" << i + 1 << "] " << testSuite[i].name << std::endl;
-    }
-    std::cout << "[0] Run ALL Tests" << std::endl;
-    std::cout << "========================================" << std::endl;
-    std::cout << "Enter selection (1-" << testSuite.size() << ", or 0 for all): ";
+    std::streambuf* originalCoutBuf = std::cout.rdbuf();
+    std::streambuf* originalCerrBuf = std::cerr.rdbuf();
+    TeeBuf* teeCoutBuf = nullptr;
+    TeeBuf* teeCerrBuf = nullptr;
 
-    std::string input;
-    std::cin >> input;
+    if (logFile.is_open()) {
+        teeCoutBuf = new TeeBuf(originalCoutBuf, logFile.rdbuf());
+        std::cout.rdbuf(teeCoutBuf);
 
-    std::vector<TestCase> selectedTests;
-    int index = -1;
-
-    try {
-        index = std::stoi(input);
-    } catch (const std::invalid_argument& e) {
-        std::cerr << "Invalid input. Please enter a number (0-" << testSuite.size() << ")." << std::endl;
-        return 1;
-    } catch (const std::out_of_range& e) {
-        std::cerr << "Invalid selection: Index out of range." << std::endl;
-        return 1;
+        teeCerrBuf = new TeeBuf(originalCerrBuf, logFile.rdbuf());
+        std::cerr.rdbuf(teeCerrBuf);
     }
 
-
-    if (index == 0) {
-        selectedTests = testSuite; // 运行所有测试
-        std::cout << "Executing ALL " << testSuite.size() << " test cases." << std::endl;
-    } else if (index >= 1 && index <= (int)testSuite.size()) {
-        selectedTests.push_back(testSuite[index - 1]); // 索引是 1-based
-        std::cout << "Executing selected test: " << testSuite[index - 1].name << std::endl;
-    } else {
-        std::cerr << "Invalid selection: Index out of range (Must be 0-" << testSuite.size() << ")." << std::endl;
-        return 1;
-    }
-
-    std::cout << "----------------------------------------" << std::endl;
-
-
-    // 执行选定的测试
+    // ===================== 关键修正：将 selectedTests 移到 try 块外 =====================
     int successCount = 0;
-    for (const auto& testCase : selectedTests) {
-        std::cout << "\n========================================" << std::endl;
-        std::cout << "Running: " << testCase.name << std::endl;
-        std::cout << "========================================" << std::endl;
-        
-        if (runAnalysis(testCase.topModule, testCase.sourceFiles, testCase.headerFiles, testCase.outputPath)) {
-            successCount++;
-            std::cout << "✓ PASSED: " << testCase.name << std::endl;
-        } else {
-            std::cerr << "✗ FAILED: " << testCase.name << std::endl;
+    std::vector<TestCase> testSuite;
+    std::vector<TestCase> selectedTests; // 移到此处，扩大作用域
+
+    try {
+        // std::string configFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests.json";
+        std::string configFilePath = "/data/sva-var/IRank/helper/tests_json/tests_small.json";
+        try {
+            testSuite = loadTestSuite(configFilePath);
+        } catch (const std::exception& e) {
+            std::cerr << "Fatal Error during test suite loading: " << e.what() << std::endl;
+            goto CLEANUP;
         }
+
+        if (testSuite.empty()) {
+            std::cout << "No test cases are currently defined or uncommented in testSuite." << std::endl;
+            goto CLEANUP;
+        }
+        
+        std::cout << "\n========================================" << std::endl;
+        std::cout << "Available Test Cases:" << std::endl;
+        for (size_t i = 0; i < testSuite.size(); ++i) {
+            std::cout << "[" << i + 1 << "] " << testSuite[i].name << std::endl;
+        }
+        std::cout << "[0] Run ALL Tests" << std::endl;
+        std::cout << "========================================" << std::endl;
+        std::cout << "Enter selection (1-" << testSuite.size() << ", or 0 for all): ";
+
+        std::string input;
+        std::cin >> input;
+
+        int index = -1; // selectedTests 已在外部定义，此处仅定义 index
+
+        try {
+            index = std::stoi(input);
+        } catch (const std::invalid_argument& e) {
+            std::cerr << "Invalid input. Please enter a number (0-" << testSuite.size() << ")." << std::endl;
+            goto CLEANUP;
+        } catch (const std::out_of_range& e) {
+            std::cerr << "Invalid selection: Index out of range." << std::endl;
+            goto CLEANUP;
+        }
+
+        if (index == 0) {
+            selectedTests = testSuite;
+            std::cout << "Executing ALL " << testSuite.size() << " test cases." << std::endl;
+        } else if (index >= 1 && index <= (int)testSuite.size()) {
+            selectedTests.push_back(testSuite[index - 1]);
+            std::cout << "Executing selected test: " << testSuite[index - 1].name << std::endl;
+        } else {
+            std::cerr << "Invalid selection: Index out of range (Must be 0-" << testSuite.size() << ")." << std::endl;
+            goto CLEANUP;
+        }
+
+        std::cout << "----------------------------------------" << std::endl;
+
+        successCount = 0;
+        for (const auto& testCase : selectedTests) {
+            std::cout << "\n========================================" << std::endl;
+            std::cout << "Running: " << testCase.name << std::endl;
+            std::cout << "========================================" << std::endl;
+            
+            if (runAnalysis(testCase.topModule, testCase.sourceFiles, testCase.headerFiles, testCase.outputPath)) {
+                successCount++;
+                std::cout << "✓ PASSED: " << testCase.name << std::endl;
+            } else {
+                std::cerr << "✗ FAILED: " << testCase.name << std::endl;
+            }
+        }
+
+        std::cout << "\n========================================" << std::endl;
+        std::cout << "Test Suite Finished." << std::endl;
+        std::cout << "Passed: " << successCount << " / " << selectedTests.size() << std::endl;
+        std::cout << "========================================" << std::endl;
+
+    } catch (...) {
+        std::cerr << "[ERROR] Unexpected exception occurred" << std::endl;
     }
 
-    std::cout << "\n========================================" << std::endl;
-    std::cout << "Test Suite Finished." << std::endl;
-    std::cout << "Passed: " << successCount << " / " << selectedTests.size() << std::endl;
-    std::cout << "========================================" << std::endl;
+    // ===================== 缓冲区清理 =====================
+CLEANUP:
+    if (teeCoutBuf) {
+        std::cout.rdbuf(originalCoutBuf);
+        delete teeCoutBuf;
+    }
+    if (teeCerrBuf) {
+        std::cerr.rdbuf(originalCerrBuf);
+        delete teeCerrBuf;
+    }
 
-    return (successCount == selectedTests.size()) ? 0 : 1;
+    if (logFile.is_open()) {
+        logFile.flush();
+        logFile.close();
+    }
+
+    // 修正后：selectedTests 已在作用域内
+    return (successCount == (testSuite.empty() ? 0 : selectedTests.size())) ? 0 : 1;
 }
