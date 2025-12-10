@@ -32,37 +32,63 @@
       {
         "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
         "line": 5,
-        "logicType": "condition"
+        "logicType": "condition",
+        "drivingSignals": [
+          "ToneSequencer.count"
+        ]
       },
       {
         "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
         "line": 9,
-        "logicType": "condition"
+        "logicType": "condition",
+        "drivingSignals": [
+          "ToneSequencer.count",
+          "ToneSequencer.nrq1",
+          "ToneSequencer.nrq2"
+        ]
       },
       {
         "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
         "line": 13,
-        "logicType": "condition"
+        "logicType": "condition",
+        "drivingSignals": [
+          "ToneSequencer.count",
+          "ToneSequencer.nrq3"
+        ]
       },
       {
         "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
         "line": 5,
-        "logicType": "condition"
+        "logicType": "condition",
+        "drivingSignals": [
+          "ToneSequencer.count"
+        ]
       },
       {
         "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
         "line": 9,
-        "logicType": "condition"
+        "logicType": "condition",
+        "drivingSignals": [
+          "ToneSequencer.count",
+          "ToneSequencer.nrq1",
+          "ToneSequencer.nrq2"
+        ]
       },
       {
         "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
         "line": 5,
-        "logicType": "condition"
+        "logicType": "condition",
+        "drivingSignals": [
+          "ToneSequencer.count"
+        ]
       },
       {
         "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
         "line": 18,
-        "logicType": "combinational"
+        "logicType": "combinational",
+        "drivingSignals": [
+          "ToneSequencer.count"
+        ]
       }
     ]
   },
@@ -81,17 +107,26 @@
       {
         "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
         "line": 15,
-        "logicType": "sequential"
+        "logicType": "sequential",
+        "drivingSignals": [
+          "ToneSequencer.key"
+        ]
       },
       {
         "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
         "line": 11,
-        "logicType": "sequential"
+        "logicType": "sequential",
+        "drivingSignals": [
+          "ToneSequencer.key"
+        ]
       },
       {
         "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
         "line": 7,
-        "logicType": "sequential"
+        "logicType": "sequential",
+        "drivingSignals": [
+          "ToneSequencer.key"
+        ]
       }
     ]
   },
@@ -113,12 +148,22 @@
       {
         "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
         "line": 9,
-        "logicType": "condition"
+        "logicType": "condition",
+        "drivingSignals": [
+          "ToneSequencer.count",
+          "ToneSequencer.nrq1",
+          "ToneSequencer.nrq2"
+        ]
       },
       {
         "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
         "line": 9,
-        "logicType": "condition"
+        "logicType": "condition",
+        "drivingSignals": [
+          "ToneSequencer.count",
+          "ToneSequencer.nrq1",
+          "ToneSequencer.nrq2"
+        ]
       }
     ]
   },
@@ -135,12 +180,22 @@
       {
         "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
         "line": 9,
-        "logicType": "condition"
+        "logicType": "condition",
+        "drivingSignals": [
+          "ToneSequencer.count",
+          "ToneSequencer.nrq1",
+          "ToneSequencer.nrq2"
+        ]
       },
       {
         "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
         "line": 9,
-        "logicType": "condition"
+        "logicType": "condition",
+        "drivingSignals": [
+          "ToneSequencer.count",
+          "ToneSequencer.nrq1",
+          "ToneSequencer.nrq2"
+        ]
       }
     ]
   },
@@ -155,7 +210,11 @@
       {
         "file": "../../../my_data/sva-out/deepseek_v3/AssertionBench/assertsolver/m36/rtl/_combined_rtl_no_comments.sv",
         "line": 13,
-        "logicType": "condition"
+        "logicType": "condition",
+        "drivingSignals": [
+          "ToneSequencer.count",
+          "ToneSequencer.nrq3"
+        ]
       }
     ]
   }

@@ -91,7 +91,7 @@ def build_define_chain(var_name: str, var_info: Dict) -> Dict:
         assignment_c_lines = []  
           
 
-        # TODO: 这里没有累加，如果后续有影响的话，需要累加一下
+        
         for clause in path:  
             expr_info = clause.get('expr', {})  
             # Merge involvedSignals and involvedParameters  
@@ -126,12 +126,17 @@ def build_use_chains(analysis_results: Dict, var_use_chain: Dict):
             defined_var = var_name  
             line = assignment.get('line', 0)  
               
-            # Expression info for this assignment  
+            # -------------------------- 修改点1 --------------------------
+            # 1. 赋值语句场景：给expr_info增加drivingSignals属性，值为当前assignment的drivingSignals列表
+            # 保留原有属性，新增drivingSignals字段
+            driving_signals = assignment.get('drivingSignals', [])
             expr_info = {  
                 "file": assignment.get('file', ''),  
                 "line": line,  
-                "logicType": assignment.get('logicType', 'unknown')  
+                "logicType": assignment.get('logicType', 'unknown'),
+                "drivingSignals": driving_signals  # 新增：赋值语句的drivingSignals
             }  
+            # -------------------------- 修改点1结束 --------------------------
               
             # For each driving signal, add this assignment to its use chain  
             driving_signals = assignment.get('drivingSignals', [])  
@@ -153,11 +158,16 @@ def build_use_chains(analysis_results: Dict, var_use_chain: Dict):
                 involved_params = expr_data.get('involvedParameters', [])  
                 all_involved = involved_signals + involved_params  
                   
+                # -------------------------- 修改点2 --------------------------
+                # 2. 控制流语句场景：给clause_expr_info增加drivingSignals属性，值为involvedSignals+involvedParameters
+                # 保留原有属性，新增drivingSignals字段，值为all_involved
                 clause_expr_info = {  
                     "file": clause_file,  
                     "line": clause_line,  
-                    "logicType": "condition"  # Special marker for conditions  
+                    "logicType": "condition",  # Special marker for conditions
+                    "drivingSignals": all_involved  # 新增：控制流语句的drivingSignals（involvedSignals+involvedParameters）
                 }  
+                # -------------------------- 修改点2结束 --------------------------  
                   
                 for involved_signal in all_involved:  
                     if involved_signal in var_use_chain:  

@@ -18,7 +18,8 @@ def extract_vars_from_expr(expr):
     var_pattern = re.compile(r'\b([A-Za-z_][A-Za-z0-9_]*)\b')  
     forbidden_words = {  
         'posedge', 'negedge', 'disable', 'iff', 'assert', 'property', 'return',  
-        'if', 'else', 'case', 'rose', 'fell', 'past', 'true', 'false', 'null', 'default'  
+        'if', 'else', 'case', 'rose', 'fell', 'past', 'true', 'false', 'null', 'default',  
+        'stable'  # 新增：覆盖$stable拆解后的关键词  
     }  
       
     vars = []  
@@ -98,7 +99,7 @@ def extract_variables(expression, current_cycle):
             add_vars_from_expr(var, current_cycle)  
         expression = expression[:match.start()] + ' ' * (match.end() - match.start()) + expression[match.end():]  
       
-    # 处理$past  
+    # 处理$past ：核心修复点，明确周期计算逻辑   
     past_pattern = re.compile(r'\$past\s*\((.*?)\)', re.DOTALL | re.IGNORECASE)  
     for match in past_pattern.finditer(expression):  
         past_content = match.group(1).strip()  
@@ -120,7 +121,12 @@ def extract_variables(expression, current_cycle):
           
         signal_expr = past_parts[0] if past_parts else ''  
         past_delay = int(past_parts[1]) if len(past_parts) >= 2 else 1  
-        add_vars_from_expr(signal_expr, current_cycle - past_delay)  
+        # 关键修复：$past变量的周期 = 当前表达式周期 - past_delay  
+        # 示例：后件周期1，past_delay=1 → rst_p的周期=1-1=0  
+        past_var_cycle = current_cycle - past_delay  
+        add_vars_from_expr(signal_expr, past_var_cycle)  
+          
+        # 替换$past表达式为空格，避免后续重复解析  
         expression = expression[:match.start()] + ' ' * (match.end() - match.start()) + expression[match.end():]  
       
     # 处理$rose/$fell  
@@ -157,10 +163,28 @@ def parse_sva_sequence(antecedent_str, consequent_str, is_delayed):
                 variables = extract_variables(prop, relative_cycle)  
                 antecedent_assertions.extend(variables)  
       
+    # ---------------------- 后件解析（修复点2：新增##延迟处理） ----------------------
     consequent_assertions = []  
     consequent_cycle = relative_cycle + (1 if is_delayed else 0)  
-    consequent_variables = extract_variables(consequent_str, consequent_cycle)  
-    consequent_assertions.extend(consequent_variables)  
+    # 修复点2.1：解析后件中的##延迟（如##1），累加周期  
+    consequent_parts = re.split(r'(##\d+)', consequent_str)  
+    current_consequent_cycle = consequent_cycle  # 后件基础周期
+    for part in consequent_parts:  
+        part = part.strip()  
+        if not part:  
+            continue  
+        if part.startswith('##'):  
+            delay = int(part.lstrip('##'))  
+            current_consequent_cycle += delay  # 累加后件内的延迟
+            continue  
+
+        part = part.replace('&&', '&')  
+        propositions = re.split(r'(?<!\^)&(?!\^)', part)  
+        for prop in propositions:  
+            prop = prop.strip(' ()')  
+            if prop:  
+                variables = extract_variables(prop, current_consequent_cycle)  
+                consequent_assertions.extend(variables)  
       
     return {  
         "antecedent": [  
@@ -281,35 +305,69 @@ class COIBuilder:
         return self.weight_map.get(src_var, {}).get(dst_var, 0)  
 
     def _calculate_expression_intersection(self, var: str, dep_var: str) -> int:  
-        """计算Expressions(var)和Sensitivities_Expressions(dep_var)的交集元素个数"""  
+        """
+        计算var的表达式与dep_var的敏感表达式的交集元素个数之和
+        新逻辑：
+        1. 以(driving_signals_list, line)为核心key（不再用file+line）
+        2. 构建var的total_expressions（DDeps+DLines + CDeps+CLines）
+        3. 构建dep_var的sensitive_expressions（Sensitivities_Expressions的line+drivingSignals）
+        4. 求交集后计算所有交集元素中list的元素个数之和（去重但保留list内部元素）
+        """  
+        # ===================== 步骤1：构建var的data_expressions（DDeps + DLines） =====================
         var_info = self.var_define_chain.get(var, {})  
-        dep_use_info = self.var_use_chain.get(dep_var, {})  
-          
-        # Get expressions from define chain  
-        expressions = var_info.get('Expressions', [])  
-        expr_map = {}  # {(file, line): expression}  
-        for expr in expressions:  
-            key = (expr.get('file', ''), expr.get('line', 0))  
-            expr_map[key] = expr  
-          
-        # Get sensitivities from use chain  
-        sensitivities = dep_use_info.get('Sensitivities_Expressions', [])  
-        sens_map = {}  # {(file, line): sensitivity}  
-        for sens in sensitivities:  
-            key = (sens.get('file', ''), sens.get('line', 0))  
-            sens_map[key] = sens  
-          
-        # Find intersection based on file and line  
-        common_keys = set(expr_map.keys()) & set(sens_map.keys())  
-          
-        # Count drivingSignals from matching expressions  
-        count = 0  
-        for key in common_keys:  
-            expr = expr_map[key]  
-            driving_signals = expr.get('drivingSignals', [])  
-            count += len(driving_signals)  
-          
-        return count  
+        data_expressions = []  # 存储(ddep_list_tuple, line)
+
+        # DDeps和DLines是一一对应的列表，遍历每个元素
+        ddeps = var_info.get('DDeps', [])  # 例如: [[key], [key], [key]]
+        dlines = var_info.get('DLines', [])  # 例如: [15, 11, 7]
+        for ddep_list, dline in zip(ddeps, dlines):
+            # 列表转元组（可哈希，用于集合去重）
+            ddep_tuple = tuple(ddep_list)
+            data_expressions.append((ddep_tuple, dline))
+
+        # ===================== 步骤2：构建var的control_expressions（CDeps + CLines） =====================
+        control_expressions = []  # 存储(cdep_list_tuple, line)
+
+        # CDeps和CLines嵌套更深：外层是assignment，内层是clause
+        cdeps = var_info.get('CDeps', [])  # 例如: [[[count], [count,nrq1,nrq2], [count,nrq3]], [...], [...]]
+        clines = var_info.get('CLines', [])  # 例如: [[5,9,13], [5,9], [5]]
+        for assignment_cdeps, assignment_clines in zip(cdeps, clines):
+            # 遍历每个assignment下的clause（CDeps和CLines的内层列表）
+            for cdep_list, cline in zip(assignment_cdeps, assignment_clines):
+                cdep_tuple = tuple(cdep_list)
+                control_expressions.append((cdep_tuple, cline))
+
+        # ===================== 步骤3：构建var的total_expressions并去重 =====================
+        total_expressions = data_expressions + control_expressions
+        # 转集合去重（同一个(dep_list, line)只保留一次）
+        var_expressions_set = set(total_expressions)
+
+        # ===================== 步骤4：构建dep_var的sensitive_expressions =====================
+        dep_use_info = self.var_use_chain.get(dep_var, {})
+        sensitive_expressions = []  # 存储(driving_signals_tuple, line)
+
+        # 遍历dep_var的Sensitivities_Expressions
+        sens_expr_list = dep_use_info.get('Sensitivities_Expressions', [])
+        for sens_expr in sens_expr_list:
+            line = sens_expr.get('line', 0)
+            driving_signals = sens_expr.get('drivingSignals', [])
+            # 列表转元组（可哈希）
+            driving_tuple = tuple(driving_signals)
+            sensitive_expressions.append((driving_tuple, line))
+
+        # 转集合去重
+        dep_sensitive_set = set(sensitive_expressions)
+
+        # ===================== 步骤5：求交集并计算元素个数之和 =====================
+        # 求两个集合的交集
+        intersection = var_expressions_set & dep_sensitive_set
+
+        # 计算交集元素中每个tuple（driving_list）的元素个数之和
+        total_count = 0
+        for expr_tuple, _ in intersection:
+            total_count += len(expr_tuple)
+
+        return total_count
 
 
     def calculate_complexity(self, var: str) -> float:  
@@ -407,7 +465,8 @@ def calculate_assertion_scores(assertions_json: str, var_define_chain_path: str,
                     print(f"Error parsing assertion: {e}")  
       
     # Calculate scores for each assertion  
-    results = []  
+    # 修改点1：改用按模块分组的字典存储结果，保留模块层级  
+    results = defaultdict(list)
     for assertion in parsed_assertions:  
         antecedents = assertion["antecedent"]  
         consequents = assertion["consequent"]  
@@ -442,7 +501,8 @@ def calculate_assertion_scores(assertions_json: str, var_define_chain_path: str,
         # Calculate final score  
         final_score = total_importance / total_complexity if total_complexity > 0 else 0.0  
           
-        results.append({  
+        # 修改点2：按模块分组存储断言结果  
+        results[assertion["module"]].append({  
             "sva_string": assertion["sva_string"],  
             "status": assertion["status"],  
             "module": assertion.get("module", ""),  
@@ -453,16 +513,28 @@ def calculate_assertion_scores(assertions_json: str, var_define_chain_path: str,
             "consequents": consequents  
         })  
       
+    # 修改点3：对每个模块的断言按final_score降序排序，并添加Rank属性（从1开始）  
+    for module_name in results:  
+        # 按final_score降序排序，分数相同则保持原顺序  
+        sorted_assertions = sorted(results[module_name], key=lambda x: x["final_score"], reverse=True)  
+        # 为每个断言添加Rank属性  
+        for idx, assert_item in enumerate(sorted_assertions, start=1):  
+            assert_item["Rank"] = idx  
+        # 更新该模块的断言列表为排序后的结果  
+        results[module_name] = sorted_assertions
+
     # Save COI cache if requested  
     if coi_cache_path:  
         save_coi_cache(coi_builder.cois, coi_cache_path)
 
-    # Save results  
+    # 修改点4：将defaultdict转为普通dict，保证输出JSON结构与输入一致（模块为key）  
     with open(output_path, 'w') as f:  
-        json.dump(results, f, indent=2)  
+        json.dump(dict(results), f, indent=2) 
       
+    # 修改点5：更新打印信息，按模块统计数量  
+    total_processed = sum(len(assertions) for assertions in results.values())  
     print(f"Generated assertion scores: {output_path}")  
-    print(f"Processed {len(results)} proven assertions")
+    print(f"Processed {total_processed} proven assertions across {len(results)} modules")
   
 
 def save_coi_cache(cois: Dict, coi_cache_path: str):  
