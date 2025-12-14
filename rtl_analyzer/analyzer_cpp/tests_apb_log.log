@@ -1,0 +1,137 @@
+[INFO] Loading test suite from: /data/sva-var/rtl_analyzer/analyzer_cpp/tests_apb.json
+
+========================================
+Available Test Cases:
+[1] APB
+[0] Run ALL Tests
+========================================
+Enter selection (1-1, or 0 for all): Executing selected test: APB
+----------------------------------------
+
+========================================
+Running: APB
+========================================
+--- Analyzing Test Case: apb ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/apb/rtl/_combined_rtl_no_comments.sv
+  in instance: i2c.DUT_FIFO_TX
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/apb/rtl/_combined_rtl_no_comments.sv:2889:66: warning: implicit conversion expands from 4 to 32 bits [-Wwidth-expand]
+                              (wr_en && !f_full && rd_en && !f_empty) ? counter :
+                                                                        ^~~~~~~
+  in instance: i2c.DUT_FIFO_TX
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/apb/rtl/_combined_rtl_no_comments.sv:2890:24: warning: implicit conversion expands from 4 to 32 bits [-Wwidth-expand]
+                              counter;
+                              ^~~~~~~
+[SUCCESS] Build succeeded
+[ERROR] Top module 'apb' not found.
+✗ FAILED: APB
+
+========================================
+Test Suite Finished.
+Passed: 0 / 1
+========================================
+[INFO] Loading test suite from: /data/sva-var/rtl_analyzer/analyzer_cpp/tests_apb.json
+
+========================================
+Available Test Cases:
+[1] APB
+[0] Run ALL Tests
+========================================
+Enter selection (1-1, or 0 for all): [INFO] Loading test suite from: /data/sva-var/rtl_analyzer/analyzer_cpp/tests_apb.json
+
+========================================
+Available Test Cases:
+[1] APB
+[0] Run ALL Tests
+========================================
+Enter selection (1-1, or 0 for all): [INFO] Loading test suite from: /data/sva-var/rtl_analyzer/analyzer_cpp/tests_apb.json
+
+========================================
+Available Test Cases:
+[1] APB
+[0] Run ALL Tests
+========================================
+Enter selection (1-1, or 0 for all): [INFO] Loading test suite from: /data/sva-var/rtl_analyzer/analyzer_cpp/tests_apb.json
+
+========================================
+Available Test Cases:
+[1] APB
+[0] Run ALL Tests
+========================================
+Enter selection (1-1, or 0 for all): [INFO] Loading test suite from: /data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_i2c.json
+
+========================================
+Available Test Cases:
+[1] i2c_master_bit_ctrl
+[2] i2c_master_byte_ctrl
+[3] i2c_master_top
+[0] Run ALL Tests
+========================================
+Enter selection (1-3, or 0 for all): Executing ALL 3 test cases.
+----------------------------------------
+
+========================================
+Running: i2c_master_bit_ctrl
+========================================
+--- Analyzing Test Case: i2c_master_bit_ctrl ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/rtl/_combined_rtl_no_comments_i2c_master_bit_ctrl.sv
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/rtl/_combined_rtl_no_comments_i2c_master_bit_ctrl.sv:83:44: warning: implicit conversion truncates from 16 to 14 bits [-Wwidth-trunc]
+      else if (~|filter_cnt) filter_cnt <= clk_cnt >> 2;
+                                        ~~ ^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/rtl/_combined_rtl_no_comments_i2c_master_bit_ctrl.sv:201:15: warning: 'case' missing 'default' label [-Wcase-default]
+              case (c_state)
+              ^~~~
+[SUCCESS] Build succeeded
+[SUCCESS] Results written to: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/IRank/tmp_out/i2c_master_bit_ctrl/tests_i2c_master_bit_ctrl.json
+✓ PASSED: i2c_master_bit_ctrl
+
+========================================
+Running: i2c_master_byte_ctrl
+========================================
+--- Analyzing Test Case: i2c_master_byte_ctrl ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/rtl/_combined_rtl_no_comments_i2c_master_byte_ctrl.sv
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/rtl/_combined_rtl_no_comments_i2c_master_byte_ctrl.sv:83:44: warning: implicit conversion truncates from 16 to 14 bits [-Wwidth-trunc]
+      else if (~|filter_cnt) filter_cnt <= clk_cnt >> 2;
+                                        ~~ ^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/rtl/_combined_rtl_no_comments_i2c_master_byte_ctrl.sv:201:15: warning: 'case' missing 'default' label [-Wcase-default]
+              case (c_state)
+              ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/rtl/_combined_rtl_no_comments_i2c_master_byte_ctrl.sv:452:8: warning: 'case' missing 'default' label [-Wcase-default]
+              case (c_state)
+              ^~~~
+[SUCCESS] Build succeeded
+[SUCCESS] Results written to: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/IRank/tmp_out/i2c_master_byte_ctrl/tests_i2c_master_byte_ctrl.json
+✓ PASSED: i2c_master_byte_ctrl
+
+========================================
+Running: i2c_master_top
+========================================
+--- Analyzing Test Case: i2c_master_top ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/rtl/_combined_rtl_no_comments.sv
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/rtl/_combined_rtl_no_comments.sv:83:44: warning: implicit conversion truncates from 16 to 14 bits [-Wwidth-trunc]
+      else if (~|filter_cnt) filter_cnt <= clk_cnt >> 2;
+                                        ~~ ^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/rtl/_combined_rtl_no_comments.sv:201:15: warning: 'case' missing 'default' label [-Wcase-default]
+              case (c_state)
+              ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/rtl/_combined_rtl_no_comments.sv:452:8: warning: 'case' missing 'default' label [-Wcase-default]
+              case (c_state)
+              ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/rtl/_combined_rtl_no_comments.sv:598:4: warning: 'case' missing 'default' label [-Wcase-default]
+          case (wb_adr_i)
+          ^~~~
+[SUCCESS] Build succeeded
+[SUCCESS] Results written to: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/IRank/tmp_out/i2c_master_top/tests_i2c_master_top.json
+✓ PASSED: i2c_master_top
+
+========================================
+Test Suite Finished.
+Passed: 3 / 3
+========================================

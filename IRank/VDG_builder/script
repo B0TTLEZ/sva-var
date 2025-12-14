@@ -1,1 +1,7 @@
 python generate_chains.py /data/sva-var/results/test_ToneSequencer.json ./var_define_chain.json ./var_use_chain.json
+
+python generate_chains.py /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/IRank/tmp_out/i2c_master_bit_ctrl/tests_i2c_master_bit_ctrl.json /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/IRank/tmp_out/i2c_master_bit_ctrl/var_define_chain.json /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/IRank/tmp_out/i2c_master_bit_ctrl/var_use_chain.json
+python generate_chains.py /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/IRank/tmp_out/i2c_master_byte_ctrl/tests_i2c_master_byte_ctrl.json /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/IRank/tmp_out/i2c_master_byte_ctrl/var_define_chain.json /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/IRank/tmp_out/i2c_master_byte_ctrl/var_use_chain.json
+python generate_chains.py /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/IRank/tmp_out/i2c_master_top/tests_i2c_master_top.json /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/IRank/tmp_out/i2c_master_top/var_define_chain.json /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/IRank/tmp_out/i2c_master_top/var_use_chain.json
+
+

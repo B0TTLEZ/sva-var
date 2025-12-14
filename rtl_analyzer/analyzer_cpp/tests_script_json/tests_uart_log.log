@@ -1,0 +1,85 @@
+Executing ALL 6 test cases.
+----------------------------------------
+
+========================================
+Running: baud_gen
+========================================
+--- Analyzing Test Case: baud_gen ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/rtl/_combined_rtl_no_comments_baud_gen.sv
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/rtl/_combined_rtl_no_comments_baud_gen.sv:20:22: warning: arithmetic between operands of different types ('reg[15:0]' and 'logic[11:0]') [-Warith-op-mismatch]
+                counter <= counter + baud_freq;
+                           ~~~~~~~ ^ ~~~~~~~~~
+[SUCCESS] Build succeeded
+[SUCCESS] Results written to: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/IRank/tmp_out/baud_gen/tests.json
+✓ PASSED: baud_gen
+
+========================================
+Running: uart_parser
+========================================
+--- Analyzing Test Case: uart_parser ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/rtl/_combined_rtl_no_comments_uart_parser.sv
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/rtl/_combined_rtl_no_comments_uart_parser.sv:86:22: warning: arithmetic between operands of different types ('reg[15:0]' and 'logic[11:0]') [-Warith-op-mismatch]
+                counter <= counter + baud_freq;
+                           ~~~~~~~ ^ ~~~~~~~~~
+[SUCCESS] Build succeeded
+[SUCCESS] Results written to: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/IRank/tmp_out/uart_parser/tests.json
+✓ PASSED: uart_parser
+
+========================================
+Running: uart_rx
+========================================
+--- Analyzing Test Case: uart_rx ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/rtl/_combined_rtl_no_comments_uart_rx.sv
+[SUCCESS] Build succeeded
+[SUCCESS] Results written to: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/IRank/tmp_out/uart_rx/tests.json
+✓ PASSED: uart_rx
+
+========================================
+Running: uart_top
+========================================
+--- Analyzing Test Case: uart_top ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/rtl/_combined_rtl_no_comments_uart_top.sv
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/rtl/_combined_rtl_no_comments_uart_top.sv:86:22: warning: arithmetic between operands of different types ('reg[15:0]' and 'logic[11:0]') [-Warith-op-mismatch]
+                counter <= counter + baud_freq;
+                           ~~~~~~~ ^ ~~~~~~~~~
+[SUCCESS] Build succeeded
+[SUCCESS] Results written to: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/IRank/tmp_out/uart_top/tests.json
+✓ PASSED: uart_top
+
+========================================
+Running: uart_tx
+========================================
+--- Analyzing Test Case: uart_tx ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/rtl/_combined_rtl_no_comments_uart_tx.sv
+[SUCCESS] Build succeeded
+[SUCCESS] Results written to: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/IRank/tmp_out/uart_tx/tests.json
+✓ PASSED: uart_tx
+
+========================================
+Running: uart2bus_top
+========================================
+--- Analyzing Test Case: uart2bus_top ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/rtl/_combined_rtl_no_comments_uart2bus_top.sv
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/rtl/_combined_rtl_no_comments_uart2bus_top.sv:86:22: warning: arithmetic between operands of different types ('reg[15:0]' and 'logic[11:0]') [-Warith-op-mismatch]
+                counter <= counter + baud_freq;
+                           ~~~~~~~ ^ ~~~~~~~~~
+[SUCCESS] Build succeeded
+[SUCCESS] Results written to: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/IRank/tmp_out/uart2bus_top/tests.json
+✓ PASSED: uart2bus_top
+
+========================================
+Test Suite Finished.
+Passed: 6 / 6
+========================================

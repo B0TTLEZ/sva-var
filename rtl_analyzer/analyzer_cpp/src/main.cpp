@@ -338,7 +338,11 @@ bool runAnalysis(const std::string& topModule,
  */
 int main(int argc, char** argv) {
     // ===================== 日志文件初始化 =====================
-    const std::string logFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/analysis_log.log";
+    // const std::string logFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/analysis_log.log";
+    // const std::string logFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/analysis_bigDesign_log.log";
+    // const std::string logFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_apb_log.log";
+    // const std::string logFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_apb_log.log";
+    const std::string logFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_uart_log.log";
     std::ofstream logFile(logFilePath, std::ios::out | std::ios::app | std::ios::ate);
     if (!logFile.is_open()) {
         std::cerr << "[WARNING] Failed to open log file: " << logFilePath << " (only console output will be available)" << std::endl;
@@ -364,7 +368,11 @@ int main(int argc, char** argv) {
 
     try {
         // std::string configFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests.json";
-        std::string configFilePath = "/data/sva-var/IRank/helper/tests_json/tests_small.json";
+        // std::string configFilePath = "/data/sva-var/IRank/helper/tests_json/tests_small.json";
+        // std::string configFilePath = "/data/sva-var/IRank/helper/tests_json/tests_ds_AssertionBench_asserteval.json";
+        // std::string configFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_apb.json";
+        // std::string configFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_i2c.json";
+        std::string configFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_uart.json";
         try {
             testSuite = loadTestSuite(configFilePath);
         } catch (const std::exception& e) {

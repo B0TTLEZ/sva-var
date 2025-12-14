@@ -1,0 +1,57 @@
+[INFO] Loading test suite from: /data/sva-var/IRank/helper/tests_json/tests_ds_AssertionBench_asserteval.json
+
+========================================
+Available Test Cases:
+[1] I2C
+[2] APB
+[0] Run ALL Tests
+========================================
+Enter selection (1-2, or 0 for all): Executing ALL 2 test cases.
+----------------------------------------
+
+========================================
+Running: I2C
+========================================
+--- Analyzing Test Case: i2c_master_top ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/rtl/_combined_rtl_no_comments.sv
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/rtl/_combined_rtl_no_comments.sv:83:44: warning: implicit conversion truncates from 16 to 14 bits [-Wwidth-trunc]
+      else if (~|filter_cnt) filter_cnt <= clk_cnt >> 2;
+                                        ~~ ^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/rtl/_combined_rtl_no_comments.sv:201:15: warning: 'case' missing 'default' label [-Wcase-default]
+              case (c_state)
+              ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/rtl/_combined_rtl_no_comments.sv:452:8: warning: 'case' missing 'default' label [-Wcase-default]
+              case (c_state)
+              ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/rtl/_combined_rtl_no_comments.sv:598:4: warning: 'case' missing 'default' label [-Wcase-default]
+          case (wb_adr_i)
+          ^~~~
+[SUCCESS] Build succeeded
+[SUCCESS] Results written to: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/IRank/tmp_out/analyzer_results.json
+✓ PASSED: I2C
+
+========================================
+Running: APB
+========================================
+--- Analyzing Test Case: i2c ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/apb/rtl/_combined_rtl_no_comments.sv
+  in instance: i2c.DUT_FIFO_TX
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/apb/rtl/_combined_rtl_no_comments.sv:2889:66: warning: implicit conversion expands from 4 to 32 bits [-Wwidth-expand]
+                              (wr_en && !f_full && rd_en && !f_empty) ? counter :
+                                                                        ^~~~~~~
+  in instance: i2c.DUT_FIFO_TX
+../../../my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/apb/rtl/_combined_rtl_no_comments.sv:2890:24: warning: implicit conversion expands from 4 to 32 bits [-Wwidth-expand]
+                              counter;
+                              ^~~~~~~
+[SUCCESS] Build succeeded
+[SUCCESS] Results written to: /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/apb/IRank/tmp_out/analyzer_results.json
+✓ PASSED: APB
+
+========================================
+Test Suite Finished.
+Passed: 2 / 2
+========================================
