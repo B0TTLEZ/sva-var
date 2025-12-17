@@ -1,0 +1,9 @@
+# 其中/path/to/your/mutants_IRank是你运行原代码后生成的结果根目录路径。
+python visualize_results.py --result-root /path/to/your/mutants_IRank
+
+
+#
+python /data/sva-var/mutants_coverage/visualizer/coverage_visualizer.py --result-root /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/mutants_IRank
+python /data/sva-var/mutants_coverage/visualizer/coverage_visualizer.py --result-root /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/mutants_IRank
+python /data/sva-var/mutants_coverage/visualizer/coverage_visualizer.py --result-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_IRank
+python /data/sva-var/mutants_coverage/visualizer/coverage_visualizer.py --result-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/mutants_IRank

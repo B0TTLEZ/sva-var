@@ -17,3 +17,16 @@ python bigModule_scorer.py \
 /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/verif/sva_status.json \
 /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/ \
 /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/IRank/assertion_scores.json
+
+
+# bigModule_scorer_2
+# 适配 assert() 类型的断言
+python /data/sva-var/IRank/Ranker/bigModule_scorer_2.py \
+/data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/verif/sva_status.json \
+/data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/ \
+/data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/IRank/assertion_scores.json
+
+python /data/sva-var/IRank/Ranker/bigModule_scorer_2.py \
+/data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/verif/sva_status.json \
+/data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/ \
+/data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/IRank/assertion_scores.json

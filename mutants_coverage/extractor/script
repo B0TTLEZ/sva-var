@@ -1,0 +1,15 @@
+# 在assertion_scores.json的同级目录下生成top_k子目录，里面包含top_25.json、top_50.json、top_75.json、top_100.json文件
+python /data/sva-var/mutants_coverage/extractor/top_k_extractor.py /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/IRank/assertion_scores.json
+python /data/sva-var/mutants_coverage/extractor/top_k_extractor.py /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/IRank/assertion_scores.json
+
+python /data/sva-var/mutants_coverage/extractor/top_k_extractor.py /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/IRank/assertion_scores.json
+python /data/sva-var/mutants_coverage/extractor/top_k_extractor.py /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/IRank/assertion_scores.json
+
+
+# 提取mutants_verif目录下的mutant信息，构建数据集
+python /data/sva-var/mutants_coverage/extractor/mutants_extractor.py /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/mutants_verif
+python /data/sva-var/mutants_coverage/extractor/mutants_extractor.py /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/mutants_verif
+
+
+python /data/sva-var/mutants_coverage/extractor/mutants_extractor.py /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_verif
+python /data/sva-var/mutants_coverage/extractor/mutants_extractor.py /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/mutants_verif

@@ -1,0 +1,51 @@
+# --top-module：指定顶层模块（TCL 中的set TOP），是验证的核心参数。
+# --clock/--reset：指定时钟和复位信号，参数化生成 TCL 脚本。
+# --workers：设置并行处理的进程数，可根据服务器性能调整。
+
+python mutants_irank_verif.py \
+    --top-k-dir /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/IRank/top_k \
+    --mutants-src-dir /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/mutants \
+    --output-root /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/mutants_IRank \
+    --top-module i2c_master_top \
+    --clock wb_clk_i \
+    --reset wb_rst_i \
+    --workers 20 \
+    --skip-existing
+
+
+
+
+python mutants_irank_verif.py \
+    --top-k-dir /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/IRank/top_k \
+    --mutants-src-dir /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/mutants \
+    --output-root /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/mutants_IRank \
+    --top-module uart2bus_top \
+    --clock clock \
+    --reset reset \
+    --workers 20 \
+    --skip-existing
+
+
+# mutants_irank_verify_2.py 脚本用于对 binding 文件的验证
+# 新增--verif-dir参数，指定包含 binding 文件的目录
+python /data/sva-var/mutants_coverage/verify/mutants_irank_verif_2.py \
+    --top-k-dir /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/IRank/top_k \
+    --mutants-src-dir /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants \
+    --output-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_IRank \
+    --top-module i2c_master_top \
+    --verif-dir /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/verif \
+    --clock wb_clk_i \
+    --reset wb_rst_i \
+    --workers 20 \
+    --skip-existing
+
+python /data/sva-var/mutants_coverage/verify/mutants_irank_verif_2.py \
+    --top-k-dir /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/IRank/top_k \
+    --mutants-src-dir /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/mutants \
+    --output-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/mutants_IRank \
+    --top-module uart2bus_top \
+    --verif-dir /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/verif \
+    --clock clock \
+    --reset reset \
+    --workers 10 \
+    --skip-existing

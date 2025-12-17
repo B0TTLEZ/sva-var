@@ -1,3 +1,4 @@
 python auto_run_irank.py
 
+# 输入为 “静态分析的json 文件路径“，根据这些路径，自动构建 var define chain, var use chain, pagerank等
 python /data/sva-var/IRank/helper/automatic_script/auto.py /data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_uart.json
