@@ -13,3 +13,12 @@ python /data/sva-var/mutants_coverage/extractor/mutants_extractor.py /data/my_da
 
 python /data/sva-var/mutants_coverage/extractor/mutants_extractor.py /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_verif
 python /data/sva-var/mutants_coverage/extractor/mutants_extractor.py /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/mutants_verif
+
+
+python /data/sva-var/mutants_coverage/extractor/mutants_extractor.py /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/mutants_verif
+
+python /data/sva-var/mutants_coverage/extractor/mutants_extractor.py /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/mutants_verif
+
+python /data/sva-var/mutants_coverage/extractor/mutants_extractor.py /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/mutants_verif
+
+python /data/sva-var/mutants_coverage/extractor/mutants_extractor.py /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/mutants_verif

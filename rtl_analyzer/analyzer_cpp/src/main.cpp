@@ -342,7 +342,12 @@ int main(int argc, char** argv) {
     // const std::string logFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/analysis_bigDesign_log.log";
     // const std::string logFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_apb_log.log";
     // const std::string logFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_apb_log.log";
-    const std::string logFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_uart_log.log";
+    // const std::string logFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_uart_log.log";
+    // const std::string logFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_ethernet_log.log";
+    // const std::string logFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_sockit_log.log";
+    const std::string logFilePath0 = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_mac_log.log";
+    const std::string logFilePath1 = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_sdc_log.log";
+    const std::string logFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_sdr_ctrl_log.log";
     std::ofstream logFile(logFilePath, std::ios::out | std::ios::app | std::ios::ate);
     if (!logFile.is_open()) {
         std::cerr << "[WARNING] Failed to open log file: " << logFilePath << " (only console output will be available)" << std::endl;
@@ -372,7 +377,12 @@ int main(int argc, char** argv) {
         // std::string configFilePath = "/data/sva-var/IRank/helper/tests_json/tests_ds_AssertionBench_asserteval.json";
         // std::string configFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_apb.json";
         // std::string configFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_i2c.json";
-        std::string configFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_uart.json";
+        // std::string configFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_uart.json";
+        // std::string configFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_ethernet.json";
+        // std::string configFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_sockit.json";
+        std::string configFilePath0 = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_mac.json";
+        std::string configFilePath1 = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_sdc.json";
+        std::string configFilePath = "/data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_sdr_ctrl.json";
         try {
             testSuite = loadTestSuite(configFilePath);
         } catch (const std::exception& e) {

@@ -7,3 +7,49 @@ python /data/sva-var/mutants_coverage/visualizer/coverage_visualizer.py --result
 python /data/sva-var/mutants_coverage/visualizer/coverage_visualizer.py --result-root /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/uart/mutants_IRank
 python /data/sva-var/mutants_coverage/visualizer/coverage_visualizer.py --result-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_IRank
 python /data/sva-var/mutants_coverage/visualizer/coverage_visualizer.py --result-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/mutants_IRank
+
+
+
+# /data/sva-var/mutants_coverage/visualizer/visualizer_singleBysingle.py
+# 1. 基础用法（仅超时搜索 + 累计杀死数折线图）
+python /data/sva-var/mutants_coverage/visualizer/visualizer_singleBysingle.py \
+    --result-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/mutants_IRank_single \
+    --output-img /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/cumulative_killed.png
+
+# 2. 完整用法（含 final_score 非零 Rank 竖线）
+python /data/sva-var/mutants_coverage/visualizer/visualizer_singleBysingle.py \
+    --result-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/mutants_IRank_single \
+    --output-img /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/mutants_IRank_single/visualization/cumulative_killed.png \
+    --score-file /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/IRank/assertion_scores.json \
+    --top-module uart2bus_top
+
+
+python /data/sva-var/mutants_coverage/visualizer/visualizer_singleBysingle.py \
+    --result-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_IRank_single \
+    --output-img /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_IRank_single/visualization/cumulative_killed.png \
+    --score-file /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/IRank/assertion_scores.json \
+    --top-module i2c_master_top
+
+python /data/sva-var/mutants_coverage/visualizer/visualizer_singleBysingle.py \
+    --result-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/mutants_IRank_single \
+    --output-img /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/mutants_IRank_single/visualization/cumulative_killed.png \
+    --score-file /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/IRank/assertion_scores.json \
+    --top-module ethmac
+
+python /data/sva-var/mutants_coverage/visualizer/visualizer_singleBysingle.py \
+    --result-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/mutants_IRank_single \
+    --output-img /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/mutants_IRank_single/visualization/cumulative_killed.png \
+    --score-file /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/IRank/assertion_scores.json \
+    --top-module sockit_owm
+
+python /data/sva-var/mutants_coverage/visualizer/visualizer_singleBysingle.py \
+    --result-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/mutants_IRank_single \
+    --output-img /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/mutants_IRank_single/visualization/cumulative_killed.png \
+    --score-file /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/IRank/assertion_scores.json \
+    --top-module sdc_controller
+
+python /data/sva-var/mutants_coverage/visualizer/visualizer_singleBysingle.py \
+    --result-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/mutants_IRank_single \
+    --output-img /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/mutants_IRank_single/visualization/cumulative_killed.png \
+    --score-file /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/IRank/assertion_scores.json \
+    --top-module sdrc_top

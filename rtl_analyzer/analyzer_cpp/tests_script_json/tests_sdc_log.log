@@ -1,0 +1,250 @@
+[INFO] Loading test suite from: /data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_sdc.json
+
+========================================
+Available Test Cases:
+[1] sdc
+[0] Run ALL Tests
+========================================
+Enter selection (1-1, or 0 for all): Executing ALL 1 test cases.
+----------------------------------------
+
+========================================
+Running: sdc
+========================================
+--- Analyzing Test Case: sdc_controller ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:135:24: warning: implicit conversion truncates from 4 to 2 bits [-Wwidth-trunc]
+   assign mem_empt = ( adr_i-adr_o);
+                   ~   ^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:388:8: warning: 'case' missing 'default' label [-Wcase-default]
+              case (wb_adr_i)
+              ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:394:35: warning: implicit conversion truncates from 32 to 16 bits [-Wwidth-trunc]
+                    cmd_setting_reg  <=  wb_dat_i;
+                                     ~~  ^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:397:46: warning: implicit conversion truncates from 32 to 8 bits [-Wwidth-trunc]
+          `software : software_reset_reg <=  wb_dat_i;
+                                         ~~  ^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:398:40: warning: implicit conversion truncates from 32 to 16 bits [-Wwidth-trunc]
+          `timeout : time_out_reg  <=  wb_dat_i;
+                                   ~~  ^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:399:59: warning: implicit conversion truncates from 32 to 16 bits [-Wwidth-trunc]
+          `normal_iser : normal_int_signal_enable_reg <=  wb_dat_i;
+                                                      ~~  ^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:400:58: warning: implicit conversion truncates from 32 to 16 bits [-Wwidth-trunc]
+          `error_iser : error_int_signal_enable_reg  <=  wb_dat_i;
+                                                     ~~  ^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:403:39: warning: implicit conversion truncates from 32 to 8 bits [-Wwidth-trunc]
+                `clock_d: clock_divider  <=  wb_dat_i;
+                                         ~~  ^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:405:42: warning: implicit conversion truncates from 32 to 8 bits [-Wwidth-trunc]
+                `bd_iser : Bd_isr_enable_reg <= wb_dat_i ;
+                                             ~~ ^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:486:7: warning: 'case' missing 'default' label [-Wcase-default]
+      case (wb_adr_i)
+      ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:488:35: warning: implicit conversion expands from 16 to 32 bits [-Wwidth-expand]
+                 `command : wb_dat_o <=  cmd_setting_reg ;
+                                     ~~  ^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:489:34: warning: implicit conversion expands from 16 to 32 bits [-Wwidth-expand]
+                 `status : wb_dat_o <=  status_reg ;
+                                    ~~  ^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:494:38: warning: implicit conversion expands from 8 to 32 bits [-Wwidth-expand]
+           `software : wb_dat_o  <=  software_reset_reg ;
+                                 ~~  ^~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:495:37: warning: implicit conversion expands from 16 to 32 bits [-Wwidth-expand]
+           `timeout : wb_dat_o  <=  time_out_reg ;
+                                ~~  ^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:496:39: warning: implicit conversion expands from 16 to 32 bits [-Wwidth-expand]
+           `normal_isr : wb_dat_o <=  normal_int_status_reg ;
+                                  ~~  ^~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:497:39: warning: implicit conversion expands from 16 to 32 bits [-Wwidth-expand]
+           `error_isr : wb_dat_o  <=  error_int_status_reg ;
+                                  ~~  ^~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:498:40: warning: implicit conversion expands from 16 to 32 bits [-Wwidth-expand]
+           `normal_iser : wb_dat_o <=  normal_int_signal_enable_reg ;
+                                   ~~  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:499:40: warning: implicit conversion expands from 16 to 32 bits [-Wwidth-expand]
+           `error_iser : wb_dat_o  <=  error_int_signal_enable_reg ;
+                                   ~~  ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:500:37: warning: implicit conversion expands from 8 to 32 bits [-Wwidth-expand]
+            `clock_d : wb_dat_o  <= clock_divider;
+                                 ~~ ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:502:38: warning: implicit conversion expands from 16 to 32 bits [-Wwidth-expand]
+                 `bd_status : wb_dat_o  <=  Bd_Status_reg;
+                                        ~~  ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:503:35: warning: implicit conversion expands from 8 to 32 bits [-Wwidth-expand]
+                 `bd_isr : wb_dat_o  <=  Bd_isr_reg ;
+                                     ~~  ^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:504:36: warning: implicit conversion expands from 8 to 32 bits [-Wwidth-expand]
+                 `bd_iser : wb_dat_o  <=  Bd_isr_enable_reg ;
+                                      ~~  ^~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:544:25: warning: arithmetic between operands of different types ('logic[31:0]' and 'reg[8:0]') [-Warith-op-mismatch]
+assign  m_wb_adr_o = adr+offset;
+                     ~~~^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:627:25: warning: arithmetic between operands of different types ('logic[31:0]' and 'reg[8:0]') [-Warith-op-mismatch]
+assign  m_wb_adr_o = adr+offset;
+                     ~~~^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:876:1: warning: 'case' missing 'default' label [-Wcase-default]
+case(state)
+^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:976:2: warning: 'case' missing 'default' label [-Wcase-default]
+ case(state)
+ ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1028:9: warning: 'case' missing 'default' label [-Wcase-default]
+        case (data_send_index)
+        ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1398:3: warning: 'case' missing 'default' label [-Wcase-default]
+  case(state)
+  ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1717:19: warning: comparison of differently signed types ('reg[7:0]' and 'logic signed[31:0]') [-Wsign-compare]
+      if (Cmd_Cnt >=SEND_SIZE-1) begin
+          ~~~~~~~ ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1724:19: warning: comparison of differently signed types ('reg[7:0]' and 'logic signed[31:0]') [-Wsign-compare]
+      if (Cmd_Cnt >= SEND_SIZE-1) begin
+          ~~~~~~~ ^~ ~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1745:36: warning: arithmetic between operands of different types ('reg[6:0]' and 'logic signed[31:0]') [-Warith-op-mismatch]
+      if (Cmd_Cnt >= (Response_Size+EIGHT_PAD)) begin
+                      ~~~~~~~~~~~~~^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1859:3: warning: 'case' missing 'default' label [-Wcase-default]
+  case(state)
+  ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1888:13: warning: arithmetic between operands of different types ('logic signed[31:0]' and 'reg[7:0]') [-Warith-op-mismatch]
+        if (`Bit_Nr > 8 ) begin
+            ^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1677:26: note: expanded from macro 'Bit_Nr'
+`define Bit_Nr (SEND_SIZE-Cmd_Cnt)
+                ~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1889:28: warning: arithmetic between operands of different types ('logic signed[31:0]' and 'reg[7:0]') [-Warith-op-mismatch]
+                                   cmd_out_o = In_Buff[`Vector_Index];
+                                                       ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1676:38: note: expanded from macro 'Vector_Index'
+`define Vector_Index  (CONTENT_SIZE-1-Cmd_Cnt)
+                       ~~~~~~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1890:12: warning: arithmetic between operands of different types ('logic signed[31:0]' and 'reg[7:0]') [-Warith-op-mismatch]
+                                   if (`Bit_Nr > 9 ) begin
+                                       ^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1677:26: note: expanded from macro 'Bit_Nr'
+`define Bit_Nr (SEND_SIZE-Cmd_Cnt)
+                ~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1891:29: warning: arithmetic between operands of different types ('logic signed[31:0]' and 'reg[7:0]') [-Warith-op-mismatch]
+                               CRC_OUT = In_Buff[`Vector_Index-1];
+                                                 ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1676:38: note: expanded from macro 'Vector_Index'
+`define Vector_Index  (CONTENT_SIZE-1-Cmd_Cnt)
+                       ~~~~~~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1896:17: warning: arithmetic between operands of different types ('logic signed[31:0]' and 'reg[7:0]') [-Warith-op-mismatch]
+                          else if ( (`Bit_Nr <=8) && (`Bit_Nr >=2) ) begin
+                                     ^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1677:26: note: expanded from macro 'Bit_Nr'
+`define Bit_Nr (SEND_SIZE-Cmd_Cnt)
+                ~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1896:34: warning: arithmetic between operands of different types ('logic signed[31:0]' and 'reg[7:0]') [-Warith-op-mismatch]
+                          else if ( (`Bit_Nr <=8) && (`Bit_Nr >=2) ) begin
+                                                      ^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1677:26: note: expanded from macro 'Bit_Nr'
+`define Bit_Nr (SEND_SIZE-Cmd_Cnt)
+                ~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1898:28: warning: arithmetic between operands of different types ('logic signed[31:0]' and 'reg[7:0]') [-Warith-op-mismatch]
+                                  cmd_out_o = CRC_VAL[(`Bit_Nr)-2];
+                                                       ^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1677:26: note: expanded from macro 'Bit_Nr'
+`define Bit_Nr (SEND_SIZE-Cmd_Cnt)
+                ~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1911:26: warning: arithmetic between operands of different types ('logic signed[31:0]' and 'reg[7:0]') [-Warith-op-mismatch]
+                  CRC_OUT = In_Buff[`Vector_Index];
+                                    ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1676:38: note: expanded from macro 'Vector_Index'
+`define Vector_Index  (CONTENT_SIZE-1-Cmd_Cnt)
+                       ~~~~~~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1927:13: warning: arithmetic between operands of different types ('logic signed[31:0]' and 'reg[7:0]') [-Warith-op-mismatch]
+        if (`Bit_Nr > 8 ) begin
+            ^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1677:26: note: expanded from macro 'Bit_Nr'
+`define Bit_Nr (SEND_SIZE-Cmd_Cnt)
+                ~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1928:29: warning: arithmetic between operands of different types ('logic signed[31:0]' and 'reg[7:0]') [-Warith-op-mismatch]
+                             cmd_out_o = In_Buff[`Vector_Index];
+                                                 ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1676:38: note: expanded from macro 'Vector_Index'
+`define Vector_Index  (CONTENT_SIZE-1-Cmd_Cnt)
+                       ~~~~~~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1929:13: warning: arithmetic between operands of different types ('logic signed[31:0]' and 'reg[7:0]') [-Warith-op-mismatch]
+                             if (`Bit_Nr > 9 ) begin
+                                 ^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1677:26: note: expanded from macro 'Bit_Nr'
+`define Bit_Nr (SEND_SIZE-Cmd_Cnt)
+                ~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1930:30: warning: arithmetic between operands of different types ('logic signed[31:0]' and 'reg[7:0]') [-Warith-op-mismatch]
+                                CRC_OUT = In_Buff[`Vector_Index-1];
+                                                  ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1676:38: note: expanded from macro 'Vector_Index'
+`define Vector_Index  (CONTENT_SIZE-1-Cmd_Cnt)
+                       ~~~~~~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1936:17: warning: arithmetic between operands of different types ('logic signed[31:0]' and 'reg[7:0]') [-Warith-op-mismatch]
+                    else if( (`Bit_Nr <=8) && (`Bit_Nr >=2) ) begin
+                              ^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1677:26: note: expanded from macro 'Bit_Nr'
+`define Bit_Nr (SEND_SIZE-Cmd_Cnt)
+                ~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1936:34: warning: arithmetic between operands of different types ('logic signed[31:0]' and 'reg[7:0]') [-Warith-op-mismatch]
+                    else if( (`Bit_Nr <=8) && (`Bit_Nr >=2) ) begin
+                                               ^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1677:26: note: expanded from macro 'Bit_Nr'
+`define Bit_Nr (SEND_SIZE-Cmd_Cnt)
+                ~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1938:31: warning: arithmetic between operands of different types ('logic signed[31:0]' and 'reg[7:0]') [-Warith-op-mismatch]
+                       cmd_out_o = CRC_VAL[(`Bit_Nr)-2];
+                                            ^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1677:26: note: expanded from macro 'Bit_Nr'
+`define Bit_Nr (SEND_SIZE-Cmd_Cnt)
+                ~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1949:25: warning: arithmetic between operands of different types ('logic signed[31:0]' and 'reg[7:0]') [-Warith-op-mismatch]
+                 CRC_OUT = In_Buff[`Vector_Index];
+                                   ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:1676:38: note: expanded from macro 'Vector_Index'
+`define Vector_Index  (CONTENT_SIZE-1-Cmd_Cnt)
+                       ~~~~~~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:2029:25: warning: arithmetic between operands of different types ('reg[7:0]' and 'reg[6:0]') [-Warith-op-mismatch]
+      else if ( Cmd_Cnt - Response_Size <=6 ) begin
+                ~~~~~~~ ^ ~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:2241:2: warning: 'case' missing 'default' label [-Wcase-default]
+ case(state)
+ ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:2248:16: warning: implicit conversion expands from 8 to 16 bits [-Wwidth-expand]
+        status=serial_status;
+              ~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:2294:16: warning: implicit conversion expands from 8 to 16 bits [-Wwidth-expand]
+        status=serial_status;
+              ~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:2606:18: warning: implicit conversion of port connection truncates from 3 to 1 bits [-Wport-width-trunc]
+    .m_wb_cti_o (m_wb_cti_o_tx),
+                 ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:2607:15: warning: implicit conversion of port connection truncates from 2 to 1 bits [-Wport-width-trunc]
+        .m_wb_bte_o (m_wb_bte_o_tx),
+                     ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:2625:18: warning: implicit conversion of port connection truncates from 3 to 1 bits [-Wport-width-trunc]
+    .m_wb_cti_o (m_wb_cti_o_rx),
+                 ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:2626:15: warning: implicit conversion of port connection truncates from 2 to 1 bits [-Wport-width-trunc]
+        .m_wb_bte_o (m_wb_bte_o_rx),
+                     ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:2689:23: warning: implicit conversion expands from 5 to 8 bits [-Wwidth-expand]
+  Bd_Status_reg[15:8]=free_bd_rx_bd;
+                     ~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:2690:22: warning: implicit conversion expands from 5 to 8 bits [-Wwidth-expand]
+  Bd_Status_reg[7:0]=free_bd_tx_bd;
+                    ~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/verif/_combined_rtl_no_comments.sv:2693:26: warning: implicit conversion expands from 5 to 16 bits [-Wwidth-expand]
+  error_int_status_reg<= error_int_status_reg_w  ;
+                      ~~ ^~~~~~~~~~~~~~~~~~~~~~
+[SUCCESS] Build succeeded
+[SUCCESS] Results written to: /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdc/IRank/tmp_out/sdc_controller/tests.json
+✓ PASSED: sdc
+
+========================================
+Test Suite Finished.
+Passed: 1 / 1
+========================================

@@ -1,0 +1,106 @@
+[INFO] Loading test suite from: /data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_sockit.json
+
+========================================
+Available Test Cases:
+[1] sockit
+[0] Run ALL Tests
+========================================
+Enter selection (1-1, or 0 for all): Executing selected test: sockit
+----------------------------------------
+
+========================================
+Running: sockit
+========================================
+--- Analyzing Test Case: sockit_owm ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:82:17: warning: implicit conversion changes signedness from 'logic signed[31:0]' to 'logic[7:0]' [-Wsign-conversion]
+assign t_idl  = req_ovd ? T_IDLE_O                       : T_IDLE_N                      ;
+              ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:83:17: warning: implicit conversion changes signedness from 'logic signed[31:0]' to 'logic[7:0]' [-Wsign-conversion]
+assign t_rst  = req_ovd ? T_RSTL_O + T_RSTH_O            : T_RSTL_N + T_RSTH_N           ;
+              ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:84:17: warning: implicit conversion changes signedness from 'logic signed[31:0]' to 'logic[7:0]' [-Wsign-conversion]
+assign t_bit  = req_ovd ? T_DAT0_O +          + T_RCVR_O : T_DAT0_N +            T_RCVR_N;
+              ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:85:17: warning: implicit conversion changes signedness from 'logic signed[31:0]' to 'logic[7:0]' [-Wsign-conversion]
+assign t_rstp = owr_ovd ? T_RSTH_O - T_RSTP_O            : T_RSTH_N - T_RSTP_N           ;
+              ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:86:17: warning: implicit conversion changes signedness from 'logic signed[31:0]' to 'logic[7:0]' [-Wsign-conversion]
+assign t_rsth = owr_ovd ? T_RSTH_O                       : T_RSTH_N                      ;
+              ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:87:17: warning: implicit conversion changes signedness from 'logic signed[31:0]' to 'logic[7:0]' [-Wsign-conversion]
+assign t_dat0 = owr_ovd ? T_DAT0_O - T_DAT0_O + T_RCVR_O : T_DAT0_N - T_DAT0_N + T_RCVR_N;
+              ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:88:17: warning: implicit conversion changes signedness from 'logic signed[31:0]' to 'logic[7:0]' [-Wsign-conversion]
+assign t_dat1 = owr_ovd ? T_DAT0_O - T_DAT1_O + T_RCVR_O : T_DAT0_N - T_DAT1_N + T_RCVR_N;
+              ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:89:17: warning: implicit conversion changes signedness from 'logic signed[31:0]' to 'logic[7:0]' [-Wsign-conversion]
+assign t_bits = owr_ovd ? T_DAT0_O - T_BITS_O + T_RCVR_O : T_DAT0_N - T_BITS_N + T_RCVR_N;
+              ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:93:16: warning: generate block is unnamed [-Wunnamed-generate]
+  if (BDW==32) begin
+               ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:94:16: warning: generate block is unnamed [-Wunnamed-generate]
+    if (OWN>1) begin
+               ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:96:14: warning: generate block is unnamed [-Wunnamed-generate]
+    end else begin
+             ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:99:24: warning: generate block is unnamed [-Wunnamed-generate]
+  end else if (BDW==8) begin
+                       ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:107:23: warning: generate block is unnamed [-Wunnamed-generate]
+generate if (BDW==32) begin
+                      ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:108:79: warning: implicit conversion expands from 16 to 32 bits [-Wwidth-expand]
+  assign bus_rdt = (bus_adr[0]==1'b0) ? {bus_rdt_pwr_sel, bus_rdt_ctl_sts} : (cdr_o << 16 | cdr_n);
+                                      ~                                       ^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:109:22: warning: generate block is unnamed [-Wunnamed-generate]
+end else if (BDW==8) begin
+                     ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:115:23: warning: generate block is unnamed [-Wunnamed-generate]
+generate if (BDW==32) begin
+                      ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:121:22: warning: generate block is unnamed [-Wunnamed-generate]
+end else if (BDW==8) begin
+                     ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:129:14: warning: generate block is unnamed [-Wunnamed-generate]
+  if (CDR_E) begin
+             ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:130:18: warning: generate block is unnamed [-Wunnamed-generate]
+    if (BDW==32) begin
+                 ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:139:26: warning: generate block is unnamed [-Wunnamed-generate]
+    end else if (BDW==8) begin
+                         ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:149:12: warning: generate block is unnamed [-Wunnamed-generate]
+  end else begin
+           ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:160:40: warning: arithmetic between operands of different types ('reg[15:0]' and 'reg') [-Warith-op-mismatch]
+  else          div <= pls ? 'd0 : div + owr_cyc;
+                                   ~~~ ^ ~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:170:10: warning: generate block is unnamed [-Wunnamed-generate]
+end else begin
+         ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:209:50: warning: implicit conversion expands from 8 to 32 bits [-Wwidth-expand]
+  if (bus_wen_ctl_sts)   cnt <= (&bus_wdt[1:0] ? t_idl : bus_wdt[1] ? t_rst : t_bit) - 'd1;
+                                                 ^~~~~                               ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:209:58: warning: implicit conversion expands from 8 to 32 bits [-Wwidth-expand]
+  if (bus_wen_ctl_sts)   cnt <= (&bus_wdt[1:0] ? t_idl : bus_wdt[1] ? t_rst : t_bit) - 'd1;
+                                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~  ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:209:71: warning: implicit conversion expands from 8 to 32 bits [-Wwidth-expand]
+  if (bus_wen_ctl_sts)   cnt <= (&bus_wdt[1:0] ? t_idl : bus_wdt[1] ? t_rst : t_bit) - 'd1;
+                                                                      ^~~~~          ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv:209:79: warning: implicit conversion expands from 8 to 32 bits [-Wwidth-expand]
+  if (bus_wen_ctl_sts)   cnt <= (&bus_wdt[1:0] ? t_idl : bus_wdt[1] ? t_rst : t_bit) - 'd1;
+                                                                              ^~~~~  ~
+[SUCCESS] Build succeeded
+[SUCCESS] Results written to: /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/IRank/tmp_out/sockit_owm/tests.json
+✓ PASSED: sockit
+
+========================================
+Test Suite Finished.
+Passed: 1 / 1
+========================================

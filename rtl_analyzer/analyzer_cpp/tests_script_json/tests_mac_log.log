@@ -1,0 +1,372 @@
+[INFO] Loading test suite from: /data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_mac.json
+
+========================================
+Available Test Cases:
+[1] mac
+[0] Run ALL Tests
+========================================
+Enter selection (1-1, or 0 for all): Executing ALL 1 test cases.
+----------------------------------------
+
+========================================
+Running: mac
+========================================
+--- Analyzing Test Case: xge_mac ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:49:8: error: design element does not have a time scale defined but others in the design do
+module meta_sync_single(
+       ^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:60:22: warning: generate block is unnamed [-Wunnamed-generate]
+    if (EDGE_DETECT) begin
+                     ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:79:10: warning: generate block is unnamed [-Wunnamed-generate]
+    else begin
+         ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:94:8: error: design element does not have a time scale defined but others in the design do
+module stats_sm(
+       ^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:161:8: error: design element does not have a time scale defined but others in the design do
+module rx_stats_fifo(
+       ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:199:8: error: design element does not have a time scale defined but others in the design do
+module tx_stats_fifo(
+       ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:237:8: error: design element does not have a time scale defined but others in the design do
+module meta_sync(
+       ^~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:259:8: error: design element does not have a time scale defined but others in the design do
+module wishbone_if(
+       ^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:420:8: error: design element does not have a time scale defined but others in the design do
+module stats(
+       ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:483:8: error: design element does not have a time scale defined but others in the design do
+module sync_clk_xgmii_tx(
+       ^~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:510:8: error: design element does not have a time scale defined but others in the design do
+module sync_clk_wb(
+       ^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:578:8: error: design element does not have a time scale defined but others in the design do
+module fault_sm(
+       ^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:643:9: warning: 'case' missing 'default' label [-Wcase-default]
+        case (curr_state)
+        ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:712:8: error: design element does not have a time scale defined but others in the design do
+module tx_hold_fifo(
+       ^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:755:8: error: design element does not have a time scale defined but others in the design do
+module tx_data_fifo(
+       ^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:800:8: error: design element does not have a time scale defined but others in the design do
+module tx_dequeue(
+       ^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:1329:8: error: design element does not have a time scale defined but others in the design do
+module tx_enqueue(
+       ^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:1399:8: error: design element does not have a time scale defined but others in the design do
+module rx_hold_fifo(
+       ^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:1439:8: error: design element does not have a time scale defined but others in the design do
+module rx_data_fifo(
+       ^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:1482:8: error: design element does not have a time scale defined but others in the design do
+module rx_dequeue(
+       ^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:1572:8: error: design element does not have a time scale defined but others in the design do
+module rx_enqueue(
+       ^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:1673:5: warning: 'case' missing 'default' label [-Wcase-default]
+    case (bits)
+    ^~~~
+  in 5 instances, e.g. xge_mac.stats0.tx_stats_fifo0.fifo0.ctrl0
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:2483:25: warning: generate block is unnamed [-Wunnamed-generate]
+    if (CLOCK_CROSSING) begin
+                        ^~~~~
+  in 5 instances, e.g. xge_mac.stats0.tx_stats_fifo0.fifo0.ctrl0
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:2511:10: warning: generate block is unnamed [-Wunnamed-generate]
+    else begin
+         ^~~~~
+  in 5 instances, e.g. xge_mac.stats0.tx_stats_fifo0.fifo0.ctrl0
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:2524:21: warning: generate block is unnamed [-Wunnamed-generate]
+    if (EARLY_READ) begin
+                    ^~~~~
+  in 5 instances, e.g. xge_mac.stats0.tx_stats_fifo0.fifo0.ctrl0
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:2528:10: warning: generate block is unnamed [-Wunnamed-generate]
+    else begin
+         ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:2595:24: warning: generate block is unnamed [-Wunnamed-generate]
+    if (REGISTER_READ) begin
+                       ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:2605:10: warning: generate block is unnamed [-Wunnamed-generate]
+    else begin
+         ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:3025:38: warning: generate block is unnamed [-Wunnamed-generate]
+    if (MEM_TYPE == `MEM_AUTO_SMALL) begin
+                                     ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:3044:39: warning: generate block is unnamed [-Wunnamed-generate]
+    if (MEM_TYPE == `MEM_AUTO_MEDIUM) begin
+                                      ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:3126:24: warning: generate block is unnamed [-Wunnamed-generate]
+    if (REGISTER_READ) begin
+                       ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:3136:10: warning: generate block is unnamed [-Wunnamed-generate]
+    else begin
+         ^~~~~
+[FAILED] Build failed: 18 errors
+✗ FAILED: mac
+
+========================================
+Test Suite Finished.
+Passed: 0 / 1
+========================================
+[INFO] Loading test suite from: /data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_mac.json
+
+========================================
+Available Test Cases:
+[1] mac
+[0] Run ALL Tests
+========================================
+Enter selection (1-1, or 0 for all): Executing ALL 1 test cases.
+----------------------------------------
+
+========================================
+Running: mac
+========================================
+--- Analyzing Test Case: xge_mac ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:49:8: error: design element does not have a time scale defined but others in the design do
+module meta_sync_single(
+       ^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:60:22: warning: generate block is unnamed [-Wunnamed-generate]
+    if (EDGE_DETECT) begin
+                     ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:79:10: warning: generate block is unnamed [-Wunnamed-generate]
+    else begin
+         ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:94:8: error: design element does not have a time scale defined but others in the design do
+module stats_sm(
+       ^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:161:8: error: design element does not have a time scale defined but others in the design do
+module rx_stats_fifo(
+       ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:199:8: error: design element does not have a time scale defined but others in the design do
+module tx_stats_fifo(
+       ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:237:8: error: design element does not have a time scale defined but others in the design do
+module meta_sync(
+       ^~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:259:8: error: design element does not have a time scale defined but others in the design do
+module wishbone_if(
+       ^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:420:8: error: design element does not have a time scale defined but others in the design do
+module stats(
+       ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:483:8: error: design element does not have a time scale defined but others in the design do
+module sync_clk_xgmii_tx(
+       ^~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:510:8: error: design element does not have a time scale defined but others in the design do
+module sync_clk_wb(
+       ^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:578:8: error: design element does not have a time scale defined but others in the design do
+module fault_sm(
+       ^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:643:9: warning: 'case' missing 'default' label [-Wcase-default]
+        case (curr_state)
+        ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:712:8: error: design element does not have a time scale defined but others in the design do
+module tx_hold_fifo(
+       ^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:755:8: error: design element does not have a time scale defined but others in the design do
+module tx_data_fifo(
+       ^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:800:8: error: design element does not have a time scale defined but others in the design do
+module tx_dequeue(
+       ^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:1329:8: error: design element does not have a time scale defined but others in the design do
+module tx_enqueue(
+       ^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:1399:8: error: design element does not have a time scale defined but others in the design do
+module rx_hold_fifo(
+       ^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:1439:8: error: design element does not have a time scale defined but others in the design do
+module rx_data_fifo(
+       ^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:1482:8: error: design element does not have a time scale defined but others in the design do
+module rx_dequeue(
+       ^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:1572:8: error: design element does not have a time scale defined but others in the design do
+module rx_enqueue(
+       ^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:1673:5: warning: 'case' missing 'default' label [-Wcase-default]
+    case (bits)
+    ^~~~
+  in 5 instances, e.g. xge_mac.stats0.tx_stats_fifo0.fifo0.ctrl0
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:2483:25: warning: generate block is unnamed [-Wunnamed-generate]
+    if (CLOCK_CROSSING) begin
+                        ^~~~~
+  in 5 instances, e.g. xge_mac.stats0.tx_stats_fifo0.fifo0.ctrl0
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:2511:10: warning: generate block is unnamed [-Wunnamed-generate]
+    else begin
+         ^~~~~
+  in 5 instances, e.g. xge_mac.stats0.tx_stats_fifo0.fifo0.ctrl0
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:2524:21: warning: generate block is unnamed [-Wunnamed-generate]
+    if (EARLY_READ) begin
+                    ^~~~~
+  in 5 instances, e.g. xge_mac.stats0.tx_stats_fifo0.fifo0.ctrl0
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:2528:10: warning: generate block is unnamed [-Wunnamed-generate]
+    else begin
+         ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:2595:24: warning: generate block is unnamed [-Wunnamed-generate]
+    if (REGISTER_READ) begin
+                       ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:2605:10: warning: generate block is unnamed [-Wunnamed-generate]
+    else begin
+         ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:3025:38: warning: generate block is unnamed [-Wunnamed-generate]
+    if (MEM_TYPE == `MEM_AUTO_SMALL) begin
+                                     ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:3044:39: warning: generate block is unnamed [-Wunnamed-generate]
+    if (MEM_TYPE == `MEM_AUTO_MEDIUM) begin
+                                      ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:3126:24: warning: generate block is unnamed [-Wunnamed-generate]
+    if (REGISTER_READ) begin
+                       ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:3136:10: warning: generate block is unnamed [-Wunnamed-generate]
+    else begin
+         ^~~~~
+[FAILED] Build failed: 18 errors
+✗ FAILED: mac
+
+========================================
+Test Suite Finished.
+Passed: 0 / 1
+========================================
+[INFO] Loading test suite from: /data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_mac.json
+
+========================================
+Available Test Cases:
+[1] mac
+[0] Run ALL Tests
+========================================
+Enter selection (1-1, or 0 for all): Executing selected test: mac
+----------------------------------------
+
+========================================
+Running: mac
+========================================
+--- Analyzing Test Case: xge_mac ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:49:8: error: design element does not have a time scale defined but others in the design do
+module meta_sync_single(
+       ^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:60:22: warning: generate block is unnamed [-Wunnamed-generate]
+    if (EDGE_DETECT) begin
+                     ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:79:10: warning: generate block is unnamed [-Wunnamed-generate]
+    else begin
+         ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:94:8: error: design element does not have a time scale defined but others in the design do
+module stats_sm(
+       ^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:161:8: error: design element does not have a time scale defined but others in the design do
+module rx_stats_fifo(
+       ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:199:8: error: design element does not have a time scale defined but others in the design do
+module tx_stats_fifo(
+       ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:237:8: error: design element does not have a time scale defined but others in the design do
+module meta_sync(
+       ^~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:259:8: error: design element does not have a time scale defined but others in the design do
+module wishbone_if(
+       ^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:420:8: error: design element does not have a time scale defined but others in the design do
+module stats(
+       ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:483:8: error: design element does not have a time scale defined but others in the design do
+module sync_clk_xgmii_tx(
+       ^~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:510:8: error: design element does not have a time scale defined but others in the design do
+module sync_clk_wb(
+       ^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:578:8: error: design element does not have a time scale defined but others in the design do
+module fault_sm(
+       ^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:643:9: warning: 'case' missing 'default' label [-Wcase-default]
+        case (curr_state)
+        ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:712:8: error: design element does not have a time scale defined but others in the design do
+module tx_hold_fifo(
+       ^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:755:8: error: design element does not have a time scale defined but others in the design do
+module tx_data_fifo(
+       ^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:800:8: error: design element does not have a time scale defined but others in the design do
+module tx_dequeue(
+       ^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:1329:8: error: design element does not have a time scale defined but others in the design do
+module tx_enqueue(
+       ^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:1399:8: error: design element does not have a time scale defined but others in the design do
+module rx_hold_fifo(
+       ^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:1439:8: error: design element does not have a time scale defined but others in the design do
+module rx_data_fifo(
+       ^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:1482:8: error: design element does not have a time scale defined but others in the design do
+module rx_dequeue(
+       ^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:1572:8: error: design element does not have a time scale defined but others in the design do
+module rx_enqueue(
+       ^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:1673:5: warning: 'case' missing 'default' label [-Wcase-default]
+    case (bits)
+    ^~~~
+  in 5 instances, e.g. xge_mac.stats0.tx_stats_fifo0.fifo0.ctrl0
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:2483:25: warning: generate block is unnamed [-Wunnamed-generate]
+    if (CLOCK_CROSSING) begin
+                        ^~~~~
+  in 5 instances, e.g. xge_mac.stats0.tx_stats_fifo0.fifo0.ctrl0
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:2511:10: warning: generate block is unnamed [-Wunnamed-generate]
+    else begin
+         ^~~~~
+  in 5 instances, e.g. xge_mac.stats0.tx_stats_fifo0.fifo0.ctrl0
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:2524:21: warning: generate block is unnamed [-Wunnamed-generate]
+    if (EARLY_READ) begin
+                    ^~~~~
+  in 5 instances, e.g. xge_mac.stats0.tx_stats_fifo0.fifo0.ctrl0
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:2528:10: warning: generate block is unnamed [-Wunnamed-generate]
+    else begin
+         ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:2595:24: warning: generate block is unnamed [-Wunnamed-generate]
+    if (REGISTER_READ) begin
+                       ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:2605:10: warning: generate block is unnamed [-Wunnamed-generate]
+    else begin
+         ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:3025:38: warning: generate block is unnamed [-Wunnamed-generate]
+    if (MEM_TYPE == `MEM_AUTO_SMALL) begin
+                                     ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:3044:39: warning: generate block is unnamed [-Wunnamed-generate]
+    if (MEM_TYPE == `MEM_AUTO_MEDIUM) begin
+                                      ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:3126:24: warning: generate block is unnamed [-Wunnamed-generate]
+    if (REGISTER_READ) begin
+                       ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/mac/verif/_combined_rtl_no_comments.sv:3136:10: warning: generate block is unnamed [-Wunnamed-generate]
+    else begin
+         ^~~~~
+[FAILED] Build failed: 18 errors
+✗ FAILED: mac
+
+========================================
+Test Suite Finished.
+Passed: 0 / 1
+========================================

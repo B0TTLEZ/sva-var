@@ -1,0 +1,271 @@
+[INFO] Loading test suite from: /data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_sdr_ctrl.json
+
+========================================
+Available Test Cases:
+[1] sdr_ctrl
+[0] Run ALL Tests
+========================================
+Enter selection (1-1, or 0 for all): Executing ALL 1 test cases.
+----------------------------------------
+
+========================================
+Running: sdr_ctrl
+========================================
+--- Analyzing Test Case: sdrc_top ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv
+  in instance: sdrc_top.u_sdrc_core.u_bank_ctl.bank0_fsm
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:120:46: warning: implicit conversion expands from 1 to 2 bits [-Wwidth-expand]
+         timer0_tc_r <= (ld_trp | ld_trcd) ? 1'b0 : timer0_tc_t;
+                     ~~                             ^~~~~~~~~~~
+  in instance: sdrc_top.u_sdrc_core.u_bank_ctl.bank0_fsm
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:121:18: warning: implicit conversion expands from 1 to 2 bits [-Wwidth-expand]
+         tras_ok_r   <= tras_ok_internal;
+                     ~~ ^~~~~~~~~~~~~~~~
+  in instance: sdrc_top.u_sdrc_core.u_bank_ctl.bank0_fsm
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:122:20: warning: implicit conversion expands from 1 to 2 bits [-Wwidth-expand]
+         x2b_pre_ok_r  <= x2b_pre_ok;
+                       ~~ ^~~~~~~~~~
+  in instance: sdrc_top.u_sdrc_core.u_bank_ctl.bank0_fsm
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:123:20: warning: implicit conversion expands from 1 to 2 bits [-Wwidth-expand]
+         x2b_act_ok_r  <= x2b_act_ok;
+                       ~~ ^~~~~~~~~~
+  in instance: sdrc_top.u_sdrc_core.u_bank_ctl.bank0_fsm
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:129:25: warning: implicit conversion truncates from 2 to 1 bits [-Wwidth-trunc]
+ wire  timer0_tc      = (`TARGET_DESIGN == `FPGA) ? timer0_tc_r : timer0_tc_t;
+                      ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  in instance: sdrc_top.u_sdrc_core.u_bank_ctl.bank0_fsm
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:130:25: warning: implicit conversion truncates from 2 to 1 bits [-Wwidth-trunc]
+ assign  tras_ok      = (`TARGET_DESIGN == `FPGA) ? tras_ok_r : tras_ok_internal;
+                      ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  in instance: sdrc_top.u_sdrc_core.u_bank_ctl.bank0_fsm
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:131:25: warning: implicit conversion truncates from 2 to 1 bits [-Wwidth-trunc]
+ wire  x2b_pre_ok_t   = (`TARGET_DESIGN == `FPGA) ? x2b_pre_ok_r : x2b_pre_ok;
+                      ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  in instance: sdrc_top.u_sdrc_core.u_bank_ctl.bank0_fsm
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:132:25: warning: implicit conversion truncates from 2 to 1 bits [-Wwidth-trunc]
+ wire  x2b_act_ok_t   = (`TARGET_DESIGN == `FPGA) ? x2b_act_ok_r : x2b_act_ok;
+                      ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  in instance: sdrc_top.u_sdrc_core.u_bank_ctl.bank0_fsm
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:190:7: warning: 'case' missing 'default' label [-Wcase-default]
+      case (bank_st)
+      ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:333:36: warning: implicit conversion truncates from 32 to 16 bits [-Wwidth-trunc]
+            a2x_wrdt             = app_wr_data;
+                                 ~ ^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:334:36: warning: implicit conversion truncates from 4 to 2 bits [-Wwidth-trunc]
+            a2x_wren_n           = app_wr_en_n;
+                                 ~ ^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:336:36: warning: implicit conversion expands from 16 to 32 bits [-Wwidth-expand]
+            app_rd_data          = x2a_rddt;
+                                 ~ ^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:360:35: warning: implicit conversion expands from 1 to 2 bits [-Wwidth-expand]
+                a2x_wren_n      = app_wr_en_n[3];
+                                ~ ^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:361:35: warning: implicit conversion expands from 8 to 16 bits [-Wwidth-expand]
+                a2x_wrdt        = app_wr_data[31:24];
+                                ~ ^~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:365:35: warning: implicit conversion expands from 1 to 2 bits [-Wwidth-expand]
+                a2x_wren_n      = app_wr_en_n[2];
+                                ~ ^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:366:35: warning: implicit conversion expands from 8 to 16 bits [-Wwidth-expand]
+                a2x_wrdt        = app_wr_data[23:16];
+                                ~ ^~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:370:35: warning: implicit conversion expands from 1 to 2 bits [-Wwidth-expand]
+                a2x_wren_n      = app_wr_en_n[1];
+                                ~ ^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:371:35: warning: implicit conversion expands from 8 to 16 bits [-Wwidth-expand]
+                a2x_wrdt        = app_wr_data[15:8];
+                                ~ ^~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:374:35: warning: implicit conversion expands from 1 to 2 bits [-Wwidth-expand]
+                a2x_wren_n      = app_wr_en_n[0];
+                                ~ ^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:375:35: warning: implicit conversion expands from 8 to 16 bits [-Wwidth-expand]
+                a2x_wrdt        = app_wr_data[7:0];
+                                ~ ^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:377:35: warning: implicit conversion truncates from 40 to 32 bits [-Wwidth-trunc]
+            app_rd_data         = {x2a_rddt,saved_rd_data[23:0]};
+                                ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:617:7: warning: 'case' missing 'default' label [-Wcase-default]
+      case (xfr_st)
+      ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:634:40: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                     l_xfr_end & ~mgmt_req & b2x_req & b2x_read;
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:634:40: note: place parentheses around the '&' expression to silence this warning
+                     l_xfr_end & ~mgmt_req & b2x_req & b2x_read;
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:674:40: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                     l_xfr_end & ~mgmt_req & b2x_req & b2x_write;
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:674:40: note: place parentheses around the '&' expression to silence this warning
+                     l_xfr_end & ~mgmt_req & b2x_req & b2x_write;
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:802:7: warning: 'case' missing 'default' label [-Wcase-default]
+      case (mgmt_st)
+      ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:913:15: warning: implicit conversion expands from 3 to 4 bits [-Wwidth-expand]
+           cntr1_d = rfsh_row_cnt;
+                   ~ ^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1359:26: warning: implicit conversion truncates from 10 to 9 bits [-Wwidth-trunc]
+      req_len_int      = {req_len,1'b0};
+                       ~ ^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1361:25: warning: implicit conversion truncates from 28 to 27 bits [-Wwidth-trunc]
+      req_addr_int    = {req_addr,2'b0};
+                      ~ ^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1362:25: warning: implicit conversion truncates from 11 to 9 bits [-Wwidth-trunc]
+      req_len_int     = {req_len,2'b0};
+                      ~ ^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1365:51: warning: implicit conversion expands from 12 to 13 bits [-Wwidth-expand]
+   assign max_r2b_len = (cfg_colbits == 2'b00) ? (12'h100 - {4'b0, req_addr_int[7:0]}) :
+                      ~                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1366:18: warning: implicit conversion expands from 12 to 13 bits [-Wwidth-expand]
+                        (cfg_colbits == 2'b01) ? (12'h200 - {3'b0, req_addr_int[8:0]}) :
+                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1366:44: warning: implicit conversion expands from 12 to 13 bits [-Wwidth-expand]
+                        (cfg_colbits == 2'b01) ? (12'h200 - {3'b0, req_addr_int[8:0]}) :
+                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1367:4: warning: implicit conversion expands from 12 to 13 bits [-Wwidth-expand]
+                        (cfg_colbits == 2'b10) ? (12'h400 - {2'b0, req_addr_int[9:0]}) : (12'h800 - {1'b0, req_addr_int[10:0]});
+                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1367:30: warning: implicit conversion expands from 12 to 13 bits [-Wwidth-expand]
+                        (cfg_colbits == 2'b10) ? (12'h400 - {2'b0, req_addr_int[9:0]}) : (12'h800 - {1'b0, req_addr_int[10:0]});
+                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1367:70: warning: implicit conversion expands from 12 to 13 bits [-Wwidth-expand]
+                        (cfg_colbits == 2'b10) ? (12'h400 - {2'b0, req_addr_int[9:0]}) : (12'h800 - {1'b0, req_addr_int[10:0]});
+                                                                                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1369:21: warning: implicit conversion truncates from 13 to 7 bits [-Wwidth-trunc]
+   assign r2b_len = r2b_start ? ((page_ovflw_r) ? max_r2b_len_r : lcl_req_len) :
+                  ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1369:67: warning: implicit conversion expands from 7 to 13 bits [-Wwidth-expand]
+   assign r2b_len = r2b_start ? ((page_ovflw_r) ? max_r2b_len_r : lcl_req_len) :
+                                                ~                 ^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1370:23: warning: implicit conversion expands from 7 to 13 bits [-Wwidth-expand]
+                      lcl_req_len;
+                      ^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1372:41: warning: arithmetic between operands of different types ('reg[25:0]' and 'logic[6:0]') [-Warith-op-mismatch]
+   assign next_sdr_addr = curr_sdr_addr + r2b_len;
+                          ~~~~~~~~~~~~~ ^ ~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1383:25: warning: implicit conversion truncates from 9 to 7 bits [-Wwidth-trunc]
+      lcl_req_len    <= (req_ack) ? req_len_int  :
+                     ~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1384:11: warning: implicit conversion expands from 7 to 9 bits [-Wwidth-expand]
+                        (req_ld) ? next_req_len : lcl_req_len;
+                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1384:22: warning: implicit conversion expands from 7 to 9 bits [-Wwidth-expand]
+                        (req_ld) ? next_req_len : lcl_req_len;
+                                   ^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1384:37: warning: implicit conversion expands from 7 to 9 bits [-Wwidth-expand]
+                        (req_ld) ? next_req_len : lcl_req_len;
+                                                  ^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1385:25: warning: implicit conversion truncates from 27 to 26 bits [-Wwidth-trunc]
+      curr_sdr_addr  <= (req_ack) ? req_addr_int :
+                     ~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1386:11: warning: implicit conversion expands from 26 to 27 bits [-Wwidth-expand]
+                        (req_ld) ? next_sdr_addr : curr_sdr_addr;
+                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1386:22: warning: implicit conversion expands from 26 to 27 bits [-Wwidth-expand]
+                        (req_ld) ? next_sdr_addr : curr_sdr_addr;
+                                   ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1386:38: warning: implicit conversion expands from 26 to 27 bits [-Wwidth-expand]
+                        (req_ld) ? next_sdr_addr : curr_sdr_addr;
+                                                   ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1395:7: warning: 'case' missing 'default' label [-Wcase-default]
+      case (req_st)
+      ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1430:28: warning: implicit conversion truncates from 27 to 26 bits [-Wwidth-trunc]
+assign      map_address  = (req_ack) ? req_addr_int :
+                         ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1431:14: warning: implicit conversion expands from 26 to 27 bits [-Wwidth-expand]
+                           (req_ld)  ? next_sdr_addr : curr_sdr_addr;
+                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1431:26: warning: implicit conversion expands from 26 to 27 bits [-Wwidth-expand]
+                           (req_ld)  ? next_sdr_addr : curr_sdr_addr;
+                                       ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1431:42: warning: implicit conversion expands from 26 to 27 bits [-Wwidth-expand]
+                           (req_ld)  ? next_sdr_addr : curr_sdr_addr;
+                                                       ^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1491:29: warning: comparison of differently signed types ('logic[2:0]' and 'logic signed[31:0]') [-Wsign-compare]
+   assign full_c  = (wr_cnt == FULL_DP) ? 1'b1 : 1'b0;
+                     ~~~~~~ ^~ ~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1492:29: warning: comparison of differently signed types ('logic[2:0]' and 'logic signed[31:0]') [-Wsign-compare]
+   assign afull_c = (wr_cnt == FULL_DP-1) ? 1'b1 : 1'b0;
+                     ~~~~~~ ^~ ~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1502:14: warning: comparison of differently signed types ('logic[2:0]' and 'logic signed[31:0]') [-Wsign-compare]
+                if (wr_cnt == (FULL_DP-1)) begin
+                    ~~~~~~ ^~  ~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1507:28: warning: comparison of differently signed types ('logic[2:0]' and 'logic signed[31:0]') [-Wsign-compare]
+                if (full_q && (wr_cnt<FULL_DP)) begin
+                               ~~~~~~^~~~~~~~
+  in instance: sdrc_top.u_wb2sdrc.u_cmdfifo.bin2grey
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1590:10: warning: implicit conversion expands from 3 to 9 bits [-Wwidth-expand]
+        bin_8 = bin;
+              ~ ^~~
+  in instance: sdrc_top.u_wb2sdrc.u_wrdatafifo.bin2grey
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1590:10: warning: implicit conversion expands from 4 to 9 bits [-Wwidth-expand]
+        bin_8 = bin;
+              ~ ^~~
+  in instance: sdrc_top.u_wb2sdrc.u_rddatafifo.bin2grey
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1590:10: warning: implicit conversion expands from 3 to 9 bits [-Wwidth-expand]
+        bin_8 = bin;
+              ~ ^~~
+  in instance: sdrc_top.u_wb2sdrc.u_cmdfifo.bin2grey
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1596:13: warning: implicit conversion truncates from 9 to 3 bits [-Wwidth-trunc]
+        bin2grey = grey_8;
+                 ~ ^~~~~~
+  in instance: sdrc_top.u_wb2sdrc.u_wrdatafifo.bin2grey
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1596:13: warning: implicit conversion truncates from 9 to 4 bits [-Wwidth-trunc]
+        bin2grey = grey_8;
+                 ~ ^~~~~~
+  in instance: sdrc_top.u_wb2sdrc.u_rddatafifo.bin2grey
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1596:13: warning: implicit conversion truncates from 9 to 3 bits [-Wwidth-trunc]
+        bin2grey = grey_8;
+                 ~ ^~~~~~
+  in instance: sdrc_top.u_wb2sdrc.u_cmdfifo.grey2bin
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1604:11: warning: implicit conversion expands from 3 to 9 bits [-Wwidth-expand]
+        grey_8 = grey;
+               ~ ^~~~
+  in instance: sdrc_top.u_wb2sdrc.u_wrdatafifo.grey2bin
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1604:11: warning: implicit conversion expands from 4 to 9 bits [-Wwidth-expand]
+        grey_8 = grey;
+               ~ ^~~~
+  in instance: sdrc_top.u_wb2sdrc.u_rddatafifo.grey2bin
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1604:11: warning: implicit conversion expands from 3 to 9 bits [-Wwidth-expand]
+        grey_8 = grey;
+               ~ ^~~~
+  in instance: sdrc_top.u_wb2sdrc.u_cmdfifo.grey2bin
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1610:13: warning: implicit conversion truncates from 9 to 3 bits [-Wwidth-trunc]
+        grey2bin = bin_8;
+                 ~ ^~~~~
+  in instance: sdrc_top.u_wb2sdrc.u_wrdatafifo.grey2bin
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1610:13: warning: implicit conversion truncates from 9 to 4 bits [-Wwidth-trunc]
+        grey2bin = bin_8;
+                 ~ ^~~~~
+  in instance: sdrc_top.u_wb2sdrc.u_rddatafifo.grey2bin
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1610:13: warning: implicit conversion truncates from 9 to 3 bits [-Wwidth-trunc]
+        grey2bin = bin_8;
+                 ~ ^~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1617:3: warning: 'case' missing 'default' label [-Wcase-default]
+                case (bin[1:0])
+                ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1625:3: warning: 'case' missing 'default' label [-Wcase-default]
+                case (bin[1:0])
+                ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1638:3: warning: 'case' missing 'default' label [-Wcase-default]
+                case (grey[1:0])
+                ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1646:3: warning: 'case' missing 'default' label [-Wcase-default]
+                case (grey[1:0])
+                ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/_combined_rtl_no_comments.sv:1662:18: warning: arithmetic between operands of different types ('logic signed[31:0]' and 'logic[2:0]') [-Warith-op-mismatch]
+                get_cnt = DP*2 - (rd_ptr - wr_ptr);
+                          ~~~~ ^  ~~~~~~~~~~~~~~~
+[SUCCESS] Build succeeded
+[SUCCESS] Results written to: /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/IRank/tmp_out/sdrc_top/tests.json
+✓ PASSED: sdr_ctrl
+
+========================================
+Test Suite Finished.
+Passed: 1 / 1
+========================================

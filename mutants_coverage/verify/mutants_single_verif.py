@@ -20,7 +20,8 @@ def setup_logging(output_dir: Path):
     log_dir = output_dir / "logs"
     log_dir.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_file = log_dir / f"mutants_irank_verif_{timestamp}.log"
+    # 修改日志文件名：对应单个断言验证的功能名
+    log_file = log_dir / f"mutants_assertion_verif_{timestamp}.log"
 
     logging.basicConfig(
         level=logging.INFO,
@@ -32,20 +33,20 @@ def setup_logging(output_dir: Path):
     )
     return log_file
 
-# ============================ 核心功能函数（复用并修改原代码） ============================
-def insert_svas_into_module(
+# ============================ 核心功能函数（适配单个断言处理） ============================
+def insert_sva_into_module(
     module_content: str,
     module_name: str,
-    sva_strings: List[str],
+    sva_string: str,
     indent: str = "  "
 ) -> str:
     """
-    将多个SVA字符串插入到指定模块的endmodule之前
+    将单个SVA字符串插入到指定模块的endmodule之前（适配单个断言）
     :param module_content: 原始SV文件内容
     :param module_name: 目标模块名
-    :param sva_strings: 要插入的SVA字符串列表
+    :param sva_string: 要插入的单个SVA字符串
     :param indent: 缩进字符
-    :return: 插入SVA后的模块内容，失败返回None
+    :return: 插入SVA后的模块内容，失败返回原内容
     """
     try:
         # 匹配模块的完整内容（包括module定义到endmodule）
@@ -59,14 +60,12 @@ def insert_svas_into_module(
             return module_content  # 未找到模块，返回原内容
 
         module_str = match.group(0)
-        # 拼接所有SVA，添加缩进
+        # 处理单个SVA，添加缩进
         sva_content = ""
-        for sva in sva_strings:
-            if not sva.strip():
-                continue
+        if sva_string.strip():
             # 对SVA的每一行添加缩进
-            indented_sva = '\n'.join([indent + line for line in sva.strip().split('\n')])
-            sva_content += f"{indented_sva}\n"
+            indented_sva = '\n'.join([indent + line for line in sva_string.strip().split('\n')])
+            sva_content = f"{indented_sva}\n"
 
         # 在endmodule前插入SVA
         modified_module = module_str.replace(
@@ -77,19 +76,21 @@ def insert_svas_into_module(
         modified_content = module_content[:match.start()] + modified_module + module_content[match.end():]
         return modified_content
     except Exception as e:
-        logging.error(f"插入SVA到模块 {module_name} 失败: {e}", exc_info=True)
+        logging.error(f"插入单个SVA到模块 {module_name} 失败: {e}", exc_info=True)
         return module_content
 
-def insert_svas_into_sv_file(
+def insert_single_sva_into_sv_file(
     input_sv_path: Path,
     output_sv_path: Path,
-    module_sva_map: Dict[str, List[str]]
+    module_name: str,
+    sva_string: str
 ) -> bool:
     """
-    将多个模块的SVA插入到SV文件中，生成新文件
+    将单个SVA字符串插入到SV文件的指定模块中，生成新文件（适配单个断言）
     :param input_sv_path: 输入SV文件路径（变异体的SV文件）
     :param output_sv_path: 输出SV文件路径（植入SVA后的文件）
-    :param module_sva_map: 模块名到SVA字符串列表的映射
+    :param module_name: 目标模块名（顶层模块）
+    :param sva_string: 要插入的单个SVA字符串
     :return: 成功返回True，失败返回False
     """
     try:
@@ -97,22 +98,18 @@ def insert_svas_into_sv_file(
         with open(input_sv_path, 'r', encoding='utf-8') as f:
             content = f.read()
 
-        # 遍历每个模块，插入对应的SVA
-        modified_content = content
-        for module_name, sva_strings in module_sva_map.items():
-            if not sva_strings:
-                continue
-            modified_content = insert_svas_into_module(modified_content, module_name, sva_strings)
+        # 插入单个SVA到指定模块
+        modified_content = insert_sva_into_module(content, module_name, sva_string)
 
         # 写入输出文件
         output_sv_path.parent.mkdir(parents=True, exist_ok=True)
         with open(output_sv_path, 'w', encoding='utf-8') as f:
             f.write(modified_content)
 
-        logging.info(f"SVA植入完成，输出文件: {output_sv_path}")
+        logging.info(f"单个SVA植入完成，输出文件: {output_sv_path}")
         return True
     except Exception as e:
-        logging.error(f"插入SVA到SV文件失败 {input_sv_path}: {e}", exc_info=True)
+        logging.error(f"插入单个SVA到SV文件失败 {input_sv_path}: {e}", exc_info=True)
         return False
 
 def generate_tcl_script(
@@ -120,22 +117,20 @@ def generate_tcl_script(
     top_module: str,
     clock_signal: str,
     reset_signal: str,
-    sv_file_path: Path,
-    inc_dirs: List[Path] = None
+    sv_file_path: Path
 ) -> bool:
     """
-    生成参数化的TCL脚本（适配顶层模块、时钟、复位信号）
+    生成参数化的TCL脚本（移除inc_dirs，适配单个断言验证）
     :param output_tcl_path: 输出TCL文件路径
     :param top_module: 顶层模块名
     :param clock_signal: 时钟信号名（如clk_i）
     :param reset_signal: 复位信号名（如~rst_ni）
     :param sv_file_path: 要分析的SV文件路径（植入SVA后的文件）
-    :param inc_dirs: 包含目录列表（可选）
     :return: 成功返回True，失败返回False
     """
     try:
-        # TCL模板（简化版，保留核心功能）
-        tcl_template = """# Auto-generated TCL script for mutants IRank verification
+        # TCL模板：简化注释，移除inc_dirs相关逻辑
+        tcl_template = """# Auto-generated TCL script for assertion mutant verification (single assertion mode)
 # Top module: {top_module}
 # Clock: {clock_signal}
 # Reset: {reset_signal}
@@ -143,9 +138,8 @@ def generate_tcl_script(
 # Set working directory
 cd {work_dir}
 
-# Analyze SV file
+# Analyze SV file (single assertion inserted)
 analyze -sv12 \\
-    {inc_dirs} \\
     {sv_file_path}
 
 # Elaborate top module
@@ -158,24 +152,18 @@ reset {reset_signal}
 # Set max trace length
 # set_max_trace_length 100
 
-# Prove all properties
+# Prove all properties (single assertion)
 prove -all
 
 # Exit
 exit -force
 """
-        # 处理包含目录
-        inc_dirs_str = ""
-        if inc_dirs:
-            inc_dirs_str = ' \\\n    '.join([f"+incdir+{dir_path}" for dir_path in inc_dirs])
-
-        # 填充模板
+        # 填充模板（移除inc_dirs）
         tcl_content = tcl_template.format(
             top_module=top_module,
             clock_signal=clock_signal,
             reset_signal=reset_signal,
             work_dir=output_tcl_path.parent,
-            inc_dirs=inc_dirs_str,
             sv_file_path=sv_file_path.resolve()
         )
 
@@ -196,7 +184,7 @@ def run_jg_verification(
     report_path: Path
 ) -> bool:
     """
-    运行JasperGold验证，保存报告
+    运行JasperGold验证，保存报告（逻辑复用，超时时间保持300秒）
     :param tcl_path: TCL脚本路径
     :param jg_proj_dir: JG项目目录（临时）
     :param report_path: 报告输出路径
@@ -259,7 +247,7 @@ def run_jg_verification(
 
 def extract_detailed_proof_status(report_content: str) -> Dict[str, Any]:
     """
-    从JG报告中提取详细的验证状态（复用原代码逻辑）
+    从JG报告中提取详细的验证状态（逻辑复用）
     :param report_content: 报告内容
     :return: 详细状态字典
     """
@@ -343,7 +331,7 @@ def extract_detailed_proof_status(report_content: str) -> Dict[str, Any]:
 
 def is_mutant_killed(proof_status: Dict[str, Any]) -> bool:
     """
-    判断变异体是否被杀死（复用原代码逻辑）
+    判断变异体是否被杀死（逻辑复用）
     杀死条件：编译错误 / proven数量与总断言数不相等 / 验证状态不是proven
     :param proof_status: 详细的验证状态
     :return: 被杀死返回True，否则返回False
@@ -359,29 +347,30 @@ def is_mutant_killed(proof_status: Dict[str, Any]) -> bool:
         return True
     return False
 
-# ============================ 并行处理函数 ============================
-def process_single_mutant(
+# ============================ 处理单个（断言+变异体）对 ============================
+def process_assertion_mutant_pair(
     args_tuple: Tuple
 ) -> Dict[str, Any]:
     """
-    处理单个变异体的包装函数（用于并行处理）
+    处理单个断言+变异体对的包装函数（用于并行处理）
     :param args_tuple: 包含所有必要参数的元组
     :return: 处理结果字典
     """
     (
         mutant_dir_name,  # 变异体目录名（如001）
         mutants_src_dir,  # 变异体源目录
-        top_k_output_dir,  # top_k的输出目录（如mutants_IRank/top_25）
-        module_sva_map,    # 模块到SVA的映射
-        top_module,        # 顶层模块名
-        clock_signal,      # 时钟信号
-        reset_signal,      # 复位信号
-        inc_dirs           # 包含目录
+        output_root,      # 输出根目录
+        assertion_rank,   # 断言排名（整数，如1、2）
+        assertion_sva,    # 断言的SVA字符串
+        top_module,       # 顶层模块名
+        clock_signal,     # 时钟信号
+        reset_signal,     # 复位信号
     ) = args_tuple
 
     # 初始化结果
     result = {
         "mutant_id": mutant_dir_name,
+        "assertion_rank": assertion_rank,
         "status": "failed",
         "killed": False,
         "proof_status": {},
@@ -401,28 +390,39 @@ def process_single_mutant(
             logging.error(result["error_message"])
             return result
 
-        # 输出路径
-        mutant_output_dir = top_k_output_dir / mutant_dir_name
-        ft_sv_path = mutant_output_dir / "ft" / "mutation.sv"
-        tcl_path = mutant_output_dir / "tcl" / "mutation.tcl"
-        report_path = mutant_output_dir / "rpt" / "mutation.txt"
-        jg_proj_dir = mutant_output_dir / "jg_proj"  # 临时JG项目目录
+        # 输出路径：output_root / 变异体名 / Rank_排名（适配单个断言）
+        mutant_output_dir = output_root / mutant_dir_name
+        rank_dir = mutant_output_dir / f"Rank_{assertion_rank}"
+        ft_sv_path = rank_dir / "ft" / "mutation.sv"
+        tcl_path = rank_dir / "tcl" / "mutation.tcl"
+        report_path = rank_dir / "rpt" / "mutation.txt"
+        jg_proj_dir = rank_dir / "jg_proj"
+        result_file = rank_dir / "result.json"
+
+        # 跳过已处理的变异体（通过环境变量传递--skip-existing参数）
+        if os.environ.get("SKIP_EXISTING") == "True" and result_file.exists():
+            # 读取已有的结果
+            with open(result_file, 'r', encoding='utf-8') as f:
+                existing_result = json.load(f)
+            logging.info(f"跳过已处理的（断言Rank-{assertion_rank} + 变异体{mutant_dir_name}）")
+            return existing_result
 
         result["paths"] = {
             "mutant_src_sv": str(mutant_src_sv),
             "ft_sv": str(ft_sv_path),
             "tcl": str(tcl_path),
-            "report": str(report_path)
+            "report": str(report_path),
+            "result": str(result_file)
         }
 
-        # 2. 插入SVA到变异体SV文件
-        if not insert_svas_into_sv_file(mutant_src_sv, ft_sv_path, module_sva_map):
-            result["error_message"] = "SVA植入失败"
+        # 2. 插入单个SVA到变异体SV文件（核心修改：单个断言）
+        if not insert_single_sva_into_sv_file(mutant_src_sv, ft_sv_path, top_module, assertion_sva):
+            result["error_message"] = "单个SVA植入失败"
             logging.error(result["error_message"])
             return result
 
-        # 3. 生成TCL脚本
-        if not generate_tcl_script(tcl_path, top_module, clock_signal, reset_signal, ft_sv_path, inc_dirs):
+        # 3. 生成TCL脚本（移除inc_dirs）
+        if not generate_tcl_script(tcl_path, top_module, clock_signal, reset_signal, ft_sv_path):
             result["error_message"] = "TCL脚本生成失败"
             logging.error(result["error_message"])
             return result
@@ -442,43 +442,45 @@ def process_single_mutant(
         result["killed"] = is_mutant_killed(proof_status)
         result["status"] = "success"
 
-        logging.info(f"变异体 {mutant_dir_name} 处理完成: {'KILLED' if result['killed'] else 'SURVIVED'}")
+        # 保存单个结果
+        with open(result_file, 'w', encoding='utf-8') as f:
+            json.dump(result, f, indent=2, ensure_ascii=False)
+
+        logging.info(f"处理完成（断言Rank-{assertion_rank} + 变异体{mutant_dir_name}）: {'KILLED' if result['killed'] else 'SURVIVED'}")
     except Exception as e:
-        error_msg = f"处理变异体 {mutant_dir_name} 时发生异常: {str(e)}"
+        error_msg = f"处理（断言Rank-{assertion_rank} + 变异体{mutant_dir_name}）时发生异常: {str(e)}"
         result["error_message"] = error_msg
         result["status"] = "exception"
         logging.error(error_msg, exc_info=True)
 
     return result
 
-# ============================ 主函数 ============================
+# ============================ 主函数（适配单个断言+变异体对处理） ============================
 def main():
-    # 解析命令行参数
-    parser = argparse.ArgumentParser(description="Mutants IRank Verification: 基于top_k断言的变异体验证")
-    parser.add_argument("--top-k-dir", required=True, type=Path,
-                        help="top_k断言文件所在目录（如/data/.../top_k）")
+    # 解析命令行参数（核心修改：移除top-k-dir和inc-dirs，新增top-proven-loc）
+    parser = argparse.ArgumentParser(description="单个断言对变异体的验证：按Rank统计杀死情况（single assertion mode）")
+    parser.add_argument("--top-proven-loc", required=True, type=Path,
+                        help="已证明并排序的Assertion文件路径（如assertion_scores.json）")
     parser.add_argument("--mutants-src-dir", required=True, type=Path,
                         help="变异体源目录（如/data/.../mutants）")
-    parser.add_argument("--output-root", default="mutants_IRank", type=Path,
-                        help="输出根目录（默认: mutants_IRank）")
+    parser.add_argument("--output-root", default="mutants_assertion_verif", type=Path,
+                        help="输出根目录（默认: mutants_assertion_verif）")
     parser.add_argument("--top-module", required=True, type=str,
                         help="顶层模块名（如i2c_master_top）")
     parser.add_argument("--clock", required=True, type=str,
                         help="时钟信号名（如clk_i、wb_clk_i）")
     parser.add_argument("--reset", required=True, type=str,
                         help="复位信号名（如~rst_ni、!nReset）")
-    parser.add_argument("--inc-dirs", nargs="+", type=Path, default=[],
-                        help="包含目录列表（可选，如/xxx/inc）")
     parser.add_argument("--workers", type=int, default=10,
                         help="并行处理的工作进程数（默认: 10）")
     parser.add_argument("--skip-existing", action="store_true",
-                        help="跳过已处理的变异体（避免重复工作）")
+                        help="跳过已处理的（断言+变异体）对")
 
     args = parser.parse_args()
 
     # 验证输入路径
-    if not args.top_k_dir.exists():
-        logging.error(f"top_k目录不存在: {args.top_k_dir}")
+    if not args.top_proven_loc.exists():
+        logging.error(f"Assertion文件不存在: {args.top_proven_loc}")
         sys.exit(1)
     if not args.mutants_src_dir.exists():
         logging.error(f"变异体源目录不存在: {args.mutants_src_dir}")
@@ -488,8 +490,8 @@ def main():
     args.output_root.mkdir(parents=True, exist_ok=True)
     setup_logging(args.output_root)
     logging.info("="*80)
-    logging.info("开始执行Mutants IRank验证流程")
-    logging.info(f"top_k目录: {args.top_k_dir.resolve()}")
+    logging.info("开始执行单个断言对变异体的验证流程（按Rank统计）")
+    logging.info(f"Assertion文件: {args.top_proven_loc.resolve()}")
     logging.info(f"变异体源目录: {args.mutants_src_dir.resolve()}")
     logging.info(f"输出根目录: {args.output_root.resolve()}")
     logging.info(f"顶层模块: {args.top_module}")
@@ -497,128 +499,138 @@ def main():
     logging.info(f"复位信号: {args.reset}")
     logging.info("="*80)
 
-    # 1. 遍历top_k目录下的JSON文件（top_25.json、top_50.json等）
-    top_k_files = sorted([f for f in args.top_k_dir.glob("top_*.json") if f.is_file()])
-    if not top_k_files:
-        logging.error(f"top_k目录下未找到top_*.json文件: {args.top_k_dir}")
+    # 1. 读取并解析Assertion文件（按Rank排序）
+    try:
+        with open(args.top_proven_loc, 'r', encoding='utf-8') as f:
+            assertion_data = json.load(f)
+        # 提取顶层模块的断言
+        module_name = args.top_module
+        if module_name not in assertion_data:
+            logging.error(f"Assertion文件中未找到模块{module_name}的断言")
+            sys.exit(1)
+        assertions = assertion_data[module_name]
+        # 按Rank升序排序
+        assertions_sorted = sorted(assertions, key=lambda x: x["Rank"])
+        logging.info(f"成功读取{len(assertions_sorted)}个按Rank排序的断言")
+    except Exception as e:
+        logging.error(f"读取Assertion文件失败: {e}", exc_info=True)
         sys.exit(1)
 
-    for top_k_file in top_k_files:
-        # 提取top_k名称（如top_25）
-        top_k_name = top_k_file.stem  # 如top_25
-        logging.info(f"\n{'='*60}")
-        logging.info(f"处理top_k文件: {top_k_file.name} ({top_k_name})")
-        logging.info(f"{'='*60}")
+    # 2. 获取变异体目录列表
+    mutant_dirs = sorted([d for d in args.mutants_src_dir.iterdir() if d.is_dir() and d.name.isdigit()])
+    if not mutant_dirs:
+        logging.error(f"变异体源目录下未找到数字命名的子目录: {args.mutants_src_dir}")
+        sys.exit(1)
+    logging.info(f"找到{len(mutant_dirs)}个变异体目录")
 
-        # 2. 读取top_k断言文件，构建模块到SVA的映射
-        try:
-            with open(top_k_file, 'r', encoding='utf-8') as f:
-                top_k_data = json.load(f)
-        except Exception as e:
-            logging.error(f"读取top_k文件失败 {top_k_file}: {e}", exc_info=True)
-            continue
-
-        # 构建module_sva_map: {module_name: [sva_string1, sva_string2, ...]}
-        module_sva_map = {}
-        for module_name, assertions in top_k_data.items():
-            if not isinstance(assertions, list):
-                continue
-            sva_strings = [assertion.get("sva_string", "") for assertion in assertions if assertion.get("sva_string")]
-            module_sva_map[module_name] = sva_strings
-            logging.info(f"模块 {module_name}: 提取到 {len(sva_strings)} 个SVA断言")
-
-        total_svas = sum(len(svas) for svas in module_sva_map.values())
-        logging.info(f"总计提取到 {total_svas} 个SVA断言")
-        if total_svas == 0:
-            logging.warning(f"top_k文件 {top_k_file} 中无有效SVA断言，跳过")
-            continue
-
-        # 3. 定义top_k的输出目录
-        top_k_output_dir = args.output_root / top_k_name
-        top_k_output_dir.mkdir(parents=True, exist_ok=True)
-
-        # 4. 获取变异体目录列表（001、002等，按名称排序）
-        mutant_dirs = sorted([d for d in args.mutants_src_dir.iterdir() if d.is_dir() and d.name.isdigit()])
-        if not mutant_dirs:
-            logging.error(f"变异体源目录下未找到数字命名的子目录: {args.mutants_src_dir}")
-            continue
-        logging.info(f"找到 {len(mutant_dirs)} 个变异体目录")
-
-        # 5. 准备并行处理的参数
-        args_list = []
+    # 3. 准备并行处理的参数列表（每个断言+变异体对为一个任务）
+    args_list = []
+    for assertion in assertions_sorted:
+        rank = assertion["Rank"]
+        sva_string = assertion["sva_string"]
         for mutant_dir in mutant_dirs:
             mutant_dir_name = mutant_dir.name
-            # 跳过已处理的变异体（如果指定）
-            if args.skip_existing:
-                result_file = top_k_output_dir / f"result_{mutant_dir_name}.json"
-                if result_file.exists():
-                    logging.info(f"跳过已处理的变异体: {mutant_dir_name}")
-                    continue
             args_list.append((
                 mutant_dir_name,
                 args.mutants_src_dir,
-                top_k_output_dir,
-                module_sva_map,
+                args.output_root,
+                rank,
+                sva_string,
                 args.top_module,
                 args.clock,
                 args.reset,
-                args.inc_dirs
             ))
+    # 设置环境变量用于跳过已处理（子进程读取）
+    os.environ["SKIP_EXISTING"] = "True" if args.skip_existing else "False"
 
-        # 6. 并行处理变异体
-        results = []
-        with ProcessPoolExecutor(max_workers=args.workers) as executor:
-            # 提交任务
-            future_to_mutant = {executor.submit(process_single_mutant, args): args[0] for args in args_list}
-            # 进度条显示
-            with tqdm(total=len(args_list), desc=f"处理 {top_k_name} 变异体") as pbar:
-                for future in as_completed(future_to_mutant):
-                    mutant_id = future_to_mutant[future]
-                    try:
-                        result = future.result()
-                        results.append(result)
-                        # 保存单个变异体的结果
-                        result_file = top_k_output_dir / f"result_{mutant_id}.json"
-                        with open(result_file, 'w', encoding='utf-8') as f:
-                            json.dump(result, f, indent=2, ensure_ascii=False)
-                    except Exception as e:
-                        logging.error(f"获取变异体 {mutant_id} 结果时发生异常: {e}", exc_info=True)
-                        results.append({
-                            "mutant_id": mutant_id,
-                            "status": "future_exception",
-                            "error_message": str(e)
-                        })
-                    pbar.update(1)
+    # 4. 并行处理（断言+变异体）对
+    results = []
+    with ProcessPoolExecutor(max_workers=args.workers) as executor:
+        future_to_pair = {executor.submit(process_assertion_mutant_pair, args): (args[3], args[0]) for args in args_list}
+        with tqdm(total=len(args_list), desc="处理（断言+变异体）对") as pbar:
+            for future in as_completed(future_to_pair):
+                rank, mutant_id = future_to_pair[future]
+                try:
+                    result = future.result()
+                    results.append(result)
+                except Exception as e:
+                    logging.error(f"获取（断言Rank-{rank} + 变异体{mutant_id}）结果时发生异常: {e}", exc_info=True)
+                    results.append({
+                        "mutant_id": mutant_id,
+                        "assertion_rank": rank,
+                        "status": "future_exception",
+                        "error_message": str(e)
+                    })
+                pbar.update(1)
 
-        # 7. 生成top_k的汇总结果
-        summary = {
-            "top_k": top_k_name,
-            "top_k_file": str(top_k_file.resolve()),
-            "timestamp": datetime.now().isoformat(),
+    # 5. 按断言Rank统计结果
+    rank_summary = {}
+    # 初始化每个Rank的统计
+    for assertion in assertions_sorted:
+        rank = assertion["Rank"]
+        rank_summary[rank] = {
+            "rank": rank,
+            "sva_string": assertion["sva_string"],
             "total_mutants": len(mutant_dirs),
-            "processed_mutants": len(results),
-            "killed_count": sum(1 for r in results if r.get("killed")),
-            "survived_count": sum(1 for r in results if not r.get("killed") and r.get("status") == "success"),
-            "failed_count": sum(1 for r in results if r.get("status") in ["failed", "exception", "future_exception"]),
-            "mutant_results": results
+            "processed_mutants": 0,
+            "killed_mutants": [],
+            "survived_mutants": [],
+            "failed_mutants": [],
+            "killed_count": 0,
+            "survived_count": 0,
+            "failed_count": 0
         }
+    # 遍历结果更新统计
+    for result in results:
+        rank = result["assertion_rank"]
+        mutant_id = result["mutant_id"]
+        status = result["status"]
+        killed = result.get("killed", False)
 
-        summary_file = top_k_output_dir / "summary.json"
-        with open(summary_file, 'w', encoding='utf-8') as f:
-            json.dump(summary, f, indent=2, ensure_ascii=False)
+        if rank not in rank_summary:
+            continue  # 忽略无效的rank
 
-        # 打印汇总信息
-        logging.info(f"\n{top_k_name} 汇总结果:")
-        logging.info(f"总变异体数: {summary['total_mutants']}")
-        logging.info(f"已处理数: {summary['processed_mutants']}")
-        logging.info(f"被杀死数: {summary['killed_count']}")
-        logging.info(f"存活数: {summary['survived_count']}")
-        logging.info(f"失败数: {summary['failed_count']}")
-        logging.info(f"汇总文件保存至: {summary_file}")
+        summary = rank_summary[rank]
+        summary["processed_mutants"] += 1
 
+        if status == "success":
+            if killed:
+                summary["killed_mutants"].append(mutant_id)
+                summary["killed_count"] += 1
+            else:
+                summary["survived_mutants"].append(mutant_id)
+                summary["survived_count"] += 1
+        else:
+            summary["failed_mutants"].append(mutant_id)
+            summary["failed_count"] += 1
+
+    # 6. 生成最终汇总文件
+    final_summary = {
+        "timestamp": datetime.now().isoformat(),
+        "total_assertions": len(assertions_sorted),
+        "total_mutants": len(mutant_dirs),
+        "assertion_rank_summary": list(rank_summary.values()),
+        "detailed_results": results
+    }
+    summary_file = args.output_root / "assertion_kill_summary.json"
+    with open(summary_file, 'w', encoding='utf-8') as f:
+        json.dump(final_summary, f, indent=2, ensure_ascii=False)
+
+    # 打印汇总信息
     logging.info("\n" + "="*80)
-    logging.info("所有top_k文件处理完成！")
+    logging.info("按断言Rank统计结果:")
+    logging.info(f"总断言数: {final_summary['total_assertions']}")
+    logging.info(f"总变异体数: {final_summary['total_mutants']}")
+    logging.info("-"*60)
+    for rank in sorted(rank_summary.keys()):
+        summary = rank_summary[rank]
+        logging.info(f"\n断言Rank-{rank}:")
+        logging.info(f"  杀死变异体数: {summary['killed_count']} (编号: {','.join(summary['killed_mutants']) if summary['killed_mutants'] else '无'})")
+        logging.info(f"  存活变异体数: {summary['survived_count']} (编号: {','.join(summary['survived_mutants']) if summary['survived_mutants'] else '无'})")
+        logging.info(f"  失败变异体数: {summary['failed_count']} (编号: {','.join(summary['failed_mutants']) if summary['failed_mutants'] else '无'})")
+    logging.info(f"\n汇总文件保存至: {summary_file}")
     logging.info("="*80)
+    logging.info("所有（断言+变异体）对处理完成！")
 
 if __name__ == "__main__":
     main()

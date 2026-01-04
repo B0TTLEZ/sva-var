@@ -1,0 +1,13 @@
+[
+    
+    {
+        "name": "ethernet",
+        "topModule": "ethmac",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [
+        ],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/IRank/tmp_out/ethmac/tests.json"
+    }
+]

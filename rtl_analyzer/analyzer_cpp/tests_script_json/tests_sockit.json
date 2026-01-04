@@ -1,0 +1,13 @@
+[
+    
+    {
+        "name": "sockit",
+        "topModule": "sockit_owm",
+        "sourceFiles": [
+            "/data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/verif/_combined_rtl_no_comments.sv"
+        ],
+        "headerFiles": [
+        ],
+        "outputPath": "/data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sockit/IRank/tmp_out/sockit_owm/tests.json"
+    }
+]

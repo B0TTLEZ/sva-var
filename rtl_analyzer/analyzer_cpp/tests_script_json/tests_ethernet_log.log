@@ -1,0 +1,1392 @@
+[INFO] Loading test suite from: /data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_ethernet.json
+
+========================================
+Available Test Cases:
+[1] ethernet
+[0] Run ALL Tests
+========================================
+Enter selection (1-1, or 0 for all): Executing selected test: ethernet
+----------------------------------------
+
+========================================
+Running: ethernet
+========================================
+--- Analyzing Test Case: ethmac ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:279:3: warning: 'case' missing 'default' label [-Wcase-default]
+  case(CrcHash[4:3])
+  ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:332:45: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign ResetByteCounter = MRxDV & (StateSFD & MRxDEqD | StateData[0] & ByteCntMaxFrame);
+                                   ~~~~~~~~~^~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:332:45: note: place parentheses around the '&' expression to silence this warning
+assign ResetByteCounter = MRxDV & (StateSFD & MRxDEqD | StateData[0] & ByteCntMaxFrame);
+                                   ~~~~~~~~~^~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:332:70: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign ResetByteCounter = MRxDV & (StateSFD & MRxDEqD | StateData[0] & ByteCntMaxFrame);
+                                                      ~ ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:332:70: note: place parentheses around the '&' expression to silence this warning
+assign ResetByteCounter = MRxDV & (StateSFD & MRxDEqD | StateData[0] & ByteCntMaxFrame);
+                                                        ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:334:69: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                              (StatePreamble | StateSFD | StateIdle & ~Transmitting |
+                                                        ~ ~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:334:69: note: place parentheses around the '&' expression to silence this warning
+                              (StatePreamble | StateSFD | StateIdle & ~Transmitting |
+                                                          ~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:335:59: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                               StateData[1] & ~ByteCntMax & ~(DlyCrcEn & |DlyCrcCnt)
+                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:335:59: note: place parentheses around the '&' expression to silence this warning
+                               StateData[1] & ~ByteCntMax & ~(DlyCrcEn & |DlyCrcCnt)
+                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:364:45: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign ResetIFGCounter = StateSFD  &  MRxDV & MRxDEqD | StateDrop;
+                         ~~~~~~~~~~~~~~~~~~~^~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:364:45: note: place parentheses around the '&' expression to silence this warning
+assign ResetIFGCounter = StateSFD  &  MRxDV & MRxDEqD | StateDrop;
+                         ~~~~~~~~~~~~~~~~~~~^~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:430:48: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartSFD = MRxDV & MRxDEq5 & (StateIdle & ~Transmitting | StatePreamble);
+                                     ~~~~~~~~~~^~~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:430:48: note: place parentheses around the '&' expression to silence this warning
+assign StartSFD = MRxDV & MRxDEq5 & (StateIdle & ~Transmitting | StatePreamble);
+                                     ~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:431:49: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartData0 = MRxDV & (StateSFD & MRxDEqD & IFGCounterEq24 | StateData1);
+                             ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:431:49: note: place parentheses around the '&' expression to silence this warning
+assign StartData0 = MRxDV & (StateSFD & MRxDEqD & IFGCounterEq24 | StateData1);
+                             ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:433:39: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartDrop = MRxDV & (StateIdle & Transmitting | StateSFD & ~IFGCounterEq24 &
+                            ~~~~~~~~~~^~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:433:39: note: place parentheses around the '&' expression to silence this warning
+assign StartDrop = MRxDV & (StateIdle & Transmitting | StateSFD & ~IFGCounterEq24 &
+                            ~~~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:433:83: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartDrop = MRxDV & (StateIdle & Transmitting | StateSFD & ~IFGCounterEq24 &
+                                                     ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:433:83: note: place parentheses around the '&' expression to silence this warning
+assign StartDrop = MRxDV & (StateIdle & Transmitting | StateSFD & ~IFGCounterEq24 &
+                                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:434:42: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                   MRxDEqD |  StateData0 &  ByteCntMaxFrame);
+                           ~  ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:434:42: note: place parentheses around the '&' expression to silence this warning
+                   MRxDEqD |  StateData0 &  ByteCntMaxFrame);
+                              ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:595:38: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartIdle = StateIPG & (Rule1 & NibCnt[6:0] >= IPGT | ~Rule1 & NibCnt[6:0] >= IPGR2);
+                               ~~~~~~^~~~~~~~~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:595:38: note: place parentheses around the '&' expression to silence this warning
+assign StartIdle = StateIPG & (Rule1 & NibCnt[6:0] >= IPGT | ~Rule1 & NibCnt[6:0] >= IPGR2);
+                               ~~~~~~^~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:595:69: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartIdle = StateIPG & (Rule1 & NibCnt[6:0] >= IPGT | ~Rule1 & NibCnt[6:0] >= IPGR2);
+                                                           ~ ~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:595:69: note: place parentheses around the '&' expression to silence this warning
+assign StartIdle = StateIPG & (Rule1 & NibCnt[6:0] >= IPGT | ~Rule1 & NibCnt[6:0] >= IPGR2);
+                                                             ~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:597:51: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartData[0] = ~Collision & (StatePreamble & NibCntEq15 | StateData[1] & ~TxEndFrm);
+                                    ~~~~~~~~~~~~~~^~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:597:51: note: place parentheses around the '&' expression to silence this warning
+assign StartData[0] = ~Collision & (StatePreamble & NibCntEq15 | StateData[1] & ~TxEndFrm);
+                                    ~~~~~~~~~~~~~~^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:597:79: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartData[0] = ~Collision & (StatePreamble & NibCntEq15 | StateData[1] & ~TxEndFrm);
+                                                               ~ ~~~~~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:597:79: note: place parentheses around the '&' expression to silence this warning
+assign StartData[0] = ~Collision & (StatePreamble & NibCntEq15 | StateData[1] & ~TxEndFrm);
+                                                                 ~~~~~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:600:70: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartFCS = ~Collision & StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & CrcEn
+                                                               ~ ~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:600:70: note: place parentheses around the '&' expression to silence this warning
+assign StartFCS = ~Collision & StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & CrcEn
+                                                                 ~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:600:85: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartFCS = ~Collision & StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & CrcEn
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:600:85: note: place parentheses around the '&' expression to silence this warning
+assign StartFCS = ~Collision & StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & CrcEn
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:601:55: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                | ~Collision & StatePAD & NibbleMinFl & CrcEn;
+                ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:601:55: note: place parentheses around the '&' expression to silence this warning
+                | ~Collision & StatePAD & NibbleMinFl & CrcEn;
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:604:77: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartDefer = StateIPG & ~Rule1 & CarrierSense & NibCnt[6:0] <= IPGR1 & NibCnt[6:0] != IPGR2
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:604:77: note: place parentheses around the '&' expression to silence this warning
+assign StartDefer = StateIPG & ~Rule1 & CarrierSense & NibCnt[6:0] <= IPGR1 & NibCnt[6:0] != IPGR2
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:605:31: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                  | StateIdle & CarrierSense
+                  ~ ~~~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:605:31: note: place parentheses around the '&' expression to silence this warning
+                  | StateIdle & CarrierSense
+                    ~~~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:606:42: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                  | StateJam & NibCntEq7 & (NoBckof | RandomEq0 | ~ColWindow | RetryMax)
+                  ~ ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:606:42: note: place parentheses around the '&' expression to silence this warning
+                  | StateJam & NibCntEq7 & (NoBckof | RandomEq0 | ~ColWindow | RetryMax)
+                    ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:607:34: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                  | StateBackOff & (TxUnderRun | RandomEqByteCnt)
+                  ~ ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:607:34: note: place parentheses around the '&' expression to silence this warning
+                  | StateBackOff & (TxUnderRun | RandomEqByteCnt)
+                    ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:733:92: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                       | StateFCS | StateJam | StateBackOff | StateDefer & ~ExcessiveDefer & TxStartFrm;
+                                                            ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:733:92: note: place parentheses around the '&' expression to silence this warning
+                       | StateFCS | StateJam | StateBackOff | StateDefer & ~ExcessiveDefer & TxStartFrm;
+                                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:734:50: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign ResetNibCnt = StateDefer & ExcessiveDefer & ~TxStartFrm | StatePreamble & NibCntEq15
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:734:50: note: place parentheses around the '&' expression to silence this warning
+assign ResetNibCnt = StateDefer & ExcessiveDefer & ~TxStartFrm | StatePreamble & NibCntEq15
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:734:80: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign ResetNibCnt = StateDefer & ExcessiveDefer & ~TxStartFrm | StatePreamble & NibCntEq15
+                                                               ~ ~~~~~~~~~~~~~~^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:734:80: note: place parentheses around the '&' expression to silence this warning
+assign ResetNibCnt = StateDefer & ExcessiveDefer & ~TxStartFrm | StatePreamble & NibCntEq15
+                                                                 ~~~~~~~~~~~~~~^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:735:31: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                   | StateJam & NibCntEq7 | StateIdle | StartDefer | StartIPG | StartFCS | StartJam;
+                   ~ ~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:735:31: note: place parentheses around the '&' expression to silence this warning
+                   | StateJam & NibCntEq7 | StateIdle | StartDefer | StartIPG | StartFCS | StartJam;
+                     ~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:754:40: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign IncrementByteCnt = StateData[1] & ~ByteCntMax
+                          ~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:754:40: note: place parentheses around the '&' expression to silence this warning
+assign IncrementByteCnt = StateData[1] & ~ByteCntMax
+                          ~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:755:40: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                        | StateBackOff & (&NibCnt[6:0])
+                        ~ ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:755:40: note: place parentheses around the '&' expression to silence this warning
+                        | StateBackOff & (&NibCnt[6:0])
+                          ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:756:61: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                        | (StatePAD | StateFCS) & NibCnt[0] & ~ByteCntMax;
+                        ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:756:61: note: place parentheses around the '&' expression to silence this warning
+                        | (StatePAD | StateFCS) & NibCnt[0] & ~ByteCntMax;
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:757:48: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign ResetByteCnt = StartBackoff | StateIdle & TxStartFrm | PacketFinished_q;
+                                   ~ ~~~~~~~~~~^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:757:48: note: place parentheses around the '&' expression to silence this warning
+assign ResetByteCnt = StartBackoff | StateIdle & TxStartFrm | PacketFinished_q;
+                                     ~~~~~~~~~~^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:779:23: warning: '&' within '|' [-Wbitwise-op-parentheses]
+      if(StateData[1] & DlyCrcCnt == 3'h4 | StartJam | PacketFinished_q)
+         ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:779:23: note: place parentheses around the '&' expression to silence this warning
+      if(StateData[1] & DlyCrcCnt == 3'h4 | StartJam | PacketFinished_q)
+         ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:782:46: warning: '&' within '|' [-Wbitwise-op-parentheses]
+      if(DlyCrcEn & (StateSFD | StateData[1] & (|DlyCrcCnt[2:0])))
+                              ~ ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:782:46: note: place parentheses around the '&' expression to silence this warning
+      if(DlyCrcEn & (StateSFD | StateData[1] & (|DlyCrcCnt[2:0])))
+                                ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:921:73: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign IncrementByteCnt = CtrlMux & (TxCtrlStartFrm & ~TxCtrlStartFrm_q & ~TxUsedDataIn | TxUsedDataIn & ~ControlEnd);
+                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:921:73: note: place parentheses around the '&' expression to silence this warning
+assign IncrementByteCnt = CtrlMux & (TxCtrlStartFrm & ~TxCtrlStartFrm_q & ~TxUsedDataIn | TxUsedDataIn & ~ControlEnd);
+                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:921:104: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign IncrementByteCnt = CtrlMux & (TxCtrlStartFrm & ~TxCtrlStartFrm_q & ~TxUsedDataIn | TxUsedDataIn & ~ControlEnd);
+                                                                                        ~ ~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:921:104: note: place parentheses around the '&' expression to silence this warning
+assign IncrementByteCnt = CtrlMux & (TxCtrlStartFrm & ~TxCtrlStartFrm_q & ~TxUsedDataIn | TxUsedDataIn & ~ControlEnd);
+                                                                                          ~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:923:42: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign EnableCnt = (~DlyCrcEn | DlyCrcEn & (&DlyCrcCnt[1:0]));
+                              ~ ~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:923:42: note: place parentheses around the '&' expression to silence this warning
+assign EnableCnt = (~DlyCrcEn | DlyCrcEn & (&DlyCrcCnt[1:0]));
+                                ~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:942:38: warning: '&' within '|' [-Wbitwise-op-parentheses]
+    6'h0:    if(~DlyCrcEn | DlyCrcEn & (&DlyCrcCnt[1:0]))
+                          ~ ~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:942:38: note: place parentheses around the '&' expression to silence this warning
+    6'h0:    if(~DlyCrcEn | DlyCrcEn & (&DlyCrcCnt[1:0]))
+                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1161:28: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                          (~DlyCrcEn | DlyCrcEn & DlyCrcCnt[2]);
+                                     ~ ~~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1161:28: note: place parentheses around the '&' expression to silence this warning
+                          (~DlyCrcEn | DlyCrcEn & DlyCrcCnt[2]);
+                                       ~~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1250:33: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(RxStatusWriteLatched_sync2 & r_PassAll | ReceivedPauseFrm & (~r_PassAll))
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1250:33: note: place parentheses around the '&' expression to silence this warning
+  if(RxStatusWriteLatched_sync2 & r_PassAll | ReceivedPauseFrm & (~r_PassAll))
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1250:64: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(RxStatusWriteLatched_sync2 & r_PassAll | ReceivedPauseFrm & (~r_PassAll))
+                                            ~ ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1250:64: note: place parentheses around the '&' expression to silence this warning
+  if(RxStatusWriteLatched_sync2 & r_PassAll | ReceivedPauseFrm & (~r_PassAll))
+                                              ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1297:41: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign SerialEn =  WriteOp & InProgress & ( BitCounter>31 | ( ( BitCounter == 0 ) & NoPre ) )
+                   ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1297:41: note: place parentheses around the '&' expression to silence this warning
+assign SerialEn =  WriteOp & InProgress & ( BitCounter>31 | ( ( BitCounter == 0 ) & NoPre ) )
+                   ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1298:41: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                | ~WriteOp & InProgress & (( BitCounter>31 & BitCounter<46 ) | ( ( BitCounter == 0 ) & NoPre ));
+                ~ ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1298:41: note: place parentheses around the '&' expression to silence this warning
+                | ~WriteOp & InProgress & (( BitCounter>31 & BitCounter<46 ) | ( ( BitCounter == 0 ) & NoPre ));
+                  ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1311:46: warning: '&' within '|' [-Wbitwise-op-parentheses]
+          MdoEn_2d <=  SerialEn | InProgress & BitCounter<32;
+                                ~ ~~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1311:46: note: place parentheses around the '&' expression to silence this warning
+          MdoEn_2d <=  SerialEn | InProgress & BitCounter<32;
+                                  ~~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1368:15: warning: 'case' missing 'default' label [-Wcase-default]
+              case (ByteSelect[3:0])
+              ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1528:84: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(MRxErr & MRxDV & (RxStatePreamble | RxStateSFD | (|RxStateData) | RxStateIdle & ~Transmitting))
+                                                                     ~ ~~~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1528:84: note: place parentheses around the '&' expression to silence this warning
+  if(MRxErr & MRxDV & (RxStatePreamble | RxStateSFD | (|RxStateData) | RxStateIdle & ~Transmitting))
+                                                                       ~~~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1535:38: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign TakeSample = (|RxStateData)   & (~MRxDV)                    |
+                    ~~~~~~~~~~~~~~~~~^~~~~~~~~~                    ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1535:38: note: place parentheses around the '&' expression to silence this warning
+assign TakeSample = (|RxStateData)   & (~MRxDV)                    |
+                    ~~~~~~~~~~~~~~~~~^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1536:48: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                      RxStateData[0] &   MRxDV & RxByteCntMaxFrame;
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1536:48: note: place parentheses around the '&' expression to silence this warning
+                      RxStateData[0] &   MRxDV & RxByteCntMaxFrame;
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1820:65: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign Initialize_Crc = StateSFD | DlyCrcEn & (|DlyCrcCnt[3:0]) &
+                                 ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1820:65: note: place parentheses around the '&' expression to silence this warning
+assign Initialize_Crc = StateSFD | DlyCrcEn & (|DlyCrcCnt[3:0]) &
+                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1927:35: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                          (~MRxDV & ByteCntGreat2 | ByteCntMaxFrame);
+                           ~~~~~~~^~~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1927:35: note: place parentheses around the '&' expression to silence this warning
+                          (~MRxDV & ByteCntGreat2 | ByteCntMaxFrame);
+                           ~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2040:45: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartTxDone = ~Collision & (StateFCS & NibCntEq7 | StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & ~CrcEn);
+                                   ~~~~~~~~~^~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2040:45: note: place parentheses around the '&' expression to silence this warning
+assign StartTxDone = ~Collision & (StateFCS & NibCntEq7 | StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & ~CrcEn);
+                                   ~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2040:97: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartTxDone = ~Collision & (StateFCS & NibCntEq7 | StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & ~CrcEn);
+                                                                                          ~ ~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2040:97: note: place parentheses around the '&' expression to silence this warning
+assign StartTxDone = ~Collision & (StateFCS & NibCntEq7 | StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & ~CrcEn);
+                                                                                            ~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2040:112: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartTxDone = ~Collision & (StateFCS & NibCntEq7 | StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & ~CrcEn);
+                                                        ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2040:112: note: place parentheses around the '&' expression to silence this warning
+assign StartTxDone = ~Collision & (StateFCS & NibCntEq7 | StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & ~CrcEn);
+                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2042:55: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign TooBig = ~Collision & MaxFrame & (StateData[0] & ~TxUnderRun | StateFCS);
+                                         ~~~~~~~~~~~~~^~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2042:55: note: place parentheses around the '&' expression to silence this warning
+assign TooBig = ~Collision & MaxFrame & (StateData[0] & ~TxUnderRun | StateFCS);
+                                         ~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2067:81: warning: '&' within '|' [-Wbitwise-op-parentheses]
+      if(~Collision & ByteCnt[5:0] == CollValid[5:0] & (StateData[1] | StatePAD & NibCnt[0] | StateFCS & NibCnt[0]))
+                                                                     ~ ~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2067:81: note: place parentheses around the '&' expression to silence this warning
+      if(~Collision & ByteCnt[5:0] == CollValid[5:0] & (StateData[1] | StatePAD & NibCnt[0] | StateFCS & NibCnt[0]))
+                                                                       ~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2067:104: warning: '&' within '|' [-Wbitwise-op-parentheses]
+      if(~Collision & ByteCnt[5:0] == CollValid[5:0] & (StateData[1] | StatePAD & NibCnt[0] | StateFCS & NibCnt[0]))
+                                                                                            ~ ~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2067:104: note: place parentheses around the '&' expression to silence this warning
+      if(~Collision & ByteCnt[5:0] == CollValid[5:0] & (StateData[1] | StatePAD & NibCnt[0] | StateFCS & NibCnt[0]))
+                                                                                              ~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2140:34: warning: '&' within '|' [-Wbitwise-op-parentheses]
+          | StateJam & NibCntEq7 & (~ColWindow | RetryMax))
+          ~ ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2140:34: note: place parentheses around the '&' expression to silence this warning
+          | StateJam & NibCntEq7 & (~ColWindow | RetryMax))
+            ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2143:43: warning: '&' within '|' [-Wbitwise-op-parentheses]
+      if(StateJam & NibCntEq7 & ColWindow & (RandomEq0 | NoBckof) | StateBackOff & RandomEqByteCnt)
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2143:43: note: place parentheses around the '&' expression to silence this warning
+      if(StateJam & NibCntEq7 & ColWindow & (RandomEq0 | NoBckof) | StateBackOff & RandomEqByteCnt)
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2143:82: warning: '&' within '|' [-Wbitwise-op-parentheses]
+      if(StateJam & NibCntEq7 & ColWindow & (RandomEq0 | NoBckof) | StateBackOff & RandomEqByteCnt)
+                                                                  ~ ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2143:82: note: place parentheses around the '&' expression to silence this warning
+      if(StateJam & NibCntEq7 & ColWindow & (RandomEq0 | NoBckof) | StateBackOff & RandomEqByteCnt)
+                                                                    ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3259:25: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign int_o = irq_txb  & INT_MASKOut[0] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3259:25: note: place parentheses around the '&' expression to silence this warning
+assign int_o = irq_txb  & INT_MASKOut[0] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3260:25: warning: '&' within '|' [-Wbitwise-op-parentheses]
+               irq_txe  & INT_MASKOut[1] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3260:25: note: place parentheses around the '&' expression to silence this warning
+               irq_txe  & INT_MASKOut[1] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3261:25: warning: '&' within '|' [-Wbitwise-op-parentheses]
+               irq_rxb  & INT_MASKOut[2] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3261:25: note: place parentheses around the '&' expression to silence this warning
+               irq_rxb  & INT_MASKOut[2] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3262:25: warning: '&' within '|' [-Wbitwise-op-parentheses]
+               irq_rxe  & INT_MASKOut[3] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3262:25: note: place parentheses around the '&' expression to silence this warning
+               irq_rxe  & INT_MASKOut[3] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3263:25: warning: '&' within '|' [-Wbitwise-op-parentheses]
+               irq_busy & INT_MASKOut[4] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3263:25: note: place parentheses around the '&' expression to silence this warning
+               irq_busy & INT_MASKOut[4] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3264:25: warning: '&' within '|' [-Wbitwise-op-parentheses]
+               irq_txc  & INT_MASKOut[5] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3264:25: note: place parentheses around the '&' expression to silence this warning
+               irq_txc  & INT_MASKOut[5] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3265:25: warning: '&' within '|' [-Wbitwise-op-parentheses]
+               irq_rxc  & INT_MASKOut[6] ;
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3265:25: note: place parentheses around the '&' expression to silence this warning
+               irq_rxc  & INT_MASKOut[6] ;
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3698:17: warning: implicit conversion changes signedness from 'logic[31:0]' to 'integer' [-Wsign-conversion]
+         for (rnum={24'd0,start};rnum<={24'd0,finish};rnum=rnum+1)
+                  ~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3698:35: warning: comparison of differently signed types ('integer' and 'logic[31:0]') [-Wsign-compare]
+         for (rnum={24'd0,start};rnum<={24'd0,finish};rnum=rnum+1)
+                                 ~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3800:7: warning: 'case' missing 'default' label [-Wcase-default]
+      case({m1_in_progress, m2_in_progress, m1_req, m2_req, m_wb_access_finished})
+      ^~~~
+  in instance: ethmac.wishbone.tx_fifo
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:4058:20: warning: comparison of differently signed types ('reg[4:0]' and 'logic signed[31:0]') [-Wsign-compare]
+assign full  = cnt == DEPTH;
+               ~~~ ^~ ~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:4685:64: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  else if(RxAbort | (ShortFrame & ~r_RecSmall) | LatchedMRxErr &
+                                               ~ ~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:4685:64: note: place parentheses around the '&' expression to silence this warning
+  else if(RxAbort | (ShortFrame & ~r_RecSmall) | LatchedMRxErr &
+                                                 ~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5167:33: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  WB_ACK_O <= (|BDWrite) & WbEn & WbEn_q | BDRead & WbEn & ~WbEn_q;
+              ~~~~~~~~~~~~~~~~~~^~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5167:33: note: place parentheses around the '&' expression to silence this warning
+  WB_ACK_O <= (|BDWrite) & WbEn & WbEn_q | BDRead & WbEn & ~WbEn_q;
+              ~~~~~~~~~~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5167:58: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  WB_ACK_O <= (|BDWrite) & WbEn & WbEn_q | BDRead & WbEn & ~WbEn_q;
+                                         ~ ~~~~~~~~~~~~~~^~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5167:58: note: place parentheses around the '&' expression to silence this warning
+  WB_ACK_O <= (|BDWrite) & WbEn & WbEn_q | BDRead & WbEn & ~WbEn_q;
+                                           ~~~~~~~~~~~~~~^~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5191:31: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign ram_oe = BDRead & WbEn & WbEn_q | TxEn & TxEn_q &
+                ~~~~~~~~~~~~~~^~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5191:31: note: place parentheses around the '&' expression to silence this warning
+assign ram_oe = BDRead & WbEn & WbEn_q | TxEn & TxEn_q &
+                ~~~~~~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5191:56: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign ram_oe = BDRead & WbEn & WbEn_q | TxEn & TxEn_q &
+                                       ~ ~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5191:56: note: place parentheses around the '&' expression to silence this warning
+assign ram_oe = BDRead & WbEn & WbEn_q | TxEn & TxEn_q &
+                                         ~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5192:60: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                (TxBDRead | TxPointerRead) | RxEn & RxEn_q &
+                                           ~ ~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5192:60: note: place parentheses around the '&' expression to silence this warning
+                (TxBDRead | TxPointerRead) | RxEn & RxEn_q &
+                                             ~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5219:7: warning: 'case' missing 'default' label [-Wcase-default]
+      case ({WbEn_q, RxEn_q, TxEn_q, RxEn_needed, TxEn_needed})
+      ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5639:37: warning: comparison of differently signed types ('logic[4:0]' and 'logic signed[31:0]') [-Wsign-compare]
+            tx_burst_en<= txfifo_cnt<(TX_FIFO_DEPTH-`ETH_BURST_LENGTH) & (TxLength>(`ETH_BURST_LENGTH*4+4));
+                          ~~~~~~~~~~^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5660:37: warning: comparison of differently signed types ('logic[4:0]' and 'logic signed[31:0]') [-Wsign-compare]
+            tx_burst_en<= txfifo_cnt<(TX_FIFO_DEPTH-`ETH_BURST_LENGTH) & (TxLength>(`ETH_BURST_LENGTH*4+4));
+                          ~~~~~~~~~~^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5751:39: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxUsedData_q | ~TxStartFrm_sync2 &
+                  ~ ~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5751:39: note: place parentheses around the '&' expression to silence this warning
+  if(TxUsedData_q | ~TxStartFrm_sync2 &
+                    ~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5752:15: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     (TxRetry & (~TxRetry_q) | TxAbort & (~TxAbort_q)))
+      ~~~~~~~~^~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5752:15: note: place parentheses around the '&' expression to silence this warning
+     (TxRetry & (~TxRetry_q) | TxAbort & (~TxAbort_q)))
+      ~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5752:40: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     (TxRetry & (~TxRetry_q) | TxAbort & (~TxAbort_q)))
+                             ~ ~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5752:40: note: place parentheses around the '&' expression to silence this warning
+     (TxRetry & (~TxRetry_q) | TxAbort & (~TxAbort_q)))
+                               ~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5804:25: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  {7{ WrapRxStatusBit}} & (r_TxBDNum[6:0]) |
+  ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5804:25: note: place parentheses around the '&' expression to silence this warning
+  {7{ WrapRxStatusBit}} & (r_TxBDNum[6:0]) |
+  ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5805:25: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  {7{~WrapRxStatusBit}} & (RxBDAddress + 1'b1);
+  ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5805:25: note: place parentheses around the '&' expression to silence this warning
+  {7{~WrapRxStatusBit}} & (RxBDAddress + 1'b1);
+  ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5868:70: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxAbort_wb & (~tx_burst_en) & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5868:70: note: place parentheses around the '&' expression to silence this warning
+  if(TxAbort_wb & (~tx_burst_en) & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5869:58: warning: '&' within '|' [-Wbitwise-op-parentheses]
+    (~TxAbortPacketBlocked) | TxAbort_wb & (~MasterWbTX) &
+                            ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5869:58: note: place parentheses around the '&' expression to silence this warning
+    (~TxAbortPacketBlocked) | TxAbort_wb & (~MasterWbTX) &
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5883:70: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxAbort_wb & (~tx_burst_en) & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5883:70: note: place parentheses around the '&' expression to silence this warning
+  if(TxAbort_wb & (~tx_burst_en) & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5884:59: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     (~TxAbortPacketBlocked) | TxAbort_wb & (~MasterWbTX) &
+                             ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5884:59: note: place parentheses around the '&' expression to silence this warning
+     (~TxAbortPacketBlocked) | TxAbort_wb & (~MasterWbTX) &
+                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5905:68: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxRetry_wb & !tx_burst_en & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5905:68: note: place parentheses around the '&' expression to silence this warning
+  if(TxRetry_wb & !tx_burst_en & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5906:55: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     !TxRetryPacketBlocked | TxRetry_wb & !MasterWbTX & !TxRetryPacketBlocked)
+                           ~ ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5906:55: note: place parentheses around the '&' expression to silence this warning
+     !TxRetryPacketBlocked | TxRetry_wb & !MasterWbTX & !TxRetryPacketBlocked)
+                             ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5919:68: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxRetry_wb & !tx_burst_en & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5919:68: note: place parentheses around the '&' expression to silence this warning
+  if(TxRetry_wb & !tx_burst_en & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5920:55: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     !TxRetryPacketBlocked | TxRetry_wb & !MasterWbTX & !TxRetryPacketBlocked)
+                           ~ ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5920:55: note: place parentheses around the '&' expression to silence this warning
+     !TxRetryPacketBlocked | TxRetry_wb & !MasterWbTX & !TxRetryPacketBlocked)
+                             ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5940:67: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxDone_wb & !tx_burst_en & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5940:67: note: place parentheses around the '&' expression to silence this warning
+  if(TxDone_wb & !tx_burst_en & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5941:53: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     !TxDonePacketBlocked | TxDone_wb & !MasterWbTX & !TxDonePacketBlocked)
+                          ~ ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5941:53: note: place parentheses around the '&' expression to silence this warning
+     !TxDonePacketBlocked | TxDone_wb & !MasterWbTX & !TxDonePacketBlocked)
+                            ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5954:67: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxDone_wb & !tx_burst_en & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5954:67: note: place parentheses around the '&' expression to silence this warning
+  if(TxDone_wb & !tx_burst_en & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5955:55: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     (~TxDonePacketBlocked) | TxDone_wb & !MasterWbTX & (~TxDonePacketBlocked))
+                            ~ ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5955:55: note: place parentheses around the '&' expression to silence this warning
+     (~TxDonePacketBlocked) | TxDone_wb & !MasterWbTX & (~TxDonePacketBlocked))
+                              ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5985:11: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(Flop & TxEndFrm | TxAbort | TxRetry_q)
+     ~~~~~^~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5985:11: note: place parentheses around the '&' expression to silence this warning
+  if(Flop & TxEndFrm | TxAbort | TxRetry_q)
+     ~~~~~^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6005:5: warning: 'case' missing 'default' label [-Wcase-default]
+    case(TxPointerLSB)
+    ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6017:7: warning: 'case' missing 'default' label [-Wcase-default]
+      case(TxByteCnt)
+      ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6030:23: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxStartFrm_sync2 & ~TxStartFrm | TxUsedData & Flop & TxByteCnt == 2'h3 |
+     ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6030:23: note: place parentheses around the '&' expression to silence this warning
+  if(TxStartFrm_sync2 & ~TxStartFrm | TxUsedData & Flop & TxByteCnt == 2'h3 |
+     ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6030:57: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxStartFrm_sync2 & ~TxStartFrm | TxUsedData & Flop & TxByteCnt == 2'h3 |
+                                    ~ ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6030:57: note: place parentheses around the '&' expression to silence this warning
+  if(TxStartFrm_sync2 & ~TxStartFrm | TxUsedData & Flop & TxByteCnt == 2'h3 |
+                                      ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6031:37: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     TxStartFrm & TxUsedData & Flop & TxByteCnt == 2'h0)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6031:37: note: place parentheses around the '&' expression to silence this warning
+     TxStartFrm & TxUsedData & Flop & TxByteCnt == 2'h0)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6077:5: warning: 'case' missing 'default' label [-Wcase-default]
+    case(TxPointerLSB)
+    ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6092:23: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxStartFrm_sync2 & ~TxStartFrm | TxUsedData & Flop & TxByteCnt == 2'h3 &
+     ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6092:23: note: place parentheses around the '&' expression to silence this warning
+  if(TxStartFrm_sync2 & ~TxStartFrm | TxUsedData & Flop & TxByteCnt == 2'h3 &
+     ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6092:77: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxStartFrm_sync2 & ~TxStartFrm | TxUsedData & Flop & TxByteCnt == 2'h3 &
+                                    ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6092:77: note: place parentheses around the '&' expression to silence this warning
+  if(TxStartFrm_sync2 & ~TxStartFrm | TxUsedData & Flop & TxByteCnt == 2'h3 &
+                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6093:49: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     ~LastWord | TxStartFrm & TxUsedData & Flop & TxByteCnt == 2'h0)
+               ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6093:49: note: place parentheses around the '&' expression to silence this warning
+     ~LastWord | TxStartFrm & TxUsedData & Flop & TxByteCnt == 2'h0)
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6185:53: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartRxBDRead = RxStatusWrite | RxAbortSync3 & ~RxAbortSync4 |
+                                     ~ ~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6185:53: note: place parentheses around the '&' expression to silence this warning
+assign StartRxBDRead = RxStatusWrite | RxAbortSync3 & ~RxAbortSync4 |
+                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6186:31: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                       r_RxEn & ~r_RxEn_q;
+                       ~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6186:31: note: place parentheses around the '&' expression to silence this warning
+                       r_RxEn & ~r_RxEn_q;
+                       ~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6221:37: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  else if(ShiftEnded | RxAbortSync2 & ~RxAbortSync3 | ~r_RxEn & r_RxEn_q)
+                     ~ ~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6221:37: note: place parentheses around the '&' expression to silence this warning
+  else if(ShiftEnded | RxAbortSync2 & ~RxAbortSync3 | ~r_RxEn & r_RxEn_q)
+                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6221:63: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  else if(ShiftEnded | RxAbortSync2 & ~RxAbortSync3 | ~r_RxEn & r_RxEn_q)
+                                                    ~ ~~~~~~~~^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6221:63: note: place parentheses around the '&' expression to silence this warning
+  else if(ShiftEnded | RxAbortSync2 & ~RxAbortSync3 | ~r_RxEn & r_RxEn_q)
+                                                      ~~~~~~~~^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6262:3: warning: 'case' missing 'default' label [-Wcase-default]
+  case(RxPointerLSB_rst[1:0])
+  ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6284:19: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(ShiftWillEnd & (&RxByteCnt) | RxAbort)
+     ~~~~~~~~~~~~~^~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6284:19: note: place parentheses around the '&' expression to silence this warning
+  if(ShiftWillEnd & (&RxByteCnt) | RxAbort)
+     ~~~~~~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6290:76: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartShiftWillEnd = LastByteIn  | RxValid & RxEndFrm & (&RxByteCnt) &
+                                       ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6290:76: note: place parentheses around the '&' expression to silence this warning
+assign StartShiftWillEnd = LastByteIn  | RxValid & RxEndFrm & (&RxByteCnt) &
+                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6312:5: warning: 'case' missing 'default' label [-Wcase-default]
+    case(RxPointerLSB_rst)
+    ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6319:31: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(RxValid & RxEnableWindow & RxReady | LastByteIn)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6319:31: note: place parentheses around the '&' expression to silence this warning
+  if(RxValid & RxEnableWindow & RxReady | LastByteIn)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6328:5: warning: 'case' missing 'default' label [-Wcase-default]
+    case(RxPointerLSB_rst)
+    ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6346:7: warning: 'case' missing 'default' label [-Wcase-default]
+      case(RxPointerLSB_rst)
+      ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6355:7: warning: 'case' missing 'default' label [-Wcase-default]
+      case(RxByteCnt)
+      ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6372:5: warning: 'case' missing 'default' label [-Wcase-default]
+    case(RxValidBytes)
+    ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6487:34: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(RxAbort | ShiftEndedSync_c1 & ShiftEndedSync_c2)
+             ~ ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6487:34: note: place parentheses around the '&' expression to silence this warning
+  if(RxAbort | ShiftEndedSync_c1 & ShiftEndedSync_c2)
+               ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6701:56: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     (~ReceivedPauseFrm | ReceivedPauseFrm & r_PassAll & (~r_RxFlow)))
+                        ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6701:56: note: place parentheses around the '&' expression to silence this warning
+     (~ReceivedPauseFrm | ReceivedPauseFrm & r_PassAll & (~r_RxFlow)))
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6712:18: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     & r_PassAll & (~r_RxFlow)))
+     ~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6712:18: note: place parentheses around the '&' expression to silence this warning
+     & r_PassAll & (~r_RxFlow)))
+     ~~~~~~~~~~~~^~~~~~~~~~~~~
+[SUCCESS] Build succeeded
+[SUCCESS] Results written to: /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/IRank/tmp_out/baud_gen/tests.json
+✓ PASSED: ethernet
+
+========================================
+Test Suite Finished.
+Passed: 1 / 1
+========================================
+[INFO] Loading test suite from: /data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_ethernet.json
+
+========================================
+Available Test Cases:
+[1] ethernet
+[0] Run ALL Tests
+========================================
+Enter selection (1-1, or 0 for all): Executing selected test: ethernet
+----------------------------------------
+
+========================================
+Running: ethernet
+========================================
+--- Analyzing Test Case: ethmac ---
+Source files: 1
+Header files: 0
+[INFO] Added source file: /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:279:3: warning: 'case' missing 'default' label [-Wcase-default]
+  case(CrcHash[4:3])
+  ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:332:45: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign ResetByteCounter = MRxDV & (StateSFD & MRxDEqD | StateData[0] & ByteCntMaxFrame);
+                                   ~~~~~~~~~^~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:332:45: note: place parentheses around the '&' expression to silence this warning
+assign ResetByteCounter = MRxDV & (StateSFD & MRxDEqD | StateData[0] & ByteCntMaxFrame);
+                                   ~~~~~~~~~^~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:332:70: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign ResetByteCounter = MRxDV & (StateSFD & MRxDEqD | StateData[0] & ByteCntMaxFrame);
+                                                      ~ ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:332:70: note: place parentheses around the '&' expression to silence this warning
+assign ResetByteCounter = MRxDV & (StateSFD & MRxDEqD | StateData[0] & ByteCntMaxFrame);
+                                                        ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:334:69: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                              (StatePreamble | StateSFD | StateIdle & ~Transmitting |
+                                                        ~ ~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:334:69: note: place parentheses around the '&' expression to silence this warning
+                              (StatePreamble | StateSFD | StateIdle & ~Transmitting |
+                                                          ~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:335:59: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                               StateData[1] & ~ByteCntMax & ~(DlyCrcEn & |DlyCrcCnt)
+                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:335:59: note: place parentheses around the '&' expression to silence this warning
+                               StateData[1] & ~ByteCntMax & ~(DlyCrcEn & |DlyCrcCnt)
+                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:364:45: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign ResetIFGCounter = StateSFD  &  MRxDV & MRxDEqD | StateDrop;
+                         ~~~~~~~~~~~~~~~~~~~^~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:364:45: note: place parentheses around the '&' expression to silence this warning
+assign ResetIFGCounter = StateSFD  &  MRxDV & MRxDEqD | StateDrop;
+                         ~~~~~~~~~~~~~~~~~~~^~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:430:48: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartSFD = MRxDV & MRxDEq5 & (StateIdle & ~Transmitting | StatePreamble);
+                                     ~~~~~~~~~~^~~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:430:48: note: place parentheses around the '&' expression to silence this warning
+assign StartSFD = MRxDV & MRxDEq5 & (StateIdle & ~Transmitting | StatePreamble);
+                                     ~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:431:49: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartData0 = MRxDV & (StateSFD & MRxDEqD & IFGCounterEq24 | StateData1);
+                             ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:431:49: note: place parentheses around the '&' expression to silence this warning
+assign StartData0 = MRxDV & (StateSFD & MRxDEqD & IFGCounterEq24 | StateData1);
+                             ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:433:39: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartDrop = MRxDV & (StateIdle & Transmitting | StateSFD & ~IFGCounterEq24 &
+                            ~~~~~~~~~~^~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:433:39: note: place parentheses around the '&' expression to silence this warning
+assign StartDrop = MRxDV & (StateIdle & Transmitting | StateSFD & ~IFGCounterEq24 &
+                            ~~~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:433:83: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartDrop = MRxDV & (StateIdle & Transmitting | StateSFD & ~IFGCounterEq24 &
+                                                     ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:433:83: note: place parentheses around the '&' expression to silence this warning
+assign StartDrop = MRxDV & (StateIdle & Transmitting | StateSFD & ~IFGCounterEq24 &
+                                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:434:42: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                   MRxDEqD |  StateData0 &  ByteCntMaxFrame);
+                           ~  ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:434:42: note: place parentheses around the '&' expression to silence this warning
+                   MRxDEqD |  StateData0 &  ByteCntMaxFrame);
+                              ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:595:38: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartIdle = StateIPG & (Rule1 & NibCnt[6:0] >= IPGT | ~Rule1 & NibCnt[6:0] >= IPGR2);
+                               ~~~~~~^~~~~~~~~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:595:38: note: place parentheses around the '&' expression to silence this warning
+assign StartIdle = StateIPG & (Rule1 & NibCnt[6:0] >= IPGT | ~Rule1 & NibCnt[6:0] >= IPGR2);
+                               ~~~~~~^~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:595:69: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartIdle = StateIPG & (Rule1 & NibCnt[6:0] >= IPGT | ~Rule1 & NibCnt[6:0] >= IPGR2);
+                                                           ~ ~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:595:69: note: place parentheses around the '&' expression to silence this warning
+assign StartIdle = StateIPG & (Rule1 & NibCnt[6:0] >= IPGT | ~Rule1 & NibCnt[6:0] >= IPGR2);
+                                                             ~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:597:51: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartData[0] = ~Collision & (StatePreamble & NibCntEq15 | StateData[1] & ~TxEndFrm);
+                                    ~~~~~~~~~~~~~~^~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:597:51: note: place parentheses around the '&' expression to silence this warning
+assign StartData[0] = ~Collision & (StatePreamble & NibCntEq15 | StateData[1] & ~TxEndFrm);
+                                    ~~~~~~~~~~~~~~^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:597:79: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartData[0] = ~Collision & (StatePreamble & NibCntEq15 | StateData[1] & ~TxEndFrm);
+                                                               ~ ~~~~~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:597:79: note: place parentheses around the '&' expression to silence this warning
+assign StartData[0] = ~Collision & (StatePreamble & NibCntEq15 | StateData[1] & ~TxEndFrm);
+                                                                 ~~~~~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:600:70: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartFCS = ~Collision & StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & CrcEn
+                                                               ~ ~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:600:70: note: place parentheses around the '&' expression to silence this warning
+assign StartFCS = ~Collision & StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & CrcEn
+                                                                 ~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:600:85: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartFCS = ~Collision & StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & CrcEn
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:600:85: note: place parentheses around the '&' expression to silence this warning
+assign StartFCS = ~Collision & StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & CrcEn
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:601:55: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                | ~Collision & StatePAD & NibbleMinFl & CrcEn;
+                ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:601:55: note: place parentheses around the '&' expression to silence this warning
+                | ~Collision & StatePAD & NibbleMinFl & CrcEn;
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:604:77: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartDefer = StateIPG & ~Rule1 & CarrierSense & NibCnt[6:0] <= IPGR1 & NibCnt[6:0] != IPGR2
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:604:77: note: place parentheses around the '&' expression to silence this warning
+assign StartDefer = StateIPG & ~Rule1 & CarrierSense & NibCnt[6:0] <= IPGR1 & NibCnt[6:0] != IPGR2
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:605:31: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                  | StateIdle & CarrierSense
+                  ~ ~~~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:605:31: note: place parentheses around the '&' expression to silence this warning
+                  | StateIdle & CarrierSense
+                    ~~~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:606:42: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                  | StateJam & NibCntEq7 & (NoBckof | RandomEq0 | ~ColWindow | RetryMax)
+                  ~ ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:606:42: note: place parentheses around the '&' expression to silence this warning
+                  | StateJam & NibCntEq7 & (NoBckof | RandomEq0 | ~ColWindow | RetryMax)
+                    ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:607:34: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                  | StateBackOff & (TxUnderRun | RandomEqByteCnt)
+                  ~ ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:607:34: note: place parentheses around the '&' expression to silence this warning
+                  | StateBackOff & (TxUnderRun | RandomEqByteCnt)
+                    ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:733:92: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                       | StateFCS | StateJam | StateBackOff | StateDefer & ~ExcessiveDefer & TxStartFrm;
+                                                            ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:733:92: note: place parentheses around the '&' expression to silence this warning
+                       | StateFCS | StateJam | StateBackOff | StateDefer & ~ExcessiveDefer & TxStartFrm;
+                                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:734:50: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign ResetNibCnt = StateDefer & ExcessiveDefer & ~TxStartFrm | StatePreamble & NibCntEq15
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:734:50: note: place parentheses around the '&' expression to silence this warning
+assign ResetNibCnt = StateDefer & ExcessiveDefer & ~TxStartFrm | StatePreamble & NibCntEq15
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:734:80: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign ResetNibCnt = StateDefer & ExcessiveDefer & ~TxStartFrm | StatePreamble & NibCntEq15
+                                                               ~ ~~~~~~~~~~~~~~^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:734:80: note: place parentheses around the '&' expression to silence this warning
+assign ResetNibCnt = StateDefer & ExcessiveDefer & ~TxStartFrm | StatePreamble & NibCntEq15
+                                                                 ~~~~~~~~~~~~~~^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:735:31: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                   | StateJam & NibCntEq7 | StateIdle | StartDefer | StartIPG | StartFCS | StartJam;
+                   ~ ~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:735:31: note: place parentheses around the '&' expression to silence this warning
+                   | StateJam & NibCntEq7 | StateIdle | StartDefer | StartIPG | StartFCS | StartJam;
+                     ~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:754:40: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign IncrementByteCnt = StateData[1] & ~ByteCntMax
+                          ~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:754:40: note: place parentheses around the '&' expression to silence this warning
+assign IncrementByteCnt = StateData[1] & ~ByteCntMax
+                          ~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:755:40: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                        | StateBackOff & (&NibCnt[6:0])
+                        ~ ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:755:40: note: place parentheses around the '&' expression to silence this warning
+                        | StateBackOff & (&NibCnt[6:0])
+                          ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:756:61: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                        | (StatePAD | StateFCS) & NibCnt[0] & ~ByteCntMax;
+                        ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:756:61: note: place parentheses around the '&' expression to silence this warning
+                        | (StatePAD | StateFCS) & NibCnt[0] & ~ByteCntMax;
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:757:48: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign ResetByteCnt = StartBackoff | StateIdle & TxStartFrm | PacketFinished_q;
+                                   ~ ~~~~~~~~~~^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:757:48: note: place parentheses around the '&' expression to silence this warning
+assign ResetByteCnt = StartBackoff | StateIdle & TxStartFrm | PacketFinished_q;
+                                     ~~~~~~~~~~^~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:779:23: warning: '&' within '|' [-Wbitwise-op-parentheses]
+      if(StateData[1] & DlyCrcCnt == 3'h4 | StartJam | PacketFinished_q)
+         ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:779:23: note: place parentheses around the '&' expression to silence this warning
+      if(StateData[1] & DlyCrcCnt == 3'h4 | StartJam | PacketFinished_q)
+         ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:782:46: warning: '&' within '|' [-Wbitwise-op-parentheses]
+      if(DlyCrcEn & (StateSFD | StateData[1] & (|DlyCrcCnt[2:0])))
+                              ~ ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:782:46: note: place parentheses around the '&' expression to silence this warning
+      if(DlyCrcEn & (StateSFD | StateData[1] & (|DlyCrcCnt[2:0])))
+                                ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:921:73: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign IncrementByteCnt = CtrlMux & (TxCtrlStartFrm & ~TxCtrlStartFrm_q & ~TxUsedDataIn | TxUsedDataIn & ~ControlEnd);
+                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:921:73: note: place parentheses around the '&' expression to silence this warning
+assign IncrementByteCnt = CtrlMux & (TxCtrlStartFrm & ~TxCtrlStartFrm_q & ~TxUsedDataIn | TxUsedDataIn & ~ControlEnd);
+                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:921:104: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign IncrementByteCnt = CtrlMux & (TxCtrlStartFrm & ~TxCtrlStartFrm_q & ~TxUsedDataIn | TxUsedDataIn & ~ControlEnd);
+                                                                                        ~ ~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:921:104: note: place parentheses around the '&' expression to silence this warning
+assign IncrementByteCnt = CtrlMux & (TxCtrlStartFrm & ~TxCtrlStartFrm_q & ~TxUsedDataIn | TxUsedDataIn & ~ControlEnd);
+                                                                                          ~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:923:42: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign EnableCnt = (~DlyCrcEn | DlyCrcEn & (&DlyCrcCnt[1:0]));
+                              ~ ~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:923:42: note: place parentheses around the '&' expression to silence this warning
+assign EnableCnt = (~DlyCrcEn | DlyCrcEn & (&DlyCrcCnt[1:0]));
+                                ~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:942:38: warning: '&' within '|' [-Wbitwise-op-parentheses]
+    6'h0:    if(~DlyCrcEn | DlyCrcEn & (&DlyCrcCnt[1:0]))
+                          ~ ~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:942:38: note: place parentheses around the '&' expression to silence this warning
+    6'h0:    if(~DlyCrcEn | DlyCrcEn & (&DlyCrcCnt[1:0]))
+                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1161:28: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                          (~DlyCrcEn | DlyCrcEn & DlyCrcCnt[2]);
+                                     ~ ~~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1161:28: note: place parentheses around the '&' expression to silence this warning
+                          (~DlyCrcEn | DlyCrcEn & DlyCrcCnt[2]);
+                                       ~~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1250:33: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(RxStatusWriteLatched_sync2 & r_PassAll | ReceivedPauseFrm & (~r_PassAll))
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1250:33: note: place parentheses around the '&' expression to silence this warning
+  if(RxStatusWriteLatched_sync2 & r_PassAll | ReceivedPauseFrm & (~r_PassAll))
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1250:64: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(RxStatusWriteLatched_sync2 & r_PassAll | ReceivedPauseFrm & (~r_PassAll))
+                                            ~ ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1250:64: note: place parentheses around the '&' expression to silence this warning
+  if(RxStatusWriteLatched_sync2 & r_PassAll | ReceivedPauseFrm & (~r_PassAll))
+                                              ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1297:41: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign SerialEn =  WriteOp & InProgress & ( BitCounter>31 | ( ( BitCounter == 0 ) & NoPre ) )
+                   ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1297:41: note: place parentheses around the '&' expression to silence this warning
+assign SerialEn =  WriteOp & InProgress & ( BitCounter>31 | ( ( BitCounter == 0 ) & NoPre ) )
+                   ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1298:41: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                | ~WriteOp & InProgress & (( BitCounter>31 & BitCounter<46 ) | ( ( BitCounter == 0 ) & NoPre ));
+                ~ ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1298:41: note: place parentheses around the '&' expression to silence this warning
+                | ~WriteOp & InProgress & (( BitCounter>31 & BitCounter<46 ) | ( ( BitCounter == 0 ) & NoPre ));
+                  ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1311:46: warning: '&' within '|' [-Wbitwise-op-parentheses]
+          MdoEn_2d <=  SerialEn | InProgress & BitCounter<32;
+                                ~ ~~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1311:46: note: place parentheses around the '&' expression to silence this warning
+          MdoEn_2d <=  SerialEn | InProgress & BitCounter<32;
+                                  ~~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1368:15: warning: 'case' missing 'default' label [-Wcase-default]
+              case (ByteSelect[3:0])
+              ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1528:84: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(MRxErr & MRxDV & (RxStatePreamble | RxStateSFD | (|RxStateData) | RxStateIdle & ~Transmitting))
+                                                                     ~ ~~~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1528:84: note: place parentheses around the '&' expression to silence this warning
+  if(MRxErr & MRxDV & (RxStatePreamble | RxStateSFD | (|RxStateData) | RxStateIdle & ~Transmitting))
+                                                                       ~~~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1535:38: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign TakeSample = (|RxStateData)   & (~MRxDV)                    |
+                    ~~~~~~~~~~~~~~~~~^~~~~~~~~~                    ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1535:38: note: place parentheses around the '&' expression to silence this warning
+assign TakeSample = (|RxStateData)   & (~MRxDV)                    |
+                    ~~~~~~~~~~~~~~~~~^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1536:48: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                      RxStateData[0] &   MRxDV & RxByteCntMaxFrame;
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1536:48: note: place parentheses around the '&' expression to silence this warning
+                      RxStateData[0] &   MRxDV & RxByteCntMaxFrame;
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1820:65: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign Initialize_Crc = StateSFD | DlyCrcEn & (|DlyCrcCnt[3:0]) &
+                                 ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1820:65: note: place parentheses around the '&' expression to silence this warning
+assign Initialize_Crc = StateSFD | DlyCrcEn & (|DlyCrcCnt[3:0]) &
+                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1927:35: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                          (~MRxDV & ByteCntGreat2 | ByteCntMaxFrame);
+                           ~~~~~~~^~~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:1927:35: note: place parentheses around the '&' expression to silence this warning
+                          (~MRxDV & ByteCntGreat2 | ByteCntMaxFrame);
+                           ~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2040:45: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartTxDone = ~Collision & (StateFCS & NibCntEq7 | StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & ~CrcEn);
+                                   ~~~~~~~~~^~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2040:45: note: place parentheses around the '&' expression to silence this warning
+assign StartTxDone = ~Collision & (StateFCS & NibCntEq7 | StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & ~CrcEn);
+                                   ~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2040:97: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartTxDone = ~Collision & (StateFCS & NibCntEq7 | StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & ~CrcEn);
+                                                                                          ~ ~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2040:97: note: place parentheses around the '&' expression to silence this warning
+assign StartTxDone = ~Collision & (StateFCS & NibCntEq7 | StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & ~CrcEn);
+                                                                                            ~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2040:112: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartTxDone = ~Collision & (StateFCS & NibCntEq7 | StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & ~CrcEn);
+                                                        ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2040:112: note: place parentheses around the '&' expression to silence this warning
+assign StartTxDone = ~Collision & (StateFCS & NibCntEq7 | StateData[1] & TxEndFrm & (~Pad | Pad & NibbleMinFl) & ~CrcEn);
+                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2042:55: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign TooBig = ~Collision & MaxFrame & (StateData[0] & ~TxUnderRun | StateFCS);
+                                         ~~~~~~~~~~~~~^~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2042:55: note: place parentheses around the '&' expression to silence this warning
+assign TooBig = ~Collision & MaxFrame & (StateData[0] & ~TxUnderRun | StateFCS);
+                                         ~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2067:81: warning: '&' within '|' [-Wbitwise-op-parentheses]
+      if(~Collision & ByteCnt[5:0] == CollValid[5:0] & (StateData[1] | StatePAD & NibCnt[0] | StateFCS & NibCnt[0]))
+                                                                     ~ ~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2067:81: note: place parentheses around the '&' expression to silence this warning
+      if(~Collision & ByteCnt[5:0] == CollValid[5:0] & (StateData[1] | StatePAD & NibCnt[0] | StateFCS & NibCnt[0]))
+                                                                       ~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2067:104: warning: '&' within '|' [-Wbitwise-op-parentheses]
+      if(~Collision & ByteCnt[5:0] == CollValid[5:0] & (StateData[1] | StatePAD & NibCnt[0] | StateFCS & NibCnt[0]))
+                                                                                            ~ ~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2067:104: note: place parentheses around the '&' expression to silence this warning
+      if(~Collision & ByteCnt[5:0] == CollValid[5:0] & (StateData[1] | StatePAD & NibCnt[0] | StateFCS & NibCnt[0]))
+                                                                                              ~~~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2140:34: warning: '&' within '|' [-Wbitwise-op-parentheses]
+          | StateJam & NibCntEq7 & (~ColWindow | RetryMax))
+          ~ ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2140:34: note: place parentheses around the '&' expression to silence this warning
+          | StateJam & NibCntEq7 & (~ColWindow | RetryMax))
+            ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2143:43: warning: '&' within '|' [-Wbitwise-op-parentheses]
+      if(StateJam & NibCntEq7 & ColWindow & (RandomEq0 | NoBckof) | StateBackOff & RandomEqByteCnt)
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2143:43: note: place parentheses around the '&' expression to silence this warning
+      if(StateJam & NibCntEq7 & ColWindow & (RandomEq0 | NoBckof) | StateBackOff & RandomEqByteCnt)
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2143:82: warning: '&' within '|' [-Wbitwise-op-parentheses]
+      if(StateJam & NibCntEq7 & ColWindow & (RandomEq0 | NoBckof) | StateBackOff & RandomEqByteCnt)
+                                                                  ~ ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:2143:82: note: place parentheses around the '&' expression to silence this warning
+      if(StateJam & NibCntEq7 & ColWindow & (RandomEq0 | NoBckof) | StateBackOff & RandomEqByteCnt)
+                                                                    ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3259:25: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign int_o = irq_txb  & INT_MASKOut[0] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3259:25: note: place parentheses around the '&' expression to silence this warning
+assign int_o = irq_txb  & INT_MASKOut[0] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3260:25: warning: '&' within '|' [-Wbitwise-op-parentheses]
+               irq_txe  & INT_MASKOut[1] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3260:25: note: place parentheses around the '&' expression to silence this warning
+               irq_txe  & INT_MASKOut[1] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3261:25: warning: '&' within '|' [-Wbitwise-op-parentheses]
+               irq_rxb  & INT_MASKOut[2] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3261:25: note: place parentheses around the '&' expression to silence this warning
+               irq_rxb  & INT_MASKOut[2] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3262:25: warning: '&' within '|' [-Wbitwise-op-parentheses]
+               irq_rxe  & INT_MASKOut[3] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3262:25: note: place parentheses around the '&' expression to silence this warning
+               irq_rxe  & INT_MASKOut[3] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3263:25: warning: '&' within '|' [-Wbitwise-op-parentheses]
+               irq_busy & INT_MASKOut[4] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3263:25: note: place parentheses around the '&' expression to silence this warning
+               irq_busy & INT_MASKOut[4] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3264:25: warning: '&' within '|' [-Wbitwise-op-parentheses]
+               irq_txc  & INT_MASKOut[5] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3264:25: note: place parentheses around the '&' expression to silence this warning
+               irq_txc  & INT_MASKOut[5] |
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3265:25: warning: '&' within '|' [-Wbitwise-op-parentheses]
+               irq_rxc  & INT_MASKOut[6] ;
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3265:25: note: place parentheses around the '&' expression to silence this warning
+               irq_rxc  & INT_MASKOut[6] ;
+               ~~~~~~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3698:17: warning: implicit conversion changes signedness from 'logic[31:0]' to 'integer' [-Wsign-conversion]
+         for (rnum={24'd0,start};rnum<={24'd0,finish};rnum=rnum+1)
+                  ~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3698:35: warning: comparison of differently signed types ('integer' and 'logic[31:0]') [-Wsign-compare]
+         for (rnum={24'd0,start};rnum<={24'd0,finish};rnum=rnum+1)
+                                 ~~~~^~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:3800:7: warning: 'case' missing 'default' label [-Wcase-default]
+      case({m1_in_progress, m2_in_progress, m1_req, m2_req, m_wb_access_finished})
+      ^~~~
+  in instance: ethmac.wishbone.tx_fifo
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:4058:20: warning: comparison of differently signed types ('reg[4:0]' and 'logic signed[31:0]') [-Wsign-compare]
+assign full  = cnt == DEPTH;
+               ~~~ ^~ ~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:4685:64: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  else if(RxAbort | (ShortFrame & ~r_RecSmall) | LatchedMRxErr &
+                                               ~ ~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:4685:64: note: place parentheses around the '&' expression to silence this warning
+  else if(RxAbort | (ShortFrame & ~r_RecSmall) | LatchedMRxErr &
+                                                 ~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5167:33: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  WB_ACK_O <= (|BDWrite) & WbEn & WbEn_q | BDRead & WbEn & ~WbEn_q;
+              ~~~~~~~~~~~~~~~~~~^~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5167:33: note: place parentheses around the '&' expression to silence this warning
+  WB_ACK_O <= (|BDWrite) & WbEn & WbEn_q | BDRead & WbEn & ~WbEn_q;
+              ~~~~~~~~~~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5167:58: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  WB_ACK_O <= (|BDWrite) & WbEn & WbEn_q | BDRead & WbEn & ~WbEn_q;
+                                         ~ ~~~~~~~~~~~~~~^~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5167:58: note: place parentheses around the '&' expression to silence this warning
+  WB_ACK_O <= (|BDWrite) & WbEn & WbEn_q | BDRead & WbEn & ~WbEn_q;
+                                           ~~~~~~~~~~~~~~^~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5191:31: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign ram_oe = BDRead & WbEn & WbEn_q | TxEn & TxEn_q &
+                ~~~~~~~~~~~~~~^~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5191:31: note: place parentheses around the '&' expression to silence this warning
+assign ram_oe = BDRead & WbEn & WbEn_q | TxEn & TxEn_q &
+                ~~~~~~~~~~~~~~^~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5191:56: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign ram_oe = BDRead & WbEn & WbEn_q | TxEn & TxEn_q &
+                                       ~ ~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5191:56: note: place parentheses around the '&' expression to silence this warning
+assign ram_oe = BDRead & WbEn & WbEn_q | TxEn & TxEn_q &
+                                         ~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5192:60: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                (TxBDRead | TxPointerRead) | RxEn & RxEn_q &
+                                           ~ ~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5192:60: note: place parentheses around the '&' expression to silence this warning
+                (TxBDRead | TxPointerRead) | RxEn & RxEn_q &
+                                             ~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5219:7: warning: 'case' missing 'default' label [-Wcase-default]
+      case ({WbEn_q, RxEn_q, TxEn_q, RxEn_needed, TxEn_needed})
+      ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5639:37: warning: comparison of differently signed types ('logic[4:0]' and 'logic signed[31:0]') [-Wsign-compare]
+            tx_burst_en<= txfifo_cnt<(TX_FIFO_DEPTH-`ETH_BURST_LENGTH) & (TxLength>(`ETH_BURST_LENGTH*4+4));
+                          ~~~~~~~~~~^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5660:37: warning: comparison of differently signed types ('logic[4:0]' and 'logic signed[31:0]') [-Wsign-compare]
+            tx_burst_en<= txfifo_cnt<(TX_FIFO_DEPTH-`ETH_BURST_LENGTH) & (TxLength>(`ETH_BURST_LENGTH*4+4));
+                          ~~~~~~~~~~^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5751:39: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxUsedData_q | ~TxStartFrm_sync2 &
+                  ~ ~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5751:39: note: place parentheses around the '&' expression to silence this warning
+  if(TxUsedData_q | ~TxStartFrm_sync2 &
+                    ~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5752:15: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     (TxRetry & (~TxRetry_q) | TxAbort & (~TxAbort_q)))
+      ~~~~~~~~^~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5752:15: note: place parentheses around the '&' expression to silence this warning
+     (TxRetry & (~TxRetry_q) | TxAbort & (~TxAbort_q)))
+      ~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5752:40: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     (TxRetry & (~TxRetry_q) | TxAbort & (~TxAbort_q)))
+                             ~ ~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5752:40: note: place parentheses around the '&' expression to silence this warning
+     (TxRetry & (~TxRetry_q) | TxAbort & (~TxAbort_q)))
+                               ~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5804:25: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  {7{ WrapRxStatusBit}} & (r_TxBDNum[6:0]) |
+  ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5804:25: note: place parentheses around the '&' expression to silence this warning
+  {7{ WrapRxStatusBit}} & (r_TxBDNum[6:0]) |
+  ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5805:25: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  {7{~WrapRxStatusBit}} & (RxBDAddress + 1'b1);
+  ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5805:25: note: place parentheses around the '&' expression to silence this warning
+  {7{~WrapRxStatusBit}} & (RxBDAddress + 1'b1);
+  ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5868:70: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxAbort_wb & (~tx_burst_en) & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5868:70: note: place parentheses around the '&' expression to silence this warning
+  if(TxAbort_wb & (~tx_burst_en) & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5869:58: warning: '&' within '|' [-Wbitwise-op-parentheses]
+    (~TxAbortPacketBlocked) | TxAbort_wb & (~MasterWbTX) &
+                            ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5869:58: note: place parentheses around the '&' expression to silence this warning
+    (~TxAbortPacketBlocked) | TxAbort_wb & (~MasterWbTX) &
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5883:70: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxAbort_wb & (~tx_burst_en) & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5883:70: note: place parentheses around the '&' expression to silence this warning
+  if(TxAbort_wb & (~tx_burst_en) & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5884:59: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     (~TxAbortPacketBlocked) | TxAbort_wb & (~MasterWbTX) &
+                             ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5884:59: note: place parentheses around the '&' expression to silence this warning
+     (~TxAbortPacketBlocked) | TxAbort_wb & (~MasterWbTX) &
+                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5905:68: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxRetry_wb & !tx_burst_en & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5905:68: note: place parentheses around the '&' expression to silence this warning
+  if(TxRetry_wb & !tx_burst_en & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5906:55: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     !TxRetryPacketBlocked | TxRetry_wb & !MasterWbTX & !TxRetryPacketBlocked)
+                           ~ ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5906:55: note: place parentheses around the '&' expression to silence this warning
+     !TxRetryPacketBlocked | TxRetry_wb & !MasterWbTX & !TxRetryPacketBlocked)
+                             ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5919:68: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxRetry_wb & !tx_burst_en & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5919:68: note: place parentheses around the '&' expression to silence this warning
+  if(TxRetry_wb & !tx_burst_en & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5920:55: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     !TxRetryPacketBlocked | TxRetry_wb & !MasterWbTX & !TxRetryPacketBlocked)
+                           ~ ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5920:55: note: place parentheses around the '&' expression to silence this warning
+     !TxRetryPacketBlocked | TxRetry_wb & !MasterWbTX & !TxRetryPacketBlocked)
+                             ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5940:67: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxDone_wb & !tx_burst_en & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5940:67: note: place parentheses around the '&' expression to silence this warning
+  if(TxDone_wb & !tx_burst_en & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5941:53: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     !TxDonePacketBlocked | TxDone_wb & !MasterWbTX & !TxDonePacketBlocked)
+                          ~ ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5941:53: note: place parentheses around the '&' expression to silence this warning
+     !TxDonePacketBlocked | TxDone_wb & !MasterWbTX & !TxDonePacketBlocked)
+                            ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5954:67: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxDone_wb & !tx_burst_en & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5954:67: note: place parentheses around the '&' expression to silence this warning
+  if(TxDone_wb & !tx_burst_en & MasterWbTX & MasterAccessFinished &
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5955:55: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     (~TxDonePacketBlocked) | TxDone_wb & !MasterWbTX & (~TxDonePacketBlocked))
+                            ~ ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5955:55: note: place parentheses around the '&' expression to silence this warning
+     (~TxDonePacketBlocked) | TxDone_wb & !MasterWbTX & (~TxDonePacketBlocked))
+                              ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5985:11: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(Flop & TxEndFrm | TxAbort | TxRetry_q)
+     ~~~~~^~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:5985:11: note: place parentheses around the '&' expression to silence this warning
+  if(Flop & TxEndFrm | TxAbort | TxRetry_q)
+     ~~~~~^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6005:5: warning: 'case' missing 'default' label [-Wcase-default]
+    case(TxPointerLSB)
+    ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6017:7: warning: 'case' missing 'default' label [-Wcase-default]
+      case(TxByteCnt)
+      ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6030:23: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxStartFrm_sync2 & ~TxStartFrm | TxUsedData & Flop & TxByteCnt == 2'h3 |
+     ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6030:23: note: place parentheses around the '&' expression to silence this warning
+  if(TxStartFrm_sync2 & ~TxStartFrm | TxUsedData & Flop & TxByteCnt == 2'h3 |
+     ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6030:57: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxStartFrm_sync2 & ~TxStartFrm | TxUsedData & Flop & TxByteCnt == 2'h3 |
+                                    ~ ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6030:57: note: place parentheses around the '&' expression to silence this warning
+  if(TxStartFrm_sync2 & ~TxStartFrm | TxUsedData & Flop & TxByteCnt == 2'h3 |
+                                      ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6031:37: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     TxStartFrm & TxUsedData & Flop & TxByteCnt == 2'h0)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6031:37: note: place parentheses around the '&' expression to silence this warning
+     TxStartFrm & TxUsedData & Flop & TxByteCnt == 2'h0)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6077:5: warning: 'case' missing 'default' label [-Wcase-default]
+    case(TxPointerLSB)
+    ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6092:23: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxStartFrm_sync2 & ~TxStartFrm | TxUsedData & Flop & TxByteCnt == 2'h3 &
+     ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6092:23: note: place parentheses around the '&' expression to silence this warning
+  if(TxStartFrm_sync2 & ~TxStartFrm | TxUsedData & Flop & TxByteCnt == 2'h3 &
+     ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6092:77: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(TxStartFrm_sync2 & ~TxStartFrm | TxUsedData & Flop & TxByteCnt == 2'h3 &
+                                    ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6092:77: note: place parentheses around the '&' expression to silence this warning
+  if(TxStartFrm_sync2 & ~TxStartFrm | TxUsedData & Flop & TxByteCnt == 2'h3 &
+                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6093:49: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     ~LastWord | TxStartFrm & TxUsedData & Flop & TxByteCnt == 2'h0)
+               ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6093:49: note: place parentheses around the '&' expression to silence this warning
+     ~LastWord | TxStartFrm & TxUsedData & Flop & TxByteCnt == 2'h0)
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6185:53: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartRxBDRead = RxStatusWrite | RxAbortSync3 & ~RxAbortSync4 |
+                                     ~ ~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6185:53: note: place parentheses around the '&' expression to silence this warning
+assign StartRxBDRead = RxStatusWrite | RxAbortSync3 & ~RxAbortSync4 |
+                                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6186:31: warning: '&' within '|' [-Wbitwise-op-parentheses]
+                       r_RxEn & ~r_RxEn_q;
+                       ~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6186:31: note: place parentheses around the '&' expression to silence this warning
+                       r_RxEn & ~r_RxEn_q;
+                       ~~~~~~~^~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6221:37: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  else if(ShiftEnded | RxAbortSync2 & ~RxAbortSync3 | ~r_RxEn & r_RxEn_q)
+                     ~ ~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6221:37: note: place parentheses around the '&' expression to silence this warning
+  else if(ShiftEnded | RxAbortSync2 & ~RxAbortSync3 | ~r_RxEn & r_RxEn_q)
+                       ~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6221:63: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  else if(ShiftEnded | RxAbortSync2 & ~RxAbortSync3 | ~r_RxEn & r_RxEn_q)
+                                                    ~ ~~~~~~~~^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6221:63: note: place parentheses around the '&' expression to silence this warning
+  else if(ShiftEnded | RxAbortSync2 & ~RxAbortSync3 | ~r_RxEn & r_RxEn_q)
+                                                      ~~~~~~~~^~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6262:3: warning: 'case' missing 'default' label [-Wcase-default]
+  case(RxPointerLSB_rst[1:0])
+  ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6284:19: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(ShiftWillEnd & (&RxByteCnt) | RxAbort)
+     ~~~~~~~~~~~~~^~~~~~~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6284:19: note: place parentheses around the '&' expression to silence this warning
+  if(ShiftWillEnd & (&RxByteCnt) | RxAbort)
+     ~~~~~~~~~~~~~^~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6290:76: warning: '&' within '|' [-Wbitwise-op-parentheses]
+assign StartShiftWillEnd = LastByteIn  | RxValid & RxEndFrm & (&RxByteCnt) &
+                                       ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6290:76: note: place parentheses around the '&' expression to silence this warning
+assign StartShiftWillEnd = LastByteIn  | RxValid & RxEndFrm & (&RxByteCnt) &
+                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6312:5: warning: 'case' missing 'default' label [-Wcase-default]
+    case(RxPointerLSB_rst)
+    ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6319:31: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(RxValid & RxEnableWindow & RxReady | LastByteIn)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~ ~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6319:31: note: place parentheses around the '&' expression to silence this warning
+  if(RxValid & RxEnableWindow & RxReady | LastByteIn)
+     ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6328:5: warning: 'case' missing 'default' label [-Wcase-default]
+    case(RxPointerLSB_rst)
+    ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6346:7: warning: 'case' missing 'default' label [-Wcase-default]
+      case(RxPointerLSB_rst)
+      ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6355:7: warning: 'case' missing 'default' label [-Wcase-default]
+      case(RxByteCnt)
+      ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6372:5: warning: 'case' missing 'default' label [-Wcase-default]
+    case(RxValidBytes)
+    ^~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6487:34: warning: '&' within '|' [-Wbitwise-op-parentheses]
+  if(RxAbort | ShiftEndedSync_c1 & ShiftEndedSync_c2)
+             ~ ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6487:34: note: place parentheses around the '&' expression to silence this warning
+  if(RxAbort | ShiftEndedSync_c1 & ShiftEndedSync_c2)
+               ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6701:56: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     (~ReceivedPauseFrm | ReceivedPauseFrm & r_PassAll & (~r_RxFlow)))
+                        ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6701:56: note: place parentheses around the '&' expression to silence this warning
+     (~ReceivedPauseFrm | ReceivedPauseFrm & r_PassAll & (~r_RxFlow)))
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6712:18: warning: '&' within '|' [-Wbitwise-op-parentheses]
+     & r_PassAll & (~r_RxFlow)))
+     ~~~~~~~~~~~~^~~~~~~~~~~~~
+../../../my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/verif/_combined_rtl_no_comments.sv:6712:18: note: place parentheses around the '&' expression to silence this warning
+     & r_PassAll & (~r_RxFlow)))
+     ~~~~~~~~~~~~^~~~~~~~~~~~~
+[SUCCESS] Build succeeded
+[SUCCESS] Results written to: /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/ethernet/IRank/tmp_out/ethmac/tests.json
+✓ PASSED: ethernet
+
+========================================
+Test Suite Finished.
+Passed: 1 / 1
+========================================
+[INFO] Loading test suite from: /data/sva-var/rtl_analyzer/analyzer_cpp/tests_script_json/tests_ethernet.json
+
+========================================
+Available Test Cases:
+[1] ethernet
+[0] Run ALL Tests
+========================================
+Enter selection (1-1, or 0 for all): 
