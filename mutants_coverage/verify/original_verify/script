@@ -1,0 +1,47 @@
+# python mutant_jg_check.py \
+#   --mutants-src-dir /path/to/your/mutants \  # 变异体源目录（数字命名子目录）
+#   --output-root ./mutant_jg_check \          # 输出目录（默认mutant_jg_check）
+#   --top-module i2c_master_top \              # 你的顶层模块名（如i2c_master_top）
+#   --workers 10 \                             # 并行进程数（根据服务器配置调整）
+#   --skip-existing                            # 可选：跳过已处理的变异体
+
+
+# 看变异体能不能正常运行
+python /data/sva-var/mutants_coverage/verify/original_verify/mutant_jg_check.py \
+  --mutants-src-dir /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_2/mutants \
+  --output-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_2/mutant_jg_check \
+  --top-module i2c_master_top \
+  --workers 10 \
+  --skip-existing    
+
+# 新增 separate参数
+python /data/sva-var/mutants_coverage/verify/original_verify/mutant_jg_check.py \
+  --separate \
+  --mutants-src-dir /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_5/mutants \
+  --output-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_5/mutant_jg_check_separate \
+  --top-module i2c_master_top \
+  --svfiles-loc /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/source_code/sv_files.txt \
+  --workers 10 \
+  --skip-existing
+
+# 看断言是否正确
+python /data/sva-var/mutants_coverage/verify/original_verify/sva_verify.py \
+    --top-sv-loc /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/sva/_combined_rtl_no_comments.sv \
+    --output-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_4/sva_verify \
+    --assertions-txt-loc /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_4/assertions.txt \
+    --top-module i2c_master_top \
+    --clock wb_clk_i \
+    --reset wb_rst_i \
+    --workers 10 \
+    --skip-existing                        
+
+# 分开sv
+python /data/sva-var/mutants_coverage/verify/original_verify/sva_verify_separate.py \
+    --svfiles-loc /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/source_code/sv_files.txt \
+    --output-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_4/sva_verify \
+    --assertions-txt-loc /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_4/assertions.txt \
+    --top-module i2c_master_top \
+    --clock wb_clk_i \
+    --reset wb_rst_i \
+    --workers 10 \
+    --skip-existing

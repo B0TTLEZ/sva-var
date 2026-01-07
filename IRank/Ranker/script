@@ -53,3 +53,13 @@ python /data/sva-var/IRank/Ranker/bigModule_scorer_2.py \
 /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/verif/sva_status.json \
 /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/ \
 /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/IRank/assertion_scores.json
+
+# bigModule_scorer_3
+# 新增：mod参数（与module紧耦合）。适配学长的断言格式(txt)
+# 指定模块名（推荐）
+python /data/sva-var/IRank/Ranker/bigModule_scorer_3.py \
+--mod new \
+--module i2c_master_top \
+/data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_4/assertions.txt \
+/data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/ \
+/data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_4/IRank/assertion_scores.json

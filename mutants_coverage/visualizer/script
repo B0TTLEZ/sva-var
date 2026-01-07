@@ -53,3 +53,24 @@ python /data/sva-var/mutants_coverage/visualizer/visualizer_singleBysingle.py \
     --output-img /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/mutants_IRank_single/visualization/cumulative_killed.png \
     --score-file /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/sdr_ctrl/IRank/assertion_scores.json \
     --top-module sdrc_top
+
+
+python /data/sva-var/mutants_coverage/visualizer/visualizer_singleBysingle.py \
+    --result-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_2/mutants_IRank_single \
+    --output-img /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_2/visualization/cumulative_killed.png \
+    --score-file /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/IRank/assertion_scores.json \
+    --top-module i2c_master_top
+
+python /data/sva-var/mutants_coverage/visualizer/visualizer_singleBysingle.py \
+    --result-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_3/mutants_IRank_single \
+    --output-img /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_3/visualization/cumulative_killed.png \
+    --score-file /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/IRank/assertion_scores.json \
+    --top-module i2c_master_top
+
+python /data/sva-var/mutants_coverage/visualizer/visualizer_singleBysingle.py \
+    --result-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_4/mutants_IRank_single \
+    --output-img /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_4/visualization/cumulative_killed.png \
+    --score-file /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/IRank/assertion_scores.json \
+    --top-module i2c_master_top
+
+python /data/sva-var/mutants_coverage/visualizer/coverage_visualizer.py --result-root /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/mutants_coverage/strategy_2/mutants_IRank

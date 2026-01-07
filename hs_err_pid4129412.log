@@ -1,0 +1,2514 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007f2311ba6f6e, pid=4129412, tid=139788263622336
+#
+# JRE version: 6.0_33-b04
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (20.8-b03 mixed mode linux-amd64 compressed oops)
+# Problematic frame:
+# C  [libJasper4.so+0x182f6e]  OODb::OODbImpl::SqliteKeyBlobTable::getAllKeyQueryString() const+0xe
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000000008dd7000):  JavaThread "Thread-1" [_thread_in_native, id=4132992, stack(0x00007f22fccc1000,0x00007f22fdcc1000)]
+
+siginfo:si_signo=SIGSEGV: si_errno=0, si_code=1 (SEGV_MAPERR), si_addr=0x0000000000000018
+
+Registers:
+RAX=0x0000000000000020, RBX=0x00007f22fdc37870, RCX=0x0000000000000000, RDX=0x0000000000000000
+RSP=0x00007f22fdc377d0, RBP=0x0000000000000000, RSI=0x0000000000000000, RDI=0x00007f22fdc37870
+R8 =0x0000000002645200, R9 =0x0000000000000000, R10=0x00007f2311a29190, R11=0x00007f2311ba7ee0
+R12=0x00000000093a8128, R13=0x00007f22fdc37870, R14=0x00007f231ba8c820, R15=0x00007f22fdc379c0
+RIP=0x00007f2311ba6f6e, EFLAGS=0x0000000000010202, CSGSFS=0x002b000000000033, ERR=0x0000000000000004
+  TRAPNO=0x000000000000000e
+
+Top of Stack: (sp=0x00007f22fdc377d0)
+0x00007f22fdc377d0:   ec051314bfeeee04 edbfeeee040bf5f0
+0x00007f22fdc377e0:   0000000000000000 0000000000000000
+0x00007f22fdc377f0:   0000000000000000 0000000000000000
+0x00007f22fdc37800:   4141414141414141 4141414141414141
+0x00007f22fdc37810:   4141414141414141 4141414141414141
+0x00007f22fdc37820:   0000000000000000 0000000000000000
+0x00007f22fdc37830:   0000000000000000 00007f22fdc37940
+0x00007f22fdc37840:   0000000000000000 00007f2311ba7f19
+0x00007f22fdc37850:   1a1a1a1a1a1a1a1a 1a1a1a1a1a1a1a1a
+0x00007f22fdc37860:   0000000000000000 0000000000000000
+0x00007f22fdc37870:   0000000000000000 0000000000000000
+0x00007f22fdc37880:   2020202020202020 2020202020202020
+0x00007f22fdc37890:   2020202020202020 2020202020202020
+0x00007f22fdc378a0:   0000000000000000 0000000000000000
+0x00007f22fdc378b0:   0000000000000000 0000000000000000
+0x00007f22fdc378c0:   0000000000000000 0000000000000000
+0x00007f22fdc378d0:   0000000000000000 0000000000000000
+0x00007f22fdc378e0:   0000000000000000 0000000000000000
+0x00007f22fdc378f0:   0000000000000000 0000000000000000
+0x00007f22fdc37900:   00000000093a80b0 00007f22fdc379d0
+0x00007f22fdc37910:   00000000093a8128 0000000009495158
+0x00007f22fdc37920:   00007f231ba8c820 00007f2310fd2cec
+0x00007f22fdc37930:   0000000000000000 0000000000000000
+0x00007f22fdc37940:   0000000000000000 0000000000000000
+0x00007f22fdc37950:   0000000000000000 00007f2310fcda08
+0x00007f22fdc37960:   00000000093a80b0 0000000000000002
+0x00007f22fdc37970:   00000000093a8128 00007f2310fdb144
+0x00007f22fdc37980:   2020202020202020 00007f22fdc379bf
+0x00007f22fdc37990:   2020202020202020 0000000009495140
+0x00007f22fdc379a0:   00007f22fdc379d0 00007f22fdc379c0
+0x00007f22fdc379b0:   0000000000000000 0000000000000000
+0x00007f22fdc379c0:   00007f2322f7ffb8 0000000000000000 
+
+Instructions: (pc=0x00007f2311ba6f6e)
+0x00007f2311ba6f4e:   ff 48 89 c5 eb eb eb d9 eb f7 eb d5 eb f3 0f 1f
+0x00007f2311ba6f5e:   40 00 55 53 48 89 fb b8 20 00 00 00 48 83 ec 68
+0x00007f2311ba6f6e:   48 8b 7e 18 be ff ff ff ff 66 89 44 24 10 e8 9f
+0x00007f2311ba6f7e:   90 f0 ff 48 8d 3d df 28 01 00 ba 20 00 00 00 be 
+
+Register to memory mapping:
+
+RAX=0x0000000000000020 is an unknown value
+RBX=0x00007f22fdc37870 is pointing into the stack for thread: 0x0000000008dd7000
+RCX=0x0000000000000000 is an unknown value
+RDX=0x0000000000000000 is an unknown value
+RSP=0x00007f22fdc377d0 is pointing into the stack for thread: 0x0000000008dd7000
+RBP=0x0000000000000000 is an unknown value
+RSI=0x0000000000000000 is an unknown value
+RDI=0x00007f22fdc37870 is pointing into the stack for thread: 0x0000000008dd7000
+R8 =0x0000000002645200 is an unknown value
+R9 =0x0000000000000000 is an unknown value
+R10=0x00007f2311a29190: <offset 0x5190> in /root/jg/jasper_2020.03/Linux64/lib/libJasper4.so at 0x00007f2311a24000
+R11=0x00007f2311ba7ee0: _ZNK4OODb8OODbImpl18SqliteKeyBlobTable10getAllKeysEv+0 in /root/jg/jasper_2020.03/Linux64/lib/libJasper4.so at 0x00007f2311a24000
+R12=0x00000000093a8128 is an unknown value
+R13=0x00007f22fdc37870 is pointing into the stack for thread: 0x0000000008dd7000
+R14=0x00007f231ba8c820: __pthread_key_create+0 in /lib/x86_64-linux-gnu/libc.so.6 at 0x00007f231b9ee000
+R15=0x00007f22fdc379c0 is pointing into the stack for thread: 0x0000000008dd7000
+
+
+Stack: [0x00007f22fccc1000,0x00007f22fdcc1000],  sp=0x00007f22fdc377d0,  free space=15833k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libJasper4.so+0x182f6e]  OODb::OODbImpl::SqliteKeyBlobTable::getAllKeyQueryString() const+0xe
+
+[error occurred during error reporting (printing native stack), id 0xb]
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x0000000008dd9000 JavaThread "Thread-2" [_thread_in_native, id=4133026, stack(0x00007f22fb4be000,0x00007f22fbcbe000)]
+=>0x0000000008dd7000 JavaThread "Thread-1" [_thread_in_native, id=4132992, stack(0x00007f22fccc1000,0x00007f22fdcc1000)]
+  0x0000000008dd6000 JavaThread "Thread-0" [_thread_in_native, id=4132979, stack(0x00007f22fdcc2000,0x00007f22fe4c2000)]
+  0x0000000006be5800 JavaThread "ManagedSystemInStream reader thread" daemon [_thread_blocked, id=4131276, stack(0x00007f23014c8000,0x00007f23015c8000)]
+  0x0000000005dc0800 JavaThread "tcl" [_thread_in_native, id=4130928, stack(0x00007f2300cc8000,0x00007f23014c8000)]
+  0x0000000005dbf800 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=4130783, stack(0x00007f23016c9000,0x00007f23017c9000)]
+  0x0000000005dbf000 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=4130782, stack(0x00007f23017ca000,0x00007f23018ca000)]
+  0x0000000005dbe000 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=4130781, stack(0x00007f23018cb000,0x00007f23019cb000)]
+  0x00000000033c5000 JavaThread "Attach Listener" daemon [_thread_blocked, id=4130777, stack(0x00007f23019cb000,0x00007f2301acb000)]
+  0x00000000033c4800 JavaThread "Finalizer" daemon [_thread_blocked, id=4130751, stack(0x00007f2301acb000,0x00007f2301bcb000)]
+  0x00000000033c3800 JavaThread "Reference Handler" daemon [_thread_blocked, id=4130750, stack(0x00007f2301bcb000,0x00007f2301ccb000)]
+  0x00000000033c3000 JavaThread "main" [_thread_in_native, id=4129412, stack(0x00007fffcf72b000,0x00007fffcf82b000)]
+
+Other Threads:
+  0x0000000005d80000 VMThread [stack: 0x00007f2301ccc000,0x00007f2301dcc000] [id=4130742]
+  0x0000000005d81000 WatcherThread [stack: 0x00007f23015c9000,0x00007f23016c9000] [id=4130784]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ PSYoungGen      total 599872K, used 61701K [0x00000007aaab0000, 0x00000007d4830000, 0x0000000800000000)
+  eden space 514176K, 12% used [0x00000007aaab0000,0x00000007ae6f1640,0x00000007ca0d0000)
+  from space 85696K, 0% used [0x00000007cf480000,0x00000007cf480000,0x00000007d4830000)
+  to   space 85696K, 0% used [0x00000007ca0d0000,0x00000007ca0d0000,0x00000007cf480000)
+ PSOldGen        total 1371264K, used 0K [0x0000000700000000, 0x0000000753b20000, 0x00000007aaab0000)
+  object space 1371264K, 0% used [0x0000000700000000,0x0000000700000000,0x0000000753b20000)
+ PSPermGen       total 21248K, used 7740K [0x00000006fae00000, 0x00000006fc2c0000, 0x0000000700000000)
+  object space 21248K, 36% used [0x00000006fae00000,0x00000006fb58f128,0x00000006fc2c0000)
+
+Code Cache  [0x00007f2304a00000, 0x00007f2304c70000, 0x00007f2307a00000)
+ total_blobs=354 nmethods=13 adapters=296 free_code_cache=49819072 largest_free_block=11328
+
+Dynamic libraries:
+00400000-0042a000 r-xp 00000000 00:38 87429257                           /root/jg/jasper_2020.03/Linux64/bin/java
+0042b000-0042c000 r--p 0002a000 00:38 87429257                           /root/jg/jasper_2020.03/Linux64/bin/java
+0042c000-0042d000 rw-p 0002b000 00:38 87429257                           /root/jg/jasper_2020.03/Linux64/bin/java
+0042d000-0042e000 rw-p 00000000 00:00 0 
+0239f000-09da8000 rw-p 00000000 00:00 0                                  [heap]
+6fae00000-6fc2c0000 rw-p 00000000 00:00 0 
+6fc2c0000-700000000 rw-p 00000000 00:00 0 
+700000000-753b20000 rw-p 00000000 00:00 0 
+753b20000-7aaab0000 rw-p 00000000 00:00 0 
+7aaab0000-7d4830000 rw-p 00000000 00:00 0 
+7d4830000-800000000 rw-p 00000000 00:00 0 
+7f22facbc000-7f22facbd000 ---p 00000000 00:00 0 
+7f22facbd000-7f22fb4bd000 rwxp 00000000 00:00 0 
+7f22fb4bd000-7f22fb4be000 ---p 00000000 00:00 0 
+7f22fb4be000-7f22fb4c1000 ---p 00000000 00:00 0 
+7f22fb4c1000-7f22fbcbe000 rwxp 00000000 00:00 0 
+7f22fbcbe000-7f22fbcbf000 ---p 00000000 00:00 0 
+7f22fbcbf000-7f22fc4bf000 rwxp 00000000 00:00 0 
+7f22fc4bf000-7f22fc4c0000 ---p 00000000 00:00 0 
+7f22fc4c0000-7f22fccc0000 rwxp 00000000 00:00 0 
+7f22fccc0000-7f22fccc1000 ---p 00000000 00:00 0 
+7f22fccc1000-7f22fccc4000 ---p 00000000 00:00 0 
+7f22fccc4000-7f22fdcc1000 rwxp 00000000 00:00 0 
+7f22fdcc1000-7f22fdcc2000 ---p 00000000 00:00 0 
+7f22fdcc2000-7f22fdcc5000 ---p 00000000 00:00 0 
+7f22fdcc5000-7f22fe4c2000 rwxp 00000000 00:00 0 
+7f22fe4c2000-7f22fe4c3000 ---p 00000000 00:00 0 
+7f22fe4c3000-7f22fecc3000 rwxp 00000000 00:00 0 
+7f22fecc3000-7f22fecc4000 ---p 00000000 00:00 0 
+7f22fecc4000-7f22ff4c4000 rwxp 00000000 00:00 0 
+7f22ff4c4000-7f22ff4c5000 ---p 00000000 00:00 0 
+7f22ff4c5000-7f22ffcc5000 rwxp 00000000 00:00 0 
+7f22ffcc5000-7f22ffcc6000 ---p 00000000 00:00 0 
+7f22ffcc6000-7f23004c6000 rwxp 00000000 00:00 0 
+7f23004c6000-7f23004c7000 ---p 00000000 00:00 0 
+7f23004c7000-7f2300cc7000 rwxp 00000000 00:00 0 
+7f2300cc7000-7f2300cc8000 ---p 00000000 00:00 0 
+7f2300cc8000-7f2300ccb000 ---p 00000000 00:00 0 
+7f2300ccb000-7f23014c8000 rwxp 00000000 00:00 0 
+7f23014c8000-7f23014cb000 ---p 00000000 00:00 0 
+7f23014cb000-7f23015c8000 rwxp 00000000 00:00 0 
+7f23015c8000-7f23015c9000 ---p 00000000 00:00 0 
+7f23015c9000-7f23016c9000 rwxp 00000000 00:00 0 
+7f23016c9000-7f23016cc000 ---p 00000000 00:00 0 
+7f23016cc000-7f23017c9000 rwxp 00000000 00:00 0 
+7f23017c9000-7f23017ca000 ---p 00000000 00:00 0 
+7f23017ca000-7f23017cd000 ---p 00000000 00:00 0 
+7f23017cd000-7f23018ca000 rwxp 00000000 00:00 0 
+7f23018ca000-7f23018cb000 ---p 00000000 00:00 0 
+7f23018cb000-7f23018ce000 ---p 00000000 00:00 0 
+7f23018ce000-7f23019cb000 rwxp 00000000 00:00 0 
+7f23019cb000-7f23019ce000 ---p 00000000 00:00 0 
+7f23019ce000-7f2301acb000 rwxp 00000000 00:00 0 
+7f2301acb000-7f2301ace000 ---p 00000000 00:00 0 
+7f2301ace000-7f2301bcb000 rwxp 00000000 00:00 0 
+7f2301bcb000-7f2301bce000 ---p 00000000 00:00 0 
+7f2301bce000-7f2301ccb000 rwxp 00000000 00:00 0 
+7f2301ccb000-7f2301ccc000 ---p 00000000 00:00 0 
+7f2301ccc000-7f2301dcc000 rwxp 00000000 00:00 0 
+7f2301dcc000-7f2301f63000 r--s 0307a000 00:38 87429607                   /root/jg/jasper_2020.03/Linux64/jre/lib/rt.jar
+7f2301f63000-7f2301f64000 ---p 00000000 00:00 0 
+7f2301f64000-7f2302064000 rwxp 00000000 00:00 0 
+7f2302064000-7f2302065000 ---p 00000000 00:00 0 
+7f2302065000-7f2302165000 rwxp 00000000 00:00 0 
+7f2302165000-7f2302166000 ---p 00000000 00:00 0 
+7f2302166000-7f2302266000 rwxp 00000000 00:00 0 
+7f2302266000-7f2302267000 ---p 00000000 00:00 0 
+7f2302267000-7f2302367000 rwxp 00000000 00:00 0 
+7f2302367000-7f2302368000 ---p 00000000 00:00 0 
+7f2302368000-7f2302468000 rwxp 00000000 00:00 0 
+7f2302468000-7f2302469000 ---p 00000000 00:00 0 
+7f2302469000-7f2302569000 rwxp 00000000 00:00 0 
+7f2302569000-7f230256a000 ---p 00000000 00:00 0 
+7f230256a000-7f230266a000 rwxp 00000000 00:00 0 
+7f230266a000-7f230266b000 ---p 00000000 00:00 0 
+7f230266b000-7f230276b000 rwxp 00000000 00:00 0 
+7f230276b000-7f230276c000 ---p 00000000 00:00 0 
+7f230276c000-7f230286c000 rwxp 00000000 00:00 0 
+7f230286c000-7f230286d000 ---p 00000000 00:00 0 
+7f230286d000-7f230296d000 rwxp 00000000 00:00 0 
+7f230296d000-7f230296e000 ---p 00000000 00:00 0 
+7f230296e000-7f2302a6e000 rwxp 00000000 00:00 0 
+7f2302a6e000-7f2302a6f000 ---p 00000000 00:00 0 
+7f2302a6f000-7f2302b6f000 rwxp 00000000 00:00 0 
+7f2302b6f000-7f2302b70000 ---p 00000000 00:00 0 
+7f2302b70000-7f2302c70000 rwxp 00000000 00:00 0 
+7f2302c70000-7f2302c71000 ---p 00000000 00:00 0 
+7f2302c71000-7f2302d71000 rwxp 00000000 00:00 0 
+7f2302d71000-7f2302d72000 ---p 00000000 00:00 0 
+7f2302d72000-7f2302e72000 rwxp 00000000 00:00 0 
+7f2302e72000-7f2302e73000 ---p 00000000 00:00 0 
+7f2302e73000-7f2302f73000 rwxp 00000000 00:00 0 
+7f2302f73000-7f2302f74000 ---p 00000000 00:00 0 
+7f2302f74000-7f2303074000 rwxp 00000000 00:00 0 
+7f2303074000-7f2303075000 ---p 00000000 00:00 0 
+7f2303075000-7f2303175000 rwxp 00000000 00:00 0 
+7f2303175000-7f2303176000 ---p 00000000 00:00 0 
+7f2303176000-7f2303276000 rwxp 00000000 00:00 0 
+7f2303276000-7f2303277000 ---p 00000000 00:00 0 
+7f2303277000-7f2303377000 rwxp 00000000 00:00 0 
+7f2303377000-7f2303378000 ---p 00000000 00:00 0 
+7f2303378000-7f2303478000 rwxp 00000000 00:00 0 
+7f2303478000-7f2303479000 ---p 00000000 00:00 0 
+7f2303479000-7f2303579000 rwxp 00000000 00:00 0 
+7f2303579000-7f230357a000 ---p 00000000 00:00 0 
+7f230357a000-7f230367a000 rwxp 00000000 00:00 0 
+7f230367a000-7f230367b000 ---p 00000000 00:00 0 
+7f230367b000-7f230377b000 rwxp 00000000 00:00 0 
+7f230377b000-7f230377c000 ---p 00000000 00:00 0 
+7f230377c000-7f230387c000 rwxp 00000000 00:00 0 
+7f230387c000-7f230387d000 ---p 00000000 00:00 0 
+7f230387d000-7f230397d000 rwxp 00000000 00:00 0 
+7f230397d000-7f230397e000 ---p 00000000 00:00 0 
+7f230397e000-7f2303a7e000 rwxp 00000000 00:00 0 
+7f2303a7e000-7f2303a7f000 ---p 00000000 00:00 0 
+7f2303a7f000-7f2303b7f000 rwxp 00000000 00:00 0 
+7f2303b7f000-7f2303b80000 ---p 00000000 00:00 0 
+7f2303b80000-7f2303c80000 rwxp 00000000 00:00 0 
+7f2303c80000-7f2303f1e000 rw-p 00000000 00:00 0 
+7f2303f1e000-7f23041d6000 rw-p 00000000 00:00 0 
+7f23041d6000-7f23041e1000 rw-p 00000000 00:00 0 
+7f23041e1000-7f23041ff000 rw-p 00000000 00:00 0 
+7f23041ff000-7f230449d000 rw-p 00000000 00:00 0 
+7f230449d000-7f2304754000 rw-p 00000000 00:00 0 
+7f2304754000-7f23048a4000 rw-p 00000000 00:00 0 
+7f23048a4000-7f23049ff000 rw-p 00000000 00:00 0 
+7f23049ff000-7f2304a00000 rw-p 00000000 00:00 0 
+7f2304a00000-7f2304c70000 rwxp 00000000 00:00 0 
+7f2304c70000-7f2307a00000 rw-p 00000000 00:00 0 
+7f2307a00000-7f2307a0e000 r-xp 00000000 00:38 87429359                   /root/jg/jasper_2020.03/Linux64/jre/lib/amd64/libzip.so
+7f2307a0e000-7f2307b10000 ---p 0000e000 00:38 87429359                   /root/jg/jasper_2020.03/Linux64/jre/lib/amd64/libzip.so
+7f2307b10000-7f2307b13000 rw-p 00010000 00:38 87429359                   /root/jg/jasper_2020.03/Linux64/jre/lib/amd64/libzip.so
+7f2307b13000-7f2307b14000 rw-p 00000000 00:00 0 
+7f2307c00000-7f2307c29000 r-xp 00000000 00:38 87429337                   /root/jg/jasper_2020.03/Linux64/jre/lib/amd64/libjava.so
+7f2307c29000-7f2307d28000 ---p 00029000 00:38 87429337                   /root/jg/jasper_2020.03/Linux64/jre/lib/amd64/libjava.so
+7f2307d28000-7f2307d2f000 rw-p 00028000 00:38 87429337                   /root/jg/jasper_2020.03/Linux64/jre/lib/amd64/libjava.so
+7f2307e00000-7f2307e0d000 r-xp 00000000 00:38 87429358                   /root/jg/jasper_2020.03/Linux64/jre/lib/amd64/libverify.so
+7f2307e0d000-7f2307f0c000 ---p 0000d000 00:38 87429358                   /root/jg/jasper_2020.03/Linux64/jre/lib/amd64/libverify.so
+7f2307f0c000-7f2307f0f000 rw-p 0000c000 00:38 87429358                   /root/jg/jasper_2020.03/Linux64/jre/lib/amd64/libverify.so
+7f2307fff000-7f2308000000 ---p 00000000 00:00 0 
+7f2308000000-7f2308800000 rwxp 00000000 00:00 0 
+7f2308800000-7f2308819000 r-xp 00000000 00:38 87430855                   /root/jg/jasper_2020.03/Linux64/lib/libz_sh.so
+7f2308819000-7f2308a18000 ---p 00019000 00:38 87430855                   /root/jg/jasper_2020.03/Linux64/lib/libz_sh.so
+7f2308a18000-7f2308a19000 r--p 00018000 00:38 87430855                   /root/jg/jasper_2020.03/Linux64/lib/libz_sh.so
+7f2308a19000-7f2308a1a000 rw-p 00019000 00:38 87430855                   /root/jg/jasper_2020.03/Linux64/lib/libz_sh.so
+7f2308aff000-7f2308b00000 ---p 00000000 00:00 0 
+7f2308b00000-7f2308c00000 rwxp 00000000 00:00 0 
+7f2308c00000-7f2308cbf000 r-xp 00000000 00:38 87430698                   /root/jg/jasper_2020.03/Linux64/lib/libCDSTcl8.4.so
+7f2308cbf000-7f2308ebf000 ---p 000bf000 00:38 87430698                   /root/jg/jasper_2020.03/Linux64/lib/libCDSTcl8.4.so
+7f2308ebf000-7f2308ec8000 rw-p 000bf000 00:38 87430698                   /root/jg/jasper_2020.03/Linux64/lib/libCDSTcl8.4.so
+7f2308ec8000-7f2308ec9000 rw-p 00000000 00:00 0 
+7f2308eff000-7f2308f00000 ---p 00000000 00:00 0 
+7f2308f00000-7f2309000000 rwxp 00000000 00:00 0 
+7f2309000000-7f23091c6000 r-xp 00000000 00:38 87430816                   /root/jg/jasper_2020.03/Linux64/lib/libdac.so
+7f23091c6000-7f23093c5000 ---p 001c6000 00:38 87430816                   /root/jg/jasper_2020.03/Linux64/lib/libdac.so
+7f23093c5000-7f23093e6000 r--p 001c5000 00:38 87430816                   /root/jg/jasper_2020.03/Linux64/lib/libdac.so
+7f23093e6000-7f23093eb000 rw-p 001e6000 00:38 87430816                   /root/jg/jasper_2020.03/Linux64/lib/libdac.so
+7f23093eb000-7f23093ef000 rw-p 00000000 00:00 0 
+7f23094be000-7f23094bf000 ---p 00000000 00:00 0 
+7f23094bf000-7f23095bf000 rwxp 00000000 00:00 0 
+7f23095bf000-7f23095fd000 r-xp 00000000 00:38 87430802                   /root/jg/jasper_2020.03/Linux64/lib/libVCDStateMapManager.so
+7f23095fd000-7f23095fe000 r--p 0003d000 00:38 87430802                   /root/jg/jasper_2020.03/Linux64/lib/libVCDStateMapManager.so
+7f23095fe000-7f2309600000 rw-p 0003e000 00:38 87430802                   /root/jg/jasper_2020.03/Linux64/lib/libVCDStateMapManager.so
+7f2309600000-7f2309800000 rw-p 00000000 00:00 0 
+7f2309800000-7f2309a01000 r-xp 00000000 00:38 87430841                   /root/jg/jasper_2020.03/Linux64/lib/libnsys.so
+7f2309a01000-7f2309c01000 ---p 00201000 00:38 87430841                   /root/jg/jasper_2020.03/Linux64/lib/libnsys.so
+7f2309c01000-7f2309c0a000 r--p 00201000 00:38 87430841                   /root/jg/jasper_2020.03/Linux64/lib/libnsys.so
+7f2309c0a000-7f2309c0e000 rw-p 0020a000 00:38 87430841                   /root/jg/jasper_2020.03/Linux64/lib/libnsys.so
+7f2309c0e000-7f2309c20000 rw-p 00000000 00:00 0 
+7f2309c5e000-7f2309de3000 r-xp 00000000 00:38 87430733                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDynamo.so
+7f2309de3000-7f2309de4000 ---p 00185000 00:38 87430733                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDynamo.so
+7f2309de4000-7f2309de7000 r--p 00185000 00:38 87430733                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDynamo.so
+7f2309de7000-7f2309dea000 rw-p 00188000 00:38 87430733                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDynamo.so
+7f2309dea000-7f2309e00000 rw-p 00000000 00:00 0 
+7f2309e00000-7f230a4a6000 r-xp 00000000 00:38 87430838                   /root/jg/jasper_2020.03/Linux64/lib/libnffr.so
+7f230a4a6000-7f230a6a6000 ---p 006a6000 00:38 87430838                   /root/jg/jasper_2020.03/Linux64/lib/libnffr.so
+7f230a6a6000-7f230a6c5000 r--p 006a6000 00:38 87430838                   /root/jg/jasper_2020.03/Linux64/lib/libnffr.so
+7f230a6c5000-7f230a6cf000 rw-p 006c5000 00:38 87430838                   /root/jg/jasper_2020.03/Linux64/lib/libnffr.so
+7f230a6cf000-7f230b175000 rw-p 00000000 00:00 0 
+7f230b200000-7f230b274000 r-xp 00000000 00:38 87430818                   /root/jg/jasper_2020.03/Linux64/lib/libdwapi.so
+7f230b274000-7f230b474000 ---p 00074000 00:38 87430818                   /root/jg/jasper_2020.03/Linux64/lib/libdwapi.so
+7f230b474000-7f230b477000 r--p 00074000 00:38 87430818                   /root/jg/jasper_2020.03/Linux64/lib/libdwapi.so
+7f230b477000-7f230b478000 rw-p 00077000 00:38 87430818                   /root/jg/jasper_2020.03/Linux64/lib/libdwapi.so
+7f230b4ff000-7f230b500000 ---p 00000000 00:00 0 
+7f230b500000-7f230b600000 rwxp 00000000 00:00 0 
+7f230b600000-7f230b7fe000 r-xp 00000000 00:38 87430817                   /root/jg/jasper_2020.03/Linux64/lib/libdrapi.so
+7f230b7fe000-7f230b9fe000 ---p 001fe000 00:38 87430817                   /root/jg/jasper_2020.03/Linux64/lib/libdrapi.so
+7f230b9fe000-7f230ba11000 r--p 001fe000 00:38 87430817                   /root/jg/jasper_2020.03/Linux64/lib/libdrapi.so
+7f230ba11000-7f230ba1d000 rw-p 00211000 00:38 87430817                   /root/jg/jasper_2020.03/Linux64/lib/libdrapi.so
+7f230ba1d000-7f230ba22000 rw-p 00000000 00:00 0 
+7f230ba65000-7f230bbf4000 r-xp 00000000 00:38 87430783                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSymSim.so
+7f230bbf4000-7f230bbfb000 r--p 0018e000 00:38 87430783                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSymSim.so
+7f230bbfb000-7f230bbff000 rw-p 00195000 00:38 87430783                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSymSim.so
+7f230bbff000-7f230bc00000 rw-p 00000000 00:00 0 
+7f230bc00000-7f230bd28000 r-xp 00000000 00:38 87430842                   /root/jg/jasper_2020.03/Linux64/lib/libqwt.so.6
+7f230bd28000-7f230bf27000 ---p 00128000 00:38 87430842                   /root/jg/jasper_2020.03/Linux64/lib/libqwt.so.6
+7f230bf27000-7f230bf30000 r--p 00127000 00:38 87430842                   /root/jg/jasper_2020.03/Linux64/lib/libqwt.so.6
+7f230bf30000-7f230bf34000 rw-p 00130000 00:38 87430842                   /root/jg/jasper_2020.03/Linux64/lib/libqwt.so.6
+7f230bfb9000-7f230c000000 r--s 00324000 00:38 87439130                   /root/jg/jasper_2020.03/lib/Linux64/jar/quest.jar
+7f230c000000-7f230c155000 r-xp 00000000 00:38 87430837                   /root/jg/jasper_2020.03/Linux64/lib/libndna.so
+7f230c155000-7f230c355000 ---p 00155000 00:38 87430837                   /root/jg/jasper_2020.03/Linux64/lib/libndna.so
+7f230c355000-7f230c35c000 r--p 00155000 00:38 87430837                   /root/jg/jasper_2020.03/Linux64/lib/libndna.so
+7f230c35c000-7f230c35f000 rw-p 0015c000 00:38 87430837                   /root/jg/jasper_2020.03/Linux64/lib/libndna.so
+7f230c35f000-7f230c366000 rw-p 00000000 00:00 0 
+7f230c37e000-7f230c3a7000 r--s 004f2000 00:38 87439128                   /root/jg/jasper_2020.03/lib/Linux64/jar/jtcl-2.6.0.jar
+7f230c3a7000-7f230c400000 r--p 00000000 00:38 87490909                   /usr/lib/locale/C.utf8/LC_CTYPE
+7f230c400000-7f230c413000 r-xp 00000000 00:38 87430791                   /root/jg/jasper_2020.03/Linux64/lib/libQjdax.so.1
+7f230c413000-7f230c613000 ---p 00013000 00:38 87430791                   /root/jg/jasper_2020.03/Linux64/lib/libQjdax.so.1
+7f230c613000-7f230c614000 r--p 00013000 00:38 87430791                   /root/jg/jasper_2020.03/Linux64/lib/libQjdax.so.1
+7f230c614000-7f230c615000 rw-p 00014000 00:38 87430791                   /root/jg/jasper_2020.03/Linux64/lib/libQjdax.so.1
+7f230c61f000-7f230c629000 rw-p 00000000 00:00 0 
+7f230c629000-7f230c6df000 rw-p 00000000 00:00 0 
+7f230c6df000-7f230c763000 r-xp 00000000 00:38 87430815                   /root/jg/jasper_2020.03/Linux64/lib/libcudd.so
+7f230c763000-7f230c764000 r--p 00083000 00:38 87430815                   /root/jg/jasper_2020.03/Linux64/lib/libcudd.so
+7f230c764000-7f230c765000 rw-p 00084000 00:38 87430815                   /root/jg/jasper_2020.03/Linux64/lib/libcudd.so
+7f230c765000-7f230c766000 rw-p 00000000 00:00 0 
+7f230c766000-7f230c768000 r--p 00000000 00:38 87426035                   /usr/lib/x86_64-linux-gnu/libpcre2-8.so.0.11.2
+7f230c768000-7f230c7d6000 r-xp 00002000 00:38 87426035                   /usr/lib/x86_64-linux-gnu/libpcre2-8.so.0.11.2
+7f230c7d6000-7f230c7fe000 r--p 00070000 00:38 87426035                   /usr/lib/x86_64-linux-gnu/libpcre2-8.so.0.11.2
+7f230c7fe000-7f230c7ff000 r--p 00097000 00:38 87426035                   /usr/lib/x86_64-linux-gnu/libpcre2-8.so.0.11.2
+7f230c7ff000-7f230c800000 rw-p 00098000 00:38 87426035                   /usr/lib/x86_64-linux-gnu/libpcre2-8.so.0.11.2
+7f230c800000-7f230c807000 r-xp 00000000 00:38 87430850                   /root/jg/jasper_2020.03/Linux64/lib/libunicovdirmgr.so
+7f230c807000-7f230ca06000 ---p 00007000 00:38 87430850                   /root/jg/jasper_2020.03/Linux64/lib/libunicovdirmgr.so
+7f230ca06000-7f230ca07000 r--p 00006000 00:38 87430850                   /root/jg/jasper_2020.03/Linux64/lib/libunicovdirmgr.so
+7f230ca07000-7f230ca08000 rw-p 00007000 00:38 87430850                   /root/jg/jasper_2020.03/Linux64/lib/libunicovdirmgr.so
+7f230ca19000-7f230ca24000 rw-p 00000000 00:00 0 
+7f230ca24000-7f230ca42000 rw-p 00000000 00:00 0 
+7f230ca42000-7f230ca43000 r--p 00000000 00:38 87492061                   /usr/lib/x86_64-linux-gnu/libbrotlicommon.so.1.1.0
+7f230ca43000-7f230ca44000 r-xp 00001000 00:38 87492061                   /usr/lib/x86_64-linux-gnu/libbrotlicommon.so.1.1.0
+7f230ca44000-7f230ca63000 r--p 00002000 00:38 87492061                   /usr/lib/x86_64-linux-gnu/libbrotlicommon.so.1.1.0
+7f230ca63000-7f230ca64000 r--p 00021000 00:38 87492061                   /usr/lib/x86_64-linux-gnu/libbrotlicommon.so.1.1.0
+7f230ca64000-7f230ca65000 rw-p 00022000 00:38 87492061                   /usr/lib/x86_64-linux-gnu/libbrotlicommon.so.1.1.0
+7f230ca65000-7f230cb98000 r-xp 00000000 00:38 87430755                   /root/jg/jasper_2020.03/Linux64/lib/libJasperLPVDb.so
+7f230cb98000-7f230cb99000 ---p 00133000 00:38 87430755                   /root/jg/jasper_2020.03/Linux64/lib/libJasperLPVDb.so
+7f230cb99000-7f230cb9c000 r--p 00133000 00:38 87430755                   /root/jg/jasper_2020.03/Linux64/lib/libJasperLPVDb.so
+7f230cb9c000-7f230cba0000 rw-p 00136000 00:38 87430755                   /root/jg/jasper_2020.03/Linux64/lib/libJasperLPVDb.so
+7f230cba0000-7f230cf08000 r-xp 00000000 00:38 87430766                   /root/jg/jasper_2020.03/Linux64/lib/libJasperProofFlow.so
+7f230cf08000-7f230cf09000 ---p 00368000 00:38 87430766                   /root/jg/jasper_2020.03/Linux64/lib/libJasperProofFlow.so
+7f230cf09000-7f230cf1e000 r--p 00368000 00:38 87430766                   /root/jg/jasper_2020.03/Linux64/lib/libJasperProofFlow.so
+7f230cf1e000-7f230cf27000 rw-p 0037d000 00:38 87430766                   /root/jg/jasper_2020.03/Linux64/lib/libJasperProofFlow.so
+7f230cf27000-7f230d3a8000 r-xp 00000000 00:38 87430819                   /root/jg/jasper_2020.03/Linux64/lib/libedg.so
+7f230d3a8000-7f230d3a9000 ---p 00481000 00:38 87430819                   /root/jg/jasper_2020.03/Linux64/lib/libedg.so
+7f230d3a9000-7f230d3b1000 r--p 00481000 00:38 87430819                   /root/jg/jasper_2020.03/Linux64/lib/libedg.so
+7f230d3b1000-7f230d3f0000 rw-p 00489000 00:38 87430819                   /root/jg/jasper_2020.03/Linux64/lib/libedg.so
+7f230d3f0000-7f230d438000 rw-p 00000000 00:00 0 
+7f230d438000-7f230f908000 r-xp 00000000 00:38 87430843                   /root/jg/jasper_2020.03/Linux64/lib/librtlc.so
+7f230f908000-7f230f909000 ---p 024d0000 00:38 87430843                   /root/jg/jasper_2020.03/Linux64/lib/librtlc.so
+7f230f909000-7f230faf1000 r--p 024d0000 00:38 87430843                   /root/jg/jasper_2020.03/Linux64/lib/librtlc.so
+7f230faf1000-7f230fb7c000 rw-p 026b8000 00:38 87430843                   /root/jg/jasper_2020.03/Linux64/lib/librtlc.so
+7f230fb7c000-7f230fba4000 rw-p 00000000 00:00 0 
+7f230fba4000-7f230fdee000 r-xp 00000000 00:38 87430749                   /root/jg/jasper_2020.03/Linux64/lib/libJasperInformal.so
+7f230fdee000-7f230fdef000 ---p 0024a000 00:38 87430749                   /root/jg/jasper_2020.03/Linux64/lib/libJasperInformal.so
+7f230fdef000-7f230fdf9000 r--p 0024a000 00:38 87430749                   /root/jg/jasper_2020.03/Linux64/lib/libJasperInformal.so
+7f230fdf9000-7f230fdff000 rw-p 00254000 00:38 87430749                   /root/jg/jasper_2020.03/Linux64/lib/libJasperInformal.so
+7f230fdff000-7f230fe00000 rw-p 00000000 00:00 0 
+7f230fe00000-7f230fe46000 r-xp 00000000 00:38 87430825                   /root/jg/jasper_2020.03/Linux64/lib/libhaldefGUIAPI.so
+7f230fe46000-7f2310046000 ---p 00046000 00:38 87430825                   /root/jg/jasper_2020.03/Linux64/lib/libhaldefGUIAPI.so
+7f2310046000-7f2310053000 rw-p 00046000 00:38 87430825                   /root/jg/jasper_2020.03/Linux64/lib/libhaldefGUIAPI.so
+7f2310053000-7f2310075000 rw-p 00000000 00:00 0 
+7f2310081000-7f23101f0000 r-xp 00000000 00:38 87430763                   /root/jg/jasper_2020.03/Linux64/lib/libJasperOrchestration.so
+7f23101f0000-7f23101fb000 r--p 0016e000 00:38 87430763                   /root/jg/jasper_2020.03/Linux64/lib/libJasperOrchestration.so
+7f23101fb000-7f23101ff000 rw-p 00179000 00:38 87430763                   /root/jg/jasper_2020.03/Linux64/lib/libJasperOrchestration.so
+7f23101ff000-7f2310200000 rw-p 00000000 00:00 0 
+7f2310200000-7f231023f000 r-xp 00000000 00:38 87430824                   /root/jg/jasper_2020.03/Linux64/lib/libgmp.so.3
+7f231023f000-7f231043f000 ---p 0003f000 00:38 87430824                   /root/jg/jasper_2020.03/Linux64/lib/libgmp.so.3
+7f231043f000-7f2310440000 rw-p 0003f000 00:38 87430824                   /root/jg/jasper_2020.03/Linux64/lib/libgmp.so.3
+7f2310453000-7f2310454000 r--p 00000000 00:38 87491885                   /usr/lib/x86_64-linux-gnu/gconv/UTF-16.so
+7f2310454000-7f2310457000 r-xp 00001000 00:38 87491885                   /usr/lib/x86_64-linux-gnu/gconv/UTF-16.so
+7f2310457000-7f2310458000 r--p 00004000 00:38 87491885                   /usr/lib/x86_64-linux-gnu/gconv/UTF-16.so
+7f2310458000-7f2310459000 r--p 00004000 00:38 87491885                   /usr/lib/x86_64-linux-gnu/gconv/UTF-16.so
+7f2310459000-7f231045a000 rw-p 00005000 00:38 87491885                   /usr/lib/x86_64-linux-gnu/gconv/UTF-16.so
+7f231045a000-7f2310461000 r--s 00000000 00:38 87491890                   /usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
+7f2310461000-7f23104b1000 r-xp 00000000 00:38 87430826                   /root/jg/jasper_2020.03/Linux64/lib/libjAdaptor.so
+7f23104b1000-7f23104b5000 r--p 0004f000 00:38 87430826                   /root/jg/jasper_2020.03/Linux64/lib/libjAdaptor.so
+7f23104b5000-7f23104b6000 rw-p 00053000 00:38 87430826                   /root/jg/jasper_2020.03/Linux64/lib/libjAdaptor.so
+7f23104b6000-7f23104bb000 r--p 00000000 00:38 87492208                   /usr/lib/x86_64-linux-gnu/libnsl.so.1
+7f23104bb000-7f23104ca000 r-xp 00005000 00:38 87492208                   /usr/lib/x86_64-linux-gnu/libnsl.so.1
+7f23104ca000-7f23104ce000 r--p 00014000 00:38 87492208                   /usr/lib/x86_64-linux-gnu/libnsl.so.1
+7f23104ce000-7f23104cf000 r--p 00017000 00:38 87492208                   /usr/lib/x86_64-linux-gnu/libnsl.so.1
+7f23104cf000-7f23104d0000 rw-p 00018000 00:38 87492208                   /usr/lib/x86_64-linux-gnu/libnsl.so.1
+7f23104d0000-7f23104d2000 rw-p 00000000 00:00 0 
+7f23104d2000-7f2310560000 r-xp 00000000 00:38 87430832                   /root/jg/jasper_2020.03/Linux64/lib/libjetmining.so
+7f2310560000-7f2310562000 r--p 0008d000 00:38 87430832                   /root/jg/jasper_2020.03/Linux64/lib/libjetmining.so
+7f2310562000-7f2310564000 rw-p 0008f000 00:38 87430832                   /root/jg/jasper_2020.03/Linux64/lib/libjetmining.so
+7f2310564000-7f2310565000 rw-p 00000000 00:00 0 
+7f2310565000-7f23107d3000 r-xp 00000000 00:38 87430854                   /root/jg/jasper_2020.03/Linux64/lib/libwifCS.so
+7f23107d3000-7f23107e5000 r--p 0026d000 00:38 87430854                   /root/jg/jasper_2020.03/Linux64/lib/libwifCS.so
+7f23107e5000-7f23107e9000 rw-p 0027f000 00:38 87430854                   /root/jg/jasper_2020.03/Linux64/lib/libwifCS.so
+7f23107e9000-7f2311380000 r-xp 00000000 00:38 87430821                   /root/jg/jasper_2020.03/Linux64/lib/libflatten.so
+7f2311380000-7f2311381000 ---p 00b97000 00:38 87430821                   /root/jg/jasper_2020.03/Linux64/lib/libflatten.so
+7f2311381000-7f23113e8000 r--p 00b97000 00:38 87430821                   /root/jg/jasper_2020.03/Linux64/lib/libflatten.so
+7f23113e8000-7f23113fd000 rw-p 00bfe000 00:38 87430821                   /root/jg/jasper_2020.03/Linux64/lib/libflatten.so
+7f23113fd000-7f2311400000 rw-p 00000000 00:00 0 
+7f2311400000-7f2311403000 r-xp 00000000 00:38 87430814                   /root/jg/jasper_2020.03/Linux64/lib/libcsv.so
+7f2311403000-7f2311602000 ---p 00003000 00:38 87430814                   /root/jg/jasper_2020.03/Linux64/lib/libcsv.so
+7f2311602000-7f2311603000 rw-p 00002000 00:38 87430814                   /root/jg/jasper_2020.03/Linux64/lib/libcsv.so
+7f2311604000-7f2311606000 r--p 00000000 00:38 87426005                   /usr/lib/x86_64-linux-gnu/libmd.so.0.1.0
+7f2311606000-7f231160f000 r-xp 00002000 00:38 87426005                   /usr/lib/x86_64-linux-gnu/libmd.so.0.1.0
+7f231160f000-7f2311611000 r--p 0000b000 00:38 87426005                   /usr/lib/x86_64-linux-gnu/libmd.so.0.1.0
+7f2311611000-7f2311612000 r--p 0000c000 00:38 87426005                   /usr/lib/x86_64-linux-gnu/libmd.so.0.1.0
+7f2311612000-7f2311613000 rw-p 0000d000 00:38 87426005                   /usr/lib/x86_64-linux-gnu/libmd.so.0.1.0
+7f2311613000-7f231161e000 r--p 00000000 00:38 87492270                   /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f231161e000-7f2311631000 r-xp 0000b000 00:38 87492270                   /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f2311631000-7f231163a000 r--p 0001e000 00:38 87492270                   /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f231163a000-7f231163b000 r--p 00026000 00:38 87492270                   /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f231163b000-7f231163c000 rw-p 00027000 00:38 87492270                   /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f231163c000-7f2311640000 r--p 00000000 00:38 87492104                   /usr/lib/x86_64-linux-gnu/libexpat.so.1.9.1
+7f2311640000-7f231165d000 r-xp 00004000 00:38 87492104                   /usr/lib/x86_64-linux-gnu/libexpat.so.1.9.1
+7f231165d000-7f2311665000 r--p 00021000 00:38 87492104                   /usr/lib/x86_64-linux-gnu/libexpat.so.1.9.1
+7f2311665000-7f2311667000 r--p 00028000 00:38 87492104                   /usr/lib/x86_64-linux-gnu/libexpat.so.1.9.1
+7f2311667000-7f2311668000 rw-p 0002a000 00:38 87492104                   /usr/lib/x86_64-linux-gnu/libexpat.so.1.9.1
+7f2311668000-7f23116b4000 r-xp 00000000 00:38 87430781                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSourceInfoFlow.so
+7f23116b4000-7f23116b5000 ---p 0004c000 00:38 87430781                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSourceInfoFlow.so
+7f23116b5000-7f23116b7000 r--p 0004c000 00:38 87430781                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSourceInfoFlow.so
+7f23116b7000-7f23116b9000 rw-p 0004e000 00:38 87430781                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSourceInfoFlow.so
+7f23116b9000-7f23117f3000 r-xp 00000000 00:38 87430761                   /root/jg/jasper_2020.03/Linux64/lib/libJasperNetlistDb.so
+7f23117f3000-7f23117f4000 ---p 0013a000 00:38 87430761                   /root/jg/jasper_2020.03/Linux64/lib/libJasperNetlistDb.so
+7f23117f4000-7f23117fb000 r--p 0013a000 00:38 87430761                   /root/jg/jasper_2020.03/Linux64/lib/libJasperNetlistDb.so
+7f23117fb000-7f23117ff000 rw-p 00141000 00:38 87430761                   /root/jg/jasper_2020.03/Linux64/lib/libJasperNetlistDb.so
+7f23117ff000-7f2311800000 rw-p 00000000 00:00 0 
+7f2311800000-7f231180c000 r-xp 00000000 00:38 87430805                   /root/jg/jasper_2020.03/Linux64/lib/libboost_iostreams.so.1.63.0
+7f231180c000-7f2311a0b000 ---p 0000c000 00:38 87430805                   /root/jg/jasper_2020.03/Linux64/lib/libboost_iostreams.so.1.63.0
+7f2311a0b000-7f2311a0c000 r--p 0000b000 00:38 87430805                   /root/jg/jasper_2020.03/Linux64/lib/libboost_iostreams.so.1.63.0
+7f2311a0c000-7f2311a0d000 rw-p 0000c000 00:38 87430805                   /root/jg/jasper_2020.03/Linux64/lib/libboost_iostreams.so.1.63.0
+7f2311a0e000-7f2311a12000 r--p 00000000 00:38 87492067                   /usr/lib/x86_64-linux-gnu/libbsd.so.0.12.1
+7f2311a12000-7f2311a1e000 r-xp 00004000 00:38 87492067                   /usr/lib/x86_64-linux-gnu/libbsd.so.0.12.1
+7f2311a1e000-7f2311a21000 r--p 00010000 00:38 87492067                   /usr/lib/x86_64-linux-gnu/libbsd.so.0.12.1
+7f2311a21000-7f2311a22000 r--p 00012000 00:38 87492067                   /usr/lib/x86_64-linux-gnu/libbsd.so.0.12.1
+7f2311a22000-7f2311a23000 rw-p 00013000 00:38 87492067                   /usr/lib/x86_64-linux-gnu/libbsd.so.0.12.1
+7f2311a23000-7f2311a24000 rw-p 00000000 00:00 0 
+7f2311a24000-7f2311bee000 r-xp 00000000 00:38 87430703                   /root/jg/jasper_2020.03/Linux64/lib/libJasper4.so
+7f2311bee000-7f2311bef000 ---p 001ca000 00:38 87430703                   /root/jg/jasper_2020.03/Linux64/lib/libJasper4.so
+7f2311bef000-7f2311bfb000 r--p 001ca000 00:38 87430703                   /root/jg/jasper_2020.03/Linux64/lib/libJasper4.so
+7f2311bfb000-7f2311c00000 rw-p 001d6000 00:38 87430703                   /root/jg/jasper_2020.03/Linux64/lib/libJasper4.so
+7f2311c00000-7f2311cec000 r-xp 00000000 00:38 87430844                   /root/jg/jasper_2020.03/Linux64/lib/libsqlite3.so.0
+7f2311cec000-7f2311eec000 ---p 000ec000 00:38 87430844                   /root/jg/jasper_2020.03/Linux64/lib/libsqlite3.so.0
+7f2311eec000-7f2311eee000 r--p 000ec000 00:38 87430844                   /root/jg/jasper_2020.03/Linux64/lib/libsqlite3.so.0
+7f2311eee000-7f2311ef1000 rw-p 000ee000 00:38 87430844                   /root/jg/jasper_2020.03/Linux64/lib/libsqlite3.so.0
+7f2311ef5000-7f2311efa000 r--p 00000000 00:38 87492220                   /usr/lib/x86_64-linux-gnu/libpng16.so.16.43.0
+7f2311efa000-7f2311f22000 r-xp 00005000 00:38 87492220                   /usr/lib/x86_64-linux-gnu/libpng16.so.16.43.0
+7f2311f22000-7f2311f2b000 r--p 0002d000 00:38 87492220                   /usr/lib/x86_64-linux-gnu/libpng16.so.16.43.0
+7f2311f2b000-7f2311f2c000 r--p 00035000 00:38 87492220                   /usr/lib/x86_64-linux-gnu/libpng16.so.16.43.0
+7f2311f2c000-7f2311f2d000 rw-p 00036000 00:38 87492220                   /usr/lib/x86_64-linux-gnu/libpng16.so.16.43.0
+7f2311f2d000-7f2311ffa000 r-xp 00000000 00:38 87430741                   /root/jg/jasper_2020.03/Linux64/lib/libJasperGraphDb.so
+7f2311ffa000-7f2311ffb000 ---p 000cd000 00:38 87430741                   /root/jg/jasper_2020.03/Linux64/lib/libJasperGraphDb.so
+7f2311ffb000-7f2311ffd000 r--p 000cd000 00:38 87430741                   /root/jg/jasper_2020.03/Linux64/lib/libJasperGraphDb.so
+7f2311ffd000-7f2312000000 rw-p 000cf000 00:38 87430741                   /root/jg/jasper_2020.03/Linux64/lib/libJasperGraphDb.so
+7f2312000000-7f2312024000 r-xp 00000000 00:38 87439881                   /root/jg/jasper_2020.03/patch/libpng12.so.0
+7f2312024000-7f2312223000 ---p 00024000 00:38 87439881                   /root/jg/jasper_2020.03/patch/libpng12.so.0
+7f2312223000-7f2312224000 r--p 00023000 00:38 87439881                   /root/jg/jasper_2020.03/patch/libpng12.so.0
+7f2312224000-7f2312225000 rw-p 00024000 00:38 87439881                   /root/jg/jasper_2020.03/patch/libpng12.so.0
+7f2312229000-7f2312230000 rw-p 00000000 00:00 0 
+7f2312230000-7f2312250000 r-xp 00000000 00:38 87430772                   /root/jg/jasper_2020.03/Linux64/lib/libJasperRadixProvider.so
+7f2312250000-7f2312251000 ---p 00020000 00:38 87430772                   /root/jg/jasper_2020.03/Linux64/lib/libJasperRadixProvider.so
+7f2312251000-7f2312252000 r--p 00020000 00:38 87430772                   /root/jg/jasper_2020.03/Linux64/lib/libJasperRadixProvider.so
+7f2312252000-7f2312253000 rw-p 00021000 00:38 87430772                   /root/jg/jasper_2020.03/Linux64/lib/libJasperRadixProvider.so
+7f2312253000-7f23122bc000 r-xp 00000000 00:38 87430700                   /root/jg/jasper_2020.03/Linux64/lib/libDynamoForJasperGold.so
+7f23122bc000-7f23122c0000 r--p 00068000 00:38 87430700                   /root/jg/jasper_2020.03/Linux64/lib/libDynamoForJasperGold.so
+7f23122c0000-7f23122c2000 rw-p 0006c000 00:38 87430700                   /root/jg/jasper_2020.03/Linux64/lib/libDynamoForJasperGold.so
+7f23122c2000-7f23122c3000 rw-p 00000000 00:00 0 
+7f23122c3000-7f23122dc000 r--p 00000000 00:38 87492033                   /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+7f23122dc000-7f231236c000 r-xp 00019000 00:38 87492033                   /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+7f231236c000-7f23123fb000 r--p 000a9000 00:38 87492033                   /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+7f23123fb000-7f23123fc000 r--p 00138000 00:38 87492033                   /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+7f23123fc000-7f2312400000 rw-p 00139000 00:38 87492033                   /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+7f2312400000-7f231241e000 r-xp 00000000 00:38 87430809                   /root/jg/jasper_2020.03/Linux64/lib/libcdsCommon_sh.so
+7f231241e000-7f231261e000 ---p 0001e000 00:38 87430809                   /root/jg/jasper_2020.03/Linux64/lib/libcdsCommon_sh.so
+7f231261e000-7f231261f000 r--p 0001e000 00:38 87430809                   /root/jg/jasper_2020.03/Linux64/lib/libcdsCommon_sh.so
+7f231261f000-7f2312620000 rw-p 0001f000 00:38 87430809                   /root/jg/jasper_2020.03/Linux64/lib/libcdsCommon_sh.so
+7f2312620000-7f2312624000 rw-p 00000000 00:00 0 
+7f2312625000-7f2312629000 rw-p 00000000 00:00 0 
+7f2312629000-7f231262b000 r--p 00000000 00:38 87492037                   /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f231262b000-7f231262d000 r-xp 00002000 00:38 87492037                   /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f231262d000-7f231262f000 r--p 00004000 00:38 87492037                   /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f231262f000-7f2312630000 r--p 00005000 00:38 87492037                   /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f2312630000-7f2312631000 rw-p 00006000 00:38 87492037                   /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f2312631000-7f2312632000 r--p 00000000 00:38 87492063                   /usr/lib/x86_64-linux-gnu/libbrotlidec.so.1.1.0
+7f2312632000-7f231263a000 r-xp 00001000 00:38 87492063                   /usr/lib/x86_64-linux-gnu/libbrotlidec.so.1.1.0
+7f231263a000-7f231263d000 r--p 00009000 00:38 87492063                   /usr/lib/x86_64-linux-gnu/libbrotlidec.so.1.1.0
+7f231263d000-7f231263e000 r--p 0000b000 00:38 87492063                   /usr/lib/x86_64-linux-gnu/libbrotlidec.so.1.1.0
+7f231263e000-7f231263f000 rw-p 0000c000 00:38 87492063                   /usr/lib/x86_64-linux-gnu/libbrotlidec.so.1.1.0
+7f231263f000-7f2312686000 r-xp 00000000 00:38 87430712                   /root/jg/jasper_2020.03/Linux64/lib/libJasperC2RTLDb.so
+7f2312686000-7f2312687000 ---p 00047000 00:38 87430712                   /root/jg/jasper_2020.03/Linux64/lib/libJasperC2RTLDb.so
+7f2312687000-7f2312689000 r--p 00047000 00:38 87430712                   /root/jg/jasper_2020.03/Linux64/lib/libJasperC2RTLDb.so
+7f2312689000-7f231268b000 rw-p 00049000 00:38 87430712                   /root/jg/jasper_2020.03/Linux64/lib/libJasperC2RTLDb.so
+7f231268b000-7f2312731000 r-xp 00000000 00:38 87430833                   /root/jg/jasper_2020.03/Linux64/lib/libjetparser.so
+7f2312731000-7f2312733000 r--p 000a5000 00:38 87430833                   /root/jg/jasper_2020.03/Linux64/lib/libjetparser.so
+7f2312733000-7f2312734000 rw-p 000a7000 00:38 87430833                   /root/jg/jasper_2020.03/Linux64/lib/libjetparser.so
+7f2312734000-7f2312741000 r--p 00000000 00:38 87492116                   /usr/lib/x86_64-linux-gnu/libfreetype.so.6.20.1
+7f2312741000-7f23127d2000 r-xp 0000d000 00:38 87492116                   /usr/lib/x86_64-linux-gnu/libfreetype.so.6.20.1
+7f23127d2000-7f23127f8000 r--p 0009e000 00:38 87492116                   /usr/lib/x86_64-linux-gnu/libfreetype.so.6.20.1
+7f23127f8000-7f23127ff000 r--p 000c4000 00:38 87492116                   /usr/lib/x86_64-linux-gnu/libfreetype.so.6.20.1
+7f23127ff000-7f2312800000 rw-p 000cb000 00:38 87492116                   /usr/lib/x86_64-linux-gnu/libfreetype.so.6.20.1
+7f2312800000-7f2312805000 r-xp 00000000 00:38 87430836                   /root/jg/jasper_2020.03/Linux64/lib/libmd5.so
+7f2312805000-7f2312a04000 ---p 00005000 00:38 87430836                   /root/jg/jasper_2020.03/Linux64/lib/libmd5.so
+7f2312a04000-7f2312a05000 r--p 00004000 00:38 87430836                   /root/jg/jasper_2020.03/Linux64/lib/libmd5.so
+7f2312a05000-7f2312a06000 rw-p 00005000 00:38 87430836                   /root/jg/jasper_2020.03/Linux64/lib/libmd5.so
+7f2312a07000-7f2312a09000 rw-p 00000000 00:00 0 
+7f2312a09000-7f2312a0b000 r--p 00000000 00:38 88027394                   /usr/lib/x86_64-linux-gnu/libuuid.so.1.3.0
+7f2312a0b000-7f2312a10000 r-xp 00002000 00:38 88027394                   /usr/lib/x86_64-linux-gnu/libuuid.so.1.3.0
+7f2312a10000-7f2312a11000 r--p 00007000 00:38 88027394                   /usr/lib/x86_64-linux-gnu/libuuid.so.1.3.0
+7f2312a11000-7f2312a12000 r--p 00007000 00:38 88027394                   /usr/lib/x86_64-linux-gnu/libuuid.so.1.3.0
+7f2312a12000-7f2312a13000 rw-p 00008000 00:38 88027394                   /usr/lib/x86_64-linux-gnu/libuuid.so.1.3.0
+7f2312a13000-7f2312a15000 r--p 00000000 00:38 87425960                   /usr/lib/x86_64-linux-gnu/libbz2.so.1.0.4
+7f2312a15000-7f2312a23000 r-xp 00002000 00:38 87425960                   /usr/lib/x86_64-linux-gnu/libbz2.so.1.0.4
+7f2312a23000-7f2312a25000 r--p 00010000 00:38 87425960                   /usr/lib/x86_64-linux-gnu/libbz2.so.1.0.4
+7f2312a25000-7f2312a26000 r--p 00011000 00:38 87425960                   /usr/lib/x86_64-linux-gnu/libbz2.so.1.0.4
+7f2312a26000-7f2312a27000 rw-p 00012000 00:38 87425960                   /usr/lib/x86_64-linux-gnu/libbz2.so.1.0.4
+7f2312a27000-7f2312a37000 r-xp 00000000 00:38 87430706                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAflRulesUtil.so
+7f2312a37000-7f2312a38000 r--p 0000f000 00:38 87430706                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAflRulesUtil.so
+7f2312a38000-7f2312a39000 rw-p 00010000 00:38 87430706                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAflRulesUtil.so
+7f2312a39000-7f2312a64000 r-xp 00000000 00:38 87430758                   /root/jg/jasper_2020.03/Linux64/lib/libJasperMixMatch.so
+7f2312a64000-7f2312a65000 r--p 0002a000 00:38 87430758                   /root/jg/jasper_2020.03/Linux64/lib/libJasperMixMatch.so
+7f2312a65000-7f2312a66000 rw-p 0002b000 00:38 87430758                   /root/jg/jasper_2020.03/Linux64/lib/libJasperMixMatch.so
+7f2312a66000-7f2312a6e000 r--p 00000000 00:38 87492114                   /usr/lib/x86_64-linux-gnu/libfontconfig.so.1.12.1
+7f2312a6e000-7f2312a9d000 r-xp 00008000 00:38 87492114                   /usr/lib/x86_64-linux-gnu/libfontconfig.so.1.12.1
+7f2312a9d000-7f2312ab4000 r--p 00037000 00:38 87492114                   /usr/lib/x86_64-linux-gnu/libfontconfig.so.1.12.1
+7f2312ab4000-7f2312ab6000 r--p 0004d000 00:38 87492114                   /usr/lib/x86_64-linux-gnu/libfontconfig.so.1.12.1
+7f2312ab6000-7f2312ab7000 rw-p 0004f000 00:38 87492114                   /usr/lib/x86_64-linux-gnu/libfontconfig.so.1.12.1
+7f2312ab7000-7f2312ad5000 r--p 00000000 00:38 88028521                   /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8000.0
+7f2312ad5000-7f2312b75000 r-xp 0001e000 00:38 88028521                   /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8000.0
+7f2312b75000-7f2312bfd000 r--p 000be000 00:38 88028521                   /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8000.0
+7f2312bfd000-7f2312bfe000 r--p 00146000 00:38 88028521                   /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8000.0
+7f2312bfe000-7f2312bff000 rw-p 00147000 00:38 88028521                   /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8000.0
+7f2312bff000-7f2312c00000 rw-p 00000000 00:00 0 
+7f2312c00000-7f2312da4000 r-xp 00000000 00:38 87430784                   /root/jg/jasper_2020.03/Linux64/lib/libJasperTcl8.6.so
+7f2312da4000-7f2312fa3000 ---p 001a4000 00:38 87430784                   /root/jg/jasper_2020.03/Linux64/lib/libJasperTcl8.6.so
+7f2312fa3000-7f2312fb1000 r--p 001a3000 00:38 87430784                   /root/jg/jasper_2020.03/Linux64/lib/libJasperTcl8.6.so
+7f2312fb1000-7f2312fb3000 rw-p 001b1000 00:38 87430784                   /root/jg/jasper_2020.03/Linux64/lib/libJasperTcl8.6.so
+7f2312fb3000-7f2312fb4000 rw-p 00000000 00:00 0 
+7f2312fb4000-7f2312fbe000 r-xp 00000000 00:38 87430771                   /root/jg/jasper_2020.03/Linux64/lib/libJasperRTLDSUtil.so
+7f2312fbe000-7f2312fbf000 ---p 0000a000 00:38 87430771                   /root/jg/jasper_2020.03/Linux64/lib/libJasperRTLDSUtil.so
+7f2312fbf000-7f2312fc0000 r--p 0000a000 00:38 87430771                   /root/jg/jasper_2020.03/Linux64/lib/libJasperRTLDSUtil.so
+7f2312fc0000-7f2312fc1000 rw-p 0000b000 00:38 87430771                   /root/jg/jasper_2020.03/Linux64/lib/libJasperRTLDSUtil.so
+7f2312fc1000-7f2312ffb000 r-xp 00000000 00:38 87430851                   /root/jg/jasper_2020.03/Linux64/lib/libutilradix.so
+7f2312ffb000-7f2312ffc000 ---p 0003a000 00:38 87430851                   /root/jg/jasper_2020.03/Linux64/lib/libutilradix.so
+7f2312ffc000-7f2312ffe000 r--p 0003a000 00:38 87430851                   /root/jg/jasper_2020.03/Linux64/lib/libutilradix.so
+7f2312ffe000-7f2313000000 rw-p 0003c000 00:38 87430851                   /root/jg/jasper_2020.03/Linux64/lib/libutilradix.so
+7f2313000000-7f23131c8000 r-xp 00000000 00:38 87430839                   /root/jg/jasper_2020.03/Linux64/lib/libnffw.so
+7f23131c8000-7f23133c7000 ---p 001c8000 00:38 87430839                   /root/jg/jasper_2020.03/Linux64/lib/libnffw.so
+7f23133c7000-7f23133c9000 r--p 001c7000 00:38 87430839                   /root/jg/jasper_2020.03/Linux64/lib/libnffw.so
+7f23133c9000-7f23133cd000 rw-p 001c9000 00:38 87430839                   /root/jg/jasper_2020.03/Linux64/lib/libnffw.so
+7f23133cd000-7f23133ce000 rw-p 00000000 00:00 0 
+7f23133ce000-7f23133d0000 r--p 00000000 00:38 87425983                   /usr/lib/x86_64-linux-gnu/libffi.so.8.1.4
+7f23133d0000-7f23133d7000 r-xp 00002000 00:38 87425983                   /usr/lib/x86_64-linux-gnu/libffi.so.8.1.4
+7f23133d7000-7f23133d8000 r--p 00009000 00:38 87425983                   /usr/lib/x86_64-linux-gnu/libffi.so.8.1.4
+7f23133d8000-7f23133d9000 r--p 0000a000 00:38 87425983                   /usr/lib/x86_64-linux-gnu/libffi.so.8.1.4
+7f23133d9000-7f23133da000 rw-p 0000b000 00:38 87425983                   /usr/lib/x86_64-linux-gnu/libffi.so.8.1.4
+7f23133da000-7f23133e9000 r--p 00000000 00:38 88028525                   /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.8000.0
+7f23133e9000-7f2313420000 r-xp 0000f000 00:38 88028525                   /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.8000.0
+7f2313420000-7f2313439000 r--p 00046000 00:38 88028525                   /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.8000.0
+7f2313439000-7f231343c000 r--p 0005e000 00:38 88028525                   /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.8000.0
+7f231343c000-7f231343d000 rw-p 00061000 00:38 88028525                   /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.8000.0
+7f231343d000-7f23134dc000 r-xp 00000000 00:38 87430759                   /root/jg/jasper_2020.03/Linux64/lib/libJasperMsgControl.so
+7f23134dc000-7f23134dd000 r--p 0009e000 00:38 87430759                   /root/jg/jasper_2020.03/Linux64/lib/libJasperMsgControl.so
+7f23134dd000-7f23134de000 rw-p 0009f000 00:38 87430759                   /root/jg/jasper_2020.03/Linux64/lib/libJasperMsgControl.so
+7f23134de000-7f2313697000 r-xp 00000000 00:38 87430835                   /root/jg/jasper_2020.03/Linux64/lib/libliberty.so
+7f2313697000-7f23136a0000 r--p 001b8000 00:38 87430835                   /root/jg/jasper_2020.03/Linux64/lib/libliberty.so
+7f23136a0000-7f23136a6000 rw-p 001c1000 00:38 87430835                   /root/jg/jasper_2020.03/Linux64/lib/libliberty.so
+7f23136a6000-7f23138d1000 r-xp 00000000 00:38 87430790                   /root/jg/jasper_2020.03/Linux64/lib/libJasperXProp.so
+7f23138d1000-7f23138d2000 ---p 0022b000 00:38 87430790                   /root/jg/jasper_2020.03/Linux64/lib/libJasperXProp.so
+7f23138d2000-7f23138dd000 r--p 0022b000 00:38 87430790                   /root/jg/jasper_2020.03/Linux64/lib/libJasperXProp.so
+7f23138dd000-7f23138e3000 rw-p 00236000 00:38 87430790                   /root/jg/jasper_2020.03/Linux64/lib/libJasperXProp.so
+7f23138e3000-7f23138e4000 rw-p 00000000 00:00 0 
+7f23138e4000-7f23139a4000 r-xp 00000000 00:38 87430789                   /root/jg/jasper_2020.03/Linux64/lib/libJasperVisualizeFlow.so
+7f23139a4000-7f23139aa000 r--p 000bf000 00:38 87430789                   /root/jg/jasper_2020.03/Linux64/lib/libJasperVisualizeFlow.so
+7f23139aa000-7f23139ad000 rw-p 000c5000 00:38 87430789                   /root/jg/jasper_2020.03/Linux64/lib/libJasperVisualizeFlow.so
+7f23139ad000-7f2313b87000 r-xp 00000000 00:38 87430787                   /root/jg/jasper_2020.03/Linux64/lib/libJasperUnr.so
+7f2313b87000-7f2313b95000 r--p 001d9000 00:38 87430787                   /root/jg/jasper_2020.03/Linux64/lib/libJasperUnr.so
+7f2313b95000-7f2313b9a000 rw-p 001e7000 00:38 87430787                   /root/jg/jasper_2020.03/Linux64/lib/libJasperUnr.so
+7f2313b9a000-7f2313b9b000 rw-p 00000000 00:00 0 
+7f2313b9b000-7f2313dd0000 r-xp 00000000 00:38 87430770                   /root/jg/jasper_2020.03/Linux64/lib/libJasperRTLDS.so
+7f2313dd0000-7f2313dd1000 ---p 00235000 00:38 87430770                   /root/jg/jasper_2020.03/Linux64/lib/libJasperRTLDS.so
+7f2313dd1000-7f2313ddc000 r--p 00235000 00:38 87430770                   /root/jg/jasper_2020.03/Linux64/lib/libJasperRTLDS.so
+7f2313ddc000-7f2313de2000 rw-p 00240000 00:38 87430770                   /root/jg/jasper_2020.03/Linux64/lib/libJasperRTLDS.so
+7f2313de2000-7f2313de4000 rw-p 00000000 00:00 0 
+7f2313de4000-7f2313e0e000 r-xp 00000000 00:38 87430782                   /root/jg/jasper_2020.03/Linux64/lib/libJasperStructExplorer.so
+7f2313e0e000-7f2313e10000 r--p 00029000 00:38 87430782                   /root/jg/jasper_2020.03/Linux64/lib/libJasperStructExplorer.so
+7f2313e10000-7f2313e11000 rw-p 0002b000 00:38 87430782                   /root/jg/jasper_2020.03/Linux64/lib/libJasperStructExplorer.so
+7f2313e11000-7f2313e12000 rw-p 00000000 00:00 0 
+7f2313e12000-7f2313f0d000 r-xp 00000000 00:38 87430774                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSPV.so
+7f2313f0d000-7f2313f0e000 ---p 000fb000 00:38 87430774                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSPV.so
+7f2313f0e000-7f2313f14000 r--p 000fb000 00:38 87430774                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSPV.so
+7f2313f14000-7f2313f18000 rw-p 00101000 00:38 87430774                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSPV.so
+7f2313f18000-7f2313f6b000 r-xp 00000000 00:38 87430779                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSimExport.so
+7f2313f6b000-7f2313f6d000 r--p 00052000 00:38 87430779                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSimExport.so
+7f2313f6d000-7f2313f6f000 rw-p 00054000 00:38 87430779                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSimExport.so
+7f2313f6f000-7f2313fad000 r-xp 00000000 00:38 87430778                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSignalBrowser.so
+7f2313fad000-7f2313fae000 ---p 0003e000 00:38 87430778                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSignalBrowser.so
+7f2313fae000-7f2313fb0000 r--p 0003e000 00:38 87430778                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSignalBrowser.so
+7f2313fb0000-7f2313fb2000 rw-p 00040000 00:38 87430778                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSignalBrowser.so
+7f2313fb2000-7f2314a1d000 r-xp 00000000 00:38 87430776                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSecEquiv.so
+7f2314a1d000-7f2314a1e000 ---p 00a6b000 00:38 87430776                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSecEquiv.so
+7f2314a1e000-7f2314a65000 r--p 00a6b000 00:38 87430776                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSecEquiv.so
+7f2314a65000-7f2314a76000 rw-p 00ab2000 00:38 87430776                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSecEquiv.so
+7f2314a76000-7f2314aa6000 rw-p 00000000 00:00 0 
+7f2314aa6000-7f2314b4a000 r-xp 00000000 00:38 87430773                   /root/jg/jasper_2020.03/Linux64/lib/libJasperResetInfo.so
+7f2314b4a000-7f2314b4b000 ---p 000a4000 00:38 87430773                   /root/jg/jasper_2020.03/Linux64/lib/libJasperResetInfo.so
+7f2314b4b000-7f2314b51000 r--p 000a4000 00:38 87430773                   /root/jg/jasper_2020.03/Linux64/lib/libJasperResetInfo.so
+7f2314b51000-7f2314b54000 rw-p 000aa000 00:38 87430773                   /root/jg/jasper_2020.03/Linux64/lib/libJasperResetInfo.so
+7f2314b54000-7f2314bf9000 r-xp 00000000 00:38 87430769                   /root/jg/jasper_2020.03/Linux64/lib/libJasperProofStructure.so
+7f2314bf9000-7f2314bfd000 r--p 000a4000 00:38 87430769                   /root/jg/jasper_2020.03/Linux64/lib/libJasperProofStructure.so
+7f2314bfd000-7f2314c00000 rw-p 000a8000 00:38 87430769                   /root/jg/jasper_2020.03/Linux64/lib/libJasperProofStructure.so
+7f2314c00000-7f2314c9c000 r-xp 00000000 00:38 87430764                   /root/jg/jasper_2020.03/Linux64/lib/libJasperPartition.so
+7f2314c9c000-7f2314c9d000 ---p 0009c000 00:38 87430764                   /root/jg/jasper_2020.03/Linux64/lib/libJasperPartition.so
+7f2314c9d000-7f2314ca0000 r--p 0009c000 00:38 87430764                   /root/jg/jasper_2020.03/Linux64/lib/libJasperPartition.so
+7f2314ca0000-7f2314ca3000 rw-p 0009f000 00:38 87430764                   /root/jg/jasper_2020.03/Linux64/lib/libJasperPartition.so
+7f2314ca3000-7f2314d31000 r-xp 00000000 00:38 87430762                   /root/jg/jasper_2020.03/Linux64/lib/libJasperOckham.so
+7f2314d31000-7f2314d36000 r--p 0008d000 00:38 87430762                   /root/jg/jasper_2020.03/Linux64/lib/libJasperOckham.so
+7f2314d36000-7f2314d39000 rw-p 00092000 00:38 87430762                   /root/jg/jasper_2020.03/Linux64/lib/libJasperOckham.so
+7f2314d39000-7f2314fbb000 r-xp 00000000 00:38 87430754                   /root/jg/jasper_2020.03/Linux64/lib/libJasperLPV.so
+7f2314fbb000-7f2314fce000 r--p 00281000 00:38 87430754                   /root/jg/jasper_2020.03/Linux64/lib/libJasperLPV.so
+7f2314fce000-7f2314fd4000 rw-p 00294000 00:38 87430754                   /root/jg/jasper_2020.03/Linux64/lib/libJasperLPV.so
+7f2314fd4000-7f2314fd5000 rw-p 00000000 00:00 0 
+7f2314fd5000-7f231514d000 r-xp 00000000 00:38 87430745                   /root/jg/jasper_2020.03/Linux64/lib/libJasperIPXACT.so
+7f231514d000-7f2315150000 r--p 00177000 00:38 87430745                   /root/jg/jasper_2020.03/Linux64/lib/libJasperIPXACT.so
+7f2315150000-7f2315153000 rw-p 0017a000 00:38 87430745                   /root/jg/jasper_2020.03/Linux64/lib/libJasperIPXACT.so
+7f2315153000-7f2315157000 rw-p 00000000 00:00 0 
+7f2315157000-7f23168d9000 r-xp 00000000 00:38 87430831                   /root/jg/jasper_2020.03/Linux64/lib/libjaspergui.so
+7f23168d9000-7f23168da000 ---p 01782000 00:38 87430831                   /root/jg/jasper_2020.03/Linux64/lib/libjaspergui.so
+7f23168da000-7f2316987000 r--p 01782000 00:38 87430831                   /root/jg/jasper_2020.03/Linux64/lib/libjaspergui.so
+7f2316987000-7f23169bf000 rw-p 0182f000 00:38 87430831                   /root/jg/jasper_2020.03/Linux64/lib/libjaspergui.so
+7f23169bf000-7f23169d5000 rw-p 00000000 00:00 0 
+7f23169d5000-7f2316d83000 r-xp 00000000 00:38 87430738                   /root/jg/jasper_2020.03/Linux64/lib/libJasperFsv.so
+7f2316d83000-7f2316d9c000 r--p 003ad000 00:38 87430738                   /root/jg/jasper_2020.03/Linux64/lib/libJasperFsv.so
+7f2316d9c000-7f2316da4000 rw-p 003c6000 00:38 87430738                   /root/jg/jasper_2020.03/Linux64/lib/libJasperFsv.so
+7f2316da4000-7f2316e05000 rw-p 00000000 00:00 0 
+7f2316e05000-7f2317572000 r-xp 00000000 00:38 87430725                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCoverage.so
+7f2317572000-7f2317596000 r--p 0076c000 00:38 87430725                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCoverage.so
+7f2317596000-7f23175a2000 rw-p 00790000 00:38 87430725                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCoverage.so
+7f23175a2000-7f23175f8000 rw-p 00000000 00:00 0 
+7f23175f8000-7f23178b3000 r-xp 00000000 00:38 87430721                   /root/jg/jasper_2020.03/Linux64/lib/libJasperConnectivity.so
+7f23178b3000-7f23178be000 r--p 002ba000 00:38 87430721                   /root/jg/jasper_2020.03/Linux64/lib/libJasperConnectivity.so
+7f23178be000-7f23178c4000 rw-p 002c5000 00:38 87430721                   /root/jg/jasper_2020.03/Linux64/lib/libJasperConnectivity.so
+7f23178c4000-7f23178c5000 rw-p 00000000 00:00 0 
+7f23178c5000-7f2317ad1000 r-xp 00000000 00:38 87430724                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCoverGroupSynth.so
+7f2317ad1000-7f2317ada000 r--p 0020b000 00:38 87430724                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCoverGroupSynth.so
+7f2317ada000-7f2317ae0000 rw-p 00214000 00:38 87430724                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCoverGroupSynth.so
+7f2317ae0000-7f2317ae1000 rw-p 00000000 00:00 0 
+7f2317ae1000-7f23189f3000 r-xp 00000000 00:38 87430714                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCDC.so
+7f23189f3000-7f2318a36000 r--p 00f11000 00:38 87430714                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCDC.so
+7f2318a36000-7f2318a4f000 rw-p 00f54000 00:38 87430714                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCDC.so
+7f2318a4f000-7f2318a85000 rw-p 00000000 00:00 0 
+7f2318a85000-7f2318cac000 r-xp 00000000 00:38 87430711                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAutoProve.so
+7f2318cac000-7f2318cad000 ---p 00227000 00:38 87430711                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAutoProve.so
+7f2318cad000-7f2318cc2000 r--p 00227000 00:38 87430711                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAutoProve.so
+7f2318cc2000-7f2318cc8000 rw-p 0023c000 00:38 87430711                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAutoProve.so
+7f2318cc8000-7f2318cc9000 rw-p 00000000 00:00 0 
+7f2318cc9000-7f231923e000 r-xp 00000000 00:38 87430708                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAp.so
+7f231923e000-7f231923f000 ---p 00575000 00:38 87430708                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAp.so
+7f231923f000-7f231924d000 r--p 00575000 00:38 87430708                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAp.so
+7f231924d000-7f2319254000 rw-p 00583000 00:38 87430708                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAp.so
+7f2319254000-7f2319282000 rw-p 00000000 00:00 0 
+7f2319282000-7f2319a35000 r-xp 00000000 00:38 87430705                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAfl.so
+7f2319a35000-7f2319a61000 r--p 007b2000 00:38 87430705                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAfl.so
+7f2319a61000-7f2319a6d000 rw-p 007de000 00:38 87430705                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAfl.so
+7f2319a6d000-7f2319aa1000 rw-p 00000000 00:00 0 
+7f2319aa1000-7f231aed2000 r-xp 00000000 00:38 87430707                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAg.so
+7f231aed2000-7f231aed3000 ---p 01431000 00:38 87430707                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAg.so
+7f231aed3000-7f231af22000 r--p 01431000 00:38 87430707                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAg.so
+7f231af22000-7f231afd2000 rw-p 01480000 00:38 87430707                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAg.so
+7f231afd2000-7f231b9ee000 rw-p 00000000 00:00 0 
+7f231b9ee000-7f231ba16000 r--p 00000000 00:38 87492070                   /usr/lib/x86_64-linux-gnu/libc.so.6
+7f231ba16000-7f231bb9e000 r-xp 00028000 00:38 87492070                   /usr/lib/x86_64-linux-gnu/libc.so.6
+7f231bb9e000-7f231bbed000 r--p 001b0000 00:38 87492070                   /usr/lib/x86_64-linux-gnu/libc.so.6
+7f231bbed000-7f231bbf1000 r--p 001fe000 00:38 87492070                   /usr/lib/x86_64-linux-gnu/libc.so.6
+7f231bbf1000-7f231bbf3000 rw-p 00202000 00:38 87492070                   /usr/lib/x86_64-linux-gnu/libc.so.6
+7f231bbf3000-7f231bc00000 rw-p 00000000 00:00 0 
+7f231bc00000-7f231bfec000 r-xp 00000000 00:38 87430800                   /root/jg/jasper_2020.03/Linux64/lib/libQtXmlPatterns.so.4
+7f231bfec000-7f231c1ec000 ---p 003ec000 00:38 87430800                   /root/jg/jasper_2020.03/Linux64/lib/libQtXmlPatterns.so.4
+7f231c1ec000-7f231c222000 r--p 003ec000 00:38 87430800                   /root/jg/jasper_2020.03/Linux64/lib/libQtXmlPatterns.so.4
+7f231c222000-7f231c223000 rw-p 00422000 00:38 87430800                   /root/jg/jasper_2020.03/Linux64/lib/libQtXmlPatterns.so.4
+7f231c223000-7f231c226000 rw-p 00000000 00:00 0 
+7f231c226000-7f231c22a000 r--p 00000000 00:38 87492028                   /usr/lib/x86_64-linux-gnu/libICE.so.6.3.0
+7f231c22a000-7f231c239000 r-xp 00004000 00:38 87492028                   /usr/lib/x86_64-linux-gnu/libICE.so.6.3.0
+7f231c239000-7f231c23d000 r--p 00013000 00:38 87492028                   /usr/lib/x86_64-linux-gnu/libICE.so.6.3.0
+7f231c23d000-7f231c23e000 r--p 00016000 00:38 87492028                   /usr/lib/x86_64-linux-gnu/libICE.so.6.3.0
+7f231c23e000-7f231c23f000 rw-p 00017000 00:38 87492028                   /usr/lib/x86_64-linux-gnu/libICE.so.6.3.0
+7f231c23f000-7f231c242000 rw-p 00000000 00:00 0 
+7f231c242000-7f231c3ee000 r-xp 00000000 00:38 87430720                   /root/jg/jasper_2020.03/Linux64/lib/libJasperComplexityManager.so
+7f231c3ee000-7f231c3ef000 ---p 001ac000 00:38 87430720                   /root/jg/jasper_2020.03/Linux64/lib/libJasperComplexityManager.so
+7f231c3ef000-7f231c3fa000 r--p 001ac000 00:38 87430720                   /root/jg/jasper_2020.03/Linux64/lib/libJasperComplexityManager.so
+7f231c3fa000-7f231c3ff000 rw-p 001b7000 00:38 87430720                   /root/jg/jasper_2020.03/Linux64/lib/libJasperComplexityManager.so
+7f231c3ff000-7f231c400000 rw-p 00000000 00:00 0 
+7f231c400000-7f231c440000 r-xp 00000000 00:38 87430799                   /root/jg/jasper_2020.03/Linux64/lib/libQtXml.so.4
+7f231c440000-7f231c640000 ---p 00040000 00:38 87430799                   /root/jg/jasper_2020.03/Linux64/lib/libQtXml.so.4
+7f231c640000-7f231c642000 r--p 00040000 00:38 87430799                   /root/jg/jasper_2020.03/Linux64/lib/libQtXml.so.4
+7f231c642000-7f231c643000 rw-p 00042000 00:38 87430799                   /root/jg/jasper_2020.03/Linux64/lib/libQtXml.so.4
+7f231c643000-7f231c644000 r--p 00000000 00:38 87490916                   /usr/lib/locale/C.utf8/LC_NUMERIC
+7f231c644000-7f231c646000 rw-p 00000000 00:00 0 
+7f231c646000-7f231c648000 r--p 00000000 00:38 87426074                   /usr/lib/x86_64-linux-gnu/libz.so.1.3
+7f231c648000-7f231c65a000 r-xp 00002000 00:38 87426074                   /usr/lib/x86_64-linux-gnu/libz.so.1.3
+7f231c65a000-7f231c660000 r--p 00014000 00:38 87426074                   /usr/lib/x86_64-linux-gnu/libz.so.1.3
+7f231c660000-7f231c661000 r--p 0001a000 00:38 87426074                   /usr/lib/x86_64-linux-gnu/libz.so.1.3
+7f231c661000-7f231c662000 rw-p 0001b000 00:38 87426074                   /usr/lib/x86_64-linux-gnu/libz.so.1.3
+7f231c662000-7f231c699000 r-xp 00000000 00:38 87430750                   /root/jg/jasper_2020.03/Linux64/lib/libJasperIrun.so
+7f231c699000-7f231c69a000 ---p 00037000 00:38 87430750                   /root/jg/jasper_2020.03/Linux64/lib/libJasperIrun.so
+7f231c69a000-7f231c69b000 r--p 00037000 00:38 87430750                   /root/jg/jasper_2020.03/Linux64/lib/libJasperIrun.so
+7f231c69b000-7f231c69c000 rw-p 00038000 00:38 87430750                   /root/jg/jasper_2020.03/Linux64/lib/libJasperIrun.so
+7f231c69c000-7f231c69d000 rw-p 00000000 00:00 0 
+7f231c69d000-7f231c7f7000 r-xp 00000000 00:38 87430765                   /root/jg/jasper_2020.03/Linux64/lib/libJasperProofControl.so
+7f231c7f7000-7f231c7fb000 r--p 00159000 00:38 87430765                   /root/jg/jasper_2020.03/Linux64/lib/libJasperProofControl.so
+7f231c7fb000-7f231c7ff000 rw-p 0015d000 00:38 87430765                   /root/jg/jasper_2020.03/Linux64/lib/libJasperProofControl.so
+7f231c7ff000-7f231c800000 rw-p 00000000 00:00 0 
+7f231c800000-7f231c850000 r-xp 00000000 00:38 87430798                   /root/jg/jasper_2020.03/Linux64/lib/libQtSvg.so.4
+7f231c850000-7f231ca50000 ---p 00050000 00:38 87430798                   /root/jg/jasper_2020.03/Linux64/lib/libQtSvg.so.4
+7f231ca50000-7f231ca52000 r--p 00050000 00:38 87430798                   /root/jg/jasper_2020.03/Linux64/lib/libQtSvg.so.4
+7f231ca52000-7f231ca53000 rw-p 00052000 00:38 87430798                   /root/jg/jasper_2020.03/Linux64/lib/libQtSvg.so.4
+7f231ca53000-7f231ca54000 r--p 00000000 00:38 87490919                   /usr/lib/locale/C.utf8/LC_TIME
+7f231ca54000-7f231ca55000 r--p 00000000 00:38 87492035                   /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f231ca55000-7f231ca57000 r-xp 00001000 00:38 87492035                   /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f231ca57000-7f231ca58000 r--p 00003000 00:38 87492035                   /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f231ca58000-7f231ca59000 r--p 00003000 00:38 87492035                   /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f231ca59000-7f231ca5a000 rw-p 00004000 00:38 87492035                   /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f231ca5a000-7f231caa8000 r-xp 00000000 00:38 87430717                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCaseSplit.so
+7f231caa8000-7f231caab000 r--p 0004d000 00:38 87430717                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCaseSplit.so
+7f231caab000-7f231caad000 rw-p 00050000 00:38 87430717                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCaseSplit.so
+7f231caad000-7f231cbf5000 r-xp 00000000 00:38 87430743                   /root/jg/jasper_2020.03/Linux64/lib/libJasperHunt.so
+7f231cbf5000-7f231cbf6000 ---p 00148000 00:38 87430743                   /root/jg/jasper_2020.03/Linux64/lib/libJasperHunt.so
+7f231cbf6000-7f231cbfb000 r--p 00148000 00:38 87430743                   /root/jg/jasper_2020.03/Linux64/lib/libJasperHunt.so
+7f231cbfb000-7f231cbff000 rw-p 0014d000 00:38 87430743                   /root/jg/jasper_2020.03/Linux64/lib/libJasperHunt.so
+7f231cbff000-7f231cc00000 rw-p 00000000 00:00 0 
+7f231cc00000-7f231cc42000 r-xp 00000000 00:38 87430797                   /root/jg/jasper_2020.03/Linux64/lib/libQtSql.so.4
+7f231cc42000-7f231ce42000 ---p 00042000 00:38 87430797                   /root/jg/jasper_2020.03/Linux64/lib/libQtSql.so.4
+7f231ce42000-7f231ce44000 r--p 00042000 00:38 87430797                   /root/jg/jasper_2020.03/Linux64/lib/libQtSql.so.4
+7f231ce44000-7f231ce45000 rw-p 00044000 00:38 87430797                   /root/jg/jasper_2020.03/Linux64/lib/libQtSql.so.4
+7f231ce45000-7f231ce46000 r--p 00000000 00:38 87490908                   /usr/lib/locale/C.utf8/LC_COLLATE
+7f231ce46000-7f231ce4a000 r--p 00000000 00:38 87492039                   /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f231ce4a000-7f231ce55000 r-xp 00004000 00:38 87492039                   /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f231ce55000-7f231ce58000 r--p 0000f000 00:38 87492039                   /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f231ce58000-7f231ce59000 r--p 00011000 00:38 87492039                   /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f231ce59000-7f231ce5a000 rw-p 00012000 00:38 87492039                   /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f231ce5a000-7f231cecc000 r-xp 00000000 00:38 87430757                   /root/jg/jasper_2020.03/Linux64/lib/libJasperMemory.so
+7f231cecc000-7f231cecd000 ---p 00072000 00:38 87430757                   /root/jg/jasper_2020.03/Linux64/lib/libJasperMemory.so
+7f231cecd000-7f231ced0000 r--p 00072000 00:38 87430757                   /root/jg/jasper_2020.03/Linux64/lib/libJasperMemory.so
+7f231ced0000-7f231ced2000 rw-p 00075000 00:38 87430757                   /root/jg/jasper_2020.03/Linux64/lib/libJasperMemory.so
+7f231ced2000-7f231cf04000 r-xp 00000000 00:38 87430744                   /root/jg/jasper_2020.03/Linux64/lib/libJasperIPK.so
+7f231cf04000-7f231cf06000 r--p 00031000 00:38 87430744                   /root/jg/jasper_2020.03/Linux64/lib/libJasperIPK.so
+7f231cf06000-7f231cf08000 rw-p 00033000 00:38 87430744                   /root/jg/jasper_2020.03/Linux64/lib/libJasperIPK.so
+7f231cf08000-7f231cf53000 r-xp 00000000 00:38 87430768                   /root/jg/jasper_2020.03/Linux64/lib/libJasperProofMaster.so
+7f231cf53000-7f231cf54000 ---p 0004b000 00:38 87430768                   /root/jg/jasper_2020.03/Linux64/lib/libJasperProofMaster.so
+7f231cf54000-7f231cf56000 r--p 0004b000 00:38 87430768                   /root/jg/jasper_2020.03/Linux64/lib/libJasperProofMaster.so
+7f231cf56000-7f231cf58000 rw-p 0004d000 00:38 87430768                   /root/jg/jasper_2020.03/Linux64/lib/libJasperProofMaster.so
+7f231cf58000-7f231cff9000 r-xp 00000000 00:38 87430740                   /root/jg/jasper_2020.03/Linux64/lib/libJasperGraph.so
+7f231cff9000-7f231cffd000 r--p 000a0000 00:38 87430740                   /root/jg/jasper_2020.03/Linux64/lib/libJasperGraph.so
+7f231cffd000-7f231d000000 rw-p 000a4000 00:38 87430740                   /root/jg/jasper_2020.03/Linux64/lib/libJasperGraph.so
+7f231d000000-7f231d0ce000 r-xp 00000000 00:38 87430796                   /root/jg/jasper_2020.03/Linux64/lib/libQtNetwork.so.4
+7f231d0ce000-7f231d2ce000 ---p 000ce000 00:38 87430796                   /root/jg/jasper_2020.03/Linux64/lib/libQtNetwork.so.4
+7f231d2ce000-7f231d2d2000 r--p 000ce000 00:38 87430796                   /root/jg/jasper_2020.03/Linux64/lib/libQtNetwork.so.4
+7f231d2d2000-7f231d2d4000 rw-p 000d2000 00:38 87430796                   /root/jg/jasper_2020.03/Linux64/lib/libQtNetwork.so.4
+7f231d2d4000-7f231d2d5000 r--p 00000000 00:38 87490914                   /usr/lib/locale/C.utf8/LC_MONETARY
+7f231d2d5000-7f231d2dd000 rw-p 00000000 00:00 0 
+7f231d2dd000-7f231d2df000 r--p 00000000 00:38 87492045                   /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f231d2df000-7f231d2e6000 r-xp 00002000 00:38 87492045                   /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f231d2e6000-7f231d2e7000 r--p 00009000 00:38 87492045                   /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f231d2e7000-7f231d2e8000 r--p 00009000 00:38 87492045                   /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f231d2e8000-7f231d2e9000 rw-p 0000a000 00:38 87492045                   /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f231d2e9000-7f231d3f8000 r-xp 00000000 00:38 87430729                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDLD.so
+7f231d3f8000-7f231d3fc000 r--p 0010e000 00:38 87430729                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDLD.so
+7f231d3fc000-7f231d400000 rw-p 00112000 00:38 87430729                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDLD.so
+7f231d400000-7f231ddbb000 r-xp 00000000 00:38 87430794                   /root/jg/jasper_2020.03/Linux64/lib/libQtGui.so.4
+7f231ddbb000-7f231dfba000 ---p 009bb000 00:38 87430794                   /root/jg/jasper_2020.03/Linux64/lib/libQtGui.so.4
+7f231dfba000-7f231dff5000 r--p 009ba000 00:38 87430794                   /root/jg/jasper_2020.03/Linux64/lib/libQtGui.so.4
+7f231dff5000-7f231e007000 rw-p 009f5000 00:38 87430794                   /root/jg/jasper_2020.03/Linux64/lib/libQtGui.so.4
+7f231e007000-7f231e00c000 rw-p 00000000 00:00 0 
+7f231e00c000-7f231e032000 r-xp 00000000 00:38 87430775                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSchematic.so
+7f231e032000-7f231e033000 ---p 00026000 00:38 87430775                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSchematic.so
+7f231e033000-7f231e035000 r--p 00026000 00:38 87430775                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSchematic.so
+7f231e035000-7f231e036000 rw-p 00028000 00:38 87430775                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSchematic.so
+7f231e036000-7f231e037000 rw-p 00000000 00:00 0 
+7f231e037000-7f231e06b000 r-xp 00000000 00:38 87430767                   /root/jg/jasper_2020.03/Linux64/lib/libJasperProofLemma.so
+7f231e06b000-7f231e06c000 ---p 00034000 00:38 87430767                   /root/jg/jasper_2020.03/Linux64/lib/libJasperProofLemma.so
+7f231e06c000-7f231e06e000 r--p 00034000 00:38 87430767                   /root/jg/jasper_2020.03/Linux64/lib/libJasperProofLemma.so
+7f231e06e000-7f231e070000 rw-p 00036000 00:38 87430767                   /root/jg/jasper_2020.03/Linux64/lib/libJasperProofLemma.so
+7f231e070000-7f231e1f1000 r-xp 00000000 00:38 87430718                   /root/jg/jasper_2020.03/Linux64/lib/libJasperClockInfo.so
+7f231e1f1000-7f231e1f2000 ---p 00181000 00:38 87430718                   /root/jg/jasper_2020.03/Linux64/lib/libJasperClockInfo.so
+7f231e1f2000-7f231e1fb000 r--p 00181000 00:38 87430718                   /root/jg/jasper_2020.03/Linux64/lib/libJasperClockInfo.so
+7f231e1fb000-7f231e200000 rw-p 0018a000 00:38 87430718                   /root/jg/jasper_2020.03/Linux64/lib/libJasperClockInfo.so
+7f231e200000-7f231e463000 r-xp 00000000 00:38 87430793                   /root/jg/jasper_2020.03/Linux64/lib/libQtCore.so.4
+7f231e463000-7f231e663000 ---p 00263000 00:38 87430793                   /root/jg/jasper_2020.03/Linux64/lib/libQtCore.so.4
+7f231e663000-7f231e66d000 r--p 00263000 00:38 87430793                   /root/jg/jasper_2020.03/Linux64/lib/libQtCore.so.4
+7f231e66d000-7f231e671000 rw-p 0026d000 00:38 87430793                   /root/jg/jasper_2020.03/Linux64/lib/libQtCore.so.4
+7f231e671000-7f231e67a000 rw-p 00000000 00:00 0 
+7f231e67a000-7f231e693000 r-xp 00000000 00:38 87430748                   /root/jg/jasper_2020.03/Linux64/lib/libJasperInfoQueryAPI.so
+7f231e693000-7f231e694000 ---p 00019000 00:38 87430748                   /root/jg/jasper_2020.03/Linux64/lib/libJasperInfoQueryAPI.so
+7f231e694000-7f231e695000 r--p 00019000 00:38 87430748                   /root/jg/jasper_2020.03/Linux64/lib/libJasperInfoQueryAPI.so
+7f231e695000-7f231e696000 rw-p 0001a000 00:38 87430748                   /root/jg/jasper_2020.03/Linux64/lib/libJasperInfoQueryAPI.so
+7f231e696000-7f231e7ef000 r-xp 00000000 00:38 87430719                   /root/jg/jasper_2020.03/Linux64/lib/libJasperComboLoop.so
+7f231e7ef000-7f231e7fb000 r--p 00158000 00:38 87430719                   /root/jg/jasper_2020.03/Linux64/lib/libJasperComboLoop.so
+7f231e7fb000-7f231e800000 rw-p 00164000 00:38 87430719                   /root/jg/jasper_2020.03/Linux64/lib/libJasperComboLoop.so
+7f231e800000-7f231e825000 r-xp 00000000 00:38 87430847                   /root/jg/jasper_2020.03/Linux64/lib/libtcmalloc_minimal.so.4
+7f231e825000-7f231ea25000 ---p 00025000 00:38 87430847                   /root/jg/jasper_2020.03/Linux64/lib/libtcmalloc_minimal.so.4
+7f231ea25000-7f231ea26000 r--p 00025000 00:38 87430847                   /root/jg/jasper_2020.03/Linux64/lib/libtcmalloc_minimal.so.4
+7f231ea26000-7f231ea27000 rw-p 00026000 00:38 87430847                   /root/jg/jasper_2020.03/Linux64/lib/libtcmalloc_minimal.so.4
+7f231ea27000-7f231ebd0000 rw-p 00000000 00:00 0 
+7f231ebd0000-7f231ebd1000 r--p 00000000 00:38 87490913                   /usr/lib/locale/C.utf8/LC_MESSAGES/SYS_LC_MESSAGES
+7f231ebd1000-7f231ebd5000 rw-p 00000000 00:00 0 
+7f231ebd5000-7f231ebd6000 r-xp 00000000 00:38 87430820                   /root/jg/jasper_2020.03/Linux64/lib/libenvcfg.so
+7f231ebd6000-7f231ebd7000 r--p 00000000 00:38 87430820                   /root/jg/jasper_2020.03/Linux64/lib/libenvcfg.so
+7f231ebd7000-7f231ebd8000 rw-p 00001000 00:38 87430820                   /root/jg/jasper_2020.03/Linux64/lib/libenvcfg.so
+7f231ebd8000-7f231ebd9000 r-xp 00000000 00:38 87430780                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSlCustomRulesUtil.so
+7f231ebd9000-7f231ebda000 r--p 00000000 00:38 87430780                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSlCustomRulesUtil.so
+7f231ebda000-7f231ebdb000 rw-p 00001000 00:38 87430780                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSlCustomRulesUtil.so
+7f231ebdb000-7f231ebe3000 r-xp 00000000 00:38 87430760                   /root/jg/jasper_2020.03/Linux64/lib/libJasperMsgHelp.so
+7f231ebe3000-7f231ebe4000 ---p 00008000 00:38 87430760                   /root/jg/jasper_2020.03/Linux64/lib/libJasperMsgHelp.so
+7f231ebe4000-7f231ebe5000 r--p 00008000 00:38 87430760                   /root/jg/jasper_2020.03/Linux64/lib/libJasperMsgHelp.so
+7f231ebe5000-7f231ebe6000 rw-p 00009000 00:38 87430760                   /root/jg/jasper_2020.03/Linux64/lib/libJasperMsgHelp.so
+7f231ebe6000-7f231ec18000 r-xp 00000000 00:38 87430737                   /root/jg/jasper_2020.03/Linux64/lib/libJasperFpvOrchestration.so
+7f231ec18000-7f231ec1a000 r--p 00031000 00:38 87430737                   /root/jg/jasper_2020.03/Linux64/lib/libJasperFpvOrchestration.so
+7f231ec1a000-7f231ec1b000 rw-p 00033000 00:38 87430737                   /root/jg/jasper_2020.03/Linux64/lib/libJasperFpvOrchestration.so
+7f231ec1b000-7f231ec1c000 rw-p 00000000 00:00 0 
+7f231ec1c000-7f231ed3c000 r-xp 00000000 00:38 87430715                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCSR.so
+7f231ed3c000-7f231ed3d000 ---p 00120000 00:38 87430715                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCSR.so
+7f231ed3d000-7f231ed41000 r--p 00120000 00:38 87430715                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCSR.so
+7f231ed41000-7f231ed45000 rw-p 00124000 00:38 87430715                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCSR.so
+7f231ed45000-7f231efc2000 r-xp 00000000 00:38 87430785                   /root/jg/jasper_2020.03/Linux64/lib/libJasperTclNative.so
+7f231efc2000-7f231efc3000 ---p 0027d000 00:38 87430785                   /root/jg/jasper_2020.03/Linux64/lib/libJasperTclNative.so
+7f231efc3000-7f231efc8000 r--p 0027d000 00:38 87430785                   /root/jg/jasper_2020.03/Linux64/lib/libJasperTclNative.so
+7f231efc8000-7f231efcb000 rw-p 00282000 00:38 87430785                   /root/jg/jasper_2020.03/Linux64/lib/libJasperTclNative.so
+7f231efcb000-7f231efcc000 rw-p 00000000 00:00 0 
+7f231efcc000-7f231f3a6000 r-xp 00000000 00:38 87430702                   /root/jg/jasper_2020.03/Linux64/lib/libJasper1.so
+7f231f3a6000-7f231f3b5000 r--p 003d9000 00:38 87430702                   /root/jg/jasper_2020.03/Linux64/lib/libJasper1.so
+7f231f3b5000-7f231f3bc000 rw-p 003e8000 00:38 87430702                   /root/jg/jasper_2020.03/Linux64/lib/libJasper1.so
+7f231f3bc000-7f231f400000 rw-p 00000000 00:00 0 
+7f231f400000-7f231f442000 r-xp 00000000 00:38 87430822                   /root/jg/jasper_2020.03/Linux64/lib/libfmt.so.5
+7f231f442000-7f231f641000 ---p 00042000 00:38 87430822                   /root/jg/jasper_2020.03/Linux64/lib/libfmt.so.5
+7f231f641000-7f231f642000 r--p 00041000 00:38 87430822                   /root/jg/jasper_2020.03/Linux64/lib/libfmt.so.5
+7f231f642000-7f231f643000 rw-p 00042000 00:38 87430822                   /root/jg/jasper_2020.03/Linux64/lib/libfmt.so.5
+7f231f643000-7f231f644000 r--p 00000000 00:38 87490917                   /usr/lib/locale/C.utf8/LC_PAPER
+7f231f644000-7f231f670000 r-xp 00000000 00:38 87430756                   /root/jg/jasper_2020.03/Linux64/lib/libJasperMachineLearning.so
+7f231f670000-7f231f671000 ---p 0002c000 00:38 87430756                   /root/jg/jasper_2020.03/Linux64/lib/libJasperMachineLearning.so
+7f231f671000-7f231f672000 r--p 0002c000 00:38 87430756                   /root/jg/jasper_2020.03/Linux64/lib/libJasperMachineLearning.so
+7f231f672000-7f231f673000 rw-p 0002d000 00:38 87430756                   /root/jg/jasper_2020.03/Linux64/lib/libJasperMachineLearning.so
+7f231f673000-7f231f674000 rw-p 00000000 00:00 0 
+7f231f674000-7f231f787000 r-xp 00000000 00:38 87430716                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCaptureTestcase.so
+7f231f787000-7f231f788000 ---p 00113000 00:38 87430716                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCaptureTestcase.so
+7f231f788000-7f231f78d000 r--p 00113000 00:38 87430716                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCaptureTestcase.so
+7f231f78d000-7f231f791000 rw-p 00118000 00:38 87430716                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCaptureTestcase.so
+7f231f791000-7f2320c03000 r-xp 00000000 00:38 87430777                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSession.so
+7f2320c03000-7f2320c04000 ---p 01472000 00:38 87430777                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSession.so
+7f2320c04000-7f2320cae000 r--p 01472000 00:38 87430777                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSession.so
+7f2320cae000-7f2320cdb000 rw-p 0151c000 00:38 87430777                   /root/jg/jasper_2020.03/Linux64/lib/libJasperSession.so
+7f2320cdb000-7f2320d00000 rw-p 00000000 00:00 0 
+7f2320d00000-7f2320d02000 r-xp 00000000 00:38 87429366                   /root/jg/jasper_2020.03/Linux64/jre/lib/amd64/server/libjsig.so
+7f2320d02000-7f2320e01000 ---p 00002000 00:38 87429366                   /root/jg/jasper_2020.03/Linux64/jre/lib/amd64/server/libjsig.so
+7f2320e01000-7f2320e02000 rw-p 00001000 00:38 87429366                   /root/jg/jasper_2020.03/Linux64/jre/lib/amd64/server/libjsig.so
+7f2320e02000-7f2320e03000 rw-p 00000000 00:00 0 
+7f2320e03000-7f2320e05000 r--p 00000000 00:38 87492031                   /usr/lib/x86_64-linux-gnu/libSM.so.6.0.1
+7f2320e05000-7f2320e0a000 r-xp 00002000 00:38 87492031                   /usr/lib/x86_64-linux-gnu/libSM.so.6.0.1
+7f2320e0a000-7f2320e0b000 r--p 00007000 00:38 87492031                   /usr/lib/x86_64-linux-gnu/libSM.so.6.0.1
+7f2320e0b000-7f2320e0c000 r--p 00008000 00:38 87492031                   /usr/lib/x86_64-linux-gnu/libSM.so.6.0.1
+7f2320e0c000-7f2320e0d000 rw-p 00009000 00:38 87492031                   /usr/lib/x86_64-linux-gnu/libSM.so.6.0.1
+7f2320e0d000-7f2320e14000 r-xp 00000000 00:38 87430747                   /root/jg/jasper_2020.03/Linux64/lib/libJasperISUtil.so
+7f2320e14000-7f2320e15000 ---p 00007000 00:38 87430747                   /root/jg/jasper_2020.03/Linux64/lib/libJasperISUtil.so
+7f2320e15000-7f2320e16000 r--p 00007000 00:38 87430747                   /root/jg/jasper_2020.03/Linux64/lib/libJasperISUtil.so
+7f2320e16000-7f2320e17000 rw-p 00008000 00:38 87430747                   /root/jg/jasper_2020.03/Linux64/lib/libJasperISUtil.so
+7f2320e17000-7f2320e5d000 r-xp 00000000 00:38 87430730                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDST.so
+7f2320e5d000-7f2320e60000 r--p 00045000 00:38 87430730                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDST.so
+7f2320e60000-7f2320e62000 rw-p 00048000 00:38 87430730                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDST.so
+7f2320e62000-7f2320efa000 r-xp 00000000 00:38 87430728                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDFV.so
+7f2320efa000-7f2320efb000 ---p 00098000 00:38 87430728                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDFV.so
+7f2320efb000-7f2320efd000 r--p 00098000 00:38 87430728                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDFV.so
+7f2320efd000-7f2320eff000 rw-p 0009a000 00:38 87430728                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDFV.so
+7f2320eff000-7f2320f00000 rw-p 00000000 00:00 0 
+7f2320f00000-7f232181b000 r-xp 00000000 00:38 87429367                   /root/jg/jasper_2020.03/Linux64/jre/lib/amd64/server/libjvm.so
+7f232181b000-7f232191c000 ---p 0091b000 00:38 87429367                   /root/jg/jasper_2020.03/Linux64/jre/lib/amd64/server/libjvm.so
+7f232191c000-7f2321ad1000 rw-p 0091c000 00:38 87429367                   /root/jg/jasper_2020.03/Linux64/jre/lib/amd64/server/libjvm.so
+7f2321ad1000-7f2321b0f000 rw-p 00000000 00:00 0 
+7f2321b0f000-7f2321b10000 r--p 00000000 00:38 88028527                   /usr/lib/x86_64-linux-gnu/libgthread-2.0.so.0.8000.0
+7f2321b10000-7f2321b11000 r-xp 00001000 00:38 88028527                   /usr/lib/x86_64-linux-gnu/libgthread-2.0.so.0.8000.0
+7f2321b11000-7f2321b12000 r--p 00002000 00:38 88028527                   /usr/lib/x86_64-linux-gnu/libgthread-2.0.so.0.8000.0
+7f2321b12000-7f2321b13000 r--p 00002000 00:38 88028527                   /usr/lib/x86_64-linux-gnu/libgthread-2.0.so.0.8000.0
+7f2321b13000-7f2321b14000 rw-p 00003000 00:38 88028527                   /usr/lib/x86_64-linux-gnu/libgthread-2.0.so.0.8000.0
+7f2321b14000-7f2321b33000 r-xp 00000000 00:38 87430742                   /root/jg/jasper_2020.03/Linux64/lib/libJasperHashTarget.so
+7f2321b33000-7f2321b34000 ---p 0001f000 00:38 87430742                   /root/jg/jasper_2020.03/Linux64/lib/libJasperHashTarget.so
+7f2321b34000-7f2321b35000 r--p 0001f000 00:38 87430742                   /root/jg/jasper_2020.03/Linux64/lib/libJasperHashTarget.so
+7f2321b35000-7f2321b36000 rw-p 00020000 00:38 87430742                   /root/jg/jasper_2020.03/Linux64/lib/libJasperHashTarget.so
+7f2321b36000-7f2321b60000 r-xp 00000000 00:38 87430739                   /root/jg/jasper_2020.03/Linux64/lib/libJasperGameplan.so
+7f2321b60000-7f2321b61000 ---p 0002a000 00:38 87430739                   /root/jg/jasper_2020.03/Linux64/lib/libJasperGameplan.so
+7f2321b61000-7f2321b62000 r--p 0002a000 00:38 87430739                   /root/jg/jasper_2020.03/Linux64/lib/libJasperGameplan.so
+7f2321b62000-7f2321b63000 rw-p 0002b000 00:38 87430739                   /root/jg/jasper_2020.03/Linux64/lib/libJasperGameplan.so
+7f2321b63000-7f2321b64000 rw-p 00000000 00:00 0 
+7f2321b64000-7f2321bf8000 r-xp 00000000 00:38 87430732                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDebugHandoffFlow.so
+7f2321bf8000-7f2321bfd000 r--p 00093000 00:38 87430732                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDebugHandoffFlow.so
+7f2321bfd000-7f2321c00000 rw-p 00098000 00:38 87430732                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDebugHandoffFlow.so
+7f2321c00000-7f2321c03000 r-xp 00000000 00:38 87430806                   /root/jg/jasper_2020.03/Linux64/lib/libboost_system.so.1.63.0
+7f2321c03000-7f2321e02000 ---p 00003000 00:38 87430806                   /root/jg/jasper_2020.03/Linux64/lib/libboost_system.so.1.63.0
+7f2321e02000-7f2321e03000 r--p 00002000 00:38 87430806                   /root/jg/jasper_2020.03/Linux64/lib/libboost_system.so.1.63.0
+7f2321e03000-7f2321e04000 rw-p 00003000 00:38 87430806                   /root/jg/jasper_2020.03/Linux64/lib/libboost_system.so.1.63.0
+7f2321e04000-7f2321e05000 r--p 00000000 00:38 87490915                   /usr/lib/locale/C.utf8/LC_NAME
+7f2321e05000-7f2321e07000 rw-p 00000000 00:00 0 
+7f2321e07000-7f2321e5f000 r-xp 00000000 00:38 87430722                   /root/jg/jasper_2020.03/Linux64/lib/libJasperConsoleSocketServer.so
+7f2321e5f000-7f2321e60000 ---p 00058000 00:38 87430722                   /root/jg/jasper_2020.03/Linux64/lib/libJasperConsoleSocketServer.so
+7f2321e60000-7f2321e62000 r--p 00058000 00:38 87430722                   /root/jg/jasper_2020.03/Linux64/lib/libJasperConsoleSocketServer.so
+7f2321e62000-7f2321e64000 rw-p 0005a000 00:38 87430722                   /root/jg/jasper_2020.03/Linux64/lib/libJasperConsoleSocketServer.so
+7f2321e64000-7f2321ef2000 r-xp 00000000 00:38 87430713                   /root/jg/jasper_2020.03/Linux64/lib/libJasperC2Rtl.so
+7f2321ef2000-7f2321ef3000 ---p 0008e000 00:38 87430713                   /root/jg/jasper_2020.03/Linux64/lib/libJasperC2Rtl.so
+7f2321ef3000-7f2321ef6000 r--p 0008e000 00:38 87430713                   /root/jg/jasper_2020.03/Linux64/lib/libJasperC2Rtl.so
+7f2321ef6000-7f2321ef9000 rw-p 00091000 00:38 87430713                   /root/jg/jasper_2020.03/Linux64/lib/libJasperC2Rtl.so
+7f2321ef9000-7f2321ff4000 r-xp 00000000 00:38 87430704                   /root/jg/jasper_2020.03/Linux64/lib/libJasper7.so
+7f2321ff4000-7f2321ff5000 ---p 000fb000 00:38 87430704                   /root/jg/jasper_2020.03/Linux64/lib/libJasper7.so
+7f2321ff5000-7f2321ffc000 r--p 000fb000 00:38 87430704                   /root/jg/jasper_2020.03/Linux64/lib/libJasper7.so
+7f2321ffc000-7f2321fff000 rw-p 00102000 00:38 87430704                   /root/jg/jasper_2020.03/Linux64/lib/libJasper7.so
+7f2321fff000-7f2322000000 rw-p 00000000 00:00 0 
+7f2322000000-7f2322025000 r-xp 00000000 00:38 87430807                   /root/jg/jasper_2020.03/Linux64/lib/libboost_thread.so.1.63.0
+7f2322025000-7f2322224000 ---p 00025000 00:38 87430807                   /root/jg/jasper_2020.03/Linux64/lib/libboost_thread.so.1.63.0
+7f2322224000-7f2322226000 r--p 00024000 00:38 87430807                   /root/jg/jasper_2020.03/Linux64/lib/libboost_thread.so.1.63.0
+7f2322226000-7f2322227000 rw-p 00026000 00:38 87430807                   /root/jg/jasper_2020.03/Linux64/lib/libboost_thread.so.1.63.0
+7f2322227000-7f232222f000 rw-p 00000000 00:00 0 
+7f232222f000-7f2322248000 r-xp 00000000 00:38 87430736                   /root/jg/jasper_2020.03/Linux64/lib/libJasperExpertSystemAPI.so
+7f2322248000-7f2322249000 ---p 00019000 00:38 87430736                   /root/jg/jasper_2020.03/Linux64/lib/libJasperExpertSystemAPI.so
+7f2322249000-7f232224a000 r--p 00019000 00:38 87430736                   /root/jg/jasper_2020.03/Linux64/lib/libJasperExpertSystemAPI.so
+7f232224a000-7f232224b000 rw-p 0001a000 00:38 87430736                   /root/jg/jasper_2020.03/Linux64/lib/libJasperExpertSystemAPI.so
+7f232224b000-7f232226b000 r-xp 00000000 00:38 87430727                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCustomEngines.so
+7f232226b000-7f232226c000 r--p 0001f000 00:38 87430727                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCustomEngines.so
+7f232226c000-7f232226d000 rw-p 00020000 00:38 87430727                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCustomEngines.so
+7f232226d000-7f23223ea000 r-xp 00000000 00:38 87430788                   /root/jg/jasper_2020.03/Linux64/lib/libJasperUtil.so
+7f23223ea000-7f23223eb000 ---p 0017d000 00:38 87430788                   /root/jg/jasper_2020.03/Linux64/lib/libJasperUtil.so
+7f23223eb000-7f23223fa000 r--p 0017d000 00:38 87430788                   /root/jg/jasper_2020.03/Linux64/lib/libJasperUtil.so
+7f23223fa000-7f23223fe000 rw-p 0018c000 00:38 87430788                   /root/jg/jasper_2020.03/Linux64/lib/libJasperUtil.so
+7f23223fe000-7f2322400000 rw-p 00000000 00:00 0 
+7f2322400000-7f2322405000 r-xp 00000000 00:38 87430804                   /root/jg/jasper_2020.03/Linux64/lib/libboost_chrono.so.1.63.0
+7f2322405000-7f2322604000 ---p 00005000 00:38 87430804                   /root/jg/jasper_2020.03/Linux64/lib/libboost_chrono.so.1.63.0
+7f2322604000-7f2322605000 r--p 00004000 00:38 87430804                   /root/jg/jasper_2020.03/Linux64/lib/libboost_chrono.so.1.63.0
+7f2322605000-7f2322606000 rw-p 00005000 00:38 87430804                   /root/jg/jasper_2020.03/Linux64/lib/libboost_chrono.so.1.63.0
+7f2322606000-7f2322607000 r--p 00000000 00:38 87490907                   /usr/lib/locale/C.utf8/LC_ADDRESS
+7f2322607000-7f232260f000 rw-p 00000000 00:00 0 
+7f232260f000-7f2322615000 r-xp 00000000 00:38 87430746                   /root/jg/jasper_2020.03/Linux64/lib/libJasperISMLInterface.so
+7f2322615000-7f2322616000 ---p 00006000 00:38 87430746                   /root/jg/jasper_2020.03/Linux64/lib/libJasperISMLInterface.so
+7f2322616000-7f2322617000 r--p 00006000 00:38 87430746                   /root/jg/jasper_2020.03/Linux64/lib/libJasperISMLInterface.so
+7f2322617000-7f2322618000 rw-p 00007000 00:38 87430746                   /root/jg/jasper_2020.03/Linux64/lib/libJasperISMLInterface.so
+7f2322618000-7f232266c000 r-xp 00000000 00:38 87430723                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCoverGen.so
+7f232266c000-7f232266d000 ---p 00054000 00:38 87430723                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCoverGen.so
+7f232266d000-7f232266f000 r--p 00054000 00:38 87430723                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCoverGen.so
+7f232266f000-7f2322671000 rw-p 00056000 00:38 87430723                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCoverGen.so
+7f2322671000-7f23226e9000 r-xp 00000000 00:38 87430710                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAtg.so
+7f23226e9000-7f23226ed000 r--p 00077000 00:38 87430710                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAtg.so
+7f23226ed000-7f23226ef000 rw-p 0007b000 00:38 87430710                   /root/jg/jasper_2020.03/Linux64/lib/libJasperAtg.so
+7f23226ef000-7f23226f0000 rw-p 00000000 00:00 0 
+7f23226f0000-7f2322714000 r-xp 00000000 00:38 87430751                   /root/jg/jasper_2020.03/Linux64/lib/libJasperJGConfig.so
+7f2322714000-7f2322715000 ---p 00024000 00:38 87430751                   /root/jg/jasper_2020.03/Linux64/lib/libJasperJGConfig.so
+7f2322715000-7f2322716000 r--p 00024000 00:38 87430751                   /root/jg/jasper_2020.03/Linux64/lib/libJasperJGConfig.so
+7f2322716000-7f2322717000 rw-p 00025000 00:38 87430751                   /root/jg/jasper_2020.03/Linux64/lib/libJasperJGConfig.so
+7f2322717000-7f2322727000 r--p 00000000 00:38 87492194                   /usr/lib/x86_64-linux-gnu/libm.so.6
+7f2322727000-7f23227a6000 r-xp 00010000 00:38 87492194                   /usr/lib/x86_64-linux-gnu/libm.so.6
+7f23227a6000-7f23227fe000 r--p 0008f000 00:38 87492194                   /usr/lib/x86_64-linux-gnu/libm.so.6
+7f23227fe000-7f23227ff000 r--p 000e7000 00:38 87492194                   /usr/lib/x86_64-linux-gnu/libm.so.6
+7f23227ff000-7f2322800000 rw-p 000e8000 00:38 87492194                   /usr/lib/x86_64-linux-gnu/libm.so.6
+7f2322800000-7f2322816000 r-xp 00000000 00:38 87430823                   /root/jg/jasper_2020.03/Linux64/lib/libgcc_s.so.1
+7f2322816000-7f2322a15000 ---p 00016000 00:38 87430823                   /root/jg/jasper_2020.03/Linux64/lib/libgcc_s.so.1
+7f2322a15000-7f2322a16000 r--p 00015000 00:38 87430823                   /root/jg/jasper_2020.03/Linux64/lib/libgcc_s.so.1
+7f2322a16000-7f2322a17000 rw-p 00016000 00:38 87430823                   /root/jg/jasper_2020.03/Linux64/lib/libgcc_s.so.1
+7f2322a17000-7f2322a1d000 rw-p 00000000 00:00 0 
+7f2322a1d000-7f2322a1e000 r-xp 00000000 00:38 87430731                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDataComm.so
+7f2322a1e000-7f2322a1f000 r--p 00000000 00:38 87430731                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDataComm.so
+7f2322a1f000-7f2322a20000 rw-p 00001000 00:38 87430731                   /root/jg/jasper_2020.03/Linux64/lib/libJasperDataComm.so
+7f2322a20000-7f2322a22000 rw-p 00000000 00:00 0 
+7f2322a22000-7f2322a29000 r-xp 00000000 00:38 87430734                   /root/jg/jasper_2020.03/Linux64/lib/libJasperEngineProfile.so
+7f2322a29000-7f2322a2a000 r--p 00006000 00:38 87430734                   /root/jg/jasper_2020.03/Linux64/lib/libJasperEngineProfile.so
+7f2322a2a000-7f2322a2b000 rw-p 00007000 00:38 87430734                   /root/jg/jasper_2020.03/Linux64/lib/libJasperEngineProfile.so
+7f2322a2b000-7f2322a2d000 rw-p 00000000 00:00 0 
+7f2322a2d000-7f2322a77000 r-xp 00000000 00:38 87430786                   /root/jg/jasper_2020.03/Linux64/lib/libJasperTickle.so
+7f2322a77000-7f2322a79000 r--p 00049000 00:38 87430786                   /root/jg/jasper_2020.03/Linux64/lib/libJasperTickle.so
+7f2322a79000-7f2322a7a000 rw-p 0004b000 00:38 87430786                   /root/jg/jasper_2020.03/Linux64/lib/libJasperTickle.so
+7f2322a7a000-7f2322b04000 r-xp 00000000 00:38 87430701                   /root/jg/jasper_2020.03/Linux64/lib/libJasper0.so
+7f2322b04000-7f2322b05000 ---p 0008a000 00:38 87430701                   /root/jg/jasper_2020.03/Linux64/lib/libJasper0.so
+7f2322b05000-7f2322b07000 r--p 0008a000 00:38 87430701                   /root/jg/jasper_2020.03/Linux64/lib/libJasper0.so
+7f2322b07000-7f2322b09000 rw-p 0008c000 00:38 87430701                   /root/jg/jasper_2020.03/Linux64/lib/libJasper0.so
+7f2322b09000-7f2322b1e000 rw-p 00000000 00:00 0 
+7f2322b1e000-7f2322bf7000 r-xp 00000000 00:38 87430752                   /root/jg/jasper_2020.03/Linux64/lib/libJasperJJS.so
+7f2322bf7000-7f2322bf8000 ---p 000d9000 00:38 87430752                   /root/jg/jasper_2020.03/Linux64/lib/libJasperJJS.so
+7f2322bf8000-7f2322bfc000 r--p 000d9000 00:38 87430752                   /root/jg/jasper_2020.03/Linux64/lib/libJasperJJS.so
+7f2322bfc000-7f2322c00000 rw-p 000dd000 00:38 87430752                   /root/jg/jasper_2020.03/Linux64/lib/libJasperJJS.so
+7f2322c00000-7f2322d71000 r-xp 00000000 00:38 87430846                   /root/jg/jasper_2020.03/Linux64/lib/libstdc++.so.6
+7f2322d71000-7f2322f71000 ---p 00171000 00:38 87430846                   /root/jg/jasper_2020.03/Linux64/lib/libstdc++.so.6
+7f2322f71000-7f2322f7b000 r--p 00171000 00:38 87430846                   /root/jg/jasper_2020.03/Linux64/lib/libstdc++.so.6
+7f2322f7b000-7f2322f7d000 rw-p 0017b000 00:38 87430846                   /root/jg/jasper_2020.03/Linux64/lib/libstdc++.so.6
+7f2322f7d000-7f2322f81000 rw-p 00000000 00:00 0 
+7f2322f81000-7f2322f82000 r--p 00000000 00:38 87490918                   /usr/lib/locale/C.utf8/LC_TELEPHONE
+7f2322f82000-7f2322f88000 rw-p 00000000 00:00 0 
+7f2322f88000-7f2322fb8000 r-xp 00000000 00:38 87430753                   /root/jg/jasper_2020.03/Linux64/lib/libJasperJNI.so
+7f2322fb8000-7f2322fb9000 ---p 00030000 00:38 87430753                   /root/jg/jasper_2020.03/Linux64/lib/libJasperJNI.so
+7f2322fb9000-7f2322fba000 r--p 00030000 00:38 87430753                   /root/jg/jasper_2020.03/Linux64/lib/libJasperJNI.so
+7f2322fba000-7f2322fbb000 rw-p 00031000 00:38 87430753                   /root/jg/jasper_2020.03/Linux64/lib/libJasperJNI.so
+7f2322fbb000-7f2322fbe000 rw-p 00000000 00:00 0 
+7f2322fbe000-7f2322fbf000 r--p 00000000 00:38 87492238                   /usr/lib/x86_64-linux-gnu/librt.so.1
+7f2322fbf000-7f2322fc0000 r-xp 00001000 00:38 87492238                   /usr/lib/x86_64-linux-gnu/librt.so.1
+7f2322fc0000-7f2322fc1000 r--p 00002000 00:38 87492238                   /usr/lib/x86_64-linux-gnu/librt.so.1
+7f2322fc1000-7f2322fc2000 r--p 00002000 00:38 87492238                   /usr/lib/x86_64-linux-gnu/librt.so.1
+7f2322fc2000-7f2322fc3000 rw-p 00003000 00:38 87492238                   /usr/lib/x86_64-linux-gnu/librt.so.1
+7f2322fc3000-7f2322fc7000 rw-p 00000000 00:00 0 
+7f2322fc7000-7f2322fc8000 r--p 00000000 00:38 87492096                   /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f2322fc8000-7f2322fc9000 r-xp 00001000 00:38 87492096                   /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f2322fc9000-7f2322fca000 r--p 00002000 00:38 87492096                   /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f2322fca000-7f2322fcb000 r--p 00002000 00:38 87492096                   /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f2322fcb000-7f2322fcc000 rw-p 00003000 00:38 87492096                   /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f2322fcc000-7f2322fce000 rw-p 00000000 00:00 0 
+7f2322fce000-7f2322fd1000 r-xp 00000000 00:38 87430699                   /root/jg/jasper_2020.03/Linux64/lib/libDatestamp.so
+7f2322fd1000-7f2322fd2000 r--p 00002000 00:38 87430699                   /root/jg/jasper_2020.03/Linux64/lib/libDatestamp.so
+7f2322fd2000-7f2322fd3000 rw-p 00003000 00:38 87430699                   /root/jg/jasper_2020.03/Linux64/lib/libDatestamp.so
+7f2322fd3000-7f2322ff1000 r-xp 00000000 00:38 87430726                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCrashHandler.so
+7f2322ff1000-7f2322ff2000 r--p 0001d000 00:38 87430726                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCrashHandler.so
+7f2322ff2000-7f2322ff3000 rw-p 0001e000 00:38 87430726                   /root/jg/jasper_2020.03/Linux64/lib/libJasperCrashHandler.so
+7f2322ff3000-7f2322ff6000 rw-p 00000000 00:00 0 
+7f2322ff6000-7f2322ff7000 r--p 00000000 00:38 87492226                   /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f2322ff7000-7f2322ff8000 r-xp 00001000 00:38 87492226                   /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f2322ff8000-7f2322ff9000 r--p 00002000 00:38 87492226                   /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f2322ff9000-7f2322ffa000 r--p 00002000 00:38 87492226                   /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f2322ffa000-7f2322ffb000 rw-p 00003000 00:38 87492226                   /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f2322ffb000-7f2322ffc000 r--p 00000000 00:38 87490911                   /usr/lib/locale/C.utf8/LC_MEASUREMENT
+7f2322ffc000-7f2322ffd000 r--p 00000000 00:38 87490910                   /usr/lib/locale/C.utf8/LC_IDENTIFICATION
+7f2322ffd000-7f2322ffe000 r--p 00000000 00:00 0 
+7f2322ffe000-7f2322fff000 rw-p 00000000 00:00 0 
+7f2322fff000-7f2323000000 r--p 00000000 00:00 0 
+7f2323000000-7f2323002000 rw-p 00000000 00:00 0 
+7f2323002000-7f2323003000 r--p 00000000 00:38 87431301                   /root/jg/jasper_2020.03/bin/cdslmd-hack.so
+7f2323003000-7f2323004000 r-xp 00001000 00:38 87431301                   /root/jg/jasper_2020.03/bin/cdslmd-hack.so
+7f2323004000-7f2323005000 r--p 00002000 00:38 87431301                   /root/jg/jasper_2020.03/bin/cdslmd-hack.so
+7f2323005000-7f2323006000 r--p 00002000 00:38 87431301                   /root/jg/jasper_2020.03/bin/cdslmd-hack.so
+7f2323006000-7f2323007000 rw-p 00003000 00:38 87431301                   /root/jg/jasper_2020.03/bin/cdslmd-hack.so
+7f2323007000-7f2323009000 rw-p 00000000 00:00 0 
+7f2323009000-7f232300a000 r--p 00000000 00:38 87491919                   /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f232300a000-7f2323035000 r-xp 00001000 00:38 87491919                   /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f2323035000-7f232303f000 r--p 0002c000 00:38 87491919                   /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f232303f000-7f2323041000 r--p 00036000 00:38 87491919                   /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f2323041000-7f2323043000 rw-p 00038000 00:38 87491919                   /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7fffcf72b000-7fffcf72e000 ---p 00000000 00:00 0 
+7fffcf72e000-7fffcf82b000 rwxp 00000000 00:00 0                          [stack]
+7fffcf82b000-7fffcf82d000 rw-p 00000000 00:00 0 
+7fffcf836000-7fffcf83a000 r--p 00000000 00:00 0                          [vvar]
+7fffcf83a000-7fffcf83c000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]
+
+VM Arguments:
+jvm_args: -Xmx4096m -Xbatch -Xrs -XX:-UsePerfData -Djg.install=/root/jg/jasper_2020.03 -Djava.util.prefs.PreferencesFactory=COM.tfi.util.PreferencesFactory 
+java_command: <unknown>
+Launcher Type: generic
+
+Environment Variables:
+PATH=/root/jg/jasper_2020.03/Linux64/bin:/root/jg/jasper_2020.03/Linux64/bin:/root/jg/jasper_2020.03/Linux64/bin:/data/venv_slang_310/bin:/data/venv_slang_310/bin:/root/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand:/root/.vscode-server/data/User/globalStorage/github.copilot-chat/copilotCli:/root/.vscode-server/bin/994fd12f8d3a5aa16f17d42c041e5809167e845a/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/jg/jasper_2020.03/bin:/root/.vscode-server/extensions/ms-python.debugpy-2025.18.0/bundled/scripts/noConfigScripts:/root/jg/jasper_2020.03/bin:/root/jg/jasper_2020.03/bin
+LD_LIBRARY_PATH=/root/jg/jasper_2020.03/patch:/root/jg/jasper_2020.03/patch:/root/jg/jasper_2020.03/patch:
+LD_PRELOAD=/root/jg/jasper_2020.03/bin/cdslmd-hack.so
+SHELL=/bin/bash
+DISPLAY=:27
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x860350], sa_mask[0]=0x7fffffff, sa_flags=0x10000004
+SIGBUS: [libjvm.so+0x860350], sa_mask[0]=0x7fffffff, sa_flags=0x10000004
+SIGFPE: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGPIPE: SIG_IGN, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGXFSZ: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGILL: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: [libjvm.so+0x711de0], sa_mask[0]=0x00000000, sa_flags=0x10000004
+SIGHUP: [java+0x207d0], sa_mask[0]=0x00000000, sa_flags=0x10000000
+SIGINT: [java+0x207d0], sa_mask[0]=0x00000000, sa_flags=0x10000000
+SIGTERM: [java+0x207d0], sa_mask[0]=0x00000000, sa_flags=0x10000000
+SIGQUIT: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+
+
+---------------  S Y S T E M  ---------------
+
+OS:trixie/sid
+
+uname:Linux 5.15.0-67-generic #74~20.04.1-Ubuntu SMP Wed Feb 22 14:52:34 UTC 2023 x86_64
+libc:glibc 2.39 NPTL 2.39 
+rlimit: STACK 8192k, CORE infinity, NPROC infinity, NOFILE 1048576, AS infinity
+load average:133.59 132.27 133.12
+
+/proc/meminfo:
+MemTotal:       131633668 kB
+MemFree:         5343064 kB
+MemAvailable:    9240552 kB
+Buffers:         2032184 kB
+Cached:          1600972 kB
+SwapCached:        33424 kB
+Active:          3941836 kB
+Inactive:       114572240 kB
+Active(anon):    1326328 kB
+Inactive(anon): 113986080 kB
+Active(file):    2615508 kB
+Inactive(file):   586160 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:       2097148 kB
+SwapFree:          24956 kB
+Dirty:              3368 kB
+Writeback:           196 kB
+AnonPages:      114849056 kB
+Mapped:           412868 kB
+Shmem:            431496 kB
+KReclaimable:    2031740 kB
+Slab:            2988104 kB
+SReclaimable:    2031740 kB
+SUnreclaim:       956364 kB
+KernelStack:      105252 kB
+PageTables:       456224 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    67913980 kB
+Committed_AS:   349078460 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:      439864 kB
+VmallocChunk:          0 kB
+Percpu:            66816 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+FileHugePages:         0 kB
+FilePmdMapped:         0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+Hugetlb:               0 kB
+DirectMap4k:     4089288 kB
+DirectMap2M:    71038976 kB
+DirectMap1G:    60817408 kB
+
+
+CPU:total 48 (12 cores per cpu, 2 threads per core) family 6 model 85 stepping 7, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, ht
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2682.394
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 0
+cpu cores	: 12
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2682.569
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 1
+cpu cores	: 12
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2682.731
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 2
+cpu cores	: 12
+apicid		: 4
+initial apicid	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2682.886
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 3
+cpu cores	: 12
+apicid		: 6
+initial apicid	: 6
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 4
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2683.028
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 4
+cpu cores	: 12
+apicid		: 8
+initial apicid	: 8
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 5
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2683.167
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 5
+cpu cores	: 12
+apicid		: 10
+initial apicid	: 10
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 6
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2683.293
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 8
+cpu cores	: 12
+apicid		: 16
+initial apicid	: 16
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 7
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2683.414
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 9
+cpu cores	: 12
+apicid		: 18
+initial apicid	: 18
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 8
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2683.533
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 10
+cpu cores	: 12
+apicid		: 20
+initial apicid	: 20
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 9
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2683.646
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 11
+cpu cores	: 12
+apicid		: 22
+initial apicid	: 22
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 10
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2683.767
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 12
+cpu cores	: 12
+apicid		: 24
+initial apicid	: 24
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 11
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2683.880
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 13
+cpu cores	: 12
+apicid		: 26
+initial apicid	: 26
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 12
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2700.000
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 0
+cpu cores	: 12
+apicid		: 32
+initial apicid	: 32
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 13
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2699.998
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 1
+cpu cores	: 12
+apicid		: 34
+initial apicid	: 34
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 14
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2700.000
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 2
+cpu cores	: 12
+apicid		: 36
+initial apicid	: 36
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 15
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2700.000
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 3
+cpu cores	: 12
+apicid		: 38
+initial apicid	: 38
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 16
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2700.000
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 4
+cpu cores	: 12
+apicid		: 40
+initial apicid	: 40
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 17
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2700.000
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 5
+cpu cores	: 12
+apicid		: 42
+initial apicid	: 42
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 18
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2699.999
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 8
+cpu cores	: 12
+apicid		: 48
+initial apicid	: 48
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 19
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2699.999
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 9
+cpu cores	: 12
+apicid		: 50
+initial apicid	: 50
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 20
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2689.656
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 10
+cpu cores	: 12
+apicid		: 52
+initial apicid	: 52
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 21
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2700.000
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 11
+cpu cores	: 12
+apicid		: 54
+initial apicid	: 54
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 22
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2700.000
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 12
+cpu cores	: 12
+apicid		: 56
+initial apicid	: 56
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 23
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2700.000
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 13
+cpu cores	: 12
+apicid		: 58
+initial apicid	: 58
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 24
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2677.073
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 0
+cpu cores	: 12
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 25
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2676.564
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 1
+cpu cores	: 12
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 26
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2676.033
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 2
+cpu cores	: 12
+apicid		: 5
+initial apicid	: 5
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 27
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2675.528
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 3
+cpu cores	: 12
+apicid		: 7
+initial apicid	: 7
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 28
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2675.018
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 4
+cpu cores	: 12
+apicid		: 9
+initial apicid	: 9
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 29
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2674.472
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 5
+cpu cores	: 12
+apicid		: 11
+initial apicid	: 11
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 30
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2673.967
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 8
+cpu cores	: 12
+apicid		: 17
+initial apicid	: 17
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 31
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2673.464
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 9
+cpu cores	: 12
+apicid		: 19
+initial apicid	: 19
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 32
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2672.974
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 10
+cpu cores	: 12
+apicid		: 21
+initial apicid	: 21
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 33
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2672.504
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 11
+cpu cores	: 12
+apicid		: 23
+initial apicid	: 23
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 34
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2672.005
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 12
+cpu cores	: 12
+apicid		: 25
+initial apicid	: 25
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 35
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2671.542
+cache size	: 16896 KB
+physical id	: 0
+siblings	: 24
+core id		: 13
+cpu cores	: 12
+apicid		: 27
+initial apicid	: 27
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4400.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 36
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2700.000
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 0
+cpu cores	: 12
+apicid		: 33
+initial apicid	: 33
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 37
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2700.001
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 1
+cpu cores	: 12
+apicid		: 35
+initial apicid	: 35
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 38
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2700.001
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 2
+cpu cores	: 12
+apicid		: 37
+initial apicid	: 37
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 39
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2699.999
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 3
+cpu cores	: 12
+apicid		: 39
+initial apicid	: 39
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 40
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2699.999
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 4
+cpu cores	: 12
+apicid		: 41
+initial apicid	: 41
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 41
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2700.000
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 5
+cpu cores	: 12
+apicid		: 43
+initial apicid	: 43
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 42
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2700.000
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 8
+cpu cores	: 12
+apicid		: 49
+initial apicid	: 49
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 43
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2699.999
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 9
+cpu cores	: 12
+apicid		: 51
+initial apicid	: 51
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 44
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2691.161
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 10
+cpu cores	: 12
+apicid		: 53
+initial apicid	: 53
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 45
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2700.000
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 11
+cpu cores	: 12
+apicid		: 55
+initial apicid	: 55
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 46
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2700.001
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 12
+cpu cores	: 12
+apicid		: 57
+initial apicid	: 57
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 47
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 85
+model name	: Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz
+stepping	: 7
+microcode	: 0x5003303
+cpu MHz		: 2700.000
+cache size	: 16896 KB
+physical id	: 1
+siblings	: 24
+core id		: 13
+cpu cores	: 12
+apicid		: 59
+initial apicid	: 59
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+vmx flags	: vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs		: spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbrsb
+bogomips	: 4401.62
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+
+
+Memory: 4k page, physical 131633668k(5371768k free), swap 2097148k(24956k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (20.8-b03) for linux-amd64 JRE (1.6.0_33-b04), built on Jun 21 2012 16:28:12 by "java_re" with gcc 3.2.2 (SuSE Linux)
+
+time: Tue Jan  6 08:00:07 2026
+elapsed time: 6058 seconds
+

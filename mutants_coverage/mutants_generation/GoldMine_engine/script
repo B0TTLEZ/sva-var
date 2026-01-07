@@ -1,0 +1,64 @@
+# 如果不指定n，则默认生成 5 个变异体
+# -r 指定随即运算符模式
+# -v 指定为.v文件
+
+# 0.只变异模块 B，生成 10 个变异体
+python3 /home/yourname/scripts/mutate_sv.py \
+  -s /home/yourname/rtl/combined_rtl.sv \
+  -m uart_ctrl \
+  -o /home/yourname/mutant_output
+
+# 1.变异所有的内容 (如果不指定n，则默认生成 5 个变异体)
+python3 /data/sva-var/mutants_coverage/mutants_generation/GoldMine_engine/mutate_sv.py \
+  -s /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/sva/_combined_rtl_no_comments.sv \
+  -o /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_2/mutants \
+  -n 300 \
+  -r
+
+python3 /data/sva-var/mutants_coverage/mutants_generation/GoldMine_engine/mutate_sv.py \
+  -s /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/sva/_combined_rtl_no_comments.sv \
+  -o /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/mutants_coverage/strategy_2/mutants \
+  -n 300 \
+  -r
+
+# 2.指定头部文件进行变异
+python3 /data/sva-var/mutants_coverage/mutants_generation/GoldMine_engine/mutate_sv.py \
+  -s /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/sva/_combined_rtl_no_comments.sv \
+  -o /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_3/mutants \
+  -m i2c_master_top \
+  -n 300 \
+  -r
+
+# 补充：uart顶层模块没涉及到运算，所以GoldMine的Engine变异不适用
+python3 /data/sva-var/mutants_coverage/mutants_generation/GoldMine_engine/mutate_sv.py \
+  -s /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/sva/_combined_rtl_no_comments.sv \
+  -o /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/mutants_coverage/strategy_3/mutants \
+  -m uart2bus_top \
+  -n 300 \
+  -r
+
+
+# 变异i2c的指定模块
+python3 /data/sva-var/mutants_coverage/mutants_generation/GoldMine_engine/mutate_sv.py \
+  -s /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/source_code/i2c_master_top.v \
+  -o /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_5/mutants/i2c_master_top \
+  -m i2c_master_top \
+  -n 300 \
+  -r \
+  -v
+
+python3 /data/sva-var/mutants_coverage/mutants_generation/GoldMine_engine/mutate_sv.py \
+  -s /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/source_code/i2c_master_bit_ctrl.v \
+  -o /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_5/mutants/i2c_master_bit_ctrl \
+  -m i2c_master_bit_ctrl \
+  -n 300 \
+  -r \
+  -v
+
+python3 /data/sva-var/mutants_coverage/mutants_generation/GoldMine_engine/mutate_sv.py \
+  -s /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/source_code/i2c_master_byte_ctrl.v \
+  -o /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_5/mutants/i2c_master_byte_ctrl \
+  -m i2c_master_byte_ctrl \
+  -n 300 \
+  -r \
+  -v

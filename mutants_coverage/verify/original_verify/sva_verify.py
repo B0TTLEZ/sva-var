@@ -20,8 +20,7 @@ def setup_logging(output_dir: Path):
     log_dir = output_dir / "logs"
     log_dir.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    # 修改日志文件名：对应单个断言验证的功能名
-    log_file = log_dir / f"mutants_assertion_verif_{timestamp}.log"
+    log_file = log_dir / f"assertion_verification_{timestamp}.log"
 
     logging.basicConfig(
         level=logging.INFO,
@@ -33,7 +32,7 @@ def setup_logging(output_dir: Path):
     )
     return log_file
 
-# ============================ 核心功能函数（适配单个断言处理） ============================
+# ============================ 核心功能函数（适配单个断言验证正确SV） ============================
 def insert_sva_into_module(
     module_content: str,
     module_name: str,
@@ -41,7 +40,7 @@ def insert_sva_into_module(
     indent: str = "  "
 ) -> str:
     """
-    将单个SVA字符串插入到指定模块的endmodule之前（适配单个断言）
+    将单个SVA字符串插入到指定模块的endmodule之前
     :param module_content: 原始SV文件内容
     :param module_name: 目标模块名
     :param sva_string: 要插入的单个SVA字符串
@@ -86,8 +85,8 @@ def insert_single_sva_into_sv_file(
     sva_string: str
 ) -> bool:
     """
-    将单个SVA字符串插入到SV文件的指定模块中，生成新文件（适配单个断言）
-    :param input_sv_path: 输入SV文件路径（变异体的SV文件）
+    将单个SVA字符串插入到SV文件的指定模块中，生成新文件
+    :param input_sv_path: 输入SV文件路径（正确的SV设计文件）
     :param output_sv_path: 输出SV文件路径（植入SVA后的文件）
     :param module_name: 目标模块名（顶层模块）
     :param sva_string: 要插入的单个SVA字符串
@@ -120,7 +119,7 @@ def generate_tcl_script(
     sv_file_path: Path
 ) -> bool:
     """
-    生成参数化的TCL脚本（移除inc_dirs，适配单个断言验证）
+    生成参数化的TCL脚本（适配单个断言验证）
     :param output_tcl_path: 输出TCL文件路径
     :param top_module: 顶层模块名
     :param clock_signal: 时钟信号名（如clk_i）
@@ -130,7 +129,7 @@ def generate_tcl_script(
     """
     try:
         # TCL模板：简化注释，移除inc_dirs相关逻辑
-        tcl_template = """# Auto-generated TCL script for assertion mutant verification (single assertion mode)
+        tcl_template = """# Auto-generated TCL script for assertion verification (correct SV design)
 # Top module: {top_module}
 # Clock: {clock_signal}
 # Reset: {reset_signal}
@@ -149,16 +148,13 @@ elaborate -top {top_module}
 clock {clock_signal}
 reset {reset_signal}
 
-# Set max trace length
-# set_max_trace_length 100
-
 # Prove all properties (single assertion)
 prove -all
 
 # Exit
 exit -force
 """
-        # 填充模板（移除inc_dirs）
+        # 填充模板
         tcl_content = tcl_template.format(
             top_module=top_module,
             clock_signal=clock_signal,
@@ -184,7 +180,7 @@ def run_jg_verification(
     report_path: Path
 ) -> bool:
     """
-    运行JasperGold验证，保存报告（逻辑复用，超时时间保持3600秒）
+    运行JasperGold验证，保存报告
     :param tcl_path: TCL脚本路径
     :param jg_proj_dir: JG项目目录（临时）
     :param report_path: 报告输出路径
@@ -247,7 +243,7 @@ def run_jg_verification(
 
 def extract_detailed_proof_status(report_content: str) -> Dict[str, Any]:
     """
-    从JG报告中提取详细的验证状态（逻辑复用）
+    从JG报告中提取详细的验证状态
     :param report_content: 报告内容
     :return: 详细状态字典
     """
@@ -329,39 +325,43 @@ def extract_detailed_proof_status(report_content: str) -> Dict[str, Any]:
 
     return result
 
-def is_mutant_killed(proof_status: Dict[str, Any]) -> bool:
+def judge_assertion_correctness(proof_status: Dict[str, Any]) -> str:
     """
-    判断变异体是否被杀死（逻辑复用）
-    杀死条件：编译错误 / proven数量与总断言数不相等 / 验证状态不是proven
+    判断断言是否正确（基于JG验证结果）
     :param proof_status: 详细的验证状态
-    :return: 被杀死返回True，否则返回False
+    :return: 结果标签（correct/incorrect/unknown/error/timeout）
     """
+    overall_status = proof_status["overall_status"]
     total = proof_status["total_assertions"]
     proven = proof_status["proven_count"]
-    overall = proof_status["overall_status"]
+    
+    if overall_status == "error":
+        return "error"  # 验证过程出错
+    elif overall_status == "timeout":
+        return "timeout"  # 验证超时
+    elif total == 0:
+        return "unknown"  # 无断言可验证
+    elif overall_status == "proven" and proven == total:
+        return "correct"  # 断言被证明，正确
+    elif overall_status == "cex":
+        return "incorrect"  # 找到反例，断言错误
+    else:
+        return "unknown"  # 其他情况（如inconclusive）
 
-    # 杀死条件
-    if (overall == "error" or  # 编译/执行错误
-        (total > 0 and proven != total) or  # proven数量不匹配
-        overall not in ["proven"]):  # 验证状态不是proven
-        return True
-    return False
-
-# ============================ 处理单个（断言+变异体）对 ============================
-def process_assertion_mutant_pair(
+# ============================ 处理单个断言 ============================
+def process_single_assertion(
     args_tuple: Tuple
 ) -> Dict[str, Any]:
     """
-    处理单个断言+变异体对的包装函数（用于并行处理）
+    处理单个断言的包装函数（用于并行处理）
     :param args_tuple: 包含所有必要参数的元组
     :return: 处理结果字典
     """
     (
-        mutant_dir_name,  # 变异体目录名（如001）
-        mutants_src_dir,  # 变异体源目录
+        assertion_id,     # 断言ID（如1、2、3...）
+        assertion_text,   # 断言的SVA字符串
+        correct_sv_path,  # 正确的SV设计文件路径
         output_root,      # 输出根目录
-        assertion_rank,   # 断言排名（整数，如1、2）
-        assertion_sva,    # 断言的SVA字符串
         top_module,       # 顶层模块名
         clock_signal,     # 时钟信号
         reset_signal,     # 复位信号
@@ -369,59 +369,47 @@ def process_assertion_mutant_pair(
 
     # 初始化结果
     result = {
-        "mutant_id": mutant_dir_name,
-        "assertion_rank": assertion_rank,
+        "assertion_id": assertion_id,
+        "assertion_text": assertion_text.strip(),
         "status": "failed",
-        "killed": False,
+        "correctness": "unknown",
         "proof_status": {},
         "error_message": "",
         "paths": {}
     }
 
     try:
-        # 1. 定义路径
-        # 变异体源路径
-        mutant_src_dir = mutants_src_dir / mutant_dir_name
-        mutant_src_sv = mutant_src_dir / "_combined_rtl_no_comments.sv"  # 原变异体SV文件
-        if not mutant_src_sv.exists():
-            mutant_src_sv = mutant_src_dir / "combined_rtl_no_comments.sv"  # 兼容无下划线的情况
-        if not mutant_src_sv.exists():
-            result["error_message"] = f"变异体SV文件不存在: {mutant_src_sv}"
-            logging.error(result["error_message"])
-            return result
+        # 1. 定义路径：每个断言生成独立目录
+        assertion_dir = output_root / f"assertion_{assertion_id:03d}"
+        ft_sv_path = assertion_dir / "ft" / "design_with_assertion.sv"
+        tcl_path = assertion_dir / "tcl" / "verification.tcl"
+        report_path = assertion_dir / "rpt" / "verification.txt"
+        jg_proj_dir = assertion_dir / "jg_proj"
+        result_file = assertion_dir / "result.json"
 
-        # 输出路径：output_root / 变异体名 / Rank_排名（适配单个断言）
-        mutant_output_dir = output_root / mutant_dir_name
-        rank_dir = mutant_output_dir / f"Rank_{assertion_rank}"
-        ft_sv_path = rank_dir / "ft" / "mutation.sv"
-        tcl_path = rank_dir / "tcl" / "mutation.tcl"
-        report_path = rank_dir / "rpt" / "mutation.txt"
-        jg_proj_dir = rank_dir / "jg_proj"
-        result_file = rank_dir / "result.json"
-
-        # 跳过已处理的变异体（通过环境变量传递--skip-existing参数）
+        # 跳过已处理的断言（通过环境变量传递--skip-existing参数）
         if os.environ.get("SKIP_EXISTING") == "True" and result_file.exists():
             # 读取已有的结果
             with open(result_file, 'r', encoding='utf-8') as f:
                 existing_result = json.load(f)
-            logging.info(f"跳过已处理的（断言Rank-{assertion_rank} + 变异体{mutant_dir_name}）")
+            logging.info(f"跳过已处理的断言ID-{assertion_id}")
             return existing_result
 
         result["paths"] = {
-            "mutant_src_sv": str(mutant_src_sv),
+            "correct_sv": str(correct_sv_path),
             "ft_sv": str(ft_sv_path),
             "tcl": str(tcl_path),
             "report": str(report_path),
             "result": str(result_file)
         }
 
-        # 2. 插入单个SVA到变异体SV文件（核心修改：单个断言）
-        if not insert_single_sva_into_sv_file(mutant_src_sv, ft_sv_path, top_module, assertion_sva):
+        # 2. 插入单个SVA到正确的SV设计文件
+        if not insert_single_sva_into_sv_file(correct_sv_path, ft_sv_path, top_module, assertion_text):
             result["error_message"] = "单个SVA植入失败"
             logging.error(result["error_message"])
             return result
 
-        # 3. 生成TCL脚本（移除inc_dirs）
+        # 3. 生成TCL脚本
         if not generate_tcl_script(tcl_path, top_module, clock_signal, reset_signal, ft_sv_path):
             result["error_message"] = "TCL脚本生成失败"
             logging.error(result["error_message"])
@@ -438,33 +426,33 @@ def process_assertion_mutant_pair(
         proof_status = extract_detailed_proof_status(report_content)
         result["proof_status"] = proof_status
 
-        # 6. 判断变异体是否被杀死
-        result["killed"] = is_mutant_killed(proof_status)
+        # 6. 判断断言是否正确
+        result["correctness"] = judge_assertion_correctness(proof_status)
         result["status"] = "success"
 
         # 保存单个结果
         with open(result_file, 'w', encoding='utf-8') as f:
             json.dump(result, f, indent=2, ensure_ascii=False)
 
-        logging.info(f"处理完成（断言Rank-{assertion_rank} + 变异体{mutant_dir_name}）: {'KILLED' if result['killed'] else 'SURVIVED'}")
+        logging.info(f"处理完成断言ID-{assertion_id}: {result['correctness']}")
     except Exception as e:
-        error_msg = f"处理（断言Rank-{assertion_rank} + 变异体{mutant_dir_name}）时发生异常: {str(e)}"
+        error_msg = f"处理断言ID-{assertion_id}时发生异常: {str(e)}"
         result["error_message"] = error_msg
         result["status"] = "exception"
         logging.error(error_msg, exc_info=True)
 
     return result
 
-# ============================ 主函数（适配单个断言+变异体对处理） ============================
+# ============================ 主函数 ============================
 def main():
-    # 解析命令行参数（核心修改：移除top-k-dir和inc-dirs，新增top-proven-loc）
-    parser = argparse.ArgumentParser(description="单个断言对变异体的验证：按Rank统计杀死情况（single assertion mode）")
-    parser.add_argument("--top-proven-loc", required=True, type=Path,
-                        help="已证明并排序的Assertion文件路径（如assertion_scores.json）")
-    parser.add_argument("--mutants-src-dir", required=True, type=Path,
-                        help="变异体源目录（如/data/.../mutants）")
-    parser.add_argument("--output-root", default="mutants_assertion_verif", type=Path,
-                        help="输出根目录（默认: mutants_assertion_verif）")
+    # 解析命令行参数
+    parser = argparse.ArgumentParser(description="验证断言正确性：针对正确的SV设计文件验证每个断言是否正确")
+    parser.add_argument("--top-sv-loc", required=True, type=Path,
+                        help="正确的SV设计文件路径（如i2c_master_top.sv）")
+    parser.add_argument("--assertions-txt-loc", required=True, type=Path,
+                        help="断言txt文件路径（每行一个断言，如assertions.txt）")
+    parser.add_argument("--output-root", default="assertion_correctness_verif", type=Path,
+                        help="输出根目录（默认: assertion_correctness_verif）")
     parser.add_argument("--top-module", required=True, type=str,
                         help="顶层模块名（如i2c_master_top）")
     parser.add_argument("--clock", required=True, type=str,
@@ -474,163 +462,135 @@ def main():
     parser.add_argument("--workers", type=int, default=10,
                         help="并行处理的工作进程数（默认: 10）")
     parser.add_argument("--skip-existing", action="store_true",
-                        help="跳过已处理的（断言+变异体）对")
+                        help="跳过已处理的断言")
 
     args = parser.parse_args()
 
     # 验证输入路径
-    if not args.top_proven_loc.exists():
-        logging.error(f"Assertion文件不存在: {args.top_proven_loc}")
+    if not args.top_sv_loc.exists():
+        logging.error(f"正确的SV设计文件不存在: {args.top_sv_loc}")
         sys.exit(1)
-    if not args.mutants_src_dir.exists():
-        logging.error(f"变异体源目录不存在: {args.mutants_src_dir}")
+    if not args.assertions_txt_loc.exists():
+        logging.error(f"断言txt文件不存在: {args.assertions_txt_loc}")
         sys.exit(1)
 
     # 设置日志
     args.output_root.mkdir(parents=True, exist_ok=True)
     setup_logging(args.output_root)
     logging.info("="*80)
-    logging.info("开始执行单个断言对变异体的验证流程（按Rank统计）")
-    logging.info(f"Assertion文件: {args.top_proven_loc.resolve()}")
-    logging.info(f"变异体源目录: {args.mutants_src_dir.resolve()}")
+    logging.info("开始执行断言正确性验证流程")
+    logging.info(f"正确的SV设计文件: {args.top_sv_loc.resolve()}")
+    logging.info(f"断言txt文件: {args.assertions_txt_loc.resolve()}")
     logging.info(f"输出根目录: {args.output_root.resolve()}")
     logging.info(f"顶层模块: {args.top_module}")
     logging.info(f"时钟信号: {args.clock}")
     logging.info(f"复位信号: {args.reset}")
     logging.info("="*80)
 
-    # 1. 读取并解析Assertion文件（按Rank排序）
+    # 1. 读取断言txt文件（每行一个断言，过滤空行）
     try:
-        with open(args.top_proven_loc, 'r', encoding='utf-8') as f:
-            assertion_data = json.load(f)
-        # 提取顶层模块的断言
-        module_name = args.top_module
-        if module_name not in assertion_data:
-            logging.error(f"Assertion文件中未找到模块{module_name}的断言")
+        with open(args.assertions_txt_loc, 'r', encoding='utf-8') as f:
+            assertions = [line.strip() for line in f.readlines() if line.strip()]
+        if not assertions:
+            logging.error("断言txt文件中无有效断言（空行或全注释）")
             sys.exit(1)
-        assertions = assertion_data[module_name]
-        # 按Rank升序排序
-        assertions_sorted = sorted(assertions, key=lambda x: x["Rank"])
-        logging.info(f"成功读取{len(assertions_sorted)}个按Rank排序的断言")
+        logging.info(f"成功读取{len(assertions)}个有效断言")
     except Exception as e:
-        logging.error(f"读取Assertion文件失败: {e}", exc_info=True)
+        logging.error(f"读取断言txt文件失败: {e}", exc_info=True)
         sys.exit(1)
 
-    # 2. 获取变异体目录列表
-    mutant_dirs = sorted([d for d in args.mutants_src_dir.iterdir() if d.is_dir() and d.name.isdigit()])
-    if not mutant_dirs:
-        logging.error(f"变异体源目录下未找到数字命名的子目录: {args.mutants_src_dir}")
-        sys.exit(1)
-    logging.info(f"找到{len(mutant_dirs)}个变异体目录")
-
-    # 3. 准备并行处理的参数列表（每个断言+变异体对为一个任务）
+    # 2. 准备并行处理的参数列表（每个断言为一个任务）
     args_list = []
-    for assertion in assertions_sorted:
-        rank = assertion["Rank"]
-        sva_string = assertion["sva_string"]
-        for mutant_dir in mutant_dirs:
-            mutant_dir_name = mutant_dir.name
-            args_list.append((
-                mutant_dir_name,
-                args.mutants_src_dir,
-                args.output_root,
-                rank,
-                sva_string,
-                args.top_module,
-                args.clock,
-                args.reset,
-            ))
+    for idx, assertion_text in enumerate(assertions, 1):
+        args_list.append((
+            idx,                  # 断言ID（从1开始）
+            assertion_text,       # 断言字符串
+            args.top_sv_loc,      # 正确的SV文件路径
+            args.output_root,     # 输出根目录
+            args.top_module,      # 顶层模块名
+            args.clock,           # 时钟信号
+            args.reset,           # 复位信号
+        ))
     # 设置环境变量用于跳过已处理（子进程读取）
     os.environ["SKIP_EXISTING"] = "True" if args.skip_existing else "False"
 
-    # 4. 并行处理（断言+变异体）对
+    # 3. 并行处理所有断言
     results = []
     with ProcessPoolExecutor(max_workers=args.workers) as executor:
-        future_to_pair = {executor.submit(process_assertion_mutant_pair, args): (args[3], args[0]) for args in args_list}
-        with tqdm(total=len(args_list), desc="处理（断言+变异体）对") as pbar:
-            for future in as_completed(future_to_pair):
-                rank, mutant_id = future_to_pair[future]
+        future_to_assert = {executor.submit(process_single_assertion, args): args[0] for args in args_list}
+        with tqdm(total=len(args_list), desc="验证断言正确性") as pbar:
+            for future in as_completed(future_to_assert):
+                assert_id = future_to_assert[future]
                 try:
                     result = future.result()
                     results.append(result)
                 except Exception as e:
-                    logging.error(f"获取（断言Rank-{rank} + 变异体{mutant_id}）结果时发生异常: {e}", exc_info=True)
+                    logging.error(f"获取断言ID-{assert_id}结果时发生异常: {e}", exc_info=True)
                     results.append({
-                        "mutant_id": mutant_id,
-                        "assertion_rank": rank,
+                        "assertion_id": assert_id,
+                        "assertion_text": "",
                         "status": "future_exception",
                         "error_message": str(e)
                     })
                 pbar.update(1)
 
-    # 5. 按断言Rank统计结果
-    rank_summary = {}
-    # 初始化每个Rank的统计
-    for assertion in assertions_sorted:
-        rank = assertion["Rank"]
-        rank_summary[rank] = {
-            "rank": rank,
-            "sva_string": assertion["sva_string"],
-            "total_mutants": len(mutant_dirs),
-            "processed_mutants": 0,
-            "killed_mutants": [],
-            "survived_mutants": [],
-            "failed_mutants": [],
-            "killed_count": 0,
-            "survived_count": 0,
-            "failed_count": 0
-        }
-    # 遍历结果更新统计
-    for result in results:
-        rank = result["assertion_rank"]
-        mutant_id = result["mutant_id"]
-        status = result["status"]
-        killed = result.get("killed", False)
-
-        if rank not in rank_summary:
-            continue  # 忽略无效的rank
-
-        summary = rank_summary[rank]
-        summary["processed_mutants"] += 1
-
-        if status == "success":
-            if killed:
-                summary["killed_mutants"].append(mutant_id)
-                summary["killed_count"] += 1
-            else:
-                summary["survived_mutants"].append(mutant_id)
-                summary["survived_count"] += 1
-        else:
-            summary["failed_mutants"].append(mutant_id)
-            summary["failed_count"] += 1
-
-    # 6. 生成最终汇总文件
-    final_summary = {
+    # 4. 统计结果
+    summary = {
         "timestamp": datetime.now().isoformat(),
-        "total_assertions": len(assertions_sorted),
-        "total_mutants": len(mutant_dirs),
-        "assertion_rank_summary": list(rank_summary.values()),
+        "total_assertions": len(assertions),
+        "processed_assertions": 0,
+        "correct_assertions": [],    # 正确的断言ID
+        "incorrect_assertions": [],  # 错误的断言ID
+        "timeout_assertions": [],    # 超时的断言ID
+        "error_assertions": [],      # 验证出错的断言ID
+        "unknown_assertions": [],    # 无法判断的断言ID
+        "exception_assertions": [],  # 处理异常的断言ID
         "detailed_results": results
     }
-    summary_file = args.output_root / "assertion_kill_summary.json"
+
+    for result in results:
+        assert_id = result["assertion_id"]
+        status = result["status"]
+        correctness = result.get("correctness", "unknown")
+
+        summary["processed_assertions"] += 1
+
+        if status == "success":
+            if correctness == "correct":
+                summary["correct_assertions"].append(assert_id)
+            elif correctness == "incorrect":
+                summary["incorrect_assertions"].append(assert_id)
+            elif correctness == "timeout":
+                summary["timeout_assertions"].append(assert_id)
+            elif correctness == "error":
+                summary["error_assertions"].append(assert_id)
+            else:
+                summary["unknown_assertions"].append(assert_id)
+        elif status == "exception":
+            summary["exception_assertions"].append(assert_id)
+        else:
+            summary["unknown_assertions"].append(assert_id)
+
+    # 5. 生成最终汇总文件
+    summary_file = args.output_root / "assertion_correctness_summary.json"
     with open(summary_file, 'w', encoding='utf-8') as f:
-        json.dump(final_summary, f, indent=2, ensure_ascii=False)
+        json.dump(summary, f, indent=2, ensure_ascii=False)
 
     # 打印汇总信息
     logging.info("\n" + "="*80)
-    logging.info("按断言Rank统计结果:")
-    logging.info(f"总断言数: {final_summary['total_assertions']}")
-    logging.info(f"总变异体数: {final_summary['total_mutants']}")
+    logging.info("断言正确性验证汇总结果:")
+    logging.info(f"总断言数: {summary['total_assertions']}")
+    logging.info(f"已处理断言数: {summary['processed_assertions']}")
     logging.info("-"*60)
-    for rank in sorted(rank_summary.keys()):
-        summary = rank_summary[rank]
-        logging.info(f"\n断言Rank-{rank}:")
-        logging.info(f"  杀死变异体数: {summary['killed_count']} (编号: {','.join(summary['killed_mutants']) if summary['killed_mutants'] else '无'})")
-        logging.info(f"  存活变异体数: {summary['survived_count']} (编号: {','.join(summary['survived_mutants']) if summary['survived_mutants'] else '无'})")
-        logging.info(f"  失败变异体数: {summary['failed_count']} (编号: {','.join(summary['failed_mutants']) if summary['failed_mutants'] else '无'})")
+    logging.info(f"正确的断言数: {len(summary['correct_assertions'])} (ID: {','.join(map(str, summary['correct_assertions'])) if summary['correct_assertions'] else '无'})")
+    logging.info(f"错误的断言数: {len(summary['incorrect_assertions'])} (ID: {','.join(map(str, summary['incorrect_assertions'])) if summary['incorrect_assertions'] else '无'})")
+    logging.info(f"验证超时的断言数: {len(summary['timeout_assertions'])} (ID: {','.join(map(str, summary['timeout_assertions'])) if summary['timeout_assertions'] else '无'})")
+    logging.info(f"验证出错的断言数: {len(summary['error_assertions'])} (ID: {','.join(map(str, summary['error_assertions'])) if summary['error_assertions'] else '无'})")
+    logging.info(f"无法判断的断言数: {len(summary['unknown_assertions'])} (ID: {','.join(map(str, summary['unknown_assertions'])) if summary['unknown_assertions'] else '无'})")
+    logging.info(f"处理异常的断言数: {len(summary['exception_assertions'])} (ID: {','.join(map(str, summary['exception_assertions'])) if summary['exception_assertions'] else '无'})")
     logging.info(f"\n汇总文件保存至: {summary_file}")
     logging.info("="*80)
-    logging.info("所有（断言+变异体）对处理完成！")
+    logging.info("所有断言验证完成！")
 
 if __name__ == "__main__":
     main()

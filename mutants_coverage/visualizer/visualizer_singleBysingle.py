@@ -76,13 +76,16 @@ def search_timeout_cases(result_root: Path) -> List[Dict[str, str]]:
         logging.info("\n未发现任何超时案例")
     return timeout_cases
 
-# ============================ 功能2：计算累计杀死的唯一变异体数 ============================
-def calculate_cumulative_killed(result_root: Path) -> Tuple[List[int], List[int]]:
+# ============================ 功能2：计算累计杀死的唯一变异体数 + 新增：每个Rank原始杀死数 ============================
+def calculate_cumulative_killed(result_root: Path) -> Tuple[List[int], List[int], List[int]]:
     """
-    从汇总文件计算每个Rank的累计杀死**唯一**变异体数（去重）
+    从汇总文件计算：
+    1. 每个Rank的累计杀死**唯一**变异体数（去重）
+    2. 每个Rank直接杀死的变异体数（不去重）
     适配JSON结构：killed_mutants字段为变异体ID列表
     :param result_root: mutants_IRank_single根目录
-    :return: (rank_list, cumulative_unique_killed) - Rank列表、对应累计唯一杀死数
+    :return: (rank_list, cumulative_unique_killed, per_rank_killed) 
+             - Rank列表、累计唯一杀死数、每个Rank原始杀死数（不去重）
     """
     summary_file = result_root / "assertion_kill_summary.json"
     if not summary_file.exists():
@@ -106,10 +109,17 @@ def calculate_cumulative_killed(result_root: Path) -> Tuple[List[int], List[int]
     # 维护全局唯一变异体ID集合（自动去重）
     unique_killed_mutants: Set[str] = set()
     cumulative_unique_killed = []
+    # 新增：存储每个Rank的原始杀死数（不去重）
+    per_rank_killed = []
     
-    # 逐Rank计算累计唯一数量
+    # 逐Rank计算
     for rank in sorted_ranks:
         current_killed_ids = rank_killed_mutants[rank]
+        # 新增：记录当前Rank原始杀死数（不去重）
+        current_killed_count = len(current_killed_ids)
+        per_rank_killed.append(current_killed_count)
+        
+        # 原有逻辑：累计唯一数计算
         prev_count = len(unique_killed_mutants)
         unique_killed_mutants.update(current_killed_ids)
         current_count = len(unique_killed_mutants)
@@ -118,16 +128,17 @@ def calculate_cumulative_killed(result_root: Path) -> Tuple[List[int], List[int]
         # 记录累计数
         cumulative_unique_killed.append(current_count)
         
-        # 日志输出（直观看到去重效果）
-        logging.info(f"Rank {rank}: 本次击杀{len(current_killed_ids)}个（重复{len(current_killed_ids)-new_killed}个），新增{new_killed}个唯一变异体，累计{current_count}个")
+        # 日志输出（补充原始杀死数）
+        logging.info(f"Rank {rank}: 原始杀死{current_killed_count}个（重复{current_killed_count-new_killed}个），新增{new_killed}个唯一变异体，累计{current_count}个")
 
     # 最终汇总日志
     logging.info(f"\n=== 累计唯一杀死数计算完成 ===")
     logging.info(f"Rank范围: {rank_list[0]} ~ {rank_list[-1]}")
     logging.info(f"总杀死唯一变异体数: {cumulative_unique_killed[-1]}")
-    return rank_list, cumulative_unique_killed
+    logging.info(f"各Rank原始杀死数汇总: {dict(zip(rank_list, per_rank_killed))}")
+    return rank_list, cumulative_unique_killed, per_rank_killed  # 新增返回per_rank_killed
 
-# ============================ 功能3：可视化折线图（优化X轴刻度重叠） ============================
+# ============================ 功能3：可视化折线图（优化X轴刻度重叠 + 新增原始杀死数散点） ============================
 def get_last_non_zero_final_score_rank(score_file: Path, top_module: str) -> Optional[int]:
     """
     找到最后一个final_score不为0的Rank
@@ -164,34 +175,60 @@ def get_last_non_zero_final_score_rank(score_file: Path, top_module: str) -> Opt
 def plot_cumulative_killed(
     rank_list: List[int],
     cumulative_killed: List[int],
+    per_rank_killed: List[int],  # 新增参数：每个Rank原始杀死数
     output_img: Path,
     last_non_zero_rank: Optional[int] = None
 ):
     """
-    绘制累计杀死**唯一**变异体数折线图（解决X轴刻度密集重叠）
+    绘制可视化图：
+    1. 原有：累计唯一杀死变异体数折线
+    2. 新增：每个Rank原始杀死变异体数散点（无连线，弱化样式）
     :param rank_list: Rank列表
     :param cumulative_killed: 累计唯一杀死数列表
+    :param per_rank_killed: 每个Rank原始杀死数列表（新增）
     :param output_img: 图片输出路径
     :param last_non_zero_rank: 最后一个final_score非零的Rank（可选）
     """
     # 创建画布
     fig, ax = plt.subplots(figsize=(12, 6))
 
-    # 绘制折线图（标注“唯一”）
+    # 原有：绘制累计唯一杀死数折线（保持原有样式，优先显示）
     ax.plot(rank_list, cumulative_killed, marker="o", color="#2E86AB", linewidth=2, markersize=4, 
-            label="Cumulative Unique Killed Mutants")
+            label="Cumulative Unique Killed Mutants", zorder=2)  # zorder提高层级，确保在顶层
+    
+    # 新增：绘制每个Rank原始杀死数（仅散点，无连线，弱化样式）
+    ax.scatter(rank_list, per_rank_killed, marker="s", color="#F77F00", s=20, alpha=0.7,
+               label="Per Rank Killed Mutants (No Deduplication)", zorder=1)  # zorder降低层级，不遮盖原有折线
+    
     # X轴标签
     ax.set_xlabel("Assertion Rank", fontsize=12)
-    # Y轴标签（标注“唯一”）
-    ax.set_ylabel("Cumulative Number of Unique Killed Mutants", fontsize=12)
-    # 标题（标注“唯一”）
-    ax.set_title("Assertion Rank vs Cumulative Unique Killed Mutants", fontsize=14, fontweight="bold")
+    # Y轴标签（适配两个维度）
+    ax.set_ylabel("Number of Killed Mutants", fontsize=12)
+    # 标题（更新）
+    ax.set_title("Assertion Rank vs Killed Mutants", fontsize=14, fontweight="bold")
     ax.grid(True, alpha=0.3)
     ax.legend(fontsize=10)
 
-    # ========== 强制Y轴为整数刻度 ==========
-    y_max = max(cumulative_killed)
-    y_ticks = list(range(0, y_max + 1))  # 纯Python生成整数刻度（无需numpy）
+    # ========== 优化Y轴：动态调整刻度间隔，解决密集问题 ==========
+    # 适配两个折线的最大值
+    y_max = max(max(cumulative_killed), max(per_rank_killed)) if (cumulative_killed and per_rank_killed) else 0
+    # 分档设置Y轴刻度间隔（根据最大值动态调整）
+    if y_max <= 20:
+        y_tick_interval = 1  # 小数值：每1个显示一个
+    elif 20 < y_max <= 100:
+        y_tick_interval = 5  # 中数值：每5个显示一个
+    elif 100 < y_max <= 200:
+        y_tick_interval = 10 # 较大数值：每10个显示一个
+    elif 200 < y_max <= 1000:
+        y_tick_interval = 20 # 大数值：每20个显示一个
+    else:
+        y_tick_interval = 100# 超大数值：每100个显示一个
+    
+    # 生成间隔后的Y轴刻度（确保从0开始，到y_max结束）
+    y_ticks = list(range(0, y_max + 1, y_tick_interval))
+    # 兜底：如果最大值不在刻度列表中，补充上（避免刻度不到最大值）
+    if y_max not in y_ticks:
+        y_ticks.append(y_max)
     ax.set_yticks(y_ticks)
     ax.set_ylim(bottom=0)   # 确保Y轴从0开始
 
@@ -205,8 +242,10 @@ def plot_cumulative_killed(
         tick_interval = 2  # 少于20个Rank，每2个显示一个
     elif total_ranks <= 50:
         tick_interval = 5  # 20-50个Rank，每5个显示一个
+    elif total_ranks <= 100:
+        tick_interval = 10 # 50-100个Rank，每10个显示一个
     else:
-        tick_interval = 5 # 超过50个Rank，每10个显示一个
+        tick_interval = 20 # 超过100个Rank，每20个显示一个
 
     # 生成间隔后的X轴刻度
     x_ticks = list(range(x_min, x_max + 1, tick_interval))
@@ -224,7 +263,7 @@ def plot_cumulative_killed(
     # 添加final_score非零Rank竖线
     if last_non_zero_rank is not None and last_non_zero_rank in rank_list:
         ax.axvline(x=last_non_zero_rank, color="#E63946", linestyle="--", linewidth=2, 
-                   label=f"Last Rank with Non-zero final_score: {last_non_zero_rank}")
+                   label=f"Last Rank with Non-zero final_score: {last_non_zero_rank}", zorder=3)
         ax.legend(fontsize=10)
 
     # 保存图片
@@ -235,7 +274,7 @@ def plot_cumulative_killed(
 
 # ============================ 主函数 ============================
 def main():
-    parser = argparse.ArgumentParser(description="变异体验证结果分析工具：超时搜索 + 累计唯一杀死数可视化（去重+整数刻度+防重叠）")
+    parser = argparse.ArgumentParser(description="变异体验证结果分析工具：超时搜索 + 累计唯一杀死数+原始杀死数可视化（去重+整数刻度+防重叠）")
     parser.add_argument("--result-root", required=True, type=Path,
                         help="mutants_IRank_single根目录（如/data/.../uart/mutants_IRank_single）")
     parser.add_argument("--output-img", required=True, type=Path,
@@ -255,11 +294,11 @@ def main():
         json.dump(timeout_cases, f, indent=2, ensure_ascii=False)
     logging.info(f"超时案例已保存至: {timeout_file}")
 
-    # 步骤2：计算累计唯一杀死数
+    # 步骤2：计算累计唯一杀死数 + 原始杀死数（修改接收参数）
     try:
-        rank_list, cumulative_killed = calculate_cumulative_killed(args.result_root)
+        rank_list, cumulative_killed, per_rank_killed = calculate_cumulative_killed(args.result_root)  # 新增per_rank_killed
     except Exception as e:
-        logging.error(f"计算累计唯一杀死数失败: {e}")
+        logging.error(f"计算杀死数失败: {e}")
         return
 
     # 步骤3：获取最后非零final_score的Rank（可选）
@@ -270,8 +309,8 @@ def main():
         except Exception as e:
             logging.error(f"读取分数文件失败: {e}")
 
-    # 步骤4：绘制可视化图
-    plot_cumulative_killed(rank_list, cumulative_killed, args.output_img, last_non_zero_rank)
+    # 步骤4：绘制可视化图（传递新增的per_rank_killed参数）
+    plot_cumulative_killed(rank_list, cumulative_killed, per_rank_killed, args.output_img, last_non_zero_rank)  # 新增参数
 
     logging.info("\n=== 所有任务完成 ===")
 

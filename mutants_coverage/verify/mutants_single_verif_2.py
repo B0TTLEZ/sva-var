@@ -180,7 +180,7 @@ def run_jg_verification(
         jasper_command = f"jg -batch -proj {jg_proj_dir} -tcl {tcl_path}"
         logging.info(f"运行JG命令: {jasper_command}")
 
-        # 执行命令（设置超时，300分钟）
+        # 执行命令（设置超时，120分钟）
         process = None
         report_content = ""
         try:
@@ -192,13 +192,13 @@ def run_jg_verification(
                 text=True,
                 preexec_fn=os.setsid
             )
-            stdout, _ = process.communicate(timeout=18000)  # 300分钟超时
+            stdout, _ = process.communicate(timeout=7200)  # 120分钟超时
             report_content = stdout
         except subprocess.TimeoutExpired:
             logging.warning(f"JG验证超时: {tcl_path.stem}")
             if process:
                 os.killpg(os.getpgid(process.pid), signal.SIGKILL)
-            report_content = "ERROR: Timeout after 18000 seconds"
+            report_content = "ERROR: Timeout after 7200 seconds"
         except Exception as e:
             logging.error(f"执行JG命令失败: {e}")
             report_content = f"ERROR: {str(e)}"

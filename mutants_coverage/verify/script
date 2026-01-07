@@ -13,6 +13,16 @@ python mutants_irank_verif.py \
     --skip-existing
 
 
+python /data/sva-var/mutants_coverage/verify/mutants_irank_verif.py \
+    --top-k-dir /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/IRank/top_k \
+    --mutants-src-dir /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_2/mutants \
+    --output-root /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/mutants_coverage/strategy_2/mutants_IRank \
+    --top-module i2c_master_top \
+    --clock wb_clk_i \
+    --reset wb_rst_i \
+    --workers 10 \
+    --skip-existing
+
 
 
 python mutants_irank_verif.py \
@@ -121,7 +131,42 @@ python /data/sva-var/mutants_coverage/verify/mutants_single_verif_2.py \
     --skip-existing
 
 
+python /data/sva-var/mutants_coverage/verify/mutants_single_verif_2.py \
+    --top-proven-loc /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/IRank/assertion_scores.json \
+    --mutants-src-dir /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_2/mutants \
+    --output-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_2/mutants_IRank_single \
+    --top-module i2c_master_top \
+    --verif-dir /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/verif \
+    --clock wb_clk_i \
+    --reset wb_rst_i \
+    --workers 12 \
+    --skip-existing
+
+python /data/sva-var/mutants_coverage/verify/mutants_single_verif_2.py \
+    --top-proven-loc /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/IRank/assertion_scores.json \
+    --mutants-src-dir /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_3/mutants \
+    --output-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_3/mutants_IRank_single \
+    --top-module i2c_master_top \
+    --verif-dir /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/verif \
+    --clock wb_clk_i \
+    --reset wb_rst_i \
+    --workers 12 \
+    --skip-existing
+
+python /data/sva-var/mutants_coverage/verify/mutants_single_verif_2.py \
+    --top-proven-loc /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/IRank/assertion_scores.json \
+    --mutants-src-dir /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/mutants_coverage/strategy_2/mutants \
+    --output-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/mutants_coverage/strategy_2/mutants_IRank_single \
+    --top-module uart2bus_top \
+    --verif-dir /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/uart/verif \
+    --clock clock \
+    --reset reset \
+    --workers 12 \
+    --skip-existing
+
+
 # 新增代码：mutants_single_verif.py，用于单个 mutant 的验证(不含binding文件)
+# 注意：它只管了顶层模块，而没管子模块！
 python /data/sva-var/mutants_coverage/verify/mutants_single_verif.py \
     --top-proven-loc /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/IRank/assertion_scores.json \
     --mutants-src-dir /data/my_data/sva-out/deepseek_v3/AssertionBench/AssertEval/i2c/mutants \
@@ -140,4 +185,27 @@ python /data/sva-var/mutants_coverage/verify/mutants_single_verif.py \
     --clock clock \
     --reset reset \
     --workers 20 \
+    --skip-existing
+
+python /data/sva-var/mutants_coverage/verify/mutants_single_verif.py \
+    --top-proven-loc /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_4/IRank/assertion_scores.json \
+    --mutants-src-dir /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_2/mutants \
+    --output-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_4/mutants_IRank_single \
+    --top-module i2c_master_top \
+    --clock wb_clk_i \
+    --reset wb_rst_i \
+    --workers 10 \
+    --skip-existing
+
+# mutants_single_verif_separate.py：用于单个 mutant 的验证，支持 separate sv 文件
+# SVA 断言精准插入到 ft 目录下实际存在的顶层模块文件中
+python /data/sva-var/mutants_coverage/verify/mutants_single_verif_separate.py \
+    --top-proven-loc /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_4/IRank/assertion_scores.json \
+    --mutants-src-dir /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_5/mutants \
+    --output-root /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/mutants_coverage/strategy_5/mutants_IRank_single \
+    --top-module i2c_master_top \
+    --clock wb_clk_i \
+    --reset wb_rst_i \
+    --svfiles-loc /data/my_data/sva-out/deepseek_v3/AssertionForge/AssertEval/i2c/source_code/sv_files.txt \
+    --workers 10 \
     --skip-existing
